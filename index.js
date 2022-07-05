@@ -121,7 +121,7 @@ const foregroundImage = new Image()
 foregroundImage.src = './img/foregroundObjects.png'
 
 const playerDownImage = new Image()
-playerDownImage.src = './img/playerDown.png'
+playerDownImage.src = './img/new.png'
 
 const playerUpImage = new Image()
 playerUpImage.src = './img/playerUp.png'
