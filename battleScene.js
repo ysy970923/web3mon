@@ -124,6 +124,7 @@ function animateBattle() {
 }
 
 animate()
+connect()
 // initBattle()
 // animateBattle()
 

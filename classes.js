@@ -9,6 +9,7 @@ class Sprite {
     rotation = 0,
     scale = 1
   }) {
+    this.relative_position = {x: 0, y: 0}
     this.position = position
     this.image = new Image()
     this.frames = { ...frames, val: 0, elapsed: 0 }

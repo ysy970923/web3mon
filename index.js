@@ -201,69 +201,104 @@ const battle = {
   initiated: false
 }
 
+function global_position() {
+  return {
+    x: player.position.x - background.position.x,
+    y: player.position.y - background.position.y
+  }
+}
+
+function local_position(position) {
+  return {
+    x: position.x + background.position.x,
+    y: position.y + background.position.y
+  }
+}
+
+function checkCollision(a, b) {
+  const overlappingArea =
+    (Math.min(a.position.x + a.width, b.position.x + b.width) -
+      Math.max(a.position.x, b.position.x)) *
+    (Math.min(a.position.y + a.height, b.position.y + b.height) -
+      Math.max(a.position.y, b.position.y))
+  return (
+    rectangularCollision({
+      rectangle1: a,
+      rectangle2: b
+    }) &&
+    overlappingArea > (a.width * a.height) / 2 &&
+    Math.random() < 1.0
+  )
+}
+
+function enterBattle(animationId, id) {
+  // deactivate current animation loop
+  window.cancelAnimationFrame(animationId)
+
+  audio.Map.stop()
+  audio.initBattle.play()
+  audio.battle.play()
+
+  battle.initiated = true
+  gsap.to('#overlappingDiv', {
+    opacity: 1,
+    repeat: 3,
+    yoyo: true,
+    duration: 0.4,
+    onComplete() {
+      gsap.to('#overlappingDiv', {
+        opacity: 1,
+        duration: 0.4,
+        onComplete() {
+          // activate a new animation loop
+          initBattle()
+          animateBattle()
+          gsap.to('#overlappingDiv', {
+            opacity: 0,
+            duration: 0.4
+          })
+        }
+      })
+    }
+  })
+}
+
 function animate() {
   const animationId = window.requestAnimationFrame(animate)
   renderables.forEach((renderable) => {
     renderable.draw()
   })
-
+  for (const key in others) {
+    others[key].draw()
+  }
   let moving = true
   player.animate = false
 
+  let rotation = 0
+
   if (battle.initiated) return
+
+  if (battle_offer) {
+    battle_offer = false
+    enterBattle(animationId)
+  }
 
   // activate a battle
   if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
     for (let i = 0; i < battleZones.length; i++) {
       const battleZone = battleZones[i]
-      const overlappingArea =
-        (Math.min(
-          player.position.x + player.width,
-          battleZone.position.x + battleZone.width
-        ) -
-          Math.max(player.position.x, battleZone.position.x)) *
-        (Math.min(
-          player.position.y + player.height,
-          battleZone.position.y + battleZone.height
-        ) -
-          Math.max(player.position.y, battleZone.position.y))
-      if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: battleZone
-        }) &&
-        overlappingArea > (player.width * player.height) / 2 &&
-        Math.random() < 0.01
-      ) {
-        // deactivate current animation loop
-        window.cancelAnimationFrame(animationId)
-
-        audio.Map.stop()
-        audio.initBattle.play()
-        audio.battle.play()
-
-        battle.initiated = true
-        gsap.to('#overlappingDiv', {
-          opacity: 1,
-          repeat: 3,
-          yoyo: true,
-          duration: 0.4,
-          onComplete() {
-            gsap.to('#overlappingDiv', {
-              opacity: 1,
-              duration: 0.4,
-              onComplete() {
-                // activate a new animation loop
-                initBattle()
-                animateBattle()
-                gsap.to('#overlappingDiv', {
-                  opacity: 0,
-                  duration: 0.4
-                })
-              }
-            })
+      if (checkCollision(player, battleZone)) {
+        let anotherUserIn = false
+        for (const key in others) {
+          if (checkCollision(others[key], battleZone)) {
+            anotherUserIn = true
+            console.log('here')
+            battleOffer(key)
+            break
           }
-        })
+        }
+        if (!anotherUserIn) break
+        enterBattle(animationId)
         break
       }
     }
@@ -272,6 +307,7 @@ function animate() {
   if (keys.w.pressed && lastKey === 'w') {
     player.animate = true
     player.image = player.sprites.up
+    rotation = 0
 
     checkForCharacterCollision({
       characters,
@@ -302,9 +338,14 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.y += 3
       })
+    if (moving)
+      for (const key in others) {
+        others[key].position.y += 3
+      }
   } else if (keys.a.pressed && lastKey === 'a') {
     player.animate = true
     player.image = player.sprites.left
+    rotation = 1
 
     checkForCharacterCollision({
       characters,
@@ -335,9 +376,14 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.x += 3
       })
+    if (moving)
+      for (const key in others) {
+        others[key].position.x += 3
+      }
   } else if (keys.s.pressed && lastKey === 's') {
     player.animate = true
     player.image = player.sprites.down
+    rotation = 2
 
     checkForCharacterCollision({
       characters,
@@ -368,9 +414,14 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.y -= 3
       })
+    if (moving)
+      for (const key in others) {
+        others[key].position.y -= 3
+      }
   } else if (keys.d.pressed && lastKey === 'd') {
     player.animate = true
     player.image = player.sprites.right
+    rotation = 3
 
     checkForCharacterCollision({
       characters,
@@ -401,7 +452,17 @@ function animate() {
       movables.forEach((movable) => {
         movable.position.x -= 3
       })
+    if (moving)
+      for (const key in others) {
+        others[key].position.x -= 3
+      }
   }
+  if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed)
+    if (moving)
+      if (ws)
+        if (ws.readyState === WebSocket.OPEN) {
+          moveUser(global_position(), rotation)
+        }
 }
 // animate()
 
