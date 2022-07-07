@@ -34,7 +34,8 @@ collisionsMap.forEach((row, i) => {
           position: {
             x: j * Boundary.width + offset.x,
             y: i * Boundary.height + offset.y
-          }
+          },
+          type: 'collision'
         })
       )
   })
@@ -50,7 +51,8 @@ battleZonesMap.forEach((row, i) => {
           position: {
             x: j * Boundary.width + offset.x,
             y: i * Boundary.height + offset.y
-          }
+          },
+          type: 'battle'
         })
       )
   })
@@ -227,7 +229,7 @@ function checkCollision(a, b) {
       rectangle2: b
     }) &&
     overlappingArea > (a.width * a.height) / 2 &&
-    Math.random() < 1.0
+    Math.random() < 0.5
   )
 }
 
@@ -278,8 +280,8 @@ function animate() {
 
   if (battle.initiated) return
 
-  if (battle_offer) {
-    battle_offer = false
+  if (battle_start) {
+    battle_start = false
     enterBattle(animationId)
   }
 
@@ -288,17 +290,12 @@ function animate() {
     for (let i = 0; i < battleZones.length; i++) {
       const battleZone = battleZones[i]
       if (checkCollision(player, battleZone)) {
-        let anotherUserIn = false
         for (const key in others) {
           if (checkCollision(others[key], battleZone)) {
-            anotherUserIn = true
-            console.log('here')
             battleOffer(key)
             break
           }
         }
-        if (!anotherUserIn) break
-        enterBattle(animationId)
         break
       }
     }

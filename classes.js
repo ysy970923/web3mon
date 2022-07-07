@@ -9,7 +9,7 @@ class Sprite {
     rotation = 0,
     scale = 1
   }) {
-    this.relative_position = {x: 0, y: 0}
+    this.relative_position = { x: 0, y: 0 }
     this.position = position
     this.image = new Image()
     this.frames = { ...frames, val: 0, elapsed: 0 }
@@ -231,14 +231,17 @@ class Monster extends Sprite {
 class Boundary {
   static width = 48
   static height = 48
-  constructor({ position }) {
+  constructor({ position, type }) {
     this.position = position
     this.width = 48
     this.height = 48
+    this.type = type
   }
 
   draw() {
-    c.fillStyle = 'rgba(255, 0, 0, 0)'
-    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    if (this.type === 'battle') {
+      c.lineWidth = 3
+      c.strokeRect(this.position.x, this.position.y, this.width, this.height)
+    }
   }
 }

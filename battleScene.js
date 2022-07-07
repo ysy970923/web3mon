@@ -8,11 +8,72 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage
 })
 
+let opponent_id
 let draggle
 let emby
 let renderedSprites
 let battleAnimationId
 let queue
+let my_turn = false
+
+function attacked(attack) {
+  queue.push(() => {
+    draggle.attack({
+      attack: draggle.attacks[attack],
+      recipient: emby,
+      renderedSprites
+    })
+
+    if (emby.health <= 0) {
+      queue.push(() => {
+        emby.faint()
+      })
+
+      queue.push(() => {
+        // fade back to black
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          onComplete: () => {
+            cancelAnimationFrame(battleAnimationId)
+            animate()
+            document.querySelector('#userInterface').style.display = 'none'
+
+            gsap.to('#overlappingDiv', {
+              opacity: 0
+            })
+
+            battle.initiated = false
+            audio.Map.play()
+          }
+        })
+      })
+    }
+  })
+}
+
+function endBattle() {
+  queue.push(() => {
+    draggle.faint()
+  })
+  queue.push(() => {
+    // fade back to black
+    gsap.to('#overlappingDiv', {
+      opacity: 1,
+      onComplete: () => {
+        cancelAnimationFrame(battleAnimationId)
+        animate()
+        document.querySelector('#userInterface').style.display = 'none'
+
+        gsap.to('#overlappingDiv', {
+          opacity: 0
+        })
+
+        battle.initiated = false
+        audio.Map.play()
+      }
+    })
+  })
+}
 
 function initBattle() {
   document.querySelector('#userInterface').style.display = 'block'
@@ -20,6 +81,10 @@ function initBattle() {
   document.querySelector('#enemyHealthBar').style.width = '100%'
   document.querySelector('#playerHealthBar').style.width = '100%'
   document.querySelector('#attacksBox').replaceChildren()
+  if (!my_turn) {
+    document.querySelector('#dialogueBox').style.display = 'block'
+    document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
+  }
 
   draggle = new Monster(monsters.Draggle)
   emby = new Monster(monsters.Emby)
@@ -41,73 +106,18 @@ function initBattle() {
         recipient: draggle,
         renderedSprites
       })
+      attack(opponent_id, emby.attacks.indexOf(selectedAttack))
 
       if (draggle.health <= 0) {
-        queue.push(() => {
-          draggle.faint()
-        })
-        queue.push(() => {
-          // fade back to black
-          gsap.to('#overlappingDiv', {
-            opacity: 1,
-            onComplete: () => {
-              cancelAnimationFrame(battleAnimationId)
-              animate()
-              document.querySelector('#userInterface').style.display = 'none'
-
-              gsap.to('#overlappingDiv', {
-                opacity: 0
-              })
-
-              battle.initiated = false
-              audio.Map.play()
-            }
-          })
-        })
+        endBattle()
       }
-
-      // draggle or enemy attacks right here
-      const randomAttack =
-        draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)]
-
-      queue.push(() => {
-        draggle.attack({
-          attack: randomAttack,
-          recipient: emby,
-          renderedSprites
-        })
-
-        if (emby.health <= 0) {
-          queue.push(() => {
-            emby.faint()
-          })
-
-          queue.push(() => {
-            // fade back to black
-            gsap.to('#overlappingDiv', {
-              opacity: 1,
-              onComplete: () => {
-                cancelAnimationFrame(battleAnimationId)
-                animate()
-                document.querySelector('#userInterface').style.display = 'none'
-
-                gsap.to('#overlappingDiv', {
-                  opacity: 0
-                })
-
-                battle.initiated = false
-                audio.Map.play()
-              }
-            })
-          })
-        }
-      })
     })
 
     button.addEventListener('mouseenter', (e) => {
-      const selectedAttack = attacks[e.currentTarget.innerHTML]
-      document.querySelector('#attackType').innerHTML = selectedAttack.type
-      document.querySelector('#attackType').style.color = selectedAttack.color
+      // console.log("sadf")
+      //   const selectedAttack = attacks[e.currentTarget.innerHTML]
+      //   document.querySelector('#attackType').innerHTML = selectedAttack.type
+      //   document.querySelector('#attackType').style.color = selectedAttack.color
     })
   })
 }
@@ -116,7 +126,10 @@ function animateBattle() {
   battleAnimationId = window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
 
-  console.log(battleAnimationId)
+  if (queue.length > 0) {
+    queue[0]()
+    queue.shift()
+  }
 
   renderedSprites.forEach((sprite) => {
     sprite.draw()
@@ -129,8 +142,10 @@ connect()
 // animateBattle()
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
+  console.log('hhh')
   if (queue.length > 0) {
     queue[0]()
     queue.shift()
-  } else e.currentTarget.style.display = 'none'
+  } else if (my_turn) e.currentTarget.style.display = 'none'
+  else document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
 })

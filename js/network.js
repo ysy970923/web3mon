@@ -5,7 +5,7 @@ var webcamStream = null
 var targetID = null
 var others = {}
 var transceiver = null // RTCRtpTransceiver
-var battle_offer = false
+var battle_start = false
 
 var mediaConstraints = {
   audio: true,
@@ -22,11 +22,13 @@ var NumToType = {
   1: 'update-user-list',
   2: 'move-user',
   3: 'battle-offer',
+  4: 'battle-answer',
+  5: 'attack',
 
   10: 'video-offer',
   11: 'video-answer',
   12: 'new-ice-candidate',
-  13: 'hange-up'
+  13: 'hang-up'
 }
 
 var reverseMapping = (o) =>
@@ -57,6 +59,29 @@ function battleOffer(id) {
   dataview.setInt16(1, myID)
   dataview.setInt16(3, id)
   ws.send(buffer)
+}
+
+function battleAnswer(id) {
+  if (!ws) return
+  if (!ws) return
+  var buffer = new ArrayBuffer(5)
+  var dataview = new DataView(buffer)
+  dataview.setInt8(0, TypeToNum['battle-answer'])
+  dataview.setInt16(1, myID)
+  dataview.setInt16(3, id)
+  ws.send(buffer)
+}
+
+function attack(id, attack) {
+  if (!ws) return
+  var buffer = new ArrayBuffer(7)
+  var dataview = new DataView(buffer)
+  dataview.setInt8(0, TypeToNum['attack'])
+  dataview.setInt16(1, myID)
+  dataview.setInt16(3, id)
+  dataview.setInt16(5, attack)
+  ws.send(buffer)
+  my_turn = false
 }
 
 // if type >= 10: data should be dict
@@ -423,8 +448,24 @@ function onmessage(data) {
       break
 
     case 'battle-offer':
+      console.log('battle-offer')
       var id = dv.getInt16(1)
-      battle_offer = true
+      battleAnswer(id)
+      battle_start = true
+      opponent_id = id
+      break
+
+    case 'battle-answer':
+      var id = dv.getInt16(1)
+      battle_start = true
+      opponent_id = id
+      my_turn = true
+      break
+
+    case 'attack':
+      var attack = dv.getInt16(5)
+      attacked(attack)
+      my_turn = true
       break
 
     case 'video-offer':
@@ -479,7 +520,8 @@ function reportError(errMessage) {
 function connect() {
   var serverUrl
   var scheme = 'ws'
-  var hostName = 'localhost:3000'
+  //   var hostName = 'localhost:3000'
+  var hostName = 'ec2-3-38-100-228.ap-northeast-2.compute.amazonaws.com:3000'
   log('Hostname: ' + hostName)
 
   if (document.location.protocol === 'https:') {
