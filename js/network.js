@@ -521,7 +521,7 @@ function connect() {
   var serverUrl
   var scheme = 'ws'
   //   var hostName = 'localhost:3000'
-  var hostName = 'ec2-3-38-100-228.ap-northeast-2.compute.amazonaws.com:3000'
+  var hostName = 'http://web3mon.yusangyoon.com.s3-website.ap-northeast-2.amazonaws.com'
   log('Hostname: ' + hostName)
 
   if (document.location.protocol === 'https:') {
