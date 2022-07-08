@@ -64,19 +64,51 @@ async function makeChracterImage(url, user) {
   image = image.resize(1600, 1600)
   image = image.crop(200, 200, 48 * 23, 48 * 23)
   image = image.resize(48, 48)
-  let baseImage = await Jimp.read({ url: './img/playerDown.png' })
-  baseImage = baseImage.composite(image, 0, 0)
-  baseImage = baseImage.composite(image, 48, 0)
-  baseImage = baseImage.composite(image, 48 * 2, 0)
-  baseImage = baseImage.composite(image, 48 * 3, 0)
+  var downImage = await Jimp.read({ url: './img/playerDown.png' })
+  downImage = downImage.composite(image, 0, 0)
+  downImage = downImage.composite(image, 48, 0)
+  downImage = downImage.composite(image, 48 * 2, 0)
+  downImage = downImage.composite(image, 48 * 3, 0)
+
+  var upImage = await Jimp.read({ url: './img/playerUp.png' })
+  upImage = upImage.composite(image, 0, 0)
+  upImage = upImage.composite(image, 48, 0)
+  upImage = upImage.composite(image, 48 * 2, 0)
+  upImage = upImage.composite(image, 48 * 3, 0)
+
+  var leftImage = await Jimp.read({ url: './img/playerLeft.png' })
+  leftImage = leftImage.composite(image, 0, 0)
+  leftImage = leftImage.composite(image, 48, 0)
+  leftImage = leftImage.composite(image, 48 * 2, 0)
+  leftImage = leftImage.composite(image, 48 * 3, 0)
+
+  var rightImage = await Jimp.read({ url: './img/playerRight.png' })
+  rightImage = rightImage.composite(image, 0, 0)
+  rightImage = rightImage.composite(image, 48, 0)
+  rightImage = rightImage.composite(image, 48 * 2, 0)
+  rightImage = rightImage.composite(image, 48 * 3, 0)
 
   return new Promise((resolve) => {
-    baseImage.getBase64('image/png', (err, res) => {
-      //   afterCrop.src = res
+    downImage.getBase64('image/png', (err, res) => {
       user.sprites.down = new Image()
       user.sprites.down.src = res
       user.image = user.sprites.down
-      resolve(res)
+      upImage.getBase64('image/png', (err, res) => {
+        user.sprites.up = new Image()
+        user.sprites.up.src = res
+        user.image = user.sprites.up
+        leftImage.getBase64('image/png', (err, res) => {
+          user.sprites.left = new Image()
+          user.sprites.left.src = res
+          user.image = user.sprites.left
+          rightImage.getBase64('image/png', (err, res) => {
+            user.sprites.right = new Image()
+            user.sprites.right.src = res
+            user.image = user.sprites.right
+            resolve(true)
+          })
+        })
+      })
     })
   })
 }

@@ -8,7 +8,6 @@ document.getElementById('login').addEventListener('click', (e) => {
   makeChracterImage(playerUrl, player).then((res) => {
     animate()
     connect()
-    console.log(res)
   })
 })
 
