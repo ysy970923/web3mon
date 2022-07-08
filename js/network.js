@@ -24,6 +24,8 @@ var NumToType = {
   3: 'battle-offer',
   4: 'battle-answer',
   5: 'attack',
+  6: 'request-user-info',
+  7: 'response-user-info',
 
   10: 'video-offer',
   11: 'video-answer',
@@ -63,13 +65,29 @@ function battleOffer(id) {
 
 function battleAnswer(id) {
   if (!ws) return
-  if (!ws) return
   var buffer = new ArrayBuffer(5)
   var dataview = new DataView(buffer)
   dataview.setInt8(0, TypeToNum['battle-answer'])
   dataview.setInt16(1, myID)
   dataview.setInt16(3, id)
   ws.send(buffer)
+}
+
+function requestUserInfo(id) {
+  if (!ws) return
+  var buffer = new ArrayBuffer(5)
+  var dataview = new DataView(buffer)
+  dataview.setInt8(0, TypeToNum['request-user-info'])
+  dataview.setInt16(1, myID)
+  dataview.setInt16(3, id)
+  ws.send(buffer)
+}
+
+function responseUserInfo(id) {
+  var msg = {
+    url: playerUrl
+  }
+  sendMsgToPeer('response-user-info', id, msg)
 }
 
 function attack(id, attack) {
@@ -102,6 +120,35 @@ function sendMsgToServer(type, msg) {
   tmp.set(new Uint8Array(buffer1), 0)
   tmp.set(new Uint8Array(buffer2), 1)
   ws.send(tmp.buffer)
+}
+
+function sendMsgToPeer(type, id, msg) {
+  if (!ws) return
+  var typeNum = TypeToNum[type]
+
+  var buffer1 = new ArrayBuffer(5)
+  var dataview = new DataView(buffer1)
+  dataview.setInt8(0, typeNum)
+  dataview.setInt16(1, myID)
+  dataview.setInt16(3, id)
+
+  var msgJSON = JSON.stringify(msg)
+  log('Send to server: ' + msgJSON)
+  var encoder = new TextEncoder()
+  var buffer2 = encoder.encode(msgJSON).buffer
+
+  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength)
+  tmp.set(new Uint8Array(buffer1), 0)
+  tmp.set(new Uint8Array(buffer2), 5)
+  ws.send(tmp.buffer)
+}
+
+function receiveMsgFromPeer(data) {
+  var buf = new Uint8Array(data).slice(5)
+
+  var decoder = new TextDecoder()
+  var msg = JSON.parse(decoder.decode(buf))
+  return msg
 }
 
 function getDictFromBinary(data) {
@@ -401,23 +448,7 @@ function onmessage(data) {
 
       msg['user-list'].forEach((id) => {
         if (!(id in others || id == myID)) {
-          others[id] = new Sprite({
-            position: {
-              x: canvas.width / 2 - 192 / 4 / 2 + 100,
-              y: canvas.height / 2 - 68 / 2 + 100
-            },
-            image: playerDownImage,
-            frames: {
-              max: 4,
-              hold: 10
-            },
-            sprites: {
-              up: playerUpImage,
-              left: playerLeftImage,
-              right: playerRightImage,
-              down: playerDownImage
-            }
-          })
+          requestUserInfo(id)
           // if (!peerConnection)
           //     invite(id);
         }
@@ -425,6 +456,7 @@ function onmessage(data) {
       break
 
     case 'move-user': // other user move
+      console.log(id)
       var id = dv.getInt16(1)
       others[id].position = local_position({
         x: dv.getInt16(3),
@@ -433,32 +465,29 @@ function onmessage(data) {
       const rotation = dv.getInt16(7)
       switch (rotation) {
         case 0:
-          others[id].image = playerUpImage
+          others[id].image = others[id].sprites.up
           break
         case 1:
-          others[id].image = playerLeftImage
+          others[id].image = others[id].sprites.left
           break
         case 2:
-          others[id].image = playerDownImage
+          others[id].image = others[id].sprites.down
           break
         case 3:
-          others[id].image = playerRightImage
+          others[id].image = others[id].sprites.right
           break
       }
       break
 
     case 'battle-offer':
-      console.log('battle-offer')
-      var id = dv.getInt16(1)
-      battleAnswer(id)
+      opponent_id = dv.getInt16(1)
+      battleAnswer(opponent_id)
       battle_start = true
-      opponent_id = id
       break
 
     case 'battle-answer':
-      var id = dv.getInt16(1)
+      opponent_id = dv.getInt16(1)
       battle_start = true
-      opponent_id = id
       my_turn = true
       break
 
@@ -466,6 +495,36 @@ function onmessage(data) {
       var attack = dv.getInt16(5)
       attacked(attack)
       my_turn = true
+      break
+
+    case 'request-user-info':
+      console.log('request-user-info')
+      var id = dv.getInt16(1)
+      responseUserInfo(id)
+      break
+
+    case 'response-user-info':
+      var id = dv.getInt16(1)
+      console.log(id)
+      msg = receiveMsgFromPeer(data)
+      others[id] = new Sprite({
+        position: {
+          x: 0,
+          y: 0
+        },
+        image: playerDownImage,
+        frames: {
+          max: 4,
+          hold: 10
+        },
+        sprites: {
+          up: playerDownImage,
+          left: playerLeftImage,
+          right: playerRightImage,
+          down: playerDownImage
+        }
+      })
+      makeChracterImage(msg.url, others[id])
       break
 
     case 'video-offer':

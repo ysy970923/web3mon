@@ -33,65 +33,52 @@ function checkForCharacterCollision({
   }
 }
 
-function makeChracter(url) {
+async function makeChracterImage(url, user) {
   const imageUrl = url
-
-  // handlers for before and after image elements
-  //   const before = document.querySelector('#before img')
-  //   const afterCrop = document.querySelector('#afterCrop img')
-
-  //   load image for original container element
-  //   before.src = imageUrl
-
-  Jimp.read({
-    url: imageUrl
+  let image = await Jimp.read({ url: imageUrl })
+  const backgroundColor = image.getPixelColor(0, 0)
+  const targetColor = Jimp.intToRGBA(backgroundColor)
+  const replaceColor = { r: 0, g: 0, b: 0, a: 0 } // Color you want to replace with
+  const colorDistance = (c1, c2) =>
+    Math.sqrt(
+      Math.pow(c1.r - c2.r, 2) +
+        Math.pow(c1.g - c2.g, 2) +
+        Math.pow(c1.b - c2.b, 2) +
+        Math.pow(c1.a - c2.a, 2)
+    ) // Distance between two colors
+  const threshold = 32 // Replace colors under this threshold. The smaller the number, the more specific it is.
+  image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
+    const thisColor = {
+      r: image.bitmap.data[idx + 0],
+      g: image.bitmap.data[idx + 1],
+      b: image.bitmap.data[idx + 2],
+      a: image.bitmap.data[idx + 3]
+    }
+    if (colorDistance(targetColor, thisColor) <= threshold) {
+      image.bitmap.data[idx + 0] = replaceColor.r
+      image.bitmap.data[idx + 1] = replaceColor.g
+      image.bitmap.data[idx + 2] = replaceColor.b
+      image.bitmap.data[idx + 3] = replaceColor.a
+    }
   })
-    .then((image) => {
-      const backgroundColor = image.getPixelColor(0, 0)
-      const targetColor = Jimp.intToRGBA(backgroundColor)
-      const replaceColor = { r: 0, g: 0, b: 0, a: 0 } // Color you want to replace with
-      const colorDistance = (c1, c2) =>
-        Math.sqrt(
-          Math.pow(c1.r - c2.r, 2) +
-            Math.pow(c1.g - c2.g, 2) +
-            Math.pow(c1.b - c2.b, 2) +
-            Math.pow(c1.a - c2.a, 2)
-        ) // Distance between two colors
-      const threshold = 32 // Replace colors under this threshold. The smaller the number, the more specific it is.
-      image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
-        const thisColor = {
-          r: image.bitmap.data[idx + 0],
-          g: image.bitmap.data[idx + 1],
-          b: image.bitmap.data[idx + 2],
-          a: image.bitmap.data[idx + 3]
-        }
-        if (colorDistance(targetColor, thisColor) <= threshold) {
-          image.bitmap.data[idx + 0] = replaceColor.r
-          image.bitmap.data[idx + 1] = replaceColor.g
-          image.bitmap.data[idx + 2] = replaceColor.b
-          image.bitmap.data[idx + 3] = replaceColor.a
-        }
-      })
-      image = image.resize(1600, 1600)
-      image = image.crop(200, 200, 48 * 23, 48 * 23)
-      image = image.resize(48, 48)
-      Jimp.read({ url: './img/playerDown.png' }).then((playerImg) => {
-        playerImg = playerImg.composite(image, 0, 0)
-        playerImg = playerImg.composite(image, 48, 0)
-        playerImg = playerImg.composite(image, 48 * 2, 0)
-        playerImg = playerImg.composite(image, 48 * 3, 0)
+  image = image.resize(1600, 1600)
+  image = image.crop(200, 200, 48 * 23, 48 * 23)
+  image = image.resize(48, 48)
+  let baseImage = await Jimp.read({ url: './img/playerDown.png' })
+  baseImage = baseImage.composite(image, 0, 0)
+  baseImage = baseImage.composite(image, 48, 0)
+  baseImage = baseImage.composite(image, 48 * 2, 0)
+  baseImage = baseImage.composite(image, 48 * 3, 0)
 
-        playerImg.getBase64('image/png', (err, res) => {
-          //   afterCrop.src = res
-          playerDownImage.src = res
-          player.image = player.sprites.down
-          console.log(res)
-        })
-      })
+  return new Promise((resolve) => {
+    baseImage.getBase64('image/png', (err, res) => {
+      //   afterCrop.src = res
+      user.sprites.down = new Image()
+      user.sprites.down.src = res
+      user.image = user.sprites.down
+      resolve(res)
     })
-    .catch((error) => {
-      console.log(`Error loading image -> ${error}`)
-    })
+  })
 }
 
 const CONTRACT_NAME = 'nft-frontend-simple-mint.blockhead.testnet'

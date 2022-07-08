@@ -116,9 +116,6 @@ function animateBattle() {
     sprite.draw()
   })
 }
-
-animate()
-connect()
 // initBattle()
 // animateBattle()
 

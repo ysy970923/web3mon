@@ -1,9 +1,15 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
+
+let playerUrl
 document.getElementById('login').addEventListener('click', (e) => {
-  const url = document.getElementById('url').value
+  playerUrl = document.getElementById('url').value
   document.getElementById('loginDiv').style.display = 'none'
-  makeChracter(url)
+  makeChracterImage(playerUrl, player).then((res) => {
+    animate()
+    connect()
+    console.log(res)
+  })
 })
 
 // configure minimal network settings and key storage
