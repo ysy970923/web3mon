@@ -6,66 +6,41 @@ document.getElementById('login').addEventListener('click', (e) => {
   makeChracter(url)
 })
 
-function makeChracter(url) {
-  const imageUrl = url
+// configure minimal network settings and key storage
+// const config = {
+//   nodeUrl: 'https://rpc.testnet.near.org',
+//   deps: {
+//     keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore()
+//   }
+// }
 
-  // handlers for before and after image elements
-//   const before = document.querySelector('#before img')
-//   const afterCrop = document.querySelector('#afterCrop img')
+// const nearConfig = getConfig('development')
+// console.log(nearConfig)
+// // open a connection to the NEAR platform
+// ;(async function () {
+//   const config = {
+//     networkId: 'testnet',
+//     keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore(),
+//     nodeUrl: 'https://rpc.testnet.near.org',
+//     walletUrl: 'https://wallet.testnet.near.org',
+//     helperUrl: 'https://helper.testnet.near.org',
+//     explorerUrl: 'https://explorer.testnet.near.org'
+//   }
 
-//   load image for original container element
-//   before.src = imageUrl
+//   // connect to NEAR
+//   const near = await nearApi.connect(config)
 
-  Jimp.read({
-    url: imageUrl
-  })
-    .then((image) => {
-      const backgroundColor = image.getPixelColor(0, 0)
-      const targetColor = Jimp.intToRGBA(backgroundColor)
-      // const targetColor = { r: 60, g: 171, b: 118, a: 255 } // Color you want to replace
-      const replaceColor = { r: 0, g: 0, b: 0, a: 0 } // Color you want to replace with
-      const colorDistance = (c1, c2) =>
-        Math.sqrt(
-          Math.pow(c1.r - c2.r, 2) +
-            Math.pow(c1.g - c2.g, 2) +
-            Math.pow(c1.b - c2.b, 2) +
-            Math.pow(c1.a - c2.a, 2)
-        ) // Distance between two colors
-      const threshold = 32 // Replace colors under this threshold. The smaller the number, the more specific it is.
-      image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
-        const thisColor = {
-          r: image.bitmap.data[idx + 0],
-          g: image.bitmap.data[idx + 1],
-          b: image.bitmap.data[idx + 2],
-          a: image.bitmap.data[idx + 3]
-        }
-        if (colorDistance(targetColor, thisColor) <= threshold) {
-          image.bitmap.data[idx + 0] = replaceColor.r
-          image.bitmap.data[idx + 1] = replaceColor.g
-          image.bitmap.data[idx + 2] = replaceColor.b
-          image.bitmap.data[idx + 3] = replaceColor.a
-        }
-      })
-      image = image.crop(200, 200, 48 * 23, 48 * 23)
-      image = image.resize(48, 48)
-      Jimp.read({ url: './img/playerDown.png' }).then((playerImg) => {
-        playerImg = playerImg.composite(image, 0, 0)
-        playerImg = playerImg.composite(image, 48, 0)
-        playerImg = playerImg.composite(image, 48 * 2, 0)
-        playerImg = playerImg.composite(image, 48 * 3, 0)
+//   // create wallet connection
+//   const wallet = new nearApi.WalletConnection(near)
 
-        playerImg.getBase64('image/png', (err, res) => {
-        //   afterCrop.src = res
-        playerDownImage.src = res
-        player.image = player.sprites.down
-        console.log(res)
-        })
-      })
-    })
-    .catch((error) => {
-      console.log(`Error loading image -> ${error}`)
-    })
-}
+//   const signIn = await wallet.requestSignIn(
+//     'example-contract.testnet', // contract requesting access
+//     'Example App' // optional
+//     //   'localhost:5500', // optional
+//     //   'http://YOUR-URL.com/failure' // optional
+//   )
+//   console.log(wallet.getAccountId())
+// })(window)
 
 canvas.width = 1024
 canvas.height = 576
