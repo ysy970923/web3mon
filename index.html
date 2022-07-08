@@ -1,39 +1,89 @@
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-    rel="stylesheet"
-  />
-  <style>
-    * {
-      font-family: 'Press Start 2P', cursive;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            font-family: 'Press Start 2P', cursive;
+        }
 
-    body {
-      background-color: black;
-    }
+        body {
+            background-color: black;
+        }
 
-    h1 {
-      margin: 0;
-    }
+        h1 {
+            margin: 0;
+        }
 
-    button {
-      border: 0;
-      cursor: pointer;
-      font-size: 16px;
-    }
+        button {
+            border: 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-    button:hover {
-      background-color: #ddd;
-    }
-  </style>
+        button:hover {
+            background-color: #ddd;
+        }
+    </style>
+    <style>
+        Body {
+            font-family: Calibri, Helvetica, sans-serif;
+            background-color: pink;
+        }
+
+        form {
+            border: 3px solid #f1f1f1;
+        }
+
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            margin: 8px 0;
+            padding: 12px 20px;
+            display: inline-block;
+            border: 2px solid green;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            opacity: 0.7;
+        }
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            margin: 10px 5px;
+        }
+
+
+        .container {
+            padding: 25px;
+            background-color: lightblue;
+        }
+    </style>
 </head>
 
 <div style="display: inline-block; position: relative">
-  <div
-    id="overlappingDiv"
-    style="
+    <!-- <div id="container" style="
+    background-color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;">
+        <div id="before">
+            <h3>Original</h3>
+            <div class="image-container">
+                <img src="" />
+            </div>
+        </div>
+        <div id="afterCrop">
+            <h3>After Crop</h3>
+            <div class="image-container"><img src="" /></div>
+        </div>
+    </div> -->
+    <div id="overlappingDiv" style="
       background-color: black;
       position: absolute;
       top: 0;
@@ -43,15 +93,36 @@
       opacity: 0;
       pointer-events: none;
       z-index: 10;
-    "
-  ></div>
+    "></div>
+    <div id="loginDiv" class="modal" style="
+    background-color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    z-index: 10;">
+        <form>
+            <div class="container">
+                <label>Username : </label>
+                <input type="text" placeholder="Enter Username" id="username" required>
+                <label>NFT URL : </label>
+                <input type="text" placeholder="Enter URL" id="url" required>
+                <button id="login" type="button">Login</button>
+                <input type="checkbox" checked="checked"> Remember me
+                <button type="reset" class="cancelbtn"> Cancel</button>
+                Forgot <a href="#"> password? </a>
+            </div>
+        </form>
+    </div>
 
-  <canvas></canvas>
 
-  <div id="userInterface" style="display: none">
-    <!-- Represents health bar of draggle (enemy) -->
-    <div
-      style="
+    <canvas></canvas>
+
+    <div id="userInterface" style="display: none">
+        <!-- Represents health bar of draggle (enemy) -->
+        <div style="
         background-color: white;
         width: 250px;
         position: absolute;
@@ -59,30 +130,23 @@
         left: 50px;
         border: 4px black solid;
         padding: 12px;
-      "
-    >
-      <h1 style="font-size: 16px">Draggle</h1>
-      <div style="position: relative">
-        <div
-          style="height: 5px; background-color: #ccc; margin-top: 10px"
-        ></div>
-        <div
-          id="enemyHealthBar"
-          style="
+      ">
+            <h1 style="font-size: 16px">Draggle</h1>
+            <div style="position: relative">
+                <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
+                <div id="enemyHealthBar" style="
             height: 5px;
             background-color: green;
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-          "
-        ></div>
-      </div>
-    </div>
+          "></div>
+            </div>
+        </div>
 
-    <!-- Represents health bar of emby (us) -->
-    <div
-      style="
+        <!-- Represents health bar of emby (us) -->
+        <div style="
         background-color: white;
         width: 250px;
         position: absolute;
@@ -90,29 +154,22 @@
         right: 50px;
         border: 4px black solid;
         padding: 12px;
-      "
-    >
-      <h1 style="font-size: 16px">Emby</h1>
-      <div style="position: relative">
-        <div
-          style="height: 5px; background-color: #ccc; margin-top: 10px"
-        ></div>
-        <div
-          id="playerHealthBar"
-          style="
+      ">
+            <h1 style="font-size: 16px">Emby</h1>
+            <div style="position: relative">
+                <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
+                <div id="playerHealthBar" style="
             height: 5px;
             background-color: green;
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-          "
-        ></div>
-      </div>
-    </div>
+          "></div>
+            </div>
+        </div>
 
-    <div
-      style="
+        <div style="
         background-color: white;
         height: 140px;
         position: absolute;
@@ -121,11 +178,8 @@
         right: 0;
         border-top: 4px black solid;
         display: flex;
-      "
-    >
-      <div
-        id="dialogueBox"
-        style="
+      ">
+            <div id="dialogueBox" style="
           position: absolute;
           top: 0;
           right: 0;
@@ -135,44 +189,33 @@
           padding: 12px;
           display: none;
           cursor: pointer;
-        "
-      >
-        sdkfjlsdajl
-      </div>
-      <div
-        id="attacksBox"
-        style="
+        ">
+                sdkfjlsdajl
+            </div>
+            <div id="attacksBox" style="
           width: 66.66%;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-        "
-      ></div>
-      <div
-        style="
+        "></div>
+            <div style="
           display: flex;
           align-items: center;
           justify-content: center;
           width: 33.33%;
           border-left: 4px black solid;
-        "
-      >
-        <h1 id="attackType" style="font-size: 16px">Attack Type</h1>
-      </div>
+        ">
+                <h1 id="attackType" style="font-size: 16px">Attack Type</h1>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
-  integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
-  integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+    integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+    integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js"></script>
 <script src="data/audio.js"></script>
 <script src="data/battleZones.js"></script>
 <script src="data/collisions.js"></script>

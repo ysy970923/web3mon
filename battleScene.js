@@ -7,7 +7,6 @@ const battleBackground = new Sprite({
   },
   image: battleBackgroundImage
 })
-
 let opponent_id
 let draggle
 let emby
@@ -29,32 +28,12 @@ function attacked(attack) {
         emby.faint()
       })
 
-      queue.push(() => {
-        // fade back to black
-        gsap.to('#overlappingDiv', {
-          opacity: 1,
-          onComplete: () => {
-            cancelAnimationFrame(battleAnimationId)
-            animate()
-            document.querySelector('#userInterface').style.display = 'none'
-
-            gsap.to('#overlappingDiv', {
-              opacity: 0
-            })
-
-            battle.initiated = false
-            audio.Map.play()
-          }
-        })
-      })
+      endBattle()
     }
   })
 }
 
 function endBattle() {
-  queue.push(() => {
-    draggle.faint()
-  })
   queue.push(() => {
     // fade back to black
     gsap.to('#overlappingDiv', {
@@ -109,6 +88,9 @@ function initBattle() {
       attack(opponent_id, emby.attacks.indexOf(selectedAttack))
 
       if (draggle.health <= 0) {
+        queue.push(() => {
+          draggle.faint()
+        })
         endBattle()
       }
     })
@@ -121,7 +103,6 @@ function initBattle() {
     })
   })
 }
-
 function animateBattle() {
   battleAnimationId = window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
@@ -137,7 +118,7 @@ function animateBattle() {
 }
 
 animate()
-connect()
+// connect()
 // initBattle()
 // animateBattle()
 
