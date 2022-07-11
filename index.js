@@ -8,6 +8,8 @@ document.getElementById('login').addEventListener('click', (e) => {
   playerUrl = document.getElementById('url').value
   document.getElementById('loginDiv').style.display = 'none'
   makeChracterImage(playerUrl, player).then((res) => {
+    monsters.me.image = player.image
+    monsters.me.name = player.name
     animate()
     connect()
   })

@@ -8,8 +8,8 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage
 })
 let opponent_id
-let draggle
-let emby
+let opponent
+let me
 let renderedSprites
 let battleAnimationId
 let queue
@@ -17,15 +17,15 @@ let my_turn = false
 
 function attacked(attack) {
   queue.push(() => {
-    draggle.attack({
-      attack: draggle.attacks[attack],
-      recipient: emby,
+    opponent.attack({
+      attack: opponent.attacks[attack],
+      recipient: me,
       renderedSprites
     })
 
-    if (emby.health <= 0) {
+    if (me.health <= 0) {
       queue.push(() => {
-        emby.faint()
+        me.faint()
       })
 
       endBattle()
@@ -65,12 +65,14 @@ function initBattle() {
     document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
   }
 
-  draggle = new Monster(monsters.Draggle)
-  emby = new Monster(monsters.Emby)
-  renderedSprites = [draggle, emby]
+  opponent = new Monster(monsters.opponent)
+  opponent.image = others[opponent_id].image
+  opponent.name = others[opponent_id].name
+  me = new Monster(monsters.me)
+  renderedSprites = [opponent, me]
   queue = []
 
-  emby.attacks.forEach((attack) => {
+  me.attacks.forEach((attack) => {
     const button = document.createElement('button')
     button.innerHTML = attack.name
     document.querySelector('#attacksBox').append(button)
@@ -80,16 +82,16 @@ function initBattle() {
   document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (e) => {
       const selectedAttack = attacks[e.currentTarget.innerHTML]
-      emby.attack({
+      me.attack({
         attack: selectedAttack,
-        recipient: draggle,
+        recipient: opponent,
         renderedSprites
       })
-      attack(opponent_id, emby.attacks.indexOf(selectedAttack))
+      attack(opponent_id, me.attacks.indexOf(selectedAttack))
 
-      if (draggle.health <= 0) {
+      if (opponent.health <= 0) {
         queue.push(() => {
-          draggle.faint()
+          opponent.faint()
         })
         endBattle()
       }

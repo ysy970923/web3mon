@@ -1,5 +1,5 @@
 const monsters = {
-  Emby: {
+  me: {
     position: {
       x: 280,
       y: 325
@@ -15,7 +15,7 @@ const monsters = {
     name: 'Emby',
     attacks: [attacks.Tackle, attacks.Fireball]
   },
-  Draggle: {
+  opponent: {
     position: {
       x: 800,
       y: 100
