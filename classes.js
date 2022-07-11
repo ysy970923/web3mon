@@ -7,7 +7,8 @@ class Sprite {
     sprites,
     animate = false,
     rotation = 0,
-    scale = 1
+    scale = 1,
+    name = '',
   }) {
     this.relative_position = { x: 0, y: 0 }
     this.position = position
@@ -25,6 +26,7 @@ class Sprite {
 
     this.rotation = rotation
     this.scale = scale
+    this.name = name
   }
 
   draw() {
@@ -56,6 +58,12 @@ class Sprite {
       },
       width: this.image.width / this.frames.max,
       height: this.image.height
+    }
+
+    if (this.name.length > 0) {
+      c.font = '10px "Press Start 2P"'
+      var textWidth = c.measureText(this.name).width
+      c.fillText(this.name, image.position.x + image.width / 2 - textWidth / 2, image.position.y - 5)
     }
 
     c.drawImage(

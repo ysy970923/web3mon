@@ -85,7 +85,8 @@ function requestUserInfo(id) {
 
 function responseUserInfo(id) {
   var msg = {
-    url: playerUrl
+    url: playerUrl,
+    username: player.name
   }
   sendMsgToPeer('response-user-info', id, msg)
 }
@@ -307,7 +308,7 @@ function handleGetUserMediaError(e) {
     case 'NotFoundError':
       alert(
         'Unable to open your call because no camera and/or microphone' +
-          'were found.'
+        'were found.'
       )
       break
     case 'SecurityError':
@@ -522,7 +523,8 @@ function onmessage(data) {
           left: playerLeftImage,
           right: playerRightImage,
           down: playerDownImage
-        }
+        },
+        name: msg.username,
       })
       makeChracterImage(msg.url, others[id])
       break

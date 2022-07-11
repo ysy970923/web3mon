@@ -3,6 +3,8 @@ const c = canvas.getContext('2d')
 
 let playerUrl
 document.getElementById('login').addEventListener('click', (e) => {
+  var username = document.getElementById('username').value
+  player.name = username
   playerUrl = document.getElementById('url').value
   document.getElementById('loginDiv').style.display = 'none'
   makeChracterImage(playerUrl, player).then((res) => {
@@ -195,7 +197,8 @@ const player = new Sprite({
     left: playerLeftImage,
     right: playerRightImage,
     down: playerDownImage
-  }
+  },
+  name: username,
 })
 
 const background = new Sprite({
