@@ -292,7 +292,7 @@ function checkCollision(a, b) {
       rectangle2: b
     }) &&
     overlappingArea > (a.width * a.height) / 2 &&
-    Math.random() < 0.5
+    Math.random() < 0.3
   )
 }
 

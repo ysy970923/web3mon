@@ -40,6 +40,7 @@ function endBattle() {
       opacity: 1,
       onComplete: () => {
         cancelAnimationFrame(battleAnimationId)
+        others[opponent_id].position = { x: 0, y: 0 }
         animate()
         document.querySelector('#userInterface').style.display = 'none'
 
@@ -81,6 +82,7 @@ function initBattle() {
   // our event listeners for our buttons (attack)
   document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (e) => {
+      if (!my_turn) return
       const selectedAttack = attacks[e.currentTarget.innerHTML]
       me.attack({
         attack: selectedAttack,
