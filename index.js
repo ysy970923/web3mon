@@ -1,55 +1,67 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
+function clickOutSideEvent(e) {
+  if (!document.getElementById('profileCard').contains(e.target)) {
+    document.body.removeEventListener('click', clickOutSideEvent, true)
+    document.getElementById('profileCard').style.display = 'none'
+  }
+}
+
+document.getElementById('profileButton').addEventListener('click', (e) => {
+  document.getElementById('profileCard').style.display = 'block'
+  document.body.addEventListener('click', clickOutSideEvent, true)
+})
+
+document.getElementById('logoutButton').addEventListener('click', (e) => {
+    logout()
+    location.reload()
+  })
+
+function truncate(input) {
+  if (input.length > 20) {
+    return input.substring(0, 20) + '...'
+  }
+  return input
+}
+
 let playerUrl
+let tokenId
 document.getElementById('login').addEventListener('click', (e) => {
-  var username = document.getElementById('username').value
-  player.name = username
-  playerUrl = document.getElementById('url').value
-  document.getElementById('loginDiv').style.display = 'none'
-  makeChracterImage(playerUrl, player).then((res) => {
-    monsters.me.image = player.image
-    monsters.me.name = player.name
-    animate()
-    connect()
+  tokenId = document.getElementById('tokenId').value
+  window.contract.nft_token({ token_id: tokenId }).then((msg) => {
+    player.name = truncate(msg.owner_id)
+    console.log(msg)
+    playerUrl = window.metadata.base_uri + '/' + msg.metadata.media
+    document.getElementById('loginDiv').style.display = 'none'
+    document.getElementById('profileName').innerHTML = 
+      window.metadata.name + ' #' + (Number(msg.metadata.title) + 1)
+    document.getElementById('profileNFT').innerHTML = player.name
+    document.getElementById('profileImg').src = playerUrl
+    document.getElementById('profileHP').innerHTML = 'HP: ' + monsters.me.health
+    document.getElementById('profileAP').innerHTML =
+      'AP: ' + monsters.me.attacks[0].damage
+    document.getElementById('parasUrl').addEventListener('click', (e) => {
+      window.open(`https://paras.id/token/asac.near::${msg.token_id}/${msg.token_id}`, '_blank').focus()
+    })
+
+    makeChracterImage(playerUrl, player).then((res) => {
+      monsters.me.image = player.image
+      monsters.me.name = player.name
+      animate()
+      connect()
+    })
   })
 })
 
-// configure minimal network settings and key storage
-// const config = {
-//   nodeUrl: 'https://rpc.testnet.near.org',
-//   deps: {
-//     keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore()
-//   }
-// }
+document.getElementById('cancel').addEventListener('click', (e) => {
+  logout()
+  window.contract.nft_metadata().then((msg) => {
+    console.log(msg)
+  })
+})
 
-// const nearConfig = getConfig('development')
-// console.log(nearConfig)
-// // open a connection to the NEAR platform
-// ;(async function () {
-//   const config = {
-//     networkId: 'testnet',
-//     keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore(),
-//     nodeUrl: 'https://rpc.testnet.near.org',
-//     walletUrl: 'https://wallet.testnet.near.org',
-//     helperUrl: 'https://helper.testnet.near.org',
-//     explorerUrl: 'https://explorer.testnet.near.org'
-//   }
-
-//   // connect to NEAR
-//   const near = await nearApi.connect(config)
-
-//   // create wallet connection
-//   const wallet = new nearApi.WalletConnection(near)
-
-//   const signIn = await wallet.requestSignIn(
-//     'example-contract.testnet', // contract requesting access
-//     'Example App' // optional
-//     //   'localhost:5500', // optional
-//     //   'http://YOUR-URL.com/failure' // optional
-//   )
-//   console.log(wallet.getAccountId())
-// })(window)
+window.nearInitPromise = initContract()
 
 canvas.width = 1024
 canvas.height = 576
@@ -200,7 +212,7 @@ const player = new Sprite({
     right: playerRightImage,
     down: playerDownImage
   },
-  name: username,
+  name: ''
 })
 
 const background = new Sprite({

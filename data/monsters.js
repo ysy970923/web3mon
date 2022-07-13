@@ -13,7 +13,8 @@ const monsters = {
     },
     animate: true,
     name: 'Emby',
-    attacks: [attacks.Tackle, attacks.Fireball]
+    health: 100,
+    attacks: [attacks.Default, attacks.Fireball]
   },
   opponent: {
     position: {
@@ -30,6 +31,7 @@ const monsters = {
     animate: true,
     isEnemy: true,
     name: 'Draggle',
+    health: 100,
     attacks: [attacks.Tackle, attacks.Fireball]
   }
 }

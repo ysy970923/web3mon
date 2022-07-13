@@ -113,7 +113,7 @@ async function makeChracterImage(url, user) {
   })
 }
 
-const CONTRACT_NAME = 'nft-frontend-simple-mint.blockhead.testnet'
+const CONTRACT_NAME = 'asac.near'
 
 function getConfig(env) {
   switch (env) {
@@ -174,4 +174,55 @@ function getConfig(env) {
         `Unconfigured environment '${env}'. Can be configured in src/config.js.`
       )
   }
+}
+
+const nearConfig = getConfig('production')
+
+// Initialize contract & set global variables
+async function initContract() {
+  // Initialize connection to the NEAR testnet
+  const near = await nearApi.connect(
+    Object.assign(
+      {
+        deps: { keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore() }
+      },
+      nearConfig
+    )
+  )
+
+  // Initializing Wallet based Account. It can work with NEAR testnet wallet that
+  // is hosted at https://wallet.testnet.near.org
+  window.walletConnection = new nearApi.WalletConnection(near)
+
+  // Getting the Account ID. If still unauthorized, it's just empty string
+  window.accountId = window.walletConnection.getAccountId()
+
+  // Initializing our contract APIs by contract name and configuration
+  window.contract = await new nearApi.Contract(
+    window.walletConnection.account(),
+    nearConfig.contractName,
+    {
+      // View methods are read only. They don't modify the state, but usually return some value.
+      viewMethods: ['nft_token', 'nft_metadata'],
+      // Change methods can modify the state. But you don't receive the returned value when called.
+      changeMethods: ['setGreeting']
+    }
+  )
+  login()
+  window.metadata = await window.contract.nft_metadata()
+  console.log(window.metadata)
+}
+
+function logout() {
+  window.walletConnection.signOut()
+  // reload page
+  window.location.replace(window.location.origin + window.location.pathname)
+}
+
+function login() {
+  // Allow the current app to make calls to the specified contract on the
+  // user's behalf.
+  // This works by creating a new access key for the user's account and storing
+  // the private key in localStorage.
+  window.walletConnection.requestSignIn(nearConfig.contractName)
 }

@@ -21,16 +21,16 @@ var NumToType = {
   0: 'id',
   1: 'update-user-list',
   2: 'move-user',
-  3: 'battle-offer',
-  4: 'battle-answer',
-  5: 'attack',
-  6: 'request-user-info',
-  7: 'response-user-info',
-
-  10: 'video-offer',
-  11: 'video-answer',
-  12: 'new-ice-candidate',
-  13: 'hang-up'
+  
+  10: 'battle-offer',
+  11: 'battle-answer',
+  12: 'attack',
+  13: 'request-user-info',
+  14: 'response-user-info',
+//   10: 'video-offer',
+//   11: 'video-answer',
+//   12: 'new-ice-candidate',
+//   13: 'hang-up'
 }
 
 var reverseMapping = (o) =>
@@ -581,8 +581,8 @@ function reportError(errMessage) {
 function connect() {
   var serverUrl
   var scheme = 'ws'
-  //   var hostName = 'localhost:3000'
-  var hostName = 'ws.yusangyoon.com'
+    var hostName = 'localhost:3000'
+//   var hostName = 'ws.yusangyoon.com'
   log('Hostname: ' + hostName)
 
   if (document.location.protocol === 'https:') {

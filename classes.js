@@ -104,6 +104,7 @@ class Monster extends Sprite {
     rotation = 0,
     isEnemy = false,
     name,
+    health,
     attacks
   }) {
     super({
@@ -115,9 +116,9 @@ class Monster extends Sprite {
       animate,
       rotation
     })
-    this.health = 100
     this.isEnemy = isEnemy
     this.name = name
+    this.health = health
     this.attacks = attacks
   }
 
@@ -194,7 +195,7 @@ class Monster extends Sprite {
         })
 
         break
-      case 'Tackle':
+      case 'Default':
         const tl = gsap.timeline()
 
         let movementDistance = 20

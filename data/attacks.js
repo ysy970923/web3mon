@@ -1,6 +1,6 @@
 const attacks = {
-  Tackle: {
-    name: 'Tackle',
+  Default: {
+    name: 'Default',
     damage: 10,
     type: 'Normal',
     color: 'black'

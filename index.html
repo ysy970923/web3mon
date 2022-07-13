@@ -60,6 +60,30 @@
             background-color: lightblue;
         }
     </style>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+            background-color: white;
+        }
+
+        .title {
+            color: grey;
+            font-size: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+    </style>
 </head>
 
 <div style="display: inline-block; position: relative">
@@ -93,6 +117,7 @@
       pointer-events: none;
       z-index: 10;
     "></div>
+
     <div id="loginDiv" class="modal" style="
     background-color: white;
     position: absolute;
@@ -104,18 +129,48 @@
     z-index: 10;">
         <form>
             <div class="container">
-                <label>Username : </label>
-                <input type="text" placeholder="Enter Username" id="username" required>
-                <label>NFT URL : </label>
-                <input type="text" placeholder="Enter URL" id="url" required>
+                <label>ASAC Token ID (0~3000) : </label>
+                <input type="text" placeholder="Enter ID" id="tokenId" required>
                 <button id="login" type="button">Login</button>
                 <input type="checkbox" checked="checked"> Remember me
-                <button type="reset" class="cancelbtn"> Cancel</button>
+                <button id="cancel" type="reset" class="cancelbtn"> Cancel</button>
                 Forgot <a href="#"> password? </a>
             </div>
         </form>
     </div>
 
+    <div id="buttonSection" style="
+    position: absolute;
+    opacity: 1;
+    z-index: 9;">
+        <div style="padding: 5;">
+            <button id="profileButton" type="button">
+                Profile
+            </button>
+        </div>
+        <div style="padding: 5;">
+            <button id="logoutButton" type="button">
+                logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <div id="profileCard" class="card" style="
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    z-index: 9;
+    display: none;">
+        <img id="profileImg" src="" alt="John" style="width:100%">
+        <h1 id="profileName"></h1>
+        <p id="profileNFT" class="title"></p>
+        <p id="profileHP"></p>
+        <p id="profileAP"></p>
+        <p><button id="parasUrl">see on paras</button></p>
+    </div>
 
     <canvas></canvas>
 
