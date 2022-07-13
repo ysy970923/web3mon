@@ -581,8 +581,8 @@ function reportError(errMessage) {
 function connect() {
   var serverUrl
   var scheme = 'ws'
-    var hostName = 'localhost:3000'
-//   var hostName = 'ws.yusangyoon.com'
+    // var hostName = 'localhost:3000'
+  var hostName = 'ws.yusangyoon.com'
   log('Hostname: ' + hostName)
 
   if (document.location.protocol === 'https:') {
