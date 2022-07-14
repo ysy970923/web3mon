@@ -14,9 +14,9 @@ document.getElementById('profileButton').addEventListener('click', (e) => {
 })
 
 document.getElementById('logoutButton').addEventListener('click', (e) => {
-    logout()
-    location.reload()
-  })
+  logout()
+  location.reload()
+})
 
 function truncate(input) {
   if (input.length > 20) {
@@ -28,28 +28,40 @@ function truncate(input) {
 let playerUrl
 let tokenId
 document.getElementById('login').addEventListener('click', (e) => {
-  tokenId = document.getElementById('tokenId').value
-  window.contract.nft_token({ token_id: tokenId }).then((msg) => {
-    player.name = truncate(msg.owner_id)
-    console.log(msg)
-    playerUrl = window.metadata.base_uri + '/' + msg.metadata.media
-    document.getElementById('loginDiv').style.display = 'none'
-    document.getElementById('profileName').innerHTML = 
-      window.metadata.name + ' #' + (Number(msg.metadata.title) + 1)
-    document.getElementById('profileNFT').innerHTML = player.name
-    document.getElementById('profileImg').src = playerUrl
-    document.getElementById('profileHP').innerHTML = 'HP: ' + monsters.me.health
-    document.getElementById('profileAP').innerHTML =
-      'AP: ' + monsters.me.attacks[0].damage
-    document.getElementById('parasUrl').addEventListener('click', (e) => {
-      window.open(`https://paras.id/token/asac.near::${msg.token_id}/${msg.token_id}`, '_blank').focus()
-    })
+  var contractAdress = document.getElementById('contractAddress').value
+  initContract(contractAdress).then((val) => {
+    tokenId = document.getElementById('tokenId').value
+    window.contract.nft_token({ token_id: tokenId }).then((msg) => {
+      if (msg === null) {
+        window.alert('invalid token id')
+        return
+      }
+      player.name = truncate(msg.owner_id)
+      playerUrl = window.metadata.base_uri + '/' + msg.metadata.media
+      document.getElementById('loginDiv').style.display = 'none'
+      document.getElementById('profileName').innerHTML =
+        window.metadata.name + ' #' + (Number(msg.metadata.title) + 1)
+      document.getElementById('profileNFT').innerHTML = player.name
+      document.getElementById('profileImg').src = playerUrl
+      document.getElementById('profileHP').innerHTML =
+        'HP: ' + monsters.me.health
+      document.getElementById('profileAP').innerHTML =
+        'AP: ' + monsters.me.attacks[0].damage
+      document.getElementById('parasUrl').addEventListener('click', (e) => {
+        window
+          .open(
+            `https://paras.id/token/asac.near::${msg.token_id}/${msg.token_id}`,
+            '_blank'
+          )
+          .focus()
+      })
 
-    makeChracterImage(playerUrl, player).then((res) => {
-      monsters.me.image = player.image
-      monsters.me.name = player.name
-      animate()
-      connect()
+      makeChracterImage(playerUrl, player).then((res) => {
+        monsters.me.image = player.image
+        monsters.me.name = player.name
+        animate()
+        connect()
+      })
     })
   })
 })
@@ -60,8 +72,6 @@ document.getElementById('cancel').addEventListener('click', (e) => {
     console.log(msg)
   })
 })
-
-window.nearInitPromise = initContract()
 
 canvas.width = 1024
 canvas.height = 576

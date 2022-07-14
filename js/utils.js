@@ -113,7 +113,6 @@ async function makeChracterImage(url, user) {
   })
 }
 
-const CONTRACT_NAME = 'asac.near'
 
 function getConfig(env) {
   switch (env) {
@@ -122,7 +121,6 @@ function getConfig(env) {
       return {
         networkId: 'mainnet',
         nodeUrl: 'https://rpc.mainnet.near.org',
-        contractName: CONTRACT_NAME,
         walletUrl: 'https://wallet.near.org',
         helperUrl: 'https://helper.mainnet.near.org',
         explorerUrl: 'https://explorer.mainnet.near.org'
@@ -132,7 +130,6 @@ function getConfig(env) {
       return {
         networkId: 'testnet',
         nodeUrl: 'https://rpc.testnet.near.org',
-        contractName: CONTRACT_NAME,
         walletUrl: 'https://wallet.testnet.near.org',
         helperUrl: 'https://helper.testnet.near.org',
         explorerUrl: 'https://explorer.testnet.near.org'
@@ -141,7 +138,6 @@ function getConfig(env) {
       return {
         networkId: 'betanet',
         nodeUrl: 'https://rpc.betanet.near.org',
-        contractName: CONTRACT_NAME,
         walletUrl: 'https://wallet.betanet.near.org',
         helperUrl: 'https://helper.betanet.near.org',
         explorerUrl: 'https://explorer.betanet.near.org'
@@ -152,21 +148,18 @@ function getConfig(env) {
         nodeUrl: 'http://localhost:3030',
         keyPath: `${process.env.HOME}/.near/validator_key.json`,
         walletUrl: 'http://localhost:4000/wallet',
-        contractName: CONTRACT_NAME
       }
     case 'test':
     case 'ci':
       return {
         networkId: 'shared-test',
         nodeUrl: 'https://rpc.ci-testnet.near.org',
-        contractName: CONTRACT_NAME,
         masterAccount: 'test.near'
       }
     case 'ci-betanet':
       return {
         networkId: 'shared-test-staging',
         nodeUrl: 'https://rpc.ci-betanet.near.org',
-        contractName: CONTRACT_NAME,
         masterAccount: 'test.near'
       }
     default:
@@ -179,7 +172,7 @@ function getConfig(env) {
 const nearConfig = getConfig('production')
 
 // Initialize contract & set global variables
-async function initContract() {
+async function initContract(contract_address) {
   // Initialize connection to the NEAR testnet
   const near = await nearApi.connect(
     Object.assign(
@@ -200,7 +193,7 @@ async function initContract() {
   // Initializing our contract APIs by contract name and configuration
   window.contract = await new nearApi.Contract(
     window.walletConnection.account(),
-    nearConfig.contractName,
+    contract_address,
     {
       // View methods are read only. They don't modify the state, but usually return some value.
       viewMethods: ['nft_token', 'nft_metadata'],
@@ -208,7 +201,8 @@ async function initContract() {
       changeMethods: ['setGreeting']
     }
   )
-  login()
+  console.log(window.contract)
+  login(contract_address)
   window.metadata = await window.contract.nft_metadata()
   console.log(window.metadata)
 }
@@ -219,10 +213,10 @@ function logout() {
   window.location.replace(window.location.origin + window.location.pathname)
 }
 
-function login() {
+function login(contract_address) {
   // Allow the current app to make calls to the specified contract on the
   // user's behalf.
   // This works by creating a new access key for the user's account and storing
   // the private key in localStorage.
-  window.walletConnection.requestSignIn(nearConfig.contractName)
+  window.walletConnection.requestSignIn(contract_address)
 }
