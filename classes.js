@@ -1,3 +1,6 @@
+const chatBubble = new Image()
+chatBubble.src = './img/chatBubble.png'
+
 class Sprite {
     constructor({
         position,
@@ -72,8 +75,6 @@ class Sprite {
 
         if (this.chat.length > 0) {
             this.chatShowTime += 1
-            const chatBubble = new Image()
-            chatBubble.src = './img/chatBubble.png'
             c.drawImage(
                 chatBubble,
                 image.position.x + 40,
