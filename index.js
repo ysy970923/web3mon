@@ -45,7 +45,7 @@ document.getElementById('login').addEventListener('click', (e) => {
             document.getElementById('profileNFT').innerHTML = player.name
             document.getElementById('profileImg').src = playerUrl
             document.getElementById('profileHP').innerHTML =
-                'HP: ' + monsters.me.health
+                'HP: ' + player.health
             document.getElementById('profileAP').innerHTML =
                 'AP: ' + monsters.me.attacks[0].damage
             document.getElementById('parasUrl').addEventListener('click', (e) => {
