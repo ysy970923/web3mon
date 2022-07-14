@@ -61,6 +61,8 @@ function initBattle() {
   document.querySelector('#enemyHealthBar').style.width = '100%'
   document.querySelector('#playerHealthBar').style.width = '100%'
   document.querySelector('#attacksBox').replaceChildren()
+  document.querySelector('#battleMyName').innerHTML = player.name
+  document.querySelector('#battleOpponentName').innerHTML = others[opponent_id].name
   if (!my_turn) {
     document.querySelector('#dialogueBox').style.display = 'block'
     document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
@@ -68,8 +70,11 @@ function initBattle() {
 
   opponent = new Monster(monsters.opponent)
   opponent.image = others[opponent_id].image
+  opponent.health = others[opponent_id].health
   opponent.name = others[opponent_id].name
+  opponent.scale = 1.5
   me = new Monster(monsters.me)
+  me.scale = 1.5
   renderedSprites = [opponent, me]
   queue = []
 

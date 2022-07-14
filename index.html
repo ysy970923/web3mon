@@ -84,6 +84,78 @@
             opacity: 0.7;
         }
     </style>
+    <style>
+        /* Button used to open the chat form - fixed at the bottom of the page */
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+
+        /* The popup chat - hidden by default */
+        .form-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+
+        /* Add styles to the form container */
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        /* Full-width textarea */
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+
+        /* When the textarea gets focus, do something */
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for the submit/login button */
+        .form-container .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+    </style>
 </head>
 
 <div style="display: inline-block; position: relative">
@@ -106,6 +178,27 @@
             <div class="image-container"><img src="" /></div>
         </div>
     </div> -->
+    <button id="chatOpenBtn" class="open-button" onclick="openForm()" style="display: none;">Chat</button>
+    <div class="chat-popup" id="myForm" style="
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    display: none;
+    z-index:19;">
+        <form class="form-container">
+            <h1>Chat</h1>
+
+            <label for="msg"><b>Message</b></label>
+            <textarea id="chat" placeholder="Type message.." name="msg" maxlength="10" required></textarea>
+
+            <button type="button" class="btn" onclick="sendChat()">Send</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
     <div id="overlappingDiv" style="
       background-color: black;
       position: absolute;
@@ -144,6 +237,8 @@
     <div id="buttonSection" style="
     position: absolute;
     opacity: 1;
+    bottom: 0;
+    right: 0;
     z-index: 9;">
         <div>
             <button id="profileButton" type="button" class="cancelbtn">
@@ -187,7 +282,7 @@
         border: 4px black solid;
         padding: 12px;
       ">
-            <h1 style="font-size: 16px">Draggle</h1>
+            <h1 style="font-size: 16px" id="battleOpponentName"></h1>
             <div style="position: relative">
                 <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
                 <div id="enemyHealthBar" style="
@@ -211,7 +306,7 @@
         border: 4px black solid;
         padding: 12px;
       ">
-            <h1 style="font-size: 16px">Emby</h1>
+            <h1 style="font-size: 16px" id="battleMyName"></h1>
             <div style="position: relative">
                 <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
                 <div id="playerHealthBar" style="
