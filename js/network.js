@@ -21,16 +21,17 @@ var NumToType = {
   0: 'id',
   1: 'update-user-list',
   2: 'move-user',
-  
+
   10: 'battle-offer',
   11: 'battle-answer',
   12: 'attack',
   13: 'request-user-info',
   14: 'response-user-info',
-//   10: 'video-offer',
-//   11: 'video-answer',
-//   12: 'new-ice-candidate',
-//   13: 'hang-up'
+  15: 'leave-battle'
+  //   10: 'video-offer',
+  //   11: 'video-answer',
+  //   12: 'new-ice-candidate',
+  //   13: 'hang-up'
 }
 
 var reverseMapping = (o) =>
@@ -101,6 +102,16 @@ function attack(id, attack) {
   dataview.setInt16(5, attack)
   ws.send(buffer)
   my_turn = false
+}
+
+function leaveBattle(id) {
+  if (!ws) return
+  var buffer = new ArrayBuffer(5)
+  var dataview = new DataView(buffer)
+  dataview.setInt8(0, TypeToNum['leave-battle'])
+  dataview.setInt16(1, myID)
+  dataview.setInt16(3, id)
+  ws.send(buffer)
 }
 
 // if type >= 10: data should be dict
@@ -308,7 +319,7 @@ function handleGetUserMediaError(e) {
     case 'NotFoundError':
       alert(
         'Unable to open your call because no camera and/or microphone' +
-        'were found.'
+          'were found.'
       )
       break
     case 'SecurityError':
@@ -457,7 +468,6 @@ function onmessage(data) {
       break
 
     case 'move-user': // other user move
-      console.log(id)
       var id = dv.getInt16(1)
       others[id].position = local_position({
         x: dv.getInt16(3),
@@ -524,9 +534,17 @@ function onmessage(data) {
           right: playerRightImage,
           down: playerDownImage
         },
-        name: msg.username,
+        name: msg.username
       })
       makeChracterImage(msg.url, others[id])
+      break
+
+    case 'leave-battle':
+      var id = dv.getInt16(1)
+      if (battle.initiated && id === opponent_id) {
+        window.alert('opponent leaved the battle')
+        endBattle()
+      }
       break
 
     case 'video-offer':
@@ -581,7 +599,7 @@ function reportError(errMessage) {
 function connect() {
   var serverUrl
   var scheme = 'ws'
-    // var hostName = 'localhost:3000'
+  // var hostName = 'localhost:3000'
   var hostName = 'ws.yusangyoon.com'
   log('Hostname: ' + hostName)
 

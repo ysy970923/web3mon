@@ -41,7 +41,6 @@ function endBattle() {
       opacity: 1,
       onComplete: () => {
         cancelAnimationFrame(battleAnimationId)
-        others[opponent_id].position = { x: 0, y: 0 }
         animate()
         document.querySelector('#userInterface').style.display = 'none'
 
