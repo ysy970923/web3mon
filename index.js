@@ -19,6 +19,8 @@ playerRightImage.src = './img/playerRight.png'
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
+var joy = new JoyStick('joyDiv');
+
 function clickOutSideEvent(e) {
     if (!document.getElementById('profileCard').contains(e.target)) {
         document.body.removeEventListener('click', clickOutSideEvent, true)
@@ -365,6 +367,7 @@ function animate() {
     for (const key in others) {
         others[key].draw()
     }
+    joyToKey()
     let moving = true
     player.animate = false
 
@@ -598,6 +601,41 @@ window.addEventListener('keyup', (e) => {
             break
     }
 })
+
+var joyStickMoving = false
+function joyToKey() {
+    var x = joy.GetX()
+    var y = joy.GetY()
+    var moving = false
+    if (y > 45) {
+        keys.w.pressed = true
+        lastKey = 'w'
+        moving = true
+    }
+    else if (y < -45) {
+        keys.s.pressed = true
+        lastKey = 's'
+        moving = true
+    }
+    else if (x > 45) {
+        keys.d.pressed = true
+        lastKey = 'd'
+        moving = true
+    }
+    else if (x < -45) {
+        keys.a.pressed = true
+        lastKey = 'a'
+        moving = true
+    }
+    else if (joyStickMoving) {
+        keys.w.pressed = false
+        keys.a.pressed = false
+        keys.s.pressed = false
+        keys.d.pressed = false
+        joyStickMoving = false
+    }
+    joyStickMoving = moving
+}
 
 let clicked = false
 addEventListener('click', () => {

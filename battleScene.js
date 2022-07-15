@@ -42,7 +42,7 @@ function endBattle() {
                 cancelAnimationFrame(battleAnimationId)
                 animate()
                 document.querySelector('#userInterface').style.display = 'none'
-
+                document.querySelector('#joyDiv').style.display = 'block'
                 gsap.to('#overlappingDiv', {
                     opacity: 0
                 })
@@ -57,6 +57,7 @@ function endBattle() {
 function initBattle() {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
+    document.querySelector('#joyDiv').style.display = 'none'
     document.querySelector('#userInterface').style.display = 'block'
     document.querySelector('#dialogueBox').style.display = 'none'
     document.querySelector('#enemyHealthBar').style.width = '100%'
