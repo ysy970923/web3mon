@@ -1,3 +1,21 @@
+const image = new Image()
+image.src = './img/Pellet Town.png'
+
+const foregroundImage = new Image()
+foregroundImage.src = './img/foregroundObjects.png'
+
+const playerDownImage = new Image()
+playerDownImage.src = './img/new.png'
+
+const playerUpImage = new Image()
+playerUpImage.src = './img/playerUp.png'
+
+const playerLeftImage = new Image()
+playerLeftImage.src = './img/playerLeft.png'
+
+const playerRightImage = new Image()
+playerRightImage.src = './img/playerRight.png'
+
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
@@ -74,8 +92,8 @@ document.getElementById('cancel').addEventListener('click', (e) => {
     })
 })
 
-canvas.width = 1024
-canvas.height = 576
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 
 const collisionsMap = []
 for (let i = 0; i < collisions.length; i += 70) {
@@ -95,8 +113,8 @@ console.log(charactersMap)
 
 const boundaries = []
 const offset = {
-    x: -735,
-    y: -650
+    x: canvas.width / 2 - image.width / 2,
+    y: canvas.height / 2 - image.height / 2,
 }
 
 collisionsMap.forEach((row, i) => {
@@ -189,23 +207,7 @@ charactersMap.forEach((row, i) => {
     })
 })
 
-const image = new Image()
-image.src = './img/Pellet Town.png'
 
-const foregroundImage = new Image()
-foregroundImage.src = './img/foregroundObjects.png'
-
-const playerDownImage = new Image()
-playerDownImage.src = './img/new.png'
-
-const playerUpImage = new Image()
-playerUpImage.src = './img/playerUp.png'
-
-const playerLeftImage = new Image()
-playerLeftImage.src = './img/playerLeft.png'
-
-const playerRightImage = new Image()
-playerRightImage.src = './img/playerRight.png'
 
 const player = new Sprite({
     position: {
@@ -336,6 +338,18 @@ function enterBattle(animationId, id) {
                 }
             })
         }
+    })
+}
+
+window.addEventListener("resize", onResizeEvent, true);
+function onResizeEvent() {
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    var delta_x = (window.innerWidth / 2 - image.width / 2) - background.position.x
+    var delta_y = (window.innerHeight / 2 - image.height / 2) - background.position.y
+    renderables.forEach((renderable) => {
+        renderable.position.x = renderable.position.x + delta_x
+        renderable.position.y = renderable.position.y + delta_y
     })
 }
 

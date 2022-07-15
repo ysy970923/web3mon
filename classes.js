@@ -269,9 +269,9 @@ class Boundary {
     }
 
     draw() {
-        if (this.type === 'battle') {
+        // if (this.type === 'battle') {
             c.lineWidth = 3
             c.strokeRect(this.position.x, this.position.y, this.width, this.height)
-        }
+        // }
     }
 }

@@ -17,8 +17,8 @@ const monsters = {
   },
   opponent: {
     position: {
-      x: 800,
-      y: 100
+      x: 700,
+      y: 150
     },
     image: {
       src: './img/draggleSprite.png'
