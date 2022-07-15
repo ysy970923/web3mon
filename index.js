@@ -351,6 +351,10 @@ function onResizeEvent() {
         renderable.position.x = renderable.position.x + delta_x
         renderable.position.y = renderable.position.y + delta_y
     })
+    for (const key in others) {
+        others[key].position.x = others[key].position.x + delta_x
+        others[key].position.y = others[key].position.y + delta_y
+    }
 }
 
 function animate() {
