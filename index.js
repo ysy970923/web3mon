@@ -115,8 +115,8 @@ console.log(charactersMap)
 
 const boundaries = []
 const offset = {
-    x: canvas.width / 2 - image.width / 2,
-    y: canvas.height / 2 - image.height / 2,
+    x: window.innerWidth / 2 - image.width / 2,
+    y: window.innerHeight / 2 - image.height / 2,
 }
 
 collisionsMap.forEach((row, i) => {
