@@ -7,7 +7,7 @@ const battleBackground = new Sprite({
     },
     image: battleBackgroundImage
 })
-let opponent_id
+let opponent_id = null
 let opponent
 let me
 let renderedSprites
@@ -51,6 +51,7 @@ function endBattle() {
                 audio.Map.play()
             }
         })
+        battle_start = false
     })
 }
 
@@ -130,7 +131,6 @@ function animateBattle() {
 // animateBattle()
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
-    console.log('hhh')
     if (queue.length > 0) {
         queue[0]()
         queue.shift()

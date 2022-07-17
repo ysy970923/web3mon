@@ -317,8 +317,7 @@ function checkCollision(a, b) {
             rectangle1: a,
             rectangle2: b
         }) &&
-        overlappingArea > (a.width * a.height) / 2 &&
-        Math.random() < 0.3
+        overlappingArea > (a.width * a.height) / 2
     )
 }
 
@@ -394,17 +393,22 @@ function animate() {
     if (document.getElementById("myForm").style.display !== "none")
         return
 
+    if (opponent_id !== null)
+        if ((Math.abs(others[opponent_id].position.x - player.position.x) + Math.abs(others[opponent_id].position.y - player.position.y) > 30))
+            opponent_id = null
+
     // activate a battle
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
         for (let i = 0; i < battleZones.length; i++) {
             const battleZone = battleZones[i]
             if (checkCollision(player, battleZone)) {
-                for (const key in others) {
-                    if (checkCollision(others[key], battleZone)) {
-                        battleOffer(key)
-                        break
+                if (opponent_id === null)
+                    for (const key in others) {
+                        if (checkCollision(others[key], battleZone)) {
+                            battleOffer(key)
+                            break
+                        }
                     }
-                }
                 break
             }
         }

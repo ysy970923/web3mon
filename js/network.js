@@ -593,7 +593,7 @@ function onmessage(data) {
         case 'leave-battle':
             var id = dv.getInt16(1)
             if (battle.initiated && id === opponent_id) {
-                window.alert('opponent leaved the battle')
+                window.alert('opponent left the battle')
                 endBattle()
             }
             break
