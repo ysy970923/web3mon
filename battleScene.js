@@ -71,12 +71,11 @@ function initBattle() {
     }
 
     opponent = new Monster(monsters.opponent)
-    opponent.image = others[opponent_id].image
+    opponent.image = others[opponent_id].baseImage
     opponent.health = others[opponent_id].health
     opponent.name = others[opponent_id].name
-    opponent.scale = 1.5
     me = new Monster(monsters.me)
-    me.scale = 1.5
+    me.image = player.baseImage
     renderedSprites = [opponent, me]
     queue = []
 

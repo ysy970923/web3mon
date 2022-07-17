@@ -54,7 +54,6 @@
             margin: 10px 5px;
         }
 
-
         .container {
             padding: 25px;
             background-color: lightblue;
@@ -156,10 +155,38 @@
             opacity: 1;
         }
     </style>
+    <style>
+        .loader {
+            position: absolute;
+            border: 16px solid #f3f3f3;
+            /* Light grey */
+            border-top: 16px solid #3498db;
+            /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            top: calc(50% - 60px);
+            left: calc(50% - 60px);
+            z-index: -1;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
-<div style="display: inline-block; position: relative">
-    <div id="joyDiv" style="position:absolute;bottom:0;right:0;width:200px;height:200px;margin-bottom:20px;z-index:9;"></div>
+<div style="display: inline-block; position: relative; width: 100%;">
+    <div id="loading" class="loader"></div>
+    <div id="joyDiv" style="position:absolute;bottom:0;right:0;width:200px;height:200px;margin-bottom:20px;z-index:9;">
+    </div>
     <!-- <div id="container" style="
     background-color: white;
     position: absolute;
@@ -193,7 +220,7 @@
             <h1>Chat</h1>
 
             <label for="msg"><b>Message</b></label>
-            <textarea id="chat" placeholder="Type message.." name="msg" maxlength="10" required></textarea>
+            <textarea id="chat" placeholder="Up to 10 words..." name="msg" maxlength="10" required></textarea>
 
             <button type="button" class="btn" onclick="sendChat()">Send</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
@@ -221,18 +248,48 @@
     left: 0;
     opacity: 1;
     z-index: 10;">
-        <form>
-            <div class="container">
-                <label>NFT Contract Address</label>
-                <input type="text" placeholder="Enter address" id="contractAddress" value="asac.near" required>
-                <label>NFT Token ID: </label>
-                <input type="text" placeholder="Enter ID" id="tokenId" required>
-                <button id="login" type="button" class="cancelbtn">Login</button>
-                <input type="checkbox" checked="checked"> Remember me
-                <button id="cancel" type="reset" class="cancelbtn"> Cancel</button>
-                Need <a href="#"> Help? </a>
+        <div class="container">
+            <div style="margin-bottom:40px;">
+                <h2>Welcome to Web3Mon Minigame!</h2>
             </div>
-        </form>
+            <div style="margin-bottom:40px;">
+                <p>1. Choose NFT collection to use.</p>
+            </div>
+            <div>
+                <label>NFT Contract Address:</label>
+            </div>
+            <div style="width: 100%;
+                margin: 8px 0;
+                display: inline-block;
+                box-sizing: border-box;
+                margin-bottom:40px;">
+                <select id="contractAddress" style="padding: 12px 20px;" onchange="connectWallet()">
+                    <option value="asac.near">Antisocial Ape Club</option>
+                    <option value="secretskelliessociety.near">Secret Skellies Society</option>
+                    <option value="nearnautnft.near">NEARNauts</option>
+                    <option value="tinkerunion_nft.enleap.near">Near Tinker Union</option>
+                    <option value="mara-smartcontract.near">Mara Gen 1</option>
+                </select>
+            </div>
+            <div style="margin-bottom:40px;">
+                <p>2. Type ID of the NFT to use.</p>
+                <p>(You can connect wallet and search for your NFT)</p>
+                <p>(or just type in NFT ID / no need to connect wallet)</p>
+                <button class="cancelbtn" onclick="authorize()">Connect Wallet</button>
+                <button type="button" class="cancelbtn" onclick="logout()">Disconnect Wallet</button>
+                <p id="connectedWallet"></p>
+                <p>Select NFT to use</p>
+                <div id="nftListBox">
+                </div>
+            </div>
+            <div style="margin-bottom:40px;">
+                <label>NFT ID:</label>
+                <input type="text" placeholder="Enter ID" id="tokenId" required>
+            </div>
+            <div>
+                <button id="joinGame" type="button" class="cancelbtn">Join Game</button>
+            </div>
+        </div>
     </div>
 
     <div id="buttonSection" style="
@@ -240,15 +297,22 @@
     opacity: 1;
     top: 0;
     right: 0;
-    z-index: 9;">
+    z-index: 9;
+    text-align: right;
+    ">
         <div>
             <button id="profileButton" type="button" class="cancelbtn">
-                Profile
+                My Profile
             </button>
         </div>
         <div>
-            <button id="logoutButton" type="button" class="cancelbtn">
-                logout
+            <button id="guidanceButton" type="button" class="cancelbtn">
+                Guidance
+            </button>
+        </div>
+        <div>
+            <button onclick="location.reload()" type="button" class="cancelbtn">
+                Leave Game
             </button>
         </div>
     </div>
@@ -267,7 +331,20 @@
         <p id="profileNFT" class="title"></p>
         <p id="profileHP"></p>
         <p id="profileAP"></p>
-        <p><button id="parasUrl">see on paras</button></p>
+        <button id="parasUrl" class="cancelbtn">see on paras</button>
+    </div>
+
+    <div id="guidanceCard" class="card" style="
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    z-index: 9;
+    padding: 20px;
+    display: none;">
+    <h2>Game Guidance</h2>
+    <p>This is a multiplayer game.</p>
+    <p>You can walk, chat and battle with other players within the game.</p>
+    <p>Step into the same Battle Zone box with other player to enter battle.</p>
     </div>
 
     <canvas></canvas>

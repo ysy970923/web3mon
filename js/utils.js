@@ -41,19 +41,24 @@ function checkForCharacterCollision({
     }
 }
 
+const colorDistance = (c1, c2) =>
+    Math.sqrt(
+        Math.pow(c1.r - c2.r, 2) +
+        Math.pow(c1.g - c2.g, 2) +
+        Math.pow(c1.b - c2.b, 2) +
+        Math.pow(c1.a - c2.a, 2)
+    )
+
 async function makeChracterImage(url, user) {
-    const imageUrl = url
-    let image = await Jimp.read({ url: imageUrl })
-    const backgroundColor = image.getPixelColor(0, 0)
-    const targetColor = Jimp.intToRGBA(backgroundColor)
+    let image = await Jimp.read({ url: url })
+    var h = image.bitmap.height;
+
     const replaceColor = { r: 0, g: 0, b: 0, a: 0 } // Color you want to replace with
-    const colorDistance = (c1, c2) =>
-        Math.sqrt(
-            Math.pow(c1.r - c2.r, 2) +
-            Math.pow(c1.g - c2.g, 2) +
-            Math.pow(c1.b - c2.b, 2) +
-            Math.pow(c1.a - c2.a, 2)
-        ) // Distance between two colors
+    const targetColors = []
+    for (var i = 0; i < 5; i++) {
+        targetColors.push(Jimp.intToRGBA(image.getPixelColor(0, Math.floor(i * h / 5))))
+    }
+    // Distance between two colors
     const threshold = 32 // Replace colors under this threshold. The smaller the number, the more specific it is.
     image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
         const thisColor = {
@@ -62,16 +67,28 @@ async function makeChracterImage(url, user) {
             b: image.bitmap.data[idx + 2],
             a: image.bitmap.data[idx + 3]
         }
-        if (colorDistance(targetColor, thisColor) <= threshold) {
-            image.bitmap.data[idx + 0] = replaceColor.r
-            image.bitmap.data[idx + 1] = replaceColor.g
-            image.bitmap.data[idx + 2] = replaceColor.b
-            image.bitmap.data[idx + 3] = replaceColor.a
+        for (var i = 0; i < 5; i++) {
+            var targetColor = targetColors[i]
+            if (colorDistance(targetColor, thisColor) <= threshold) {
+                image.bitmap.data[idx + 0] = replaceColor.r
+                image.bitmap.data[idx + 1] = replaceColor.g
+                image.bitmap.data[idx + 2] = replaceColor.b
+                image.bitmap.data[idx + 3] = replaceColor.a
+                break
+            }
         }
+
     })
+
+    var resizedImage = image.resize(48 * 4, 48 * 4)
+    user.baseImage = new Image()
+    user.baseImage.src = await resizedImage.getBase64Async('image/png')
+
     image = image.resize(1600, 1600)
-    image = image.crop(200, 200, 48 * 23, 48 * 23)
+    image = image.crop(224, 200, 48 * 22, 48 * 22)
+
     image = image.resize(48, 48)
+
     var downImage = await Jimp.read({ url: './img/playerDown.png' })
     downImage = downImage.composite(image, 0, 0)
     downImage = downImage.composite(image, 48, 0)
@@ -104,15 +121,12 @@ async function makeChracterImage(url, user) {
             upImage.getBase64('image/png', (err, res) => {
                 user.sprites.up = new Image()
                 user.sprites.up.src = res
-                user.image = user.sprites.up
                 leftImage.getBase64('image/png', (err, res) => {
                     user.sprites.left = new Image()
                     user.sprites.left.src = res
-                    user.image = user.sprites.left
                     rightImage.getBase64('image/png', (err, res) => {
                         user.sprites.right = new Image()
                         user.sprites.right.src = res
-                        user.image = user.sprites.right
                         resolve(true)
                     })
                 })
@@ -120,7 +134,6 @@ async function makeChracterImage(url, user) {
         })
     })
 }
-
 
 function getConfig(env) {
     switch (env) {
@@ -179,8 +192,7 @@ function getConfig(env) {
 
 const nearConfig = getConfig('production')
 
-// Initialize contract & set global variables
-async function initContract(contract_address) {
+async function connectWallet() {
     // Initialize connection to the NEAR testnet
     const near = await nearApi.connect(
         Object.assign(
@@ -190,41 +202,66 @@ async function initContract(contract_address) {
             nearConfig
         )
     )
-
     // Initializing Wallet based Account. It can work with NEAR testnet wallet that
     // is hosted at https://wallet.testnet.near.org
     window.walletConnection = new nearApi.WalletConnection(near)
 
     // Getting the Account ID. If still unauthorized, it's just empty string
     window.accountId = window.walletConnection.getAccountId()
+    console.log(window.walletConnection.account())
+    if (window.accountId !== "")
+        await authorize()
+}
 
+async function authorize() {
+    await initContract()
+    var contract_address = document.getElementById('contractAddress').value
+    window.walletConnection.requestSignIn(contract_address)
+    var data = await window.contract.nft_tokens_for_owner({ account_id: window.accountId })
+    document.querySelector('#nftListBox').innerHTML = ""
+    document.getElementById('tokenId').value = ""
+    if (data.length !== 0) {
+        data.forEach((nft) => {
+            var img = document.createElement('img')
+            if (nft.metadata.media.includes('https://'))
+                img.src = nft.metadata.media
+            else
+                img.src = window.metadata.base_uri + '/' + nft.metadata.media
+            img.style.width = "100px"
+            img.style.opacity = 0.5
+            img.onclick = () => {
+                img.style.opacity = 1.5 - img.style.opacity
+                document.getElementById('tokenId').value = nft.token_id
+            }
+            document.querySelector('#nftListBox').append(img)
+            console.log(data)
+        })
+    }
+    document.getElementById('connectedWallet').innerHTML = `Connected Wallet: ${window.accountId}`
+}
+
+// Initialize contract & set global variables
+async function initContract() {
+    var contract_address = document.getElementById('contractAddress').value
     // Initializing our contract APIs by contract name and configuration
     window.contract = await new nearApi.Contract(
         window.walletConnection.account(),
         contract_address,
         {
             // View methods are read only. They don't modify the state, but usually return some value.
-            viewMethods: ['nft_token', 'nft_metadata'],
+            viewMethods: ['nft_token', 'nft_metadata', 'nft_tokens_for_owner'],
             // Change methods can modify the state. But you don't receive the returned value when called.
-            changeMethods: ['setGreeting']
+            changeMethods: []
         }
     )
     console.log(window.contract)
-    login(contract_address)
     window.metadata = await window.contract.nft_metadata()
     console.log(window.metadata)
 }
 
 function logout() {
+    console.log("logout")
     window.walletConnection.signOut()
     // reload page
     window.location.replace(window.location.origin + window.location.pathname)
-}
-
-function login(contract_address) {
-    // Allow the current app to make calls to the specified contract on the
-    // user's behalf.
-    // This works by creating a new access key for the user's account and storing
-    // the private key in localStorage.
-    window.walletConnection.requestSignIn(contract_address)
 }

@@ -13,6 +13,7 @@ class Sprite {
         scale = 1,
         name = '',
         health = 100,
+        baseImage = '',
     }) {
         this.relative_position = { x: 0, y: 0 }
         this.position = position
@@ -34,6 +35,7 @@ class Sprite {
         this.chat = ""
         this.health = health
         this.chatShowTime = 0
+        this.baseImage = baseImage
     }
 
     draw() {
@@ -269,9 +271,9 @@ class Boundary {
     }
 
     draw() {
-        // if (this.type === 'battle') {
-            c.lineWidth = 3
-            c.strokeRect(this.position.x, this.position.y, this.width, this.height)
-        // }
+        if (this.type === 'battle') {
+        c.lineWidth = 3
+        c.strokeRect(this.position.x, this.position.y, this.width, this.height)
+        }
     }
 }

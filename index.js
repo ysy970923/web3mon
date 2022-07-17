@@ -5,7 +5,7 @@ const foregroundImage = new Image()
 foregroundImage.src = './img/foregroundObjects.png'
 
 const playerDownImage = new Image()
-playerDownImage.src = './img/new.png'
+playerDownImage.src = './img/playerDown.png'
 
 const playerUpImage = new Image()
 playerUpImage.src = './img/playerUp.png'
@@ -33,9 +33,16 @@ document.getElementById('profileButton').addEventListener('click', (e) => {
     document.body.addEventListener('click', clickOutSideEvent, true)
 })
 
-document.getElementById('logoutButton').addEventListener('click', (e) => {
-    logout()
-    location.reload()
+function clickOutSideEvent1(e) {
+    if (!document.getElementById('guidanceCard').contains(e.target)) {
+        document.body.removeEventListener('click', clickOutSideEvent, true)
+        document.getElementById('guidanceCard').style.display = 'none'
+    }
+}
+
+document.getElementById('guidanceButton').addEventListener('click', (e) => {
+    document.getElementById('guidanceCard').style.display = 'block'
+    document.body.addEventListener('click', clickOutSideEvent1, true)
 })
 
 function truncate(input, length) {
@@ -47,17 +54,21 @@ function truncate(input, length) {
 
 let playerUrl
 let tokenId
-document.getElementById('login').addEventListener('click', (e) => {
-    var contractAdress = document.getElementById('contractAddress').value
-    initContract(contractAdress).then((val) => {
+
+document.getElementById('joinGame').addEventListener('click', (e) => {
+    initContract().then(() => {
         tokenId = document.getElementById('tokenId').value
         window.contract.nft_token({ token_id: tokenId }).then((msg) => {
+            console.log(msg)
             if (msg === null) {
                 window.alert('invalid token id')
                 return
             }
             player.name = truncate(msg.owner_id, 20)
-            playerUrl = window.metadata.base_uri + '/' + msg.metadata.media
+            if (msg.metadata.media.includes('https://'))
+                playerUrl = msg.metadata.media
+            else
+                playerUrl = window.metadata.base_uri + '/' + msg.metadata.media
             document.getElementById('chatOpenBtn').style.display = 'block'
             document.getElementById('loginDiv').style.display = 'none'
             document.getElementById('profileName').innerHTML =
@@ -71,28 +82,28 @@ document.getElementById('login').addEventListener('click', (e) => {
             document.getElementById('parasUrl').addEventListener('click', (e) => {
                 window
                     .open(
-                        `https://paras.id/token/asac.near::${msg.token_id}/${msg.token_id}`,
+                        `https://paras.id/token/${window.contract.contractId}::${msg.token_id}/${msg.token_id}`,
                         '_blank'
                     )
                     .focus()
             })
-
             makeChracterImage(playerUrl, player).then((res) => {
                 monsters.me.image = player.image
                 monsters.me.name = player.name
+                document.getElementById('loading').style.display = 'none'
                 animate()
                 connect()
             })
         })
     })
 })
-
-document.getElementById('cancel').addEventListener('click', (e) => {
-    logout()
-    window.contract.nft_metadata().then((msg) => {
-        console.log(msg)
-    })
-})
+// document.getElementById('cancel').addEventListener('click', (e) => {
+//     logout()
+//     window.contract.nft_metadata().then((msg) => {
+//         console.log(msg)
+//     })
+// })
+connectWallet()
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
@@ -115,8 +126,8 @@ console.log(charactersMap)
 
 const boundaries = []
 const offset = {
-    x: window.innerWidth / 2 - image.width / 2,
-    y: window.innerHeight / 2 - image.height / 2,
+    x: window.innerWidth / 2 - 3360 / 2,
+    y: window.innerHeight / 2 - 1920 / 2,
 }
 
 collisionsMap.forEach((row, i) => {
