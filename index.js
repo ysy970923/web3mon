@@ -22,6 +22,7 @@ const c = canvas.getContext('2d')
 var joy = new JoyStick('joyDiv');
 
 function clickOutSideEvent(e) {
+    console.log("ll")
     if (!document.getElementById('profileCard').contains(e.target)) {
         document.body.removeEventListener('click', clickOutSideEvent, true)
         document.getElementById('profileCard').style.display = 'none'
@@ -35,7 +36,7 @@ document.getElementById('profileButton').addEventListener('click', (e) => {
 
 function clickOutSideEvent1(e) {
     if (!document.getElementById('guidanceCard').contains(e.target)) {
-        document.body.removeEventListener('click', clickOutSideEvent, true)
+        document.body.removeEventListener('click', clickOutSideEvent1, true)
         document.getElementById('guidanceCard').style.display = 'none'
     }
 }
