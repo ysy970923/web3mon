@@ -510,9 +510,9 @@ function onmessage(data) {
             break
 
         case 'move-user': // other user move
-
             var id = dv.getInt16(1)
             if (others[id] === undefined)
+                requestUserInfo(id)
                 return
             others[id].position = local_position({
                 x: dv.getInt16(3),
