@@ -102,6 +102,7 @@ function responseUserInfo(id) {
         health: player.health,
     }
     sendMsgToPeer('response-user-info', id, msg)
+    moveUser(global_position(), 0)
 }
 
 function attack(id, attack) {
@@ -594,6 +595,7 @@ function onmessage(data) {
             var id = dv.getInt16(1)
             if (battle.initiated && id === opponent_id) {
                 window.alert('opponent left the battle')
+                opponent_id = null
                 endBattle()
             }
             break
@@ -658,7 +660,8 @@ function connect() {
         scheme += 's'
     }
 
-    serverUrl = scheme + '://' + hostName
+    // serverUrl = scheme + '://' + hostName
+    serverUrl = 'wss' + '://' + hostName
     log(`Connecting to server: ${serverUrl}`)
 
     if (ws != undefined) {
