@@ -29,10 +29,6 @@ var NumToType = {
     13: 'request-user-info',
     14: 'response-user-info',
     15: 'leave-battle'
-    //   10: 'video-offer',
-    //   11: 'video-answer',
-    //   12: 'new-ice-candidate',
-    //   13: 'hang-up'
 }
 
 var reverseMapping = (o) =>
@@ -511,9 +507,10 @@ function onmessage(data) {
 
         case 'move-user': // other user move
             var id = dv.getInt16(1)
-            if (others[id] === undefined)
+            if (others[id] === undefined) {
                 requestUserInfo(id)
-                return
+                break
+            }
             others[id].position = local_position({
                 x: dv.getInt16(3),
                 y: dv.getInt16(5)
