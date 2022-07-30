@@ -4,7 +4,6 @@ chatBubble.src = './img/chatBubble.png'
 class Sprite {
     constructor({
         position,
-        velocity,
         image,
         frames = { max: 1, hold: 10 },
         sprites,
@@ -12,7 +11,6 @@ class Sprite {
         rotation = 0,
         scale = 1,
         name = '',
-        health = 100,
         baseImage = '',
     }) {
         this.relative_position = { x: 0, y: 0 }
@@ -33,7 +31,6 @@ class Sprite {
         this.scale = scale
         this.name = name
         this.chat = ""
-        this.health = health
         this.chatShowTime = 0
         this.baseImage = baseImage
     }
@@ -120,28 +117,39 @@ class Sprite {
 
 class Monster extends Sprite {
     constructor({
-        position,
-        velocity,
         image,
         frames = { max: 1, hold: 10 },
         sprites,
         animate = false,
         rotation = 0,
-        isEnemy = false,
         name,
+        health,
+        isEnemy,
         attacks
     }) {
+        var position
+        if (isEnemy)
+            position = {
+                x: 650,
+                y: 100
+            }
+        else
+            position = {
+                x: 250,
+                y: 305
+            }
         super({
             position,
-            velocity,
             image,
             frames,
             sprites,
             animate,
             rotation,
+            name,
         })
+        this.initialHealth = health
+        this.health = health
         this.isEnemy = isEnemy
-        this.name = name
         this.attacks = attacks
     }
 
@@ -162,6 +170,10 @@ class Monster extends Sprite {
         document.querySelector('#dialogueBox').innerHTML =
             this.name + ' used ' + attack.name
 
+        setTimeout(() => {
+            document.querySelector('#dialogueBox').style.display = 'none';
+        }, 2000)
+
         let healthBar = '#enemyHealthBar'
         if (this.isEnemy) healthBar = '#playerHealthBar'
 
@@ -170,8 +182,8 @@ class Monster extends Sprite {
 
         recipient.health -= attack.damage
 
-        switch (attack.name) {
-            case 'Fireball':
+        switch (attack.type) {
+            case 'Fire':
                 audio.initFireball.play()
                 const fireballImage = new Image()
                 fireballImage.src = './img/fireball.png'
@@ -197,7 +209,7 @@ class Monster extends Sprite {
                         // Enemy actually gets hit
                         audio.fireballHit.play()
                         gsap.to(healthBar, {
-                            width: recipient.health + '%'
+                            width: 100 * (recipient.health) / (recipient.initialHealth) + '%'
                         })
 
                         gsap.to(recipient.position, {
@@ -218,7 +230,7 @@ class Monster extends Sprite {
                 })
 
                 break
-            case 'Default':
+            case 'Normal':
                 const tl = gsap.timeline()
 
                 let movementDistance = 20
@@ -234,7 +246,7 @@ class Monster extends Sprite {
                             // Enemy actually gets hit
                             audio.tackleHit.play()
                             gsap.to(healthBar, {
-                                width: recipient.health + '%'
+                                width: 100 * (recipient.health) / (recipient.initialHealth) + '%'
                             })
 
                             gsap.to(recipient.position, {
@@ -272,8 +284,8 @@ class Boundary {
 
     draw() {
         if (this.type === 'battle') {
-        c.lineWidth = 3
-        c.strokeRect(this.position.x, this.position.y, this.width, this.height)
+            c.lineWidth = 3
+            c.strokeRect(this.position.x, this.position.y, this.width, this.height)
         }
     }
 }

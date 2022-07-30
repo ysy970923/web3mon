@@ -50,13 +50,14 @@ const colorDistance = (c1, c2) =>
     )
 
 async function makeChracterImage(url, user) {
-    let image = await Jimp.read({ url: url })
+    var image = await Jimp.read({ url: url })
+    image = image.resize(48 * 4, 48 * 4)
     var h = image.bitmap.height;
 
     const replaceColor = { r: 0, g: 0, b: 0, a: 0 } // Color you want to replace with
     const targetColors = []
-    for (var i = 0; i < 5; i++) {
-        targetColors.push(Jimp.intToRGBA(image.getPixelColor(0, Math.floor(i * h / 5))))
+    for (var i = 0; i < 3; i++) {
+        targetColors.push(Jimp.intToRGBA(image.getPixelColor(0, Math.floor(i * h / 3))))
     }
     // Distance between two colors
     const threshold = 32 // Replace colors under this threshold. The smaller the number, the more specific it is.
@@ -67,7 +68,7 @@ async function makeChracterImage(url, user) {
             b: image.bitmap.data[idx + 2],
             a: image.bitmap.data[idx + 3]
         }
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 3; i++) {
             var targetColor = targetColors[i]
             if (colorDistance(targetColor, thisColor) <= threshold) {
                 image.bitmap.data[idx + 0] = replaceColor.r
@@ -80,12 +81,10 @@ async function makeChracterImage(url, user) {
 
     })
 
-    var resizedImage = image.resize(48 * 4, 48 * 4)
     user.baseImage = new Image()
-    user.baseImage.src = await resizedImage.getBase64Async('image/png')
+    user.baseImage.src = await image.getBase64Async('image/png')
 
-    image = image.resize(1600, 1600)
-    image = image.crop(224, 200, 48 * 22, 48 * 22)
+    image = image.crop(27, 24, 127, 127)
 
     image = image.resize(48, 48)
 
@@ -94,45 +93,33 @@ async function makeChracterImage(url, user) {
     downImage = downImage.composite(image, 48, 0)
     downImage = downImage.composite(image, 48 * 2, 0)
     downImage = downImage.composite(image, 48 * 3, 0)
+    user.sprites.down = new Image()
+    user.sprites.down.src = await downImage.getBase64Async('image/png')
+    user.image = user.sprites.down
 
     var upImage = await Jimp.read({ url: './img/playerUp.png' })
     upImage = upImage.composite(image, 0, 0)
     upImage = upImage.composite(image, 48, 0)
     upImage = upImage.composite(image, 48 * 2, 0)
     upImage = upImage.composite(image, 48 * 3, 0)
+    user.sprites.up = new Image()
+    user.sprites.up.src = await upImage.getBase64Async('image/png')
 
     var leftImage = await Jimp.read({ url: './img/playerLeft.png' })
     leftImage = leftImage.composite(image, 0, 0)
     leftImage = leftImage.composite(image, 48, 0)
     leftImage = leftImage.composite(image, 48 * 2, 0)
     leftImage = leftImage.composite(image, 48 * 3, 0)
+    user.sprites.left = new Image()
+    user.sprites.left.src = await leftImage.getBase64Async('image/png')
 
     var rightImage = await Jimp.read({ url: './img/playerRight.png' })
     rightImage = rightImage.composite(image, 0, 0)
     rightImage = rightImage.composite(image, 48, 0)
     rightImage = rightImage.composite(image, 48 * 2, 0)
     rightImage = rightImage.composite(image, 48 * 3, 0)
-
-    return new Promise((resolve) => {
-        downImage.getBase64('image/png', (err, res) => {
-            user.sprites.down = new Image()
-            user.sprites.down.src = res
-            user.image = user.sprites.down
-            upImage.getBase64('image/png', (err, res) => {
-                user.sprites.up = new Image()
-                user.sprites.up.src = res
-                leftImage.getBase64('image/png', (err, res) => {
-                    user.sprites.left = new Image()
-                    user.sprites.left.src = res
-                    rightImage.getBase64('image/png', (err, res) => {
-                        user.sprites.right = new Image()
-                        user.sprites.right.src = res
-                        resolve(true)
-                    })
-                })
-            })
-        })
-    })
+    user.sprites.right = new Image()
+    user.sprites.right.src = await rightImage.getBase64Async('image/png')
 }
 
 function getConfig(env) {
@@ -242,11 +229,11 @@ async function authorize() {
 
 // Initialize contract & set global variables
 async function initContract() {
-    var contract_address = document.getElementById('contractAddress').value
+    window.contractAddress = document.getElementById('contractAddress').value
     // Initializing our contract APIs by contract name and configuration
     window.contract = await new nearApi.Contract(
         window.walletConnection.account(),
-        contract_address,
+        window.contractAddress,
         {
             // View methods are read only. They don't modify the state, but usually return some value.
             viewMethods: ['nft_token', 'nft_metadata', 'nft_tokens_for_owner'],

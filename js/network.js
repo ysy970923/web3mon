@@ -4,17 +4,7 @@ var peerConnection = null
 var webcamStream = null
 var targetID = null
 var others = {}
-var transceiver = null // RTCRtpTransceiver
 var battle_start = false
-
-var mediaConstraints = {
-    audio: true,
-    video: {
-        aspectRatio: {
-            ideal: 1.333333
-        }
-    }
-}
 
 //0 ~ 9: binary; 10 ~: JSON string
 var NumToType = {
@@ -40,7 +30,10 @@ var reverseMapping = (o) =>
 var TypeToNum = reverseMapping(NumToType)
 
 function moveUser(pos, rot) {
-    if (!ws) return
+    if (!ws) {
+        connect()
+        return
+    }
     var buffer = new ArrayBuffer(9)
     var dataview = new DataView(buffer)
     dataview.setInt8(0, TypeToNum['move-user'])
@@ -95,7 +88,8 @@ function responseUserInfo(id) {
     var msg = {
         url: playerUrl,
         username: player.name,
-        health: player.health,
+        health: monsters[window.contractAddress].health,
+        attacks: monsters[window.contractAddress].attacks,
     }
     sendMsgToPeer('response-user-info', id, msg)
     moveUser(global_position(), 0)
@@ -209,273 +203,6 @@ function getDictFromBinary(data) {
     return msg
 }
 
-function tryInvite(id) {
-    if (!peerConnection) invite(id)
-}
-
-async function invite(id) {
-    if (peerConnection) {
-        alert("You can't start a call because you already have one open!")
-    } else {
-        targetID = id
-        log(`Inviting user ${targetID}`)
-        createPeerConnection()
-
-        try {
-            webcamStream = await navigator.mediaDevices.getUserMedia(mediaConstraints)
-            document.getElementById('local_video').srcObject = webcamStream
-        } catch (err) {
-            handleGetUserMediaError(err)
-            return
-        }
-        try {
-            webcamStream.getTracks().forEach(
-                (transceiver = (track) => {
-                    console.log(track)
-                    peerConnection.addTransceiver(track, { streams: [webcamStream] })
-                })
-            )
-        } catch (err) {
-            handleGetUserMediaError(err)
-        }
-    }
-}
-
-function closeVideoCall() {
-    var localVideo = document.getElementById('local_video')
-
-    log('Closing the call')
-
-    if (peerConnection) {
-        log('---> Closing the peer connection')
-
-        peerConnection.ontrack = null
-        peerConnection.onnicecandidate = null
-        peerConnection.oniceconnectionstatechange = null
-        peerConnection.onsignalingstatechange = null
-        peerConnection.onicegatheringstatechange = null
-        peerConnection.onnotificationneeded = null
-
-        peerConnection.getTransceivers().forEach((transceiver) => {
-            transceiver.stop()
-        })
-
-        if (localVideo.srcObject) {
-            localVideo.pause()
-            localVideo.srcObject.getTracks().forEach((track) => {
-                track.stop()
-            })
-        }
-        peerConnection.close()
-        peerConnection = null
-        webcamStream = null
-    }
-    targetID = null
-}
-
-function handleUserlistMsg() {
-    for (var [key, value] of Object.entries(others)) {
-        value.invite = () => invite(key)
-    }
-}
-
-function handleICECandidateEvent(event) {
-    if (event.candidate) {
-        log('*** Outgoing ICE candidate: ' + event.candidate.candidate)
-
-        sendMsgToServer('new-ice-candidate', {
-            target: targetID,
-            candidate: event.candidate
-        })
-    }
-}
-
-function handleICEConnectionStateChangeEvent(event) {
-    log('*** ICE connection state change to ' + peerConnection.iceConnectionState)
-
-    switch (peerConnection.iceConnectionState) {
-        case 'closed':
-        case 'failed':
-        case 'disconnected':
-            closeVideoCall()
-            break
-    }
-}
-
-function handleICEGatheringStateChangeEvent(event) {
-    log('*** ICE gathering state changed to: ' + peerConnection.iceGatheringState)
-}
-
-function handleSignalingStateChangeEvent(event) {
-    log('*** WebRTC signaling state changed to: ' + peerConnection.signalingState)
-    switch (peerConnection.signalingState) {
-        case 'closed':
-            closeVideoCall()
-            break
-    }
-}
-
-async function handleNegotiationNeededEvent() {
-    log('*** Negotiation needed')
-
-    try {
-        log('---> Creating offer')
-        var offer = await peerConnection.createOffer()
-
-        if (peerConnection.signalingState != 'stable') {
-            log('connection not stable; postponing')
-            return
-        }
-
-        log('---> Setting local description to the offer')
-        await peerConnection.setLocalDescription(offer)
-
-        log('---> Sending the offer to the remote peer')
-        sendMsgToServer('video-offer', {
-            id: myID,
-            target: targetID,
-            sdp: peerConnection.localDescription
-        })
-    } catch (err) {
-        log(
-            '*** The following error occurred while handling the negotiationneeded event:'
-        )
-        reportError(err)
-    }
-}
-
-function handleTrackEvent(event) {
-    log('*** Track event')
-    log(event.streams[0])
-    document.getElementById('received_video').srcObject = event.streams[0]
-    document.getElementById('hangup-button').disabled = false
-}
-
-function handleGetUserMediaError(e) {
-    log_error(e)
-    switch (e.name) {
-        case 'NotFoundError':
-            alert(
-                'Unable to open your call because no camera and/or microphone' +
-                'were found.'
-            )
-            break
-        case 'SecurityError':
-        case 'PermissionDeniedError':
-            // Do nothing; this is the same as the user canceling the call.
-            break
-        default:
-            alert('Error opening your camera and/or microphone: ' + e.message)
-            break
-    }
-
-    closeVideoCall()
-}
-
-async function createPeerConnection() {
-    log('Setting up a connection...')
-
-    peerConnection = new RTCPeerConnection({
-        iceServers: [
-            // Information about ICE servers - Use your own!
-            { urls: 'stun:stun4.l.google.com:19302' }
-            // {
-            //     urls: "turn:yusangyoon.com",  // A TURN server
-            //     username: "webrtc",
-            //     credential: "turnserver"
-            // }
-        ]
-    })
-
-    peerConnection.onicecandidate = handleICECandidateEvent
-    peerConnection.oniceconnectionstatechange =
-        handleICEConnectionStateChangeEvent
-    peerConnection.onicegatheringstatechange = handleICEGatheringStateChangeEvent
-    peerConnection.onsignalingstatechange = handleSignalingStateChangeEvent
-    peerConnection.onnegotiationneeded = handleNegotiationNeededEvent
-    peerConnection.ontrack = handleTrackEvent
-}
-
-async function handleVideoOfferMsg(msg) {
-    targetID = msg.id
-
-    log('Received video chat offer from ' + targetID)
-    if (!peerConnection) {
-        createPeerConnection()
-    }
-
-    var desc = new RTCSessionDescription(msg.sdp)
-
-    if (peerConnection.signalingState != 'stable') {
-        log("--> But the signaling state isn't stable, so triggering rollback")
-
-        await Promise.all([
-            peerConnection.setLocalDescription({ type: 'rollback' }),
-            peerConnection.setRemoteDescription(desc)
-        ])
-        return
-    } else {
-        log('--> Setting remote description')
-        await peerConnection.setRemoteDescription(desc)
-    }
-
-    if (!webcamStream) {
-        try {
-            webcamStream = await navigator.mediaDevices.getUserMedia(mediaConstraints)
-        } catch (err) {
-            handleGetUserMediaError(err)
-            return
-        }
-
-        document.getElementById('local_video').srcObject = webcamStream
-
-        try {
-            webcamStream
-                .getTracks()
-                .forEach(
-                    (transceiver = (track) =>
-                        peerConnection.addTransceiver(track, { streams: [webcamStream] }))
-                )
-        } catch (err) {
-            handleGetUserMediaError(err)
-        }
-    }
-    log('---> Creating and sending answer to caller')
-
-    await peerConnection.setLocalDescription(await peerConnection.createAnswer())
-
-    sendMsgToServer('video-answer', {
-        id: myID,
-        target: targetID,
-        sdp: peerConnection.localDescription
-    })
-}
-
-async function handleVideoAnswerMsg(msg) {
-    log('*** Call recipient has accepted our call')
-
-    var desc = new RTCSessionDescription(msg.sdp)
-    await peerConnection.setRemoteDescription(desc).catch(reportError)
-}
-
-async function handleNewICECandidateMsg(msg) {
-    var candidate = new RTCIceCandidate(msg.candidate)
-
-    log('*** Adding received ICE candidate: ' + JSON.stringify(candidate))
-
-    try {
-        await peerConnection.addIceCandidate(candidate)
-    } catch (err) {
-        reportError(err)
-    }
-}
-
-function handleHangUpMsg(msg) {
-    log('*** Received hang up notification from other peer')
-
-    closeVideoCall()
-}
-
 function onmessage(data) {
     var buf = new Uint8Array(data).buffer
     var dv = new DataView(buf)
@@ -499,8 +226,6 @@ function onmessage(data) {
             msg['user-list'].forEach((id) => {
                 if (!(id in others || id == myID)) {
                     requestUserInfo(id)
-                    // if (!peerConnection)
-                    //     invite(id);
                 }
             })
             break
@@ -511,23 +236,23 @@ function onmessage(data) {
                 requestUserInfo(id)
                 break
             }
-            others[id].position = local_position({
+            others[id].sprite.position = local_position({
                 x: dv.getInt16(3),
                 y: dv.getInt16(5)
             })
             const rotation = dv.getInt16(7)
             switch (rotation) {
                 case 0:
-                    others[id].image = others[id].sprites.up
+                    others[id].sprite.image = others[id].sprite.sprites.up
                     break
                 case 1:
-                    others[id].image = others[id].sprites.left
+                    others[id].sprite.image = others[id].sprite.sprites.left
                     break
                 case 2:
-                    others[id].image = others[id].sprites.down
+                    others[id].sprite.image = others[id].sprite.sprites.down
                     break
                 case 3:
-                    others[id].image = others[id].sprites.right
+                    others[id].sprite.image = others[id].sprite.sprites.right
                     break
             }
             break
@@ -535,7 +260,7 @@ function onmessage(data) {
         case 'send-chat':
             var id = dv.getInt16(1)
             msg = receiveMsgFromAll(data)
-            others[id].chat = msg.chat
+            others[id].sprite.chat = msg.chat
             break
 
         case 'battle-offer':
@@ -557,35 +282,37 @@ function onmessage(data) {
             break
 
         case 'request-user-info':
-            console.log('request-user-info')
             var id = dv.getInt16(1)
             responseUserInfo(id)
             break
 
         case 'response-user-info':
             var id = dv.getInt16(1)
-            console.log(id)
             msg = receiveMsgFromPeer(data)
-            others[id] = new Sprite({
-                position: {
-                    x: 0,
-                    y: 0
-                },
-                image: playerDownImage,
-                frames: {
-                    max: 4,
-                    hold: 10
-                },
-                sprites: {
-                    up: playerDownImage,
-                    left: playerLeftImage,
-                    right: playerRightImage,
-                    down: playerDownImage
-                },
-                name: msg.username,
+            others[id] = {
+                collection: msg.collection,
                 health: msg.health,
-            })
-            makeChracterImage(msg.url, others[id])
+                attacks: msg.attacks,
+                sprite: new Sprite({
+                    position: {
+                        x: 0,
+                        y: 0
+                    },
+                    image: playerDownImage,
+                    frames: {
+                        max: 4,
+                        hold: 10
+                    },
+                    sprites: {
+                        up: playerDownImage,
+                        left: playerLeftImage,
+                        right: playerRightImage,
+                        down: playerDownImage
+                    },
+                    name: msg.username,
+                })
+            }
+            makeChracterImage(msg.url, others[id].sprite)
             break
 
         case 'leave-battle':
@@ -595,26 +322,6 @@ function onmessage(data) {
                 opponent_id = null
                 endBattle()
             }
-            break
-
-        case 'video-offer':
-            msg = getDictFromBinary(data)
-            handleVideoOfferMsg(msg)
-            break
-
-        case 'video-answer':
-            msg = getDictFromBinary(data)
-            handleVideoAnswerMsg(msg)
-            break
-
-        case 'new-ice-candidate':
-            msg = getDictFromBinary(data)
-            handleNewICECandidateMsg(msg)
-            break
-
-        case 'hang-up':
-            msg = getDictFromBinary(data)
-            handleHangUpMsg(data)
             break
 
         default:

@@ -77,9 +77,9 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
             document.getElementById('profileNFT').innerHTML = player.name
             document.getElementById('profileImg').src = playerUrl
             document.getElementById('profileHP').innerHTML =
-                'HP: ' + player.health
+                'HP: ' + monsters[window.contractAddress].health
             document.getElementById('profileAP').innerHTML =
-                'AP: ' + monsters.me.attacks[0].damage
+                'AP: ' + monsters[window.contractAddress].attacks[0].damage
             document.getElementById('parasUrl').addEventListener('click', (e) => {
                 window
                     .open(
@@ -89,8 +89,6 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
                     .focus()
             })
             makeChracterImage(playerUrl, player).then((res) => {
-                monsters.me.image = player.image
-                monsters.me.name = player.name
                 document.getElementById('loading').style.display = 'none'
                 animate()
                 connect()
@@ -365,8 +363,8 @@ function onResizeEvent() {
         renderable.position.y = renderable.position.y + delta_y
     })
     for (const key in others) {
-        others[key].position.x = others[key].position.x + delta_x
-        others[key].position.y = others[key].position.y + delta_y
+        others[key].sprite.position.x = others[key].sprite.position.x + delta_x
+        others[key].sprite.position.y = others[key].sprite.position.y + delta_y
     }
 }
 
@@ -376,7 +374,7 @@ function animate() {
         renderable.draw()
     })
     for (const key in others) {
-        others[key].draw()
+        others[key].sprite.draw()
     }
     joyToKey()
     let moving = true
@@ -395,7 +393,7 @@ function animate() {
         return
 
     if (opponent_id !== null)
-        if ((Math.abs(others[opponent_id].position.x - player.position.x) + Math.abs(others[opponent_id].position.y - player.position.y) > 30))
+        if ((Math.abs(others[opponent_id].sprite.position.x - player.position.x) + Math.abs(others[opponent_id].sprite.position.y - player.position.y) > 30))
             opponent_id = null
 
     // activate a battle
@@ -405,7 +403,7 @@ function animate() {
             if (checkCollision(player, battleZone)) {
                 if (opponent_id === null)
                     for (const key in others) {
-                        if (checkCollision(others[key], battleZone)) {
+                        if (checkCollision(others[key].sprite, battleZone)) {
                             battleOffer(key)
                             break
                         }
@@ -451,7 +449,7 @@ function animate() {
             })
         if (moving)
             for (const key in others) {
-                others[key].position.y += 3
+                others[key].sprite.position.y += 3
             }
     } else if (keys.a.pressed && lastKey === 'a') {
         player.animate = true
@@ -489,7 +487,7 @@ function animate() {
             })
         if (moving)
             for (const key in others) {
-                others[key].position.x += 3
+                others[key].sprite.position.x += 3
             }
     } else if (keys.s.pressed && lastKey === 's') {
         player.animate = true
@@ -527,7 +525,7 @@ function animate() {
             })
         if (moving)
             for (const key in others) {
-                others[key].position.y -= 3
+                others[key].sprite.position.y -= 3
             }
     } else if (keys.d.pressed && lastKey === 'd') {
         player.animate = true
@@ -565,7 +563,7 @@ function animate() {
             })
         if (moving)
             for (const key in others) {
-                others[key].position.x -= 3
+                others[key].sprite.position.x -= 3
             }
     }
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed)

@@ -1,35 +1,14 @@
 const monsters = {
-  me: {
-    position: {
-      x: 250,
-      y: 305
+    "asac.near": {
+        health: 120,
+        attacks: [attacks["Ape Tackle"], attacks.Fireball]
     },
-    image: {
-      src: './img/embySprite.png'
+    "nearnautnft.near": {
+        health: 105,
+        attacks: [attacks["Ape Tackle"], attacks.Fireball]
     },
-    // frames: {
-    //   max: 4,
-    //   hold: 30
-    // },
-    animate: true,
-    name: 'Emby',
-    attacks: [attacks.Default, attacks.Fireball]
-  },
-  opponent: {
-    position: {
-      x: 650,
-      y: 100
+    "near-punks.near": {
+        health: 100,
+        attacks: [attacks["Ape Tackle"], attacks.Fireball]
     },
-    image: {
-      src: './img/draggleSprite.png'
-    },
-    // frames: {
-    //   max: 4,
-    //   hold: 30
-    // },
-    animate: true,
-    isEnemy: true,
-    name: 'Draggle',
-    attacks: [attacks.Default, attacks.Fireball]
-  }
 }

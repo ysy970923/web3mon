@@ -71,12 +71,24 @@ function initBattle() {
         document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
     }
 
-    opponent = new Monster(monsters.opponent)
-    opponent.image = others[opponent_id].baseImage
-    opponent.health = others[opponent_id].health
-    opponent.name = others[opponent_id].name
-    me = new Monster(monsters.me)
-    me.image = player.baseImage
+    var opponentMonster = {
+        image: others[opponent_id].sprite.baseImage,
+        isEnemy: true,
+        name: others[opponent_id].sprite.name,
+        health: others[opponent_id].health,
+        attacks: others[opponent_id].attacks,
+    }
+
+    opponent = new Monster(opponentMonster)
+
+    var myMonster = {
+        image: player.baseImage,
+        isEnemy: false,
+        name: player.name,
+        health: monsters[window.contractAddress].health,
+        attacks: monsters[window.contractAddress].attacks,
+    }
+    me = new Monster(myMonster)
     renderedSprites = [opponent, me]
     queue = []
 
