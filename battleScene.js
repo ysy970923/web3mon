@@ -146,6 +146,6 @@ document.querySelector('#dialogueBox').addEventListener('click', (e) => {
     if (queue.length > 0) {
         queue[0]()
         queue.shift()
-    } else if (my_turn) e.currentTarget.style.display = 'none'
+    }
     else document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
 })

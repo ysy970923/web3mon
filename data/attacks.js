@@ -1,19 +1,25 @@
 const attacks = {
-    "Ape Tackle": {
-        name: 'Ape Tackle',
-        damage: 10,
+    "Banana Kick": {
+        name: 'Banana Kick',
+        damage: 18,
         type: 'Normal',
         color: 'black'
     },
-    "Kangaroo Punch": {
-        name: 'Kangaroo Punch',
-        damage: 10,
+    "Drain Punch": {
+        name: 'Drain Punch',
+        damage: 25,
+        type: 'Normal',
+        color: 'black'
+    },
+    "Thunder Punk": {
+        name: 'Thunder Punk',
+        damage: 23,
         type: 'Normal',
         color: 'black'
     },
     Fireball: {
         name: 'Fireball',
-        damage: 55,
+        damage: 20,
         type: 'Fire',
         color: 'red'
     }
