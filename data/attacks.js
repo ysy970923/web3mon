@@ -17,6 +17,18 @@ const attacks = {
         type: 'Normal',
         color: 'black'
     },
+    "Kangaroo Punch": {
+        name: 'Kangaroo Punch',
+        damage: 20,
+        type: 'Normal',
+        color: 'black'
+    },
+    "Tinker Shot": {
+        name: 'Tinker Shot',
+        damage: 20,
+        type: 'Normal',
+        color: 'black'
+    },
     Fireball: {
         name: 'Fireball',
         damage: 20,

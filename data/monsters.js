@@ -11,4 +11,12 @@ const monsters = {
         health: 100,
         attacks: [attacks["Thunder Punk"], attacks.Fireball]
     },
+    "classykangaroos1.near": {
+        health: 100,
+        attacks: [attacks["Kangaroo Punch"], attacks.Fireball]
+    },
+    "tinkerunion_nft.enleap.near": {
+        health: 100,
+        attacks: [attacks["Tinker Shot"], attacks.Fireball]
+    },
 }
