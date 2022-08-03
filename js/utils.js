@@ -204,9 +204,11 @@ async function authorize() {
     await initContract()
     var contract_address = document.getElementById('contractAddress').value
     window.walletConnection.requestSignIn(contract_address)
-    var data = await window.contract.nft_tokens_for_owner({ account_id: window.accountId })
+    var data = await window.contract.nft_tokens_for_owner({ account_id: window.accountId, from_index: '0', limit:50 })
+    // var data = await window.contract.nft_tokens_for_owner({ account_id: 'nearmoondao.near',  })
     document.querySelector('#nftListBox').innerHTML = ""
     document.getElementById('tokenId').value = ""
+    console.log(data)
     if (data.length !== 0) {
         data.forEach((nft) => {
             var img = document.createElement('img')
@@ -221,7 +223,6 @@ async function authorize() {
                 document.getElementById('tokenId').value = nft.token_id
             }
             document.querySelector('#nftListBox').append(img)
-            console.log(data)
         })
     }
     document.getElementById('connectedWallet').innerHTML = `Connected Wallet: ${window.accountId}`
@@ -236,7 +237,7 @@ async function initContract() {
         window.contractAddress,
         {
             // View methods are read only. They don't modify the state, but usually return some value.
-            viewMethods: ['nft_token', 'nft_metadata', 'nft_tokens_for_owner'],
+            viewMethods: ['nft_token', 'nft_metadata', 'nft_tokens_for_owner', 'nft_supply_for_owner'],
             // Change methods can modify the state. But you don't receive the returned value when called.
             changeMethods: []
         }
