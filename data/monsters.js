@@ -19,4 +19,8 @@ const monsters = {
         health: 100,
         attacks: [attacks["Tinker Shot"], attacks.Fireball]
     },
+    "v0.apemetaerror.near": {
+        health: 100,
+        attacks: [attacks["Ape Beam"], attacks.Fireball]
+    }
 }

@@ -5,6 +5,12 @@ const attacks = {
         type: 'Normal',
         color: 'black'
     },
+    "Ape Beam": {
+        name: 'Ape Beam',
+        damage: 20,
+        type: 'Normal',
+        color: 'black'
+    },
     "Drain Punch": {
         name: 'Drain Punch',
         damage: 25,

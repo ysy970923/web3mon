@@ -108,7 +108,16 @@ function initBattle() {
                 recipient: opponent,
                 renderedSprites
             })
-            attack(opponent_id, me.attacks.indexOf(selectedAttack))
+            // 250 is bot
+            if (opponent_id == 250)
+                setTimeout(() => {
+                    if (Math.random() < 0.5)
+                        attacked(0)
+                    else
+                        attacked(1)
+                }, 1000)
+            else
+                attack(opponent_id, me.attacks.indexOf(selectedAttack))
 
             if (opponent.health <= 0) {
                 queue.push(() => {

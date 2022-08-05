@@ -208,7 +208,6 @@ async function authorize() {
     // var data = await window.contract.nft_tokens_for_owner({ account_id: 'nearmoondao.near',  })
     document.querySelector('#nftListBox').innerHTML = ""
     document.getElementById('tokenId').value = ""
-    console.log(data)
     if (data.length !== 0) {
         data.forEach((nft) => {
             var img = document.createElement('img')

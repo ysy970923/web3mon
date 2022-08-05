@@ -80,7 +80,7 @@ class Sprite {
       this.chatShowTime += 1
       c.drawImage(chatBubble, image.position.x + 40, image.position.y - 80)
 
-      c.fillText(this.chat, image.position.x + 55, image.position.y - 40)
+      c.fillText(this.chat, image.position.x + 45, image.position.y - 40)
 
       if (this.chatShowTime > 600) {
         this.chatShowTime = 0
@@ -284,7 +284,8 @@ class Boundary {
 
   draw() {
     if (this.type === 'battle') {
-      c.lineWidth = 3
+      c.lineWidth = 2
+      c.strokeStyle = "#FF0000";
       c.strokeRect(this.position.x, this.position.y, this.width, this.height)
     }
   }
