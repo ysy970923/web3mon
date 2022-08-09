@@ -45,6 +45,10 @@ document.getElementById('guidanceButton').addEventListener('click', (e) => {
     document.body.addEventListener('click', clickOutSideEvent1, true)
 })
 
+document.getElementById('closeResultBtn').addEventListener('click', (e) => {
+    document.getElementById('battleResultCard').style.display = 'none'
+})
+
 // click opponent to offer battle
 canvas.addEventListener('click', (e) => {
     // need to be ready and not currently battling
@@ -57,13 +61,29 @@ canvas.addEventListener('click', (e) => {
             for (let i = 0; i < battleZones.length; i++) {
                 const battleZone = battleZones[i]
                 if (checkCollision(others[key].sprite, battleZone)) {
-                    if (key == 250) {
-                        opponent_id = key
-                        battle_start = true
-                        my_turn = true
-                    }
-                    else
-                        battleOffer(key)
+                    document.getElementById('acceptBattleBtn').style.display = 'inline-block'
+                    document.getElementById('refuseBattleBtn').style.display = 'inline-block'
+                    document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
+                    document.getElementById('refuseBattleBtn').replaceWith(document.getElementById('refuseBattleBtn').cloneNode(true));
+
+                    document.getElementById('acceptBattleCard').style.display = 'block'
+                    document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[key].sprite.name
+                    document.getElementById('acceptBattleBtn').addEventListener('click', (e) => {
+                        if (key == 250) {
+                            opponent_id = key
+                            battle_start = true
+                            my_turn = true
+                        }
+                        else {
+                            document.getElementById('battleOpponentName2').innerText = 'Waiting for accpetance...'
+                            document.getElementById('acceptBattleBtn').style.display = 'none'
+                            document.getElementById('refuseBattleBtn').style.display = 'none'
+                            battleOffer(key)
+                        }
+                    })
+                    document.getElementById('refuseBattleBtn').addEventListener('click', (e) => {
+                        document.getElementById('acceptBattleCard').style.display = 'none'
+                    })
                     break
                 }
             }
@@ -86,7 +106,6 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
     initContract().then(() => {
         tokenId = document.getElementById('tokenId').value
         window.contract.nft_token({ token_id: tokenId }).then((msg) => {
-            console.log(msg)
             if (msg === null) {
                 window.alert('invalid token id')
                 return
@@ -433,6 +452,7 @@ function animate() {
 
     if (battle_start) {
         battle_start = false
+        document.getElementById('acceptBattleCard').style.display = 'none'
         enterBattle(animationId)
     }
 

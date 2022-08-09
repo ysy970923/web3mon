@@ -22,18 +22,19 @@ function attacked(attack) {
             recipient: me,
             renderedSprites
         })
+        my_turn = true
 
         if (me.health <= 0) {
             queue.push(() => {
                 me.faint()
             })
 
-            endBattle()
+            endBattle('LOSE')
         }
     })
 }
 
-function endBattle() {
+function endBattle(result) {
     queue.push(() => {
         // fade back to black
         gsap.to('#overlappingDiv', {
@@ -42,6 +43,8 @@ function endBattle() {
                 cancelAnimationFrame(battleAnimationId)
                 animate()
                 document.querySelector('#userInterface').style.display = 'none'
+                document.getElementById('battleResultCard').style.display = 'block'
+                document.getElementById('battleResult').innerText = `You ${result}!`
                 document.querySelector('#joyDiv').style.display = 'block'
                 gsap.to('#overlappingDiv', {
                     opacity: 0
@@ -102,6 +105,9 @@ function initBattle() {
     document.querySelectorAll('button').forEach((button) => {
         button.addEventListener('click', (e) => {
             if (!my_turn) return
+            
+            my_turn = false
+
             const selectedAttack = attacks[e.currentTarget.innerHTML]
             me.attack({
                 attack: selectedAttack,
@@ -109,13 +115,15 @@ function initBattle() {
                 renderedSprites
             })
             // 250 is bot
-            if (opponent_id == 250)
+            if (opponent_id == 250) {
                 setTimeout(() => {
                     if (Math.random() < 0.5)
                         attacked(0)
                     else
                         attacked(1)
-                }, 1000)
+                }, 3000)
+            }
+
             else
                 attack(opponent_id, me.attacks.indexOf(selectedAttack))
 
@@ -123,7 +131,7 @@ function initBattle() {
                 queue.push(() => {
                     opponent.faint()
                 })
-                endBattle()
+                endBattle('WIN')
             }
         })
 

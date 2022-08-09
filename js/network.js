@@ -18,7 +18,8 @@ var NumToType = {
     12: 'attack',
     13: 'request-user-info',
     14: 'response-user-info',
-    15: 'leave-battle'
+    15: 'leave-battle',
+    16: 'battle-deny'
 }
 
 var reverseMapping = (o) =>
@@ -87,6 +88,19 @@ function battleAnswer(id) {
     ws.send(buffer)
 }
 
+function battleDeny(id, reason) {
+    if (!checkOrReconnect()) return
+    console.log('refuse battle')
+    var buffer = new ArrayBuffer(7)
+    var dataview = new DataView(buffer)
+    dataview.setInt8(0, TypeToNum['battle-deny'])
+    dataview.setInt16(1, myID)
+    dataview.setInt16(3, id)
+    // 0: already on battle, 1: refuse
+    dataview.setInt16(5, reason)
+    ws.send(buffer)
+}
+
 function requestUserInfo(id) {
     if (!checkOrReconnect()) return
     var buffer = new ArrayBuffer(5)
@@ -119,7 +133,6 @@ function attack(id, attack) {
     dataview.setInt16(3, id)
     dataview.setInt16(5, attack)
     ws.send(buffer)
-    my_turn = false
 }
 
 function leaveBattle(id) {
@@ -281,10 +294,40 @@ function onmessage(data) {
             break
 
         case 'battle-offer':
+            console.log('battle offered')
             if (!battle.initiated) {
-                opponent_id = dv.getInt16(1)
-                battleAnswer(opponent_id)
-                battle_start = true
+                document.getElementById('acceptBattleBtn').style.display = 'inline-block'
+                document.getElementById('refuseBattleBtn').style.display = 'inline-block'
+                document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
+                document.getElementById('refuseBattleBtn').replaceWith(document.getElementById('refuseBattleBtn').cloneNode(true));
+                
+                document.getElementById('acceptBattleCard').style.display = 'block'
+                document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[dv.getInt16(1)].sprite.name
+                document.getElementById('acceptBattleBtn').addEventListener('click', (e) => {
+                    opponent_id = dv.getInt16(1)
+                    battleAnswer(opponent_id)
+                    battle_start = true
+                })
+                document.getElementById('refuseBattleBtn').addEventListener('click', (e) => {
+                    battleDeny(dv.getInt16(1), 1)
+                    document.getElementById('acceptBattleCard').style.display = 'none'
+                })
+            }
+            else {
+                battleDeny(dv.getInt16(1), 0)
+            }
+            break
+
+        case 'battle-deny':
+            document.getElementById('acceptBattleCard').style.display = 'none'
+            if (!battle.initiated) {
+                var reason = dv.getInt16(5)
+                console.log('battle denied')
+                console.log(reason)
+                if (reason === 0)
+                    window.alert('Opponent is already on Battle')
+                else if (reason === 1)
+                    window.alert('Opponent Refused to Battle')
             }
             break
 
@@ -297,7 +340,6 @@ function onmessage(data) {
         case 'attack':
             var attack = dv.getInt16(5)
             attacked(attack)
-            my_turn = true
             break
 
         case 'request-user-info':

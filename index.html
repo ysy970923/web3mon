@@ -187,25 +187,6 @@
     <div id="loading" class="loader"></div>
     <div id="joyDiv" style="position:absolute;bottom:0;right:0;width:200px;height:200px;margin-bottom:20px;z-index:9;">
     </div>
-    <!-- <div id="container" style="
-    background-color: white;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 10;">
-        <div id="before">
-            <h3>Original</h3>
-            <div class="image-container">
-                <img src="" />
-            </div>
-        </div>
-        <div id="afterCrop">
-            <h3>After Crop</h3>
-            <div class="image-container"><img src="" /></div>
-        </div>
-    </div> -->
     <button id="chatOpenBtn" class="open-button" onclick="openForm()" style="display: none;">Chat</button>
     <div class="chat-popup" id="myForm" style="
     position: absolute;
@@ -323,7 +304,7 @@
 
     <div id="profileCard" class="card" style="
     position: absolute;
-    top: 40%;
+    top: 20%;
     left: 40%;
     z-index: 9;
     display: none;">
@@ -337,15 +318,36 @@
 
     <div id="guidanceCard" class="card" style="
     position: absolute;
-    top: 40%;
+    top: 30%;
     left: 40%;
     z-index: 9;
     padding: 20px;
     display: none;">
-    <h2>Game Guidance</h2>
-    <p>This is a multiplayer game.</p>
-    <p>You can walk, chat and battle with other players within the game.</p>
-    <p>Step into the same Battle Zone box with other player to enter battle.</p>
+        <h2>Game Guidance</h2>
+        <p>This is a multiplayer game.</p>
+        <p>You can walk, chat and battle with other players within the game.</p>
+        <p>Step into the same Battle Zone box with other player to enter battle.</p>
+    </div>
+
+    <div id="acceptBattleCard" class="card" style="position: absolute;
+    top: 30%;
+    left: 40%;
+    z-index: 9;
+    padding: 20px;
+    display: none;">
+        <h2>Start Battle</h2>
+        <p id="battleOpponentName2"></p>
+        <button id="acceptBattleBtn" class="cancelbtn">YES</button>
+        <button id="refuseBattleBtn" class="cancelbtn">NO</button>
+    </div>
+
+    <div id="battleResultCard" class="card" style="position: absolute;top: 30%;
+    left: 40%;
+    z-index: 9;
+    padding: 20px;
+    display: none;">
+        <h2 id="battleResult"></h2>
+        <button id="closeResultBtn" class="cancelbtn">YES</button>
     </div>
 
     <canvas></canvas>
