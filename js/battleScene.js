@@ -68,7 +68,7 @@ function initBattle() {
     document.querySelector('#playerHealthBar').style.width = '100%'
     document.querySelector('#attacksBox').replaceChildren()
     document.querySelector('#battleMyName').innerHTML = `me(${player.name})`
-    document.querySelector('#battleOpponentName').innerHTML = `opponent(${others[opponent_id].name})`
+    document.querySelector('#battleOpponentName').innerHTML = `opponent(${others[opponent_id].sprite.name})`
     if (!my_turn) {
         document.querySelector('#dialogueBox').style.display = 'block'
         document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
@@ -133,13 +133,6 @@ function initBattle() {
                 })
                 endBattle('WIN')
             }
-        })
-
-        button.addEventListener('mouseenter', (e) => {
-            // console.log("sadf")
-            //   const selectedAttack = attacks[e.currentTarget.innerHTML]
-            //   document.querySelector('#attackType').innerHTML = selectedAttack.type
-            //   document.querySelector('#attackType').style.color = selectedAttack.color
         })
     })
 }

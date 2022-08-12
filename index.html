@@ -1,463 +1,408 @@
-<head>
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-    <style>
-        * {
-            font-family: 'Press Start 2P', cursive;
-        }
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-        body {
-            background-color: black;
-        }
-
-        h1 {
-            margin: 0;
-        }
-
-        button {
-            border: 0;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #ddd;
-        }
-    </style>
-    <style>
-        Body {
-            background-color: pink;
-        }
-
-        form {
-            border: 3px solid #f1f1f1;
-        }
-
-        input[type=text],
-        input[type=password] {
-            width: 100%;
-            margin: 8px 0;
-            padding: 12px 20px;
-            display: inline-block;
-            border: 2px solid green;
-            box-sizing: border-box;
-        }
-
-        button:hover {
-            opacity: 0.7;
-        }
-
-        .cancelbtn {
-            width: auto;
-            padding: 10px 18px;
-            margin: 10px 5px;
-        }
-
-        .container {
-            padding: 25px;
-            background-color: lightblue;
-        }
-    </style>
-    <style>
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            max-width: 300px;
-            margin: auto;
-            text-align: center;
-            background-color: white;
-        }
-
-        .title {
-            color: grey;
-            font-size: 10px;
-        }
-
-        a {
-            text-decoration: none;
-            font-size: 22px;
-            color: black;
-        }
-
-        a:hover {
-            opacity: 0.7;
-        }
-    </style>
-    <style>
-        /* Button used to open the chat form - fixed at the bottom of the page */
-        .open-button {
-            background-color: #555;
-            color: white;
-            padding: 16px 20px;
-            border: none;
-            cursor: pointer;
-            opacity: 0.8;
-            position: fixed;
-            bottom: 23px;
-            left: 28px;
-            width: 280px;
-        }
-
-        /* The popup chat - hidden by default */
-        .form-popup {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            right: 15px;
-            border: 3px solid #f1f1f1;
-            z-index: 9;
-        }
-
-        /* Add styles to the form container */
-        .form-container {
-            max-width: 300px;
-            padding: 10px;
-            background-color: white;
-        }
-
-        /* Full-width textarea */
-        .form-container textarea {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            border: none;
-            background: #f1f1f1;
-            resize: none;
-            min-height: 200px;
-        }
-
-        /* When the textarea gets focus, do something */
-        .form-container textarea:focus {
-            background-color: #ddd;
-            outline: none;
-        }
-
-        /* Set a style for the submit/login button */
-        .form-container .btn {
-            background-color: #04AA6D;
-            color: white;
-            padding: 16px 20px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
-
-        /* Add a red background color to the cancel button */
-        .form-container .cancel {
-            background-color: red;
-        }
-
-        /* Add some hover effects to buttons */
-        .form-container .btn:hover,
-        .open-button:hover {
-            opacity: 1;
-        }
-    </style>
-    <style>
-        .loader {
-            position: absolute;
-            border: 16px solid #f3f3f3;
-            /* Light grey */
-            border-top: 16px solid #3498db;
-            /* Blue */
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-            top: calc(50% - 60px);
-            left: calc(50% - 60px);
-            z-index: -1;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-</head>
-
-<div style="display: inline-block; position: relative; width: 100%;">
-    <div id="loading" class="loader"></div>
-    <div id="joyDiv" style="position:absolute;bottom:0;right:0;width:200px;height:200px;margin-bottom:20px;z-index:9;">
-    </div>
-    <button id="chatOpenBtn" class="open-button" onclick="openForm()" style="display: none;">Chat</button>
-    <div class="chat-popup" id="myForm" style="
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 1;
-    display: none;
-    z-index:19;">
-        <form class="form-container">
-            <h1>Chat</h1>
-
-            <label for="msg"><b>Message</b></label>
-            <textarea id="chat" placeholder="Up to 10 words..." name="msg" maxlength="10" required></textarea>
-
-            <button type="button" class="btn" onclick="sendChat()">Send</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-        </form>
-    </div>
-
-    <div id="overlappingDiv" style="
-      background-color: black;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 10;
-    "></div>
-
-    <div id="loginDiv" class="modal" style="
-    background-color: white;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 1;
-    z-index: 10;">
-        <div class="container">
-            <div style="margin-bottom:40px;">
-                <h2>Welcome to Web3Mon Minigame!</h2>
-            </div>
-            <div style="margin-bottom:40px;">
-                <p>1. Choose NFT collection to use.</p>
-            </div>
-            <div>
-                <label>NFT Contract Address:</label>
-            </div>
-            <div style="width: 100%;
-                margin: 8px 0;
-                display: inline-block;
-                box-sizing: border-box;
-                margin-bottom:40px;">
-                <select id="contractAddress" style="padding: 12px 20px;" onchange="connectWallet()">
-                    <option value="nearnautnft.near">NEARNauts</option>
-                    <option value="asac.near">Antisocial Ape Club</option>
-                    <option value="near-punks.near">NPunks</option>
-                    <!-- <option value="v0.apemetaerror.near">APE META ERROR Gen 0</option> -->
-                    <option value="classykangaroos1.near">Classy Kangaroo</option>
-                    <option value="tinkerunion_nft.enleap.near">Near Tinker Union</option>
-                </select>
-            </div>
-            <div style="margin-bottom:40px;">
-                <p>2. Type ID of the NFT to use.</p>
-                <p>(You can connect wallet and search for your NFT)</p>
-                <p>(or just type in NFT ID / no need to connect wallet)</p>
-                <button class="cancelbtn" onclick="authorize()">Connect Wallet</button>
-                <button type="button" class="cancelbtn" onclick="logout()">Disconnect Wallet</button>
-                <p id="connectedWallet"></p>
-                <p>Select NFT to use</p>
-                <div id="nftListBox">
-                </div>
-            </div>
-            <div style="margin-bottom:40px;">
-                <label>NFT ID:</label>
-                <input type="text" placeholder="Enter ID" id="tokenId" required>
-            </div>
-            <div>
-                <button id="joinGame" type="button" class="cancelbtn">Join Game</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="buttonSection" style="
-    position: absolute;
-    opacity: 1;
-    top: 0;
-    right: 0;
-    z-index: 9;
-    text-align: right;
-    ">
-        <div>
-            <button id="profileButton" type="button" class="cancelbtn">
-                My Profile
-            </button>
-        </div>
-        <div>
-            <button id="guidanceButton" type="button" class="cancelbtn">
-                Guidance
-            </button>
-        </div>
-        <div>
-            <button onclick="location.reload()" type="button" class="cancelbtn">
-                Leave Game
-            </button>
-        </div>
-    </div>
-
-    <!-- Add icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <div id="profileCard" class="card" style="
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    z-index: 9;
-    display: none;">
-        <img id="profileImg" src="" alt="John" style="width:100%">
-        <h1 id="profileName"></h1>
-        <p id="profileNFT" class="title"></p>
-        <p id="profileHP"></p>
-        <p id="profileAP"></p>
-        <button id="parasUrl" class="cancelbtn">see on paras</button>
-    </div>
-
-    <div id="guidanceCard" class="card" style="
-    position: absolute;
-    top: 30%;
-    left: 40%;
-    z-index: 9;
-    padding: 20px;
-    display: none;">
-        <h2>Game Guidance</h2>
-        <p>This is a multiplayer game.</p>
-        <p>You can walk, chat and battle with other players within the game.</p>
-        <p>Step into the same Battle Zone box with other player to enter battle.</p>
-    </div>
-
-    <div id="acceptBattleCard" class="card" style="position: absolute;
-    top: 30%;
-    left: 40%;
-    z-index: 9;
-    padding: 20px;
-    display: none;">
-        <h2>Start Battle</h2>
-        <p id="battleOpponentName2"></p>
-        <button id="acceptBattleBtn" class="cancelbtn">YES</button>
-        <button id="refuseBattleBtn" class="cancelbtn">NO</button>
-    </div>
-
-    <div id="battleResultCard" class="card" style="position: absolute;top: 30%;
-    left: 40%;
-    z-index: 9;
-    padding: 20px;
-    display: none;">
-        <h2 id="battleResult"></h2>
-        <button id="closeResultBtn" class="cancelbtn">YES</button>
-    </div>
-
-    <canvas></canvas>
-
-    <div id="userInterface" style="display: none">
-        <!-- Represents health bar of draggle (enemy) -->
-        <div style="
-        background-color: white;
-        width: 250px;
-        position: absolute;
-        top: 50px;
-        left: 50px;
-        border: 4px black solid;
-        padding: 12px;
-      ">
-            <h1 style="font-size: 16px" id="battleOpponentName"></h1>
-            <div style="position: relative">
-                <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
-                <div id="enemyHealthBar" style="
-            height: 5px;
-            background-color: green;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-          "></div>
-            </div>
-        </div>
-
-        <!-- Represents health bar of emby (us) -->
-        <div style="
-        background-color: white;
-        width: 250px;
-        position: absolute;
-        top: 150px;
-        left: 50px;
-        border: 4px black solid;
-        padding: 12px;
-      ">
-            <h1 style="font-size: 16px" id="battleMyName"></h1>
-            <div style="position: relative">
-                <div style="height: 5px; background-color: #ccc; margin-top: 10px"></div>
-                <div id="playerHealthBar" style="
-            height: 5px;
-            background-color: green;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-          "></div>
-            </div>
-        </div>
-
-        <div style="
-        background-color: white;
-        height: 140px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        border-top: 4px black solid;
-        display: flex;
-      ">
-            <div id="dialogueBox" style="
+  <body>
+    <div style="display: inline-block; position: relative; width: 100%">
+      <div id="loading" class="loader"></div>
+      <div
+        id="joyDiv"
+        style="
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 200px;
+          height: 200px;
+          margin-bottom: 20px;
+          z-index: 9;
+        "
+      ></div>
+      <button
+        id="chatOpenBtn"
+        class="open-button"
+        onclick="openForm()"
+        style="display: none"
+      >
+        Chat
+      </button>
+      <div
+        class="chat-popup"
+        id="myForm"
+        style="
           position: absolute;
           top: 0;
           right: 0;
           bottom: 0;
           left: 0;
-          background-color: white;
-          padding: 12px;
+          opacity: 1;
           display: none;
-          cursor: pointer;
-        ">
-                sdkfjlsdajl
-            </div>
-            <div id="attacksBox" style="
-          width: 66.66%;
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-        "></div>
-            <div style="
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 33.33%;
-          border-left: 4px black solid;
-        ">
-                <h1 id="attackType" style="font-size: 16px">Attack Type</h1>
-            </div>
+          z-index: 19;
+        "
+      >
+        <form class="form-container">
+          <h1>Chat</h1>
+
+          <label for="msg"><b>Message</b></label>
+          <textarea
+            id="chat"
+            placeholder="Up to 10 words..."
+            name="msg"
+            maxlength="10"
+            required
+          ></textarea>
+
+          <button type="button" class="btn" onclick="sendChat()">Send</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">
+            Close
+          </button>
+        </form>
+      </div>
+
+      <div
+        id="overlappingDiv"
+        style="
+          background-color: black;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          opacity: 0;
+          pointer-events: none;
+          z-index: 10;
+        "
+      ></div>
+
+      <div
+        id="loginDiv"
+        class="modal"
+        style="
+          background-color: white;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          opacity: 1;
+          z-index: 10;
+        "
+      >
+        <div class="container">
+          <div style="margin-bottom: 40px">
+            <h2>Welcome to Web3Mon Minigame!</h2>
+          </div>
+          <div style="margin-bottom: 40px">
+            <p>1. Choose NFT collection to use.</p>
+          </div>
+          <div>
+            <label>NFT Contract Address:</label>
+          </div>
+          <div
+            style="
+              width: 100%;
+              margin: 8px 0;
+              display: inline-block;
+              box-sizing: border-box;
+              margin-bottom: 40px;
+            "
+          >
+            <select
+              id="contractAddress"
+              style="padding: 12px 20px"
+              onchange="connectWallet()"
+            >
+              <option value="nearnautnft.near">NEARNauts</option>
+              <option value="asac.near">Antisocial Ape Club</option>
+              <option value="near-punks.near">NPunks</option>
+              <option value="tinkerunion_nft.enleap.near">
+                Near Tinker Union
+              </option>
+              <option value="v0.apemetaerror.near">APE META ERROR Gen 0</option>
+            </select>
+          </div>
+          <div style="margin-bottom: 40px">
+            <p>2. Type ID of the NFT to use.</p>
+            <p>(You can connect wallet and search for your NFT)</p>
+            <p>(or just type in NFT ID / no need to connect wallet)</p>
+            <button class="cancelbtn" onclick="authorize()">
+              Connect Wallet
+            </button>
+            <button type="button" class="cancelbtn" onclick="logout()">
+              Disconnect Wallet
+            </button>
+            <p id="connectedWallet"></p>
+            <p>Select NFT to use</p>
+            <div id="nftListBox"></div>
+          </div>
+          <div style="margin-bottom: 40px">
+            <label>NFT ID:</label>
+            <input type="text" placeholder="Enter ID" id="tokenId" required />
+          </div>
+          <div>
+            <button id="joinGame" type="button" class="cancelbtn">
+              Join Game
+            </button>
+          </div>
         </div>
+      </div>
+
+      <div
+        id="buttonSection"
+        style="
+          position: absolute;
+          opacity: 1;
+          top: 0;
+          right: 0;
+          z-index: 9;
+          text-align: right;
+        "
+      >
+        <div>
+          <button id="profileButton" type="button" class="cancelbtn">
+            My Profile
+          </button>
+        </div>
+        <div>
+          <button id="guidanceButton" type="button" class="cancelbtn">
+            Guidance
+          </button>
+        </div>
+        <div>
+          <button onclick="location.reload()" type="button" class="cancelbtn">
+            Leave Game
+          </button>
+        </div>
+      </div>
+
+      <!-- Add icon library -->
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
+
+      <div
+        id="profileCard"
+        class="card"
+        style="
+          position: absolute;
+          top: 20%;
+          left: 40%;
+          z-index: 9;
+          display: none;
+        "
+      >
+        <img id="profileImg" src="" alt="John" style="width: 100%" />
+        <h1 id="profileName"></h1>
+        <p id="profileNFT" class="title"></p>
+        <p id="profileHP"></p>
+        <p id="profileAP"></p>
+        <button id="parasUrl" class="cancelbtn">see on paras</button>
+      </div>
+
+      <div
+        id="guidanceCard"
+        class="card"
+        style="
+          position: absolute;
+          top: 30%;
+          left: 40%;
+          z-index: 9;
+          padding: 20px;
+          display: none;
+        "
+      >
+        <h2>Game Guidance</h2>
+        <p>This is a multiplayer game.</p>
+        <p>You can walk, chat and battle with other players within the game.</p>
+        <p>
+          Step into the same Battle Zone box with other player to enter battle.
+        </p>
+      </div>
+
+      <div
+        id="acceptBattleCard"
+        class="card"
+        style="
+          position: absolute;
+          top: 30%;
+          left: 40%;
+          z-index: 9;
+          padding: 20px;
+          display: none;
+        "
+      >
+        <h2>Start Battle</h2>
+        <p id="battleOpponentName2"></p>
+        <button id="acceptBattleBtn" class="cancelbtn">YES</button>
+        <button id="refuseBattleBtn" class="cancelbtn">NO</button>
+      </div>
+
+      <div
+        id="battleResultCard"
+        class="card"
+        style="
+          position: absolute;
+          top: 30%;
+          left: 40%;
+          z-index: 9;
+          padding: 20px;
+          display: none;
+        "
+      >
+        <h2 id="battleResult"></h2>
+        <button id="closeResultBtn" class="cancelbtn">YES</button>
+      </div>
+
+      <canvas></canvas>
+
+      <div id="userInterface" style="display: none">
+        <!-- Represents health bar of draggle (enemy) -->
+        <div
+          style="
+            background-color: white;
+            width: 250px;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            border: 4px black solid;
+            padding: 12px;
+          "
+        >
+          <h1 style="font-size: 16px" id="battleOpponentName"></h1>
+          <div style="position: relative">
+            <div
+              style="height: 5px; background-color: #ccc; margin-top: 10px"
+            ></div>
+            <div
+              id="enemyHealthBar"
+              style="
+                height: 5px;
+                background-color: green;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+              "
+            ></div>
+          </div>
+        </div>
+
+        <!-- Represents health bar of emby (us) -->
+        <div
+          style="
+            background-color: white;
+            width: 250px;
+            position: absolute;
+            top: 150px;
+            left: 50px;
+            border: 4px black solid;
+            padding: 12px;
+          "
+        >
+          <h1 style="font-size: 16px" id="battleMyName"></h1>
+          <div style="position: relative">
+            <div
+              style="height: 5px; background-color: #ccc; margin-top: 10px"
+            ></div>
+            <div
+              id="playerHealthBar"
+              style="
+                height: 5px;
+                background-color: green;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+              "
+            ></div>
+          </div>
+        </div>
+
+        <div
+          style="
+            background-color: white;
+            height: 140px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-top: 4px black solid;
+            display: flex;
+          "
+        >
+          <div
+            id="dialogueBox"
+            style="
+              position: absolute;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              left: 0;
+              background-color: white;
+              padding: 12px;
+              display: none;
+              cursor: pointer;
+            "
+          >
+            sdkfjlsdajl
+          </div>
+          <div
+            id="attacksBox"
+            style="
+              width: 66.66%;
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+            "
+          ></div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 33.33%;
+              border-left: 4px black solid;
+            "
+          >
+            <h1 id="attackType" style="font-size: 16px">Attack Type</h1>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/gh/nearprotocol/near-api-js/dist/near-api-js.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
-    integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
-    integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js"></script>
-<script src="data/audio.js"></script>
-<script src="data/battleZones.js"></script>
-<script src="data/collisions.js"></script>
-<script src="data/attacks.js"></script>
-<script src="data/monsters.js"></script>
-<script src="data/characters.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/network.js"></script>
-<script src="classes.js"></script>
-<script src="joystick.js"></script>
-<script src="index.js"></script>
-<script src="battleScene.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/nearprotocol/near-api-js/dist/near-api-js.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+      integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+      integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js"></script>
+    <script src="data/audio.js"></script>
+    <script src="data/battleZones.js"></script>
+    <script src="data/collisions.js"></script>
+    <script src="data/attacks.js"></script>
+    <script src="data/monsters.js"></script>
+    <script src="data/characters.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/network.js"></script>
+    <script src="js/classes.js"></script>
+    <script src="js/joystick.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/battleScene.js"></script>
+    <script src="js/eventListener.js"></script>
+  </body>
+</html>
