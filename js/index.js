@@ -151,7 +151,7 @@ charactersMap.forEach((row, i) => {
 const player = new Sprite({
     position: {
         x: canvas.width / 2 - 192 / 4 / 2,
-        y: canvas.height / 2 - 68 / 2
+        y: canvas.height / 2 - 102 / 2
     },
     image: playerDownImage,
     frames: {
@@ -300,7 +300,7 @@ others['250'] = {
     })
 }
 
-makeChracterImage("https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png", others['250'].sprite)
+makeChracterImage("https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png", others['250'].sprite, 'asac.near')
 
 function animate() {
     const animationId = window.requestAnimationFrame(animate)

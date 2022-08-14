@@ -34,7 +34,7 @@ canvas.addEventListener('click', (e) => {
     for (const key in others) {
         var x = e.offsetX - others[key].sprite.width / 2
         var y = e.offsetY - others[key].sprite.height / 2
-        if ((others[key].sprite.position.x - x) ** 2 + (others[key].sprite.position.y - y) ** 2 < 900) {
+        if ((Math.abs(others[key].sprite.position.x - x) < others[key].sprite.width / 2) && (Math.abs(others[key].sprite.position.y - y) < others[key].sprite.height / 2)) {
             for (let i = 0; i < battleZones.length; i++) {
                 const battleZone = battleZones[i]
                 if (checkCollision(others[key].sprite, battleZone)) {
@@ -100,7 +100,7 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
                     )
                     .focus()
             })
-            makeChracterImage(playerUrl, player).then((res) => {
+            makeChracterImage(playerUrl, player, window.contractAddress).then((res) => {
                 document.getElementById('loading').style.display = 'none'
                 animate()
                 connect()

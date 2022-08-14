@@ -373,7 +373,7 @@ function onmessage(data) {
                     name: msg.username
                 })
             }
-            makeChracterImage(msg.url, others[id].sprite)
+            makeChracterImage(msg.url, others[id].sprite, msg.collection)
             break
 
         case 'leave-battle':

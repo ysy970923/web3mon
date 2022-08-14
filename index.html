@@ -4,11 +4,60 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
-    <link rel="stylesheet" href="style.css" />
+    <!-- latest -->
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="bootstrap.min.css" /> -->
+    <style>
+      #loginDiv {
+        height: max(100%, 1500px);
+        background-image: url('./img/bg24-l.jpg');
+        background-size: cover;
+        color: white;
+        line-height: 1.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        opacity: 1;
+        z-index: 10;
+      }
+
+      /* Button used to open the chat form - fixed at the bottom of the page */
+      #chatOpenBtn {
+        opacity: 0.8;
+        position: fixed;
+        bottom: 23px;
+        left: 28px;
+        width: 280px;
+      }
+
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: 400px;
+        margin: auto;
+        text-align: center;
+        background-color: white;
+        position: absolute;
+        top: calc(50% - 300px);
+        left: calc(50% - 200px);
+        z-index: 9;
+        display: none;
+      }
+
+      img {
+        width: min(100%, 400px);
+        object-fit: cover;
+      }
+    </style>
   </head>
 
   <body>
@@ -28,7 +77,7 @@
       ></div>
       <button
         id="chatOpenBtn"
-        class="open-button"
+        class="nes-btn"
         onclick="openForm()"
         style="display: none"
       >
@@ -76,50 +125,31 @@
           right: 0;
           bottom: 0;
           left: 0;
+          width: 100%;
+          height: 100%;
           opacity: 0;
           pointer-events: none;
           z-index: 10;
         "
       ></div>
 
-      <div
-        id="loginDiv"
-        class="modal"
-        style="
-          background-color: white;
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          opacity: 1;
-          z-index: 10;
-        "
-      >
-        <div class="container">
+      <div id="loginDiv" class="modal">
+        <div
+          class="nes-container is-rounded is-dark"
+          style="margin: 30px auto; background-color: unset; max-width: 800px"
+        >
+          <div style="text-align: center">
+            <img src="img/w3mlogonew.png" alt="Logo" />
+          </div>
           <div style="margin-bottom: 40px">
-            <h2>Welcome to Web3Mon Minigame!</h2>
+            <h2>Welcome to Web3Mon!</h2>
           </div>
           <div style="margin-bottom: 40px">
             <p>1. Choose NFT collection to use.</p>
           </div>
-          <div>
-            <label>NFT Contract Address:</label>
-          </div>
-          <div
-            style="
-              width: 100%;
-              margin: 8px 0;
-              display: inline-block;
-              box-sizing: border-box;
-              margin-bottom: 40px;
-            "
-          >
-            <select
-              id="contractAddress"
-              style="padding: 12px 20px"
-              onchange="connectWallet()"
-            >
+          <label for="contractAddress">NFT Contract Address:</label>
+          <div class="nes-select">
+            <select required id="contractAddress" onchange="connectWallet()">
               <option value="nearnautnft.near">NEARNauts</option>
               <option value="asac.near">Antisocial Ape Club</option>
               <option value="near-punks.near">NPunks</option>
@@ -129,26 +159,51 @@
               <option value="v0.apemetaerror.near">APE META ERROR Gen 0</option>
             </select>
           </div>
+          <div
+            style="
+              width: 100%;
+              margin: 8px 0;
+              display: inline-block;
+              box-sizing: border-box;
+              margin-bottom: 40px;
+            "
+          ></div>
           <div style="margin-bottom: 40px">
             <p>2. Type ID of the NFT to use.</p>
-            <p>(You can connect wallet and search for your NFT)</p>
-            <p>(or just type in NFT ID / no need to connect wallet)</p>
-            <button class="cancelbtn" onclick="authorize()">
+            <p>(You can connect wallet for your NFT)</p>
+            <button
+              type="button"
+              class="nes-btn is-success"
+              onclick="authorize()"
+            >
               Connect Wallet
             </button>
-            <button type="button" class="cancelbtn" onclick="logout()">
+            <button type="button" class="nes-btn is-error" onclick="logout()">
               Disconnect Wallet
             </button>
-            <p id="connectedWallet"></p>
+            <p id="connectedWallet" style="margin-top: 10px"></p>
             <p>Select NFT to use</p>
             <div id="nftListBox"></div>
           </div>
           <div style="margin-bottom: 40px">
-            <label>NFT ID:</label>
-            <input type="text" placeholder="Enter ID" id="tokenId" required />
+            <label for="tokenId">NFT ID:</label>
+            <input
+              type="text"
+              placeholder="Enter ID"
+              id="tokenId"
+              class="nes-input"
+              required
+            />
           </div>
           <div>
-            <button id="joinGame" type="button" class="cancelbtn">
+            <p>3. Choose Clothes to wear.</p>
+            <div id="clothesBox" style="margin-bottom: 40px;">
+                <p>(You can only try one type now)</p>
+                <img src="./img/clothes.png" style="width: 100px; opacity: 1;"/>
+            </div>
+          </div>
+          <div>
+            <button id="joinGame" type="button" class="nes-btn is-primary">
               Join Game
             </button>
           </div>
@@ -166,18 +221,18 @@
           text-align: right;
         "
       >
-        <div>
-          <button id="profileButton" type="button" class="cancelbtn">
+        <div style="margin: 10px">
+          <button id="profileButton" type="button" class="nes-btn">
             My Profile
           </button>
         </div>
-        <div>
-          <button id="guidanceButton" type="button" class="cancelbtn">
+        <div style="margin: 10px">
+          <button id="guidanceButton" type="button" class="nes-btn">
             Guidance
           </button>
         </div>
-        <div>
-          <button onclick="location.reload()" type="button" class="cancelbtn">
+        <div style="margin: 10px">
+          <button onclick="location.reload()" type="button" class="nes-btn">
             Leave Game
           </button>
         </div>
@@ -189,37 +244,16 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       />
 
-      <div
-        id="profileCard"
-        class="card"
-        style="
-          position: absolute;
-          top: 20%;
-          left: 40%;
-          z-index: 9;
-          display: none;
-        "
-      >
+      <div id="profileCard" class="card" style="padding-bottom: 20px;">
         <img id="profileImg" src="" alt="John" style="width: 100%" />
         <h1 id="profileName"></h1>
         <p id="profileNFT" class="title"></p>
         <p id="profileHP"></p>
         <p id="profileAP"></p>
-        <button id="parasUrl" class="cancelbtn">see on paras</button>
+        <button id="parasUrl" class="nes-btn is-primary">see on paras</button>
       </div>
 
-      <div
-        id="guidanceCard"
-        class="card"
-        style="
-          position: absolute;
-          top: 30%;
-          left: 40%;
-          z-index: 9;
-          padding: 20px;
-          display: none;
-        "
-      >
+      <div id="guidanceCard" class="card" style="padding: 20px">
         <h2>Game Guidance</h2>
         <p>This is a multiplayer game.</p>
         <p>You can walk, chat and battle with other players within the game.</p>
@@ -228,38 +262,16 @@
         </p>
       </div>
 
-      <div
-        id="acceptBattleCard"
-        class="card"
-        style="
-          position: absolute;
-          top: 30%;
-          left: 40%;
-          z-index: 9;
-          padding: 20px;
-          display: none;
-        "
-      >
+      <div id="acceptBattleCard" class="card" style="padding: 20px">
         <h2>Start Battle</h2>
         <p id="battleOpponentName2"></p>
-        <button id="acceptBattleBtn" class="cancelbtn">YES</button>
-        <button id="refuseBattleBtn" class="cancelbtn">NO</button>
+        <button id="acceptBattleBtn" class="nes-btn is-success">YES</button>
+        <button id="refuseBattleBtn" class="nes-btn is-error">NO</button>
       </div>
 
-      <div
-        id="battleResultCard"
-        class="card"
-        style="
-          position: absolute;
-          top: 30%;
-          left: 40%;
-          z-index: 9;
-          padding: 20px;
-          display: none;
-        "
-      >
+      <div id="battleResultCard" class="card" style="padding: 20px">
         <h2 id="battleResult"></h2>
-        <button id="closeResultBtn" class="cancelbtn">YES</button>
+        <button id="closeResultBtn" class="nes-btn">YES</button>
       </div>
 
       <canvas></canvas>

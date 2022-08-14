@@ -49,7 +49,7 @@ const colorDistance = (c1, c2) =>
         Math.pow(c1.a - c2.a, 2)
     )
 
-async function makeChracterImage(url, user) {
+async function makeChracterImage(url, user, contractAddress) {
     var image = await Jimp.read({ url: url })
     image = image.resize(48 * 4, 48 * 4)
     var h = image.bitmap.height;
@@ -84,40 +84,51 @@ async function makeChracterImage(url, user) {
     user.baseImage = new Image()
     user.baseImage.src = await image.getBase64Async('image/png')
 
-    image = image.crop(27, 24, 127, 127)
+    if (contractAddress === 'nearnautnft.near')
+        image = image.crop(25, 0, 150, 150)
+    else if (contractAddress === 'near-punks.near')
+        image = image.crop(0, 40, 140, 150)
+    else if (contractAddress === 'asac.near')
+        image = image.crop(15, 15, 145, 145)
+    else if (contractAddress === 'tinkerunion_nft.enleap.near')
+        image = image.crop(27, 20, 140, 127)
+    else if (contractAddress === 'v0.apemetaerror.near')
+        image = image.crop(10, 0, 170, 170)
+    else
+        image = image.crop(27, 24, 127, 127)
 
-    image = image.resize(48, 48)
+    image = image.resize(46, 48)
 
     var downImage = await Jimp.read({ url: './img/playerDown.png' })
-    downImage = downImage.composite(image, 0, 0)
-    downImage = downImage.composite(image, 48, 0)
-    downImage = downImage.composite(image, 48 * 2, 0)
-    downImage = downImage.composite(image, 48 * 3, 0)
+    downImage = downImage.composite(image, 1, 0)
+    downImage = downImage.composite(image, 48 + 1, 0)
+    downImage = downImage.composite(image, 48 * 2 + 1, 0)
+    downImage = downImage.composite(image, 48 * 3 + 1, 0)
     user.sprites.down = new Image()
     user.sprites.down.src = await downImage.getBase64Async('image/png')
     user.image = user.sprites.down
 
     var upImage = await Jimp.read({ url: './img/playerUp.png' })
-    upImage = upImage.composite(image, 0, 0)
-    upImage = upImage.composite(image, 48, 0)
-    upImage = upImage.composite(image, 48 * 2, 0)
-    upImage = upImage.composite(image, 48 * 3, 0)
+    upImage = upImage.composite(image, 1, 0)
+    upImage = upImage.composite(image, 48 + 1, 0)
+    upImage = upImage.composite(image, 48 * 2 + 1, 0)
+    upImage = upImage.composite(image, 48 * 3 + 1, 0)
     user.sprites.up = new Image()
     user.sprites.up.src = await upImage.getBase64Async('image/png')
 
     var leftImage = await Jimp.read({ url: './img/playerLeft.png' })
-    leftImage = leftImage.composite(image, 0, 0)
-    leftImage = leftImage.composite(image, 48, 0)
-    leftImage = leftImage.composite(image, 48 * 2, 0)
-    leftImage = leftImage.composite(image, 48 * 3, 0)
+    leftImage = leftImage.composite(image, 1, 0)
+    leftImage = leftImage.composite(image, 48 + 1, 0)
+    leftImage = leftImage.composite(image, 48 * 2 + 1, 0)
+    leftImage = leftImage.composite(image, 48 * 3 + 1, 0)
     user.sprites.left = new Image()
     user.sprites.left.src = await leftImage.getBase64Async('image/png')
 
     var rightImage = await Jimp.read({ url: './img/playerRight.png' })
-    rightImage = rightImage.composite(image, 0, 0)
-    rightImage = rightImage.composite(image, 48, 0)
-    rightImage = rightImage.composite(image, 48 * 2, 0)
-    rightImage = rightImage.composite(image, 48 * 3, 0)
+    rightImage = rightImage.composite(image, 1, 0)
+    rightImage = rightImage.composite(image, 48 + 1, 0)
+    rightImage = rightImage.composite(image, 48 * 2 + 1, 0)
+    rightImage = rightImage.composite(image, 48 * 3 + 1, 0)
     user.sprites.right = new Image()
     user.sprites.right.src = await rightImage.getBase64Async('image/png')
 }
