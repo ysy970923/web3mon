@@ -228,8 +228,55 @@ class Monster extends Sprite {
                         renderedSprites.splice(1, 1)
                     }
                 })
-
                 break
+
+            case 'Larva':
+                audio.initFireball.play()
+                const larvaImage = new Image()
+                larvaImage.src = './img/draggleSprite.png'
+                const larva = new Sprite({
+                    position: {
+                        x: this.position.x,
+                        y: this.position.y
+                    },
+                    image: larvaImage,
+                    frames: {
+                        max: 4,
+                        hold: 10
+                    },
+                    animate: true,
+                    rotation
+                })
+                renderedSprites.splice(1, 0, larva)
+
+                gsap.to(larva.position, {
+                    x: recipient.position.x,
+                    y: recipient.position.y,
+                    onComplete: () => {
+                        // Enemy actually gets hit
+                        audio.fireballHit.play()
+                        gsap.to(healthBar, {
+                            width: (100 * recipient.health) / recipient.initialHealth + '%'
+                        })
+
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            repeat: 5,
+                            yoyo: true,
+                            duration: 0.08
+                        })
+                        renderedSprites.splice(1, 1)
+                    }
+                })
+                break
+
             case 'Normal':
                 const tl = gsap.timeline()
 

@@ -95,6 +95,7 @@ function initBattle() {
     renderedSprites = [opponent, me]
     queue = []
 
+    document.querySelector('#attacksBox').style['grid-template-columns'] = `repeat(${me.attacks.length}, 1fr)`;
     me.attacks.forEach((attack) => {
         const button = document.createElement('button')
         button.innerHTML = attack.name
@@ -105,7 +106,7 @@ function initBattle() {
     document.querySelectorAll('button').forEach((button) => {
         button.addEventListener('click', (e) => {
             if (!my_turn) return
-            
+
             my_turn = false
 
             const selectedAttack = attacks[e.currentTarget.innerHTML]

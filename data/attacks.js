@@ -46,5 +46,11 @@ const attacks = {
         damage: 20,
         type: 'Fire',
         color: 'red'
+    },
+    Larva: {
+        name: 'Larva',
+        damage: 20,
+        type: 'Larva',
+        color: 'black'
     }
 }
