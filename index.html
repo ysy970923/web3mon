@@ -53,6 +53,31 @@
         display: none;
       }
 
+      .loader {
+        position: absolute;
+        border: 16px solid #f3f3f3;
+        /* Light grey */
+        border-top: 16px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        top: calc(50% - 60px);
+        left: calc(50% - 60px);
+        z-index: -1;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
       img {
         width: min(100%, 400px);
         object-fit: cover;
@@ -198,9 +223,9 @@
           </div>
           <div>
             <p>3. Choose Clothes to wear.</p>
-            <div id="clothesBox" style="margin-bottom: 40px;">
-                <p>(You can only try one type now)</p>
-                <img src="./img/clothes.png" style="width: 100px; opacity: 1;"/>
+            <div id="clothesBox" style="margin-bottom: 40px">
+              <p>(You can only try one type now)</p>
+              <img src="./img/clothes.png" style="width: 100px; opacity: 1" />
             </div>
           </div>
           <div>
@@ -245,7 +270,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       />
 
-      <div id="profileCard" class="card" style="padding-bottom: 20px;">
+      <div id="profileCard" class="card" style="padding-bottom: 20px">
         <img id="profileImg" src="" alt="John" style="width: 100%" />
         <h1 id="profileName"></h1>
         <p id="profileNFT" class="title"></p>
