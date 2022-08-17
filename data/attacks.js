@@ -35,6 +35,12 @@ const attacks = {
         type: 'Normal',
         color: 'black'
     },
+    "Cartel Smoke": {
+        name: 'Cartel Smoke',
+        damage: 20,
+        type: 'Normal',
+        color: 'black'
+    },
     Fireball: {
         name: 'Fireball',
         damage: 20,

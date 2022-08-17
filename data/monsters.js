@@ -22,5 +22,9 @@ const monsters = {
     "v0.apemetaerror.near": {
         health: 100,
         attacks: [attacks["Ape Beam"], attacks.Fireball]
+    },
+    "cartelgen1.neartopia.near": {
+        health: 100,
+        attacks: [attacks["Cartel Smoke"], attacks.Fireball]
     }
 }

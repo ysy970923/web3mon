@@ -62,20 +62,23 @@ async function makeChracterImage(url, user, contractAddress) {
     // Distance between two colors
     const threshold = 32 // Replace colors under this threshold. The smaller the number, the more specific it is.
     image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
-        const thisColor = {
-            r: image.bitmap.data[idx + 0],
-            g: image.bitmap.data[idx + 1],
-            b: image.bitmap.data[idx + 2],
-            a: image.bitmap.data[idx + 3]
-        }
-        for (var i = 0; i < 3; i++) {
-            var targetColor = targetColors[i]
-            if (colorDistance(targetColor, thisColor) <= threshold) {
-                image.bitmap.data[idx + 0] = replaceColor.r
-                image.bitmap.data[idx + 1] = replaceColor.g
-                image.bitmap.data[idx + 2] = replaceColor.b
-                image.bitmap.data[idx + 3] = replaceColor.a
-                break
+        if (!((x < 48 * 2 + 10) && (x > 48 * 2 - 10) && (y > 48 * 1))) {
+
+            const thisColor = {
+                r: image.bitmap.data[idx + 0],
+                g: image.bitmap.data[idx + 1],
+                b: image.bitmap.data[idx + 2],
+                a: image.bitmap.data[idx + 3]
+            }
+            for (var i = 0; i < 3; i++) {
+                var targetColor = targetColors[i]
+                if (colorDistance(targetColor, thisColor) <= threshold) {
+                    image.bitmap.data[idx + 0] = replaceColor.r
+                    image.bitmap.data[idx + 1] = replaceColor.g
+                    image.bitmap.data[idx + 2] = replaceColor.b
+                    image.bitmap.data[idx + 3] = replaceColor.a
+                    break
+                }
             }
         }
 
@@ -94,6 +97,8 @@ async function makeChracterImage(url, user, contractAddress) {
         image = image.crop(27, 20, 140, 127)
     else if (contractAddress === 'v0.apemetaerror.near')
         image = image.crop(10, 0, 170, 170)
+    else if (contractAddress === 'cartelgen1.neartopia.near')
+        image = image.crop(30, 0, 115, 115)
     else
         image = image.crop(27, 24, 127, 127)
 
