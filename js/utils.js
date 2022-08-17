@@ -53,35 +53,36 @@ async function makeChracterImage(url, user, contractAddress) {
     var image = await Jimp.read({ url: url })
     image = image.resize(48 * 4, 48 * 4)
     var h = image.bitmap.height;
+    var w = image.bitmap.width;
 
     const replaceColor = { r: 0, g: 0, b: 0, a: 0 } // Color you want to replace with
     const targetColors = []
     for (var i = 0; i < 3; i++) {
         targetColors.push(Jimp.intToRGBA(image.getPixelColor(0, Math.floor(i * h / 3))))
+        targetColors.push(Jimp.intToRGBA(image.getPixelColor(w-1, Math.floor(i * h / 3))))
     }
     // Distance between two colors
-    const threshold = 32 // Replace colors under this threshold. The smaller the number, the more specific it is.
+    const threshold = 16 // Replace colors under this threshold. The smaller the number, the more specific it is.
     image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
-        if (!((x < 48 * 2 + 10) && (x > 48 * 2 - 10) && (y > 48 * 1))) {
-
-            const thisColor = {
-                r: image.bitmap.data[idx + 0],
-                g: image.bitmap.data[idx + 1],
-                b: image.bitmap.data[idx + 2],
-                a: image.bitmap.data[idx + 3]
-            }
-            for (var i = 0; i < 3; i++) {
-                var targetColor = targetColors[i]
-                if (colorDistance(targetColor, thisColor) <= threshold) {
-                    image.bitmap.data[idx + 0] = replaceColor.r
-                    image.bitmap.data[idx + 1] = replaceColor.g
-                    image.bitmap.data[idx + 2] = replaceColor.b
-                    image.bitmap.data[idx + 3] = replaceColor.a
-                    break
-                }
+        if ((x < 48 * 2 + 10) && (x > 48 * 2 - 10) && (y > 48 * 1))
+            return
+            
+        const thisColor = {
+            r: image.bitmap.data[idx + 0],
+            g: image.bitmap.data[idx + 1],
+            b: image.bitmap.data[idx + 2],
+            a: image.bitmap.data[idx + 3]
+        }
+        for (var i = 0; i < 6; i++) {
+            var targetColor = targetColors[i]
+            if (colorDistance(targetColor, thisColor) <= threshold) {
+                image.bitmap.data[idx + 0] = replaceColor.r
+                image.bitmap.data[idx + 1] = replaceColor.g
+                image.bitmap.data[idx + 2] = replaceColor.b
+                image.bitmap.data[idx + 3] = replaceColor.a
+                break
             }
         }
-
     })
 
     user.baseImage = new Image()
