@@ -230,6 +230,8 @@ function getDictFromBinary(data) {
     return msg
 }
 
+var worker = new Worker("./js/worker.js")
+
 function onmessage(data) {
     var buf = new Uint8Array(data).buffer
     var dv = new DataView(buf)
@@ -300,7 +302,7 @@ function onmessage(data) {
                 document.getElementById('refuseBattleBtn').style.display = 'inline-block'
                 document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
                 document.getElementById('refuseBattleBtn').replaceWith(document.getElementById('refuseBattleBtn').cloneNode(true));
-                
+
                 document.getElementById('acceptBattleCard').style.display = 'block'
                 document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[dv.getInt16(1)].sprite.name
                 document.getElementById('acceptBattleBtn').addEventListener('click', (e) => {
@@ -373,7 +375,22 @@ function onmessage(data) {
                     name: msg.username
                 })
             }
-            makeChracterImage(msg.url, others[id].sprite, msg.collection)
+            others[id].baseImage = new Image()
+            worker.postMessage({ url: msg.url, contractAddress: msg.collection })
+            worker.onmessage = function (event) {
+                if (event.data) {
+                    others[id].sprite.sprites.up.src = event.data.up
+                    others[id].sprite.sprites.down.src = event.data.down
+                    others[id].sprite.sprites.left.src = event.data.left
+                    others[id].sprite.sprites.right.src = event.data.right
+                    others[id].baseImage.src = event.data.baseImage
+                    others[id].image = others[id].sprite.sprites.down
+                }
+            }
+            worker.onerror = function (err) {
+                console.log(err)
+            }
+            // makeChracterImage(msg.url, others[id].sprite, msg.collection)
             break
 
         case 'leave-battle':
