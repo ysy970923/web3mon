@@ -366,33 +366,16 @@ function onmessage(data) {
                         hold: 10
                     },
                     sprites: {
-                        up: playerDownImage,
-                        left: playerLeftImage,
-                        right: playerRightImage,
-                        down: playerDownImage
+                        up: new Image(),
+                        left: new Image(),
+                        right: new Image(),
+                        down: new Image()
                     },
                     name: msg.username
                 })
             }
-            var worker = new Worker("./js/worker.js")
             others[id].baseImage = new Image()
-            worker.postMessage({ url: msg.url, contractAddress: msg.collection })
-            worker.onmessage = function (event) {
-                if (event.data) {
-                    others[id].sprite.sprites.up.src = event.data.up
-                    others[id].sprite.sprites.down.src = event.data.down
-                    others[id].sprite.sprites.left.src = event.data.left
-                    others[id].sprite.sprites.right.src = event.data.right
-                    others[id].baseImage.src = event.data.baseImage
-                    others[id].image = others[id].sprite.sprites.down
-                    others[id].draw = true
-                    worker.terminate()
-                }
-            }
-            worker.onerror = function (err) {
-                console.log(err)
-                worker.terminate()
-            }
+            worker.postMessage({ url: msg.url, contractAddress: msg.collection, id: id })
             break
 
         case 'leave-battle':

@@ -100,11 +100,9 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
                     )
                     .focus()
             })
-            makeChracterImage(playerUrl, player, window.contractAddress).then((res) => {
-                document.getElementById('loading').style.display = 'none'
-                animate()
-                connect()
-            })
+
+            player.baseImage = new Image()
+            worker.postMessage({ url: playerUrl, contractAddress: window.contractAddress, id: '-1' })
         })
     })
 })

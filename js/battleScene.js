@@ -75,7 +75,7 @@ function initBattle() {
     }
 
     var opponentMonster = {
-        image: others[opponent_id].sprite.baseImage,
+        image: others[opponent_id].baseImage,
         isEnemy: true,
         name: others[opponent_id].sprite.name,
         health: others[opponent_id].health,

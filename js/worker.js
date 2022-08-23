@@ -1,10 +1,9 @@
 importScripts('https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js')
-// addEventListener is directly accessible in worker file
 onmessage = function (event) {
-    // extract person passed from main thread from event object
-    let data = event.data
+    var data = event.data
     makeChracterImage(data.url, data.contractAddress).then(
         sprite => {
+            sprite.id = data.id
             postMessage(sprite)
         }
     )
@@ -26,9 +25,9 @@ async function makeChracterImage(url, contractAddress) {
 
     const replaceColor = { r: 0, g: 0, b: 0, a: 0 } // Color you want to replace with
     const targetColors = []
-    for (var i = 0; i < 3; i++) {
-        targetColors.push(Jimp.intToRGBA(image.getPixelColor(0, Math.floor(i * h / 3))))
-        targetColors.push(Jimp.intToRGBA(image.getPixelColor(w - 1, Math.floor(i * h / 3))))
+    for (var i = 0; i < 10; i++) {
+        targetColors.push(Jimp.intToRGBA(image.getPixelColor(0, Math.floor(i * h / 20))))
+        targetColors.push(Jimp.intToRGBA(image.getPixelColor(w - 1, Math.floor(i * h / 20))))
     }
     // Distance between two colors
     const threshold = 16 // Replace colors under this threshold. The smaller the number, the more specific it is.
@@ -42,7 +41,7 @@ async function makeChracterImage(url, contractAddress) {
             b: image.bitmap.data[idx + 2],
             a: image.bitmap.data[idx + 3]
         }
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < 20; i++) {
             var targetColor = targetColors[i]
             if (colorDistance(targetColor, thisColor) <= threshold) {
                 image.bitmap.data[idx + 0] = replaceColor.r
@@ -70,6 +69,10 @@ async function makeChracterImage(url, contractAddress) {
         image = image.crop(10, 0, 170, 170)
     else if (contractAddress === 'cartelgen1.neartopia.near')
         image = image.crop(30, 0, 115, 115)
+    else if (contractAddress === 'realbirds.near')
+        image = image.crop(27, 0, 127, 127)
+    else if (contractAddress === 'mrbrownproject.near')
+        image = image
     else
         image = image.crop(27, 24, 127, 127)
 

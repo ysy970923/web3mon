@@ -7,15 +7,6 @@ foregroundImage.src = './img/foregroundObjects.png'
 const playerDownImage = new Image()
 playerDownImage.src = './img/playerDown.png'
 
-const playerUpImage = new Image()
-playerUpImage.src = './img/playerUp.png'
-
-const playerLeftImage = new Image()
-playerLeftImage.src = './img/playerLeft.png'
-
-const playerRightImage = new Image()
-playerRightImage.src = './img/playerRight.png'
-
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
@@ -159,10 +150,10 @@ const player = new Sprite({
         hold: 10
     },
     sprites: {
-        up: playerUpImage,
-        left: playerLeftImage,
-        right: playerRightImage,
-        down: playerDownImage
+        up: new Image(),
+        left: new Image(),
+        right: new Image(),
+        down: new Image()
     },
     name: ''
 })
@@ -280,7 +271,7 @@ function enterBattle(animationId, id) {
 }
 
 others['250'] = {
-    draw: true,
+    draw: false,
     collection: "asac.near",
     health: monsters["asac.near"].health,
     attacks: monsters["asac.near"].attacks,
@@ -292,16 +283,17 @@ others['250'] = {
             hold: 10
         },
         sprites: {
-            up: playerDownImage,
-            left: playerLeftImage,
-            right: playerRightImage,
-            down: playerDownImage
+            up: new Image(),
+            left: new Image(),
+            right: new Image(),
+            down: new Image()
         },
         name: "jaewon.near (BOT)"
     })
 }
 
-makeChracterImage("https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png", others['250'].sprite, 'asac.near')
+others['250'].baseImage = new Image()
+worker.postMessage({ url: "https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png", contractAddress: "asac.near", id: '250' })
 
 function animate() {
     const animationId = window.requestAnimationFrame(animate)

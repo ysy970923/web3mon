@@ -41,102 +41,36 @@ function checkForCharacterCollision({
     }
 }
 
-const colorDistance = (c1, c2) =>
-    Math.sqrt(
-        Math.pow(c1.r - c2.r, 2) +
-        Math.pow(c1.g - c2.g, 2) +
-        Math.pow(c1.b - c2.b, 2) +
-        Math.pow(c1.a - c2.a, 2)
-    )
-
-async function makeChracterImage(url, user, contractAddress) {
-    var image = await Jimp.read({ url: url })
-    image = image.resize(48 * 4, 48 * 4)
-    var h = image.bitmap.height;
-    var w = image.bitmap.width;
-
-    const replaceColor = { r: 0, g: 0, b: 0, a: 0 } // Color you want to replace with
-    const targetColors = []
-    for (var i = 0; i < 3; i++) {
-        targetColors.push(Jimp.intToRGBA(image.getPixelColor(0, Math.floor(i * h / 3))))
-        targetColors.push(Jimp.intToRGBA(image.getPixelColor(w-1, Math.floor(i * h / 3))))
+var worker = new Worker("./js/worker.js")
+worker.onmessage = function (event) {
+    console.log(event.data)
+    if (event.data) {
+        if (event.data.id === '-1') {
+            player.sprites.up.src = event.data.up
+            player.sprites.down.src = event.data.down
+            player.sprites.left.src = event.data.left
+            player.sprites.right.src = event.data.right
+            player.baseImage.src = event.data.baseImage
+            player.image = player.sprites.down
+            document.getElementById('loading').style.display = 'none'
+            animate()
+            connect()
+        }
+        else {
+            others[event.data.id].sprite.sprites.up.src = event.data.up
+            others[event.data.id].sprite.sprites.down.src = event.data.down
+            others[event.data.id].sprite.sprites.left.src = event.data.left
+            others[event.data.id].sprite.sprites.right.src = event.data.right
+            others[event.data.id].baseImage.src = event.data.baseImage
+            others[event.data.id].sprite.image = others[event.data.id].sprite.sprites.down
+            others[event.data.id].draw = true
+        }
     }
-    // Distance between two colors
-    const threshold = 16 // Replace colors under this threshold. The smaller the number, the more specific it is.
-    image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
-        if ((x < 48 * 2 + 10) && (x > 48 * 2 - 10) && (y > 48 * 1))
-            return
-            
-        const thisColor = {
-            r: image.bitmap.data[idx + 0],
-            g: image.bitmap.data[idx + 1],
-            b: image.bitmap.data[idx + 2],
-            a: image.bitmap.data[idx + 3]
-        }
-        for (var i = 0; i < 6; i++) {
-            var targetColor = targetColors[i]
-            if (colorDistance(targetColor, thisColor) <= threshold) {
-                image.bitmap.data[idx + 0] = replaceColor.r
-                image.bitmap.data[idx + 1] = replaceColor.g
-                image.bitmap.data[idx + 2] = replaceColor.b
-                image.bitmap.data[idx + 3] = replaceColor.a
-                break
-            }
-        }
-    })
-
-    user.baseImage = new Image()
-    user.baseImage.src = await image.getBase64Async('image/png')
-
-    if (contractAddress === 'nearnautnft.near')
-        image = image.crop(25, 0, 150, 150)
-    else if (contractAddress === 'near-punks.near')
-        image = image.crop(0, 40, 140, 150)
-    else if (contractAddress === 'asac.near')
-        image = image.crop(15, 15, 145, 145)
-    else if (contractAddress === 'tinkerunion_nft.enleap.near')
-        image = image.crop(27, 20, 140, 127)
-    else if (contractAddress === 'v0.apemetaerror.near')
-        image = image.crop(10, 0, 170, 170)
-    else if (contractAddress === 'cartelgen1.neartopia.near')
-        image = image.crop(30, 0, 115, 115)
-    else
-        image = image.crop(27, 24, 127, 127)
-
-    image = image.resize(46, 48)
-
-    var downImage = await Jimp.read({ url: './img/playerDown.png' })
-    downImage = downImage.composite(image, 1, 0)
-    downImage = downImage.composite(image, 48 + 1, 0)
-    downImage = downImage.composite(image, 48 * 2 + 1, 0)
-    downImage = downImage.composite(image, 48 * 3 + 1, 0)
-    user.sprites.down = new Image()
-    user.sprites.down.src = await downImage.getBase64Async('image/png')
-    user.image = user.sprites.down
-
-    var upImage = await Jimp.read({ url: './img/playerUp.png' })
-    upImage = upImage.composite(image, 1, 0)
-    upImage = upImage.composite(image, 48 + 1, 0)
-    upImage = upImage.composite(image, 48 * 2 + 1, 0)
-    upImage = upImage.composite(image, 48 * 3 + 1, 0)
-    user.sprites.up = new Image()
-    user.sprites.up.src = await upImage.getBase64Async('image/png')
-
-    var leftImage = await Jimp.read({ url: './img/playerLeft.png' })
-    leftImage = leftImage.composite(image, 1, 0)
-    leftImage = leftImage.composite(image, 48 + 1, 0)
-    leftImage = leftImage.composite(image, 48 * 2 + 1, 0)
-    leftImage = leftImage.composite(image, 48 * 3 + 1, 0)
-    user.sprites.left = new Image()
-    user.sprites.left.src = await leftImage.getBase64Async('image/png')
-
-    var rightImage = await Jimp.read({ url: './img/playerRight.png' })
-    rightImage = rightImage.composite(image, 1, 0)
-    rightImage = rightImage.composite(image, 48 + 1, 0)
-    rightImage = rightImage.composite(image, 48 * 2 + 1, 0)
-    rightImage = rightImage.composite(image, 48 * 3 + 1, 0)
-    user.sprites.right = new Image()
-    user.sprites.right.src = await rightImage.getBase64Async('image/png')
+    console.log(typeof player.image.src)
+    console.log(typeof others['250'].sprite.image.src)
+}
+worker.onerror = function (err) {
+    console.log(err)
 }
 
 const nearConfig = {

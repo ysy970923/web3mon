@@ -26,5 +26,13 @@ const monsters = {
     "cartelgen1.neartopia.near": {
         health: 100,
         attacks: [attacks["Cartel Smoke"], attacks.Fireball, attacks.Larva]
-    }
+    },
+    "realbirds.near": {
+        health: 100,
+        attacks: [attacks["Bird Kick"], attacks.Fireball, attacks.Larva]
+    },
+    "mrbrownproject.near": {
+        health: 100,
+        attacks: [attacks["Brown Rage"], attacks.Fireball, attacks.Larva]
+    },
 }

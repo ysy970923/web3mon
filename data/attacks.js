@@ -41,6 +41,18 @@ const attacks = {
         type: 'Normal',
         color: 'black'
     },
+    "Bird Kick": {
+        name: 'Bird Kick',
+        damage: 20,
+        type: 'Normal',
+        color: 'black'
+    },
+    "Brown Rage": {
+        name: 'Brown Rage',
+        damage: 20,
+        type: 'Normal',
+        color: 'black'
+    },
     Fireball: {
         name: 'Fireball',
         damage: 20,
@@ -52,5 +64,5 @@ const attacks = {
         damage: 20,
         type: 'Larva',
         color: 'black'
-    }
+    },
 }
