@@ -230,8 +230,6 @@ function getDictFromBinary(data) {
     return msg
 }
 
-var worker = new Worker("./js/worker.js")
-
 function onmessage(data) {
     var buf = new Uint8Array(data).buffer
     var dv = new DataView(buf)
@@ -353,6 +351,7 @@ function onmessage(data) {
             var id = dv.getInt16(1)
             msg = receiveMsgFromPeer(data)
             others[id] = {
+                draw: false,
                 collection: msg.collection,
                 health: msg.health,
                 attacks: msg.attacks,
@@ -375,6 +374,7 @@ function onmessage(data) {
                     name: msg.username
                 })
             }
+            var worker = new Worker("./js/worker.js")
             others[id].baseImage = new Image()
             worker.postMessage({ url: msg.url, contractAddress: msg.collection })
             worker.onmessage = function (event) {
@@ -385,12 +385,14 @@ function onmessage(data) {
                     others[id].sprite.sprites.right.src = event.data.right
                     others[id].baseImage.src = event.data.baseImage
                     others[id].image = others[id].sprite.sprites.down
+                    others[id].draw = true
+                    worker.terminate()
                 }
             }
             worker.onerror = function (err) {
                 console.log(err)
+                worker.terminate()
             }
-            // makeChracterImage(msg.url, others[id].sprite, msg.collection)
             break
 
         case 'leave-battle':

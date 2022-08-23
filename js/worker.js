@@ -1,4 +1,3 @@
-// import Jimp from 'https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js'
 importScripts('https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js')
 // addEventListener is directly accessible in worker file
 onmessage = function (event) {
@@ -57,7 +56,6 @@ async function makeChracterImage(url, contractAddress) {
 
     var sprite = {}
 
-    // sprite.baseImage = new Image()
     sprite.baseImage = await image.getBase64Async('image/png')
 
     if (contractAddress === 'nearnautnft.near')

@@ -280,6 +280,7 @@ function enterBattle(animationId, id) {
 }
 
 others['250'] = {
+    draw: true,
     collection: "asac.near",
     health: monsters["asac.near"].health,
     attacks: monsters["asac.near"].attacks,
@@ -314,7 +315,8 @@ function animate() {
     else
         others['250'].sprite.chat = 'Click Me!'
     for (const key in others) {
-        others[key].sprite.draw()
+        if (others[key].draw === true)
+            others[key].sprite.draw()
     }
     joyToKey()
     let moving = true
