@@ -157,6 +157,7 @@ const player = new Sprite({
     },
     name: ''
 })
+player.direction = 0
 
 const background = new Sprite({
     position: {
@@ -314,8 +315,6 @@ function animate() {
     let moving = true
     player.animate = false
 
-    let rotation = 0
-
     if (battle.initiated) return
 
     if (battle_start) {
@@ -341,7 +340,7 @@ function animate() {
     if (keys.w.pressed && lastKey === 'w') {
         player.animate = true
         player.image = player.sprites.up
-        rotation = 0
+        player.direction = 0
 
         checkForCharacterCollision({
             characters,
@@ -379,7 +378,7 @@ function animate() {
     } else if (keys.a.pressed && lastKey === 'a') {
         player.animate = true
         player.image = player.sprites.left
-        rotation = 1
+        player.direction = 1
 
         checkForCharacterCollision({
             characters,
@@ -417,7 +416,7 @@ function animate() {
     } else if (keys.s.pressed && lastKey === 's') {
         player.animate = true
         player.image = player.sprites.down
-        rotation = 2
+        player.direction = 2
 
         checkForCharacterCollision({
             characters,
@@ -455,7 +454,7 @@ function animate() {
     } else if (keys.d.pressed && lastKey === 'd') {
         player.animate = true
         player.image = player.sprites.right
-        rotation = 3
+        player.direction = 3
 
         checkForCharacterCollision({
             characters,
@@ -491,7 +490,15 @@ function animate() {
                 others[key].sprite.position.x -= 3
             }
     }
-    if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed)
-        if (moving) moveUser(global_position(), rotation)
 }
 // animate()
+var previousAnimate = false
+setInterval(() => {
+    if (player.animate === true) {
+        moveUser(global_position(), player.direction)
+        previousAnimate = player.animate
+    }
+    else if (previousAnimate === true) {
+        stopUser(global_position())
+    }
+}, 50)

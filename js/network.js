@@ -12,6 +12,7 @@ var NumToType = {
     1: 'update-user-list',
     2: 'move-user',
     3: 'send-chat',
+    4: 'stop-user',
 
     10: 'battle-offer',
     11: 'battle-answer',
@@ -54,6 +55,17 @@ function moveUser(pos, rot) {
     dataview.setInt16(3, Number.parseInt(pos.x))
     dataview.setInt16(5, Number.parseInt(pos.y))
     dataview.setInt16(7, Number.parseInt(rot))
+    ws.send(buffer)
+}
+
+function stopUser(pos) {
+    if (!checkOrReconnect()) return
+    var buffer = new ArrayBuffer(7)
+    var dataview = new DataView(buffer)
+    dataview.setInt8(0, TypeToNum['stop-user'])
+    dataview.setInt16(1, myID)
+    dataview.setInt16(3, Number.parseInt(pos.x))
+    dataview.setInt16(5, Number.parseInt(pos.y))
     ws.send(buffer)
 }
 
@@ -121,7 +133,7 @@ function responseUserInfo(id) {
         attacks: monsters[window.contractAddress].attacks
     }
     sendMsgToPeer('response-user-info', id, msg)
-    moveUser(global_position(), 0)
+    stopUser(global_position())
 }
 
 function attack(id, attack) {
@@ -270,6 +282,7 @@ function onmessage(data) {
                 x: dv.getInt16(3),
                 y: dv.getInt16(5)
             })
+            others[id].sprite.animate = true
             const rotation = dv.getInt16(7)
             switch (rotation) {
                 case 0:
@@ -285,6 +298,19 @@ function onmessage(data) {
                     others[id].sprite.image = others[id].sprite.sprites.right
                     break
             }
+            break
+        
+        case 'stop-user':
+            var id = dv.getInt16(1)
+            if (others[id] === undefined) {
+                requestUserInfo(id)
+                break
+            }
+            others[id].sprite.position = local_position({
+                x: dv.getInt16(3),
+                y: dv.getInt16(5)
+            })
+            others[id].sprite.animate = false
             break
 
         case 'send-chat':
@@ -350,32 +376,34 @@ function onmessage(data) {
         case 'response-user-info':
             var id = dv.getInt16(1)
             msg = receiveMsgFromPeer(data)
-            others[id] = {
-                draw: false,
-                collection: msg.collection,
-                health: msg.health,
-                attacks: msg.attacks,
-                sprite: new Sprite({
-                    position: {
-                        x: 0,
-                        y: 0
-                    },
-                    image: playerDownImage,
-                    frames: {
-                        max: 4,
-                        hold: 10
-                    },
-                    sprites: {
-                        up: new Image(),
-                        left: new Image(),
-                        right: new Image(),
-                        down: new Image()
-                    },
-                    name: msg.username
-                })
+            if (others[id] === undefined) {
+                others[id] = {
+                    draw: false,
+                    collection: msg.collection,
+                    health: msg.health,
+                    attacks: msg.attacks,
+                    sprite: new Sprite({
+                        position: {
+                            x: 0,
+                            y: 0
+                        },
+                        image: playerDownImage,
+                        frames: {
+                            max: 4,
+                            hold: 10
+                        },
+                        sprites: {
+                            up: new Image(),
+                            left: new Image(),
+                            right: new Image(),
+                            down: new Image()
+                        },
+                        name: msg.username,
+                    })
+                }
+                others[id].baseImage = new Image()
+                worker.postMessage({ url: msg.url, contractAddress: msg.collection, id: id })
             }
-            others[id].baseImage = new Image()
-            worker.postMessage({ url: msg.url, contractAddress: msg.collection, id: id })
             break
 
         case 'leave-battle':
