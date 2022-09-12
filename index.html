@@ -297,6 +297,19 @@
         <button id="refuseBattleBtn" class="nes-btn is-error">NO</button>
       </div>
 
+      <div id="selectTypeCard" class="card" style="padding: 20px">
+        <h2>Select Type</h2>
+        <div class="nes-select">
+          <select required id="selectType" onchange="connectWallet()">
+            <option value="1">Attack</option>
+            <!-- <option value="2">Defense</option> -->
+            <option value="3">Lucky</option>
+            <!-- <option value="4">Hedgehog</option> -->
+          </select>
+        </div>
+        <button id="selectTypeBtn" class="nes-btn is-success">OK</button>
+      </div>
+
       <div id="battleResultCard" class="card" style="padding: 20px">
         <h2 id="battleResult"></h2>
         <button id="closeResultBtn" class="nes-btn">YES</button>
@@ -431,7 +444,7 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js"></script>
-    <script src="data/audio.js"></script>
+    <!-- <script src="data/audio.js"></script> -->
     <script src="data/battleZones.js"></script>
     <script src="data/collisions.js"></script>
     <script src="data/attacks.js"></script>

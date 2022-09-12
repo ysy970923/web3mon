@@ -46,16 +46,25 @@ canvas.addEventListener('click', (e) => {
                     document.getElementById('acceptBattleCard').style.display = 'block'
                     document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[key].sprite.name
                     document.getElementById('acceptBattleBtn').addEventListener('click', (e) => {
+                        document.getElementById('refuseBattleBtn').style.display = 'none'
+                        document.getElementById('selectTypeCard').style.display = 'block'
                         if (key == 250) {
                             opponent_id = key
-                            battle_start = true
-                            my_turn = true
+                            document.getElementById('selectTypeBtn').addEventListener('click', (e) => {
+                                document.getElementById('selectTypeCard').style.display = 'none'
+                                battle_start = true
+                                my_turn = true
+                                mySkillType = document.getElementById('selectType').value
+                            })
                         }
                         else {
-                            document.getElementById('battleOpponentName2').innerText = 'Waiting for accpetance...'
-                            document.getElementById('acceptBattleBtn').style.display = 'none'
-                            document.getElementById('refuseBattleBtn').style.display = 'none'
-                            battleOffer(key)
+                            document.getElementById('selectTypeBtn').addEventListener('click', (e) => {
+                                document.getElementById('selectTypeCard').style.display = 'none'
+                                document.getElementById('battleOpponentName2').innerText = 'Waiting for accpetance...'
+                                document.getElementById('acceptBattleBtn').style.display = 'none'
+                                mySkillType = document.getElementById('selectType').value
+                                battleOffer(key, mySkillType)
+                            })
                         }
                     })
                     document.getElementById('refuseBattleBtn').addEventListener('click', (e) => {
@@ -194,11 +203,3 @@ function joyToKey() {
     }
     joyStickMoving = moving
 }
-
-let clicked = false
-addEventListener('click', () => {
-    if (!clicked) {
-        audio.Map.play()
-        clicked = true
-    }
-})

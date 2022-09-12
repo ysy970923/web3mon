@@ -14,6 +14,8 @@ let renderedSprites
 let battleAnimationId
 let queue
 let my_turn = false
+let mySkillType
+let skillTypes
 
 function attacked(attack) {
     queue.push(() => {
@@ -51,13 +53,11 @@ function endBattle(result) {
                 })
 
                 battle.initiated = false
-                audio.Map.play()
             }
         })
         battle_start = false
     })
 }
-
 function initBattle() {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
@@ -74,31 +74,35 @@ function initBattle() {
         document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
     }
 
+    console.log(others[opponent_id].skillType)
     var opponentMonster = {
         image: others[opponent_id].baseImage,
         isEnemy: true,
         name: others[opponent_id].sprite.name,
-        health: others[opponent_id].health,
-        attacks: others[opponent_id].attacks,
+        health: skillTypes[others[opponent_id].skillType].health,
+        attacks: JSON.parse(JSON.stringify(skillTypes[others[opponent_id].skillType].atk)),
+        defenses: skillTypes[others[opponent_id].skillType].def
     }
 
     opponent = new Monster(opponentMonster)
-
+    console.log(skillTypes)
     var myMonster = {
         image: player.baseImage,
         isEnemy: false,
         name: player.name,
-        health: monsters[window.contractAddress].health,
-        attacks: monsters[window.contractAddress].attacks,
+        health: skillTypes[mySkillType].health,
+        attacks: JSON.parse(JSON.stringify(skillTypes[mySkillType].atk)),
+        defenses: skillTypes[mySkillType].def,
     }
     me = new Monster(myMonster)
     renderedSprites = [opponent, me]
     queue = []
 
     document.querySelector('#attacksBox').style['grid-template-columns'] = `repeat(${me.attacks.length}, 1fr)`;
-    me.attacks.forEach((attack) => {
+    me.attacks.forEach((attack, i) => {
         const button = document.createElement('button')
-        button.innerHTML = attack.name
+        button.innerHTML = `${attack.name}\n (Atk: ${attack.atk})\n (Cool: ${attack.left_cool_time})\n (Left: ${attack.limit})`
+        button.value = i
         document.querySelector('#attacksBox').append(button)
     })
 
@@ -106,15 +110,38 @@ function initBattle() {
     document.querySelectorAll('button').forEach((button) => {
         button.addEventListener('click', (e) => {
             if (!my_turn) return
+            const selectedAttack = me.attacks[e.currentTarget.value]
+
+            if (selectedAttack.left_cool_time > 0) {
+                window.alert('cool time is left')
+                return
+            }
+
+            if (selectedAttack.limit == 0) {
+                window.alert('limit is over')
+                return
+            }
 
             my_turn = false
 
-            const selectedAttack = attacks[e.currentTarget.innerHTML]
             me.attack({
                 attack: selectedAttack,
                 recipient: opponent,
                 renderedSprites
             })
+            me.attacks.forEach((attack) => {
+                if (attack.left_cool_time > 0)
+                    attack.left_cool_time -= 1
+            })
+            
+            selectedAttack.limit -= 1
+            selectedAttack.left_cool_time = selectedAttack.cool_time
+
+            Array.from(document.querySelector('#attacksBox').childNodes).forEach((button, i) => {
+                var attack = me.attacks[i]
+                button.innerHTML = `${attack.name}\n (Cool: ${attack.left_cool_time})\n (Left: ${attack.limit})`
+            })
+
             // 250 is bot
             if (opponent_id == 250) {
                 setTimeout(() => {

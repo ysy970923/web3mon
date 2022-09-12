@@ -10,17 +10,6 @@ var battle_start = false
 var NumToType = {
     0: 'id',
     1: 'update-user-list',
-    2: 'move-user',
-    3: 'send-chat',
-    4: 'stop-user',
-
-    10: 'battle-offer',
-    11: 'battle-answer',
-    12: 'attack',
-    13: 'request-user-info',
-    14: 'response-user-info',
-    15: 'leave-battle',
-    16: 'battle-deny'
 }
 
 var reverseMapping = (o) =>
@@ -80,23 +69,25 @@ function sendChat() {
     closeForm()
 }
 
-function battleOffer(id) {
+function battleOffer(id, type) {
     if (!checkOrReconnect()) return
-    var buffer = new ArrayBuffer(5)
+    var buffer = new ArrayBuffer(7)
     var dataview = new DataView(buffer)
     dataview.setInt8(0, TypeToNum['battle-offer'])
     dataview.setInt16(1, myID)
     dataview.setInt16(3, id)
+    dataview.setInt16(5, type)
     ws.send(buffer)
 }
 
-function battleAnswer(id) {
+function battleAnswer(id, type) {
     if (!checkOrReconnect()) return
-    var buffer = new ArrayBuffer(5)
+    var buffer = new ArrayBuffer(7)
     var dataview = new DataView(buffer)
     dataview.setInt8(0, TypeToNum['battle-answer'])
     dataview.setInt16(1, myID)
     dataview.setInt16(3, id)
+    dataview.setInt16(5, type)
     ws.send(buffer)
 }
 
@@ -110,6 +101,37 @@ function battleDeny(id, reason) {
     dataview.setInt16(3, id)
     // 0: already on battle, 1: refuse
     dataview.setInt16(5, reason)
+    ws.send(buffer)
+}
+
+function audoBattleOffer(id) {
+    if (!checkOrReconnect()) return
+    var buffer = new ArrayBuffer(5)
+    var dataview = new DataView(buffer)
+    dataview.setInt8(0, TypeToNum['auto-battle-offer'])
+    dataview.setInt16(1, myID)
+    dataview.setInt16(3, id)
+    ws.send(buffer)
+}
+
+function autoBattleAnswer(id) {
+    if (!checkOrReconnect()) return
+    var buffer = new ArrayBuffer(5)
+    var dataview = new DataView(buffer)
+    dataview.setInt8(0, TypeToNum['auto-battle-answer'])
+    dataview.setInt16(1, myID)
+    dataview.setInt16(3, id)
+    ws.send(buffer)
+}
+
+function autoBattleSelectType(id, type) {
+    if (!checkOrReconnect()) return
+    var buffer = new ArrayBuffer(7)
+    var dataview = new DataView(buffer)
+    dataview.setInt8(0, TypeToNum['auto-battle-select-type'])
+    dataview.setInt16(1, myID)
+    dataview.setInt16(3, id)
+    dataview.setInt16(5, type)
     ws.send(buffer)
 }
 
@@ -129,8 +151,6 @@ function responseUserInfo(id) {
         collection: window.contractAddress,
         url: playerUrl,
         username: player.name,
-        health: monsters[window.contractAddress].health,
-        attacks: monsters[window.contractAddress].attacks
     }
     sendMsgToPeer('response-user-info', id, msg)
     stopUser(global_position())
@@ -200,6 +220,8 @@ function sendMsgToAll(type, msg) {
 function sendMsgToPeer(type, id, msg) {
     if (!checkOrReconnect()) return
     var typeNum = TypeToNum[type]
+    console.log(type)
+    console.log(typeNum)
 
     var buffer1 = new ArrayBuffer(5)
     var dataview = new DataView(buffer1)
@@ -236,7 +258,6 @@ function receiveMsgFromPeer(data) {
 
 function getDictFromBinary(data) {
     var buf = new Uint8Array(data).slice(1)
-
     var decoder = new TextDecoder()
     var msg = JSON.parse(decoder.decode(buf))
     return msg
@@ -251,7 +272,12 @@ function onmessage(data) {
 
     switch (type) {
         case 'id': // my id is given
-            myID = dv.getInt16(1)
+            msg = getDictFromBinary(data)
+            myID = msg.id
+            NumToType = msg.NumToType
+            TypeToNum = msg.TypeToNum
+            console.log(NumToType)
+            skillTypes = msg.skillSets
             log('My ID: ' + myID)
             break
 
@@ -299,7 +325,7 @@ function onmessage(data) {
                     break
             }
             break
-        
+
         case 'stop-user':
             var id = dv.getInt16(1)
             if (others[id] === undefined) {
@@ -331,8 +357,17 @@ function onmessage(data) {
                 document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[dv.getInt16(1)].sprite.name
                 document.getElementById('acceptBattleBtn').addEventListener('click', (e) => {
                     opponent_id = dv.getInt16(1)
-                    battleAnswer(opponent_id)
-                    battle_start = true
+                    others[opponent_id].skillType = dv.getInt16(5)
+                    document.getElementById('acceptBattleCard').style.display = 'none'
+                    document.getElementById('selectTypeCard').style.display = 'block'
+                    document.getElementById('selectTypeBtn').addEventListener('click', (e) => {
+                        document.getElementById('selectTypeCard').style.display = 'none'
+                        battle_start = true
+                        my_turn = true
+                        mySkillType = document.getElementById('selectType').value
+                        battleAnswer(opponent_id, mySkillType)
+                        battle_start = true
+                    })
                 })
                 document.getElementById('refuseBattleBtn').addEventListener('click', (e) => {
                     battleDeny(dv.getInt16(1), 1)
@@ -359,6 +394,7 @@ function onmessage(data) {
 
         case 'battle-answer':
             opponent_id = dv.getInt16(1)
+            others[opponent_id].skillType = dv.getInt16(5)
             battle_start = true
             my_turn = true
             break
@@ -380,8 +416,6 @@ function onmessage(data) {
                 others[id] = {
                     draw: false,
                     collection: msg.collection,
-                    health: msg.health,
-                    attacks: msg.attacks,
                     sprite: new Sprite({
                         position: {
                             x: 0,
@@ -416,8 +450,7 @@ function onmessage(data) {
 
         default:
             log_error('Unknown message received:')
-            msg = getDictFromBinary(data)
-            log_error(msg)
+            log_error(type)
     }
 }
 

@@ -161,8 +161,6 @@ class Monster extends Sprite {
         gsap.to(this, {
             opacity: 0
         })
-        audio.battle.stop()
-        audio.victory.play()
     }
 
     attack({ attack, recipient, renderedSprites }) {
@@ -179,12 +177,9 @@ class Monster extends Sprite {
 
         let rotation = 1
         if (this.isEnemy) rotation = -2.2
-
-        recipient.health -= attack.damage
-
-        switch (attack.type) {
-            case 'Fire':
-                audio.initFireball.play()
+        recipient.health -= attack.atk
+        switch (attack.effect) {
+            case 'Fireball':
                 const fireballImage = new Image()
                 fireballImage.src = './img/fireball.png'
                 const fireball = new Sprite({
@@ -207,7 +202,6 @@ class Monster extends Sprite {
                     y: recipient.position.y,
                     onComplete: () => {
                         // Enemy actually gets hit
-                        audio.fireballHit.play()
                         gsap.to(healthBar, {
                             width: (100 * recipient.health) / recipient.initialHealth + '%'
                         })
@@ -231,7 +225,6 @@ class Monster extends Sprite {
                 break
 
             case 'Larva':
-                audio.initFireball.play()
                 const larvaImage = new Image()
                 larvaImage.src = './img/draggleSprite.png'
                 const larva = new Sprite({
@@ -254,7 +247,6 @@ class Monster extends Sprite {
                     y: recipient.position.y,
                     onComplete: () => {
                         // Enemy actually gets hit
-                        audio.fireballHit.play()
                         gsap.to(healthBar, {
                             width: (100 * recipient.health) / recipient.initialHealth + '%'
                         })
@@ -277,7 +269,7 @@ class Monster extends Sprite {
                 })
                 break
 
-            case 'Normal':
+            case 'Tackle':
                 const tl = gsap.timeline()
 
                 let movementDistance = 20
@@ -291,7 +283,6 @@ class Monster extends Sprite {
                         duration: 0.1,
                         onComplete: () => {
                             // Enemy actually gets hit
-                            audio.tackleHit.play()
                             gsap.to(healthBar, {
                                 width: (100 * recipient.health) / recipient.initialHealth + '%'
                             })
