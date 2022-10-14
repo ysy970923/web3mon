@@ -1,5 +1,7 @@
 // 웹팩이 실행될 때 참조하는 파일
 const path = require('path')
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
   // enntry file
@@ -32,6 +34,13 @@ module.exports = {
       }
     ]
   },
+
+  // plugins: [new NodePolyfillPlugin()],
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser'
+    })
+  ],
   devtool: 'source-map',
   // https://webpack.js.org/concepts/mode/#mode-development
   mode: 'development'

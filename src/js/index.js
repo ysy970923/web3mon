@@ -6,9 +6,11 @@ import { Boundary } from '../game/object/Boundary'
 import { Sprite } from '../game/object/Sprite'
 import { others } from './network'
 import { worker } from './utils'
+import { keys } from '../game/interaction/move'
+import * as nearAPI from 'near-api-js'
 
 // 최초로 지갑 연결
-connectWallets()
+connectWallets(nearAPI)
 
 const image = new Image()
 image.src = '../img/Pellet Town.png'
@@ -21,13 +23,6 @@ playerDownImage.src = '../img/playerDown.png'
 
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
-
-function truncate(input, length) {
-  if (input.length > length) {
-    return input.substring(0, length) + '...'
-  }
-  return input
-}
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
@@ -46,7 +41,6 @@ const charactersMap = []
 for (let i = 0; i < charactersMapData.length; i += 70) {
   charactersMap.push(charactersMapData.slice(i, 70 + i))
 }
-console.log(charactersMap, '앱')
 
 const boundaries = []
 const offset = {
@@ -179,21 +173,6 @@ const foreground = new Sprite({
   },
   image: foregroundImage
 })
-
-const keys = {
-  w: {
-    pressed: false
-  },
-  a: {
-    pressed: false
-  },
-  s: {
-    pressed: false
-  },
-  d: {
-    pressed: false
-  }
-}
 
 const movables = [
   background,

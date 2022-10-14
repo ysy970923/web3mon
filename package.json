@@ -11,16 +11,11 @@
     "build": "babel src/* -w -d dist/js",
     "buildtest": "webpack -w"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ysy970923/cryptomon.git"
-  },
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ysy970923/cryptomon/issues"
   },
-  "homepage": "https://github.com/ysy970923/cryptomon#readme",
   "devDependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.3",
@@ -30,6 +25,9 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "core-js": "^3.25.5"
+    "core-js": "^3.25.5",
+    "near-api-js": "^1.1.0",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "process": "^0.11.10"
   }
 }

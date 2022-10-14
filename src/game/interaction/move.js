@@ -1,6 +1,24 @@
+import { JoyStick } from './joystick'
+
 var joy = new JoyStick('joyDiv')
 
 let lastKey = ''
+
+export const keys = {
+  w: {
+    pressed: false
+  },
+  a: {
+    pressed: false
+  },
+  s: {
+    pressed: false
+  },
+  d: {
+    pressed: false
+  }
+}
+
 window.addEventListener('keydown', (e) => {
   console.log('클릭')
   switch (e.key) {

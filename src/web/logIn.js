@@ -1,22 +1,53 @@
 import { player } from '../js/index'
 import { worker } from '../js/utils'
+import * as nearAPI from 'near-api-js'
 
 export let playerUrl
 export let tokenId
 
-const nearConfig = {
-  networkId: 'mainnet',
-  nodeUrl: 'https://rpc.mainnet.near.org',
-  walletUrl: 'https://wallet.near.org',
-  helperUrl: 'https://helper.mainnet.near.org',
-  explorerUrl: 'https://explorer.mainnet.near.org'
+function truncate(input, length) {
+  if (input.length > length) {
+    return input.substring(0, length) + '...'
+  }
+  return input
+}
+
+export async function connectWallets(nearAPI) {
+  console.log(
+    '니어 테스트',
+    new nearAPI.keyStores.BrowserLocalStorageKeyStore()
+  )
+
+  const nearConfig = {
+    networkId: 'mainnet',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.mainnet.near.org',
+    explorerUrl: 'https://explorer.mainnet.near.org'
+  }
+  // Initialize connection to the NEAR testnet
+
+  const near = await nearAPI.connect(
+    Object.assign(
+      {
+        deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() }
+      },
+      nearConfig
+    )
+  )
+  // Initializing Wallet based Account. It can work with NEAR testnet wallet that
+  // is hosted at https://wallet.testnet.near.org
+  console.log('니어', near)
+  window.walletConnection = new nearAPI.WalletConnection(near)
+
+  // Getting the Account ID. If still unauthorized, it's just empty string
+  window.accountId = window.walletConnection.getAccountId()
+  if (window.accountId !== '') await authorize()
 }
 
 document.getElementById('joinGame').addEventListener('click', (e) => {
   // initContract 실행
-  console.log('0')
   initContract().then(() => {
-    console.log('1ㅏㅏㅏㅏ')
     tokenId = document.getElementById('tokenId').value
     window.contract
       .nft_token({ token_id: tokenId })
@@ -26,6 +57,7 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
           return
         }
         player.name = truncate(msg.owner_id, 20)
+        console.log('메타데이터', window.metadata)
         if (msg.metadata.media.includes('https://'))
           playerUrl = msg.metadata.media
         else playerUrl = window.metadata.base_uri + '/' + msg.metadata.media
@@ -47,7 +79,6 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
             )
             .focus()
         })
-        console.log('2')
 
         player.baseImage = new Image()
         worker.postMessage({
@@ -56,9 +87,7 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
           id: '-1'
         })
       })
-      .catch((err) => {
-        console.log('에러', err)
-      })
+      .catch((err) => console.log(err))
   })
 })
 
@@ -66,8 +95,7 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
 async function initContract() {
   window.contractAddress = document.getElementById('contractAddress').value
   // Initializing our contract APIs by contract name and configuration
-  console.log('여기까지 실행')
-  window.contract = await new nearApi.Contract(
+  window.contract = await new nearAPI.Contract(
     window.walletConnection.account(),
     window.contractAddress,
     {
@@ -82,35 +110,13 @@ async function initContract() {
       changeMethods: []
     }
   )
-  console.log('여기까지 실행22')
-  window.metadata = await window.contract
-    .nft_metadata()
-    .then((res) => console.log('결과 ', res))
-    .catch((err) => console.error(err, '에러러라구'))
-  console.log('여기까지 실행3')
-}
-
-export async function connectWallets() {
-  console.log('1')
-  // Initialize connection to the NEAR testnet
-  const near = await nearApi.connect(
-    Object.assign(
-      {
-        deps: { keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore() }
-      },
-      nearConfig
-    )
-  )
-  // Initializing Wallet based Account. It can work with NEAR testnet wallet that
-  // is hosted at https://wallet.testnet.near.org
-  window.walletConnection = new nearApi.WalletConnection(near)
-
-  // Getting the Account ID. If still unauthorized, it's just empty string
-  window.accountId = window.walletConnection.getAccountId()
-  if (window.accountId !== '') await authorize()
+  console.log('1111', window.contract)
+  window.metadata = await window.contract.nft_metadata()
+  console.log('19999', window.metadata)
 }
 
 async function authorize() {
+  console.log('오소라이즈')
   await initContract()
   var contract_address = document.getElementById('contractAddress').value
   window.walletConnection.requestSignIn(contract_address)
