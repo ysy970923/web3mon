@@ -1,10 +1,8 @@
 import { JoyStick } from './joystick'
 
-var joy = new JoyStick('joyDiv')
+export let lastKey = ''
 
-let lastKey = ''
-
-export const keys = {
+export let keys = {
   w: {
     pressed: false
   },
@@ -20,7 +18,7 @@ export const keys = {
 }
 
 window.addEventListener('keydown', (e) => {
-  console.log('클릭')
+  console.log('이동 버튼 클릭')
   switch (e.key) {
     case 'w':
       keys.w.pressed = true
@@ -44,6 +42,7 @@ window.addEventListener('keydown', (e) => {
 })
 
 window.addEventListener('keyup', (e) => {
+  console.log('이동 버튼 클릭22')
   switch (e.key) {
     case 'w':
       keys.w.pressed = false
@@ -60,8 +59,9 @@ window.addEventListener('keyup', (e) => {
   }
 })
 
+var joy = new JoyStick('joyDiv')
 var joyStickMoving = false
-function joyToKey() {
+export function joyToKey() {
   var x = joy.GetX()
   var y = joy.GetY()
   var moving = false

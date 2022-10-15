@@ -1,3 +1,4 @@
+import { canva } from '../../js/index'
 export class Boundary {
   static width = 48
   static height = 48
@@ -10,9 +11,9 @@ export class Boundary {
 
   draw() {
     if (this.type === 'battle') {
-      c.fillStyle = 'rgba(255, 0, 0, 0.5)'
-      c.fillRect(this.position.x, this.position.y, this.width, this.height)
-      c.fillStyle = 'rgba(0, 0, 0, 1.0)'
+      canva.fillStyle = 'rgba(255, 0, 0, 0.5)'
+      canva.fillRect(this.position.x, this.position.y, this.width, this.height)
+      canva.fillStyle = 'rgba(0, 0, 0, 1.0)'
     }
   }
 }

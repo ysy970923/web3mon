@@ -1,24 +1,29 @@
+import { attacked, endBattle } from './battleScene'
+import { global_position } from './index'
+
+export let skillTypes = {}
+
 var ws = null
 var myID = null
 var peerConnection = null
 var webcamStream = null
 var targetID = null
 export const others = {}
-var battle_start = false
+export let battle_start = false
 
 //0 ~ 9: binary; 10 ~: JSON string
 var NumToType = {
   0: 'id',
-  1: 'update-user-list'
+  1: 'update-user-list',
 }
 
-var reverseMapping = (o) =>
+const reverseMapping = (o) =>
   Object.keys(o).reduce(
     (r, k) => Object.assign(r, { [o[k]]: (r[o[k]] || []).concat(k) }),
     {}
   )
 
-var TypeToNum = reverseMapping(NumToType)
+let TypeToNum = reverseMapping(NumToType)
 
 function checkOrReconnect() {
   if (!ws) {
@@ -34,7 +39,7 @@ function checkOrReconnect() {
   return false
 }
 
-function moveUser(pos, rot) {
+export function moveUser(pos, rot) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(9)
   var dataview = new DataView(buffer)
@@ -46,7 +51,7 @@ function moveUser(pos, rot) {
   ws.send(buffer)
 }
 
-function stopUser(pos) {
+export function stopUser(pos) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
@@ -57,18 +62,18 @@ function stopUser(pos) {
   ws.send(buffer)
 }
 
-function sendChat() {
+export function sendChat() {
   if (!checkOrReconnect()) return
   var chat = document.querySelector('#chat').value
   player.chat = chat
   var msg = {
-    chat: chat
+    chat: chat,
   }
   sendMsgToAll('send-chat', msg)
   closeForm()
 }
 
-function battleOffer(id, type) {
+export function battleOffer(id, type) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
@@ -79,7 +84,7 @@ function battleOffer(id, type) {
   ws.send(buffer)
 }
 
-function battleAnswer(id, type) {
+export function battleAnswer(id, type) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
@@ -90,7 +95,7 @@ function battleAnswer(id, type) {
   ws.send(buffer)
 }
 
-function battleDeny(id, reason) {
+export function battleDeny(id, reason) {
   if (!checkOrReconnect()) return
   console.log('refuse battle')
   var buffer = new ArrayBuffer(7)
@@ -149,13 +154,13 @@ function responseUserInfo(id) {
   var msg = {
     collection: window.contractAddress,
     url: playerUrl,
-    username: player.name
+    username: player.name,
   }
   sendMsgToPeer('response-user-info', id, msg)
   stopUser(global_position())
 }
 
-function attack(id, attack) {
+export function attack(id, attack) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
@@ -166,7 +171,7 @@ function attack(id, attack) {
   ws.send(buffer)
 }
 
-function leaveBattle(id) {
+export function leaveBattle(id) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(5)
   var dataview = new DataView(buffer)
@@ -177,7 +182,7 @@ function leaveBattle(id) {
 }
 
 // if type >= 10: data should be dict
-function sendMsgToServer(type, msg) {
+export function sendMsgToServer(type, msg) {
   if (!checkOrReconnect()) return
   var typeNum = TypeToNum[type]
 
@@ -275,14 +280,12 @@ function onmessage(data) {
       myID = msg.id
       NumToType = msg.NumToType
       TypeToNum = msg.TypeToNum
-      console.log(NumToType)
       skillTypes = msg.skillSets
       log('My ID: ' + myID)
       break
 
     case 'update-user-list': // user list change
       msg = getDictFromBinary(data)
-      console.log(others)
       Object.keys(others).forEach((id) => {
         if (id !== '250') {
           if (!(id in msg['user-list'])) delete others[id]
@@ -304,7 +307,7 @@ function onmessage(data) {
       }
       others[id].sprite.position = local_position({
         x: dv.getInt16(3),
-        y: dv.getInt16(5)
+        y: dv.getInt16(5),
       })
       others[id].sprite.animate = true
       const rotation = dv.getInt16(7)
@@ -332,7 +335,7 @@ function onmessage(data) {
       }
       others[id].sprite.position = local_position({
         x: dv.getInt16(3),
-        y: dv.getInt16(5)
+        y: dv.getInt16(5),
       })
       others[id].sprite.animate = false
       break
@@ -344,7 +347,6 @@ function onmessage(data) {
       break
 
     case 'battle-offer':
-      console.log('battle offered')
       if (!battle.initiated) {
         document.getElementById('acceptBattleBtn').style.display =
           'inline-block'
@@ -397,8 +399,6 @@ function onmessage(data) {
       document.getElementById('acceptBattleCard').style.display = 'none'
       if (!battle.initiated) {
         var reason = dv.getInt16(5)
-        console.log('battle denied')
-        console.log(reason)
         if (reason === 0) window.alert('Opponent is already on Battle')
         else if (reason === 1) window.alert('Opponent Refused to Battle')
       }
@@ -431,27 +431,27 @@ function onmessage(data) {
           sprite: new Sprite({
             position: {
               x: 0,
-              y: 0
+              y: 0,
             },
             image: playerDownImage,
             frames: {
               max: 4,
-              hold: 10
+              hold: 10,
             },
             sprites: {
               up: new Image(),
               left: new Image(),
               right: new Image(),
-              down: new Image()
+              down: new Image(),
             },
-            name: msg.username
-          })
+            name: msg.username,
+          }),
         }
         others[id].baseImage = new Image()
         worker.postMessage({
           url: msg.url,
           contractAddress: msg.collection,
-          id: id
+          id: id,
         })
       }
       break
@@ -480,7 +480,6 @@ function onerror(data) {
 
 function log(text) {
   var time = new Date()
-  console.log('[' + time.toLocaleTimeString() + '] ' + text)
 }
 
 function log_error(text) {
@@ -492,7 +491,7 @@ function reportError(errMessage) {
   log_error(`Error ${errMessage.name}: ${errMessage.message}`)
 }
 
-function connect() {
+export function connect() {
   var serverUrl
   var scheme = 'ws'
   // var hostName = 'localhost:3000'

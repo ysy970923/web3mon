@@ -1,15 +1,15 @@
-import { others } from './network'
-import { player } from './index'
+import { others, connect } from './network'
+import { player, animate } from './index'
 
-function openForm() {
-  document.getElementById('myForm').style.display = 'block'
+export function openForm() {
+  document.getElementById('chatForm').style.display = 'block'
 }
 
-function closeForm() {
-  document.getElementById('myForm').style.display = 'none'
+export function closeForm() {
+  document.getElementById('chatForm').style.display = 'none'
 }
 
-function rectangularCollision({ rectangle1, rectangle2 }) {
+export function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
     rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
@@ -18,7 +18,7 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   )
 }
 
-function checkForCharacterCollision({
+export function checkForCharacterCollision({
   characters,
   player,
   characterOffset = { x: 0, y: 0 }

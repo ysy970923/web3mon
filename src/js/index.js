@@ -1,12 +1,19 @@
 import { connectWallets } from '../web/logIn'
-import { collisions } from '../data/collisions'
-import { battleZonesData } from '../data/battleZones'
-import { charactersMapData } from '../data/characters'
+import { collisions } from '../game/data/collisions'
+import { joyToKey } from '../game/interaction/move'
+import { initBattle, animateBattle } from './battleScene'
+import { battleZonesData } from '../game/data'
+import { charactersMapData } from '../game/data/characters'
 import { Boundary } from '../game/object/Boundary'
 import { Sprite } from '../game/object/Sprite'
 import { others } from './network'
-import { worker } from './utils'
-import { keys } from '../game/interaction/move'
+import {
+  worker,
+  checkForCharacterCollision,
+  rectangularCollision,
+} from './utils'
+import { keys, lastKey } from '../game/interaction/move'
+import { battle_start, moveUser, stopUser } from './network'
 import * as nearAPI from 'near-api-js'
 
 // 최초로 지갑 연결
@@ -22,10 +29,7 @@ const playerDownImage = new Image()
 playerDownImage.src = '../img/playerDown.png'
 
 const canvas = document.querySelector('canvas')
-const c = canvas.getContext('2d')
-
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+export const canva = canvas.getContext('2d')
 
 const collisionsMap = []
 for (let i = 0; i < collisions.length; i += 70) {
@@ -43,9 +47,10 @@ for (let i = 0; i < charactersMapData.length; i += 70) {
 }
 
 const boundaries = []
+
 const offset = {
   x: window.innerWidth / 2 - 3360 / 2,
-  y: window.innerHeight / 2 - 1920 / 2
+  y: window.innerHeight / 2 - 1920 / 2,
 }
 
 collisionsMap.forEach((row, i) => {
@@ -55,9 +60,9 @@ collisionsMap.forEach((row, i) => {
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
+            y: i * Boundary.height + offset.y,
           },
-          type: 'collision'
+          type: 'collision',
         })
       )
   })
@@ -72,9 +77,9 @@ battleZonesMap.forEach((row, i) => {
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
+            y: i * Boundary.height + offset.y,
           },
-          type: 'battle'
+          type: 'battle',
         })
       )
   })
@@ -95,15 +100,15 @@ charactersMap.forEach((row, i) => {
         new Sprite({
           position: {
             x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
+            y: i * Boundary.height + offset.y,
           },
           image: villagerImg,
           frames: {
             max: 4,
-            hold: 60
+            hold: 60,
           },
           scale: 3,
-          animate: true
+          animate: true,
         })
       )
     }
@@ -113,14 +118,14 @@ charactersMap.forEach((row, i) => {
         new Sprite({
           position: {
             x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
+            y: i * Boundary.height + offset.y,
           },
           image: oldManImg,
           frames: {
             max: 4,
-            hold: 60
+            hold: 60,
           },
-          scale: 3
+          scale: 3,
         })
       )
     }
@@ -130,8 +135,8 @@ charactersMap.forEach((row, i) => {
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
-          }
+            y: i * Boundary.height + offset.y,
+          },
         })
       )
     }
@@ -141,37 +146,37 @@ charactersMap.forEach((row, i) => {
 export const player = new Sprite({
   position: {
     x: canvas.width / 2 - 192 / 4 / 2,
-    y: canvas.height / 2 - 102 / 2
+    y: canvas.height / 2 - 102 / 2,
   },
   image: playerDownImage,
   frames: {
     max: 4,
-    hold: 10
+    hold: 10,
   },
   sprites: {
     up: new Image(),
     left: new Image(),
     right: new Image(),
-    down: new Image()
+    down: new Image(),
   },
   name: '',
-  direction: 0
+  direction: 0,
 })
 
 const background = new Sprite({
   position: {
     x: offset.x,
-    y: offset.y
+    y: offset.y,
   },
-  image: image
+  image: image,
 })
 
 const foreground = new Sprite({
   position: {
     x: offset.x,
-    y: offset.y
+    y: offset.y,
   },
-  image: foregroundImage
+  image: foregroundImage,
 })
 
 const movables = [
@@ -179,33 +184,33 @@ const movables = [
   ...boundaries,
   foreground,
   ...battleZones,
-  ...characters
+  ...characters,
 ]
-const renderables = [
+export const renderables = [
   background,
   ...boundaries,
   ...battleZones,
   ...characters,
   player,
-  foreground
+  foreground,
 ]
 
 const battle = {
   initiated: false,
-  ready: false
+  ready: false,
 }
 
-function global_position() {
+export function global_position() {
   return {
     x: player.position.x - background.position.x,
-    y: player.position.y - background.position.y
+    y: player.position.y - background.position.y,
   }
 }
 
-function local_position(position) {
+export function local_position(position) {
   return {
     x: position.x + background.position.x,
-    y: position.y + background.position.y
+    y: position.y + background.position.y,
   }
 }
 
@@ -218,7 +223,7 @@ function checkCollision(a, b) {
   return (
     rectangularCollision({
       rectangle1: a,
-      rectangle2: b
+      rectangle2: b,
     }) && overlappingArea > (a.width * a.height) / 10
   )
 }
@@ -243,11 +248,11 @@ function enterBattle(animationId, id) {
           animateBattle()
           gsap.to('#overlappingDiv', {
             opacity: 0,
-            duration: 0.4
+            duration: 0.4,
           })
-        }
+        },
       })
-    }
+    },
   })
 }
 
@@ -260,28 +265,28 @@ others['250'] = {
     image: playerDownImage,
     frames: {
       max: 4,
-      hold: 10
+      hold: 10,
     },
     sprites: {
       up: new Image(),
       left: new Image(),
       right: new Image(),
-      down: new Image()
+      down: new Image(),
     },
-    name: 'jaewon.near (BOT)'
-  })
+    name: 'jaewon.near (BOT)',
+  }),
 }
 
 others['250'].baseImage = new Image()
 worker.postMessage({
   url: 'https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png',
   contractAddress: 'asac.near',
-  id: '250'
+  id: '250',
 })
 
-const animate = async () => {
-  console.log('애니메이트')
+export const animate = async () => {
   const animationId = window.requestAnimationFrame(animate)
+
   renderables.forEach((renderable) => {
     renderable.draw()
   })
@@ -291,11 +296,14 @@ const animate = async () => {
   for (const key in others) {
     if (others[key].draw === true) others[key].sprite.draw()
   }
+
   joyToKey()
+
   let moving = true
   player.animate = false
 
   if (battle.initiated) return
+  console.log('움직111!')
 
   if (battle_start) {
     battle_start = false
@@ -303,10 +311,13 @@ const animate = async () => {
     enterBattle(animationId)
   }
 
-  if (document.getElementById('myForm').style.display !== 'none') return
+  console.log('움직2111!', document.getElementById('chatForm').style.display)
+  // 만약 채팅 중이라면 움직이지 않는다.
+  // if (document.getElementById('chatForm').style.display !== 'none') return
 
   // enable to battle with others
   if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
+    console.log('움직여야지!')
     battle.ready = false
     for (let i = 0; i < battleZones.length; i++) {
       const battleZone = battleZones[i]
@@ -317,7 +328,10 @@ const animate = async () => {
     }
   }
 
+  console.log('키즈', keys, lastKey)
+
   if (keys.w.pressed && lastKey === 'w') {
+    console.log('w가 눌려있다!')
     player.animate = true
     player.image = player.sprites.up
     player.direction = 0
@@ -325,7 +339,7 @@ const animate = async () => {
     checkForCharacterCollision({
       characters,
       player,
-      characterOffset: { x: 0, y: 3 }
+      characterOffset: { x: 0, y: 3 },
     })
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -337,9 +351,9 @@ const animate = async () => {
             ...boundary,
             position: {
               x: boundary.position.x,
-              y: boundary.position.y + 3
-            }
-          }
+              y: boundary.position.y + 3,
+            },
+          },
         })
       ) {
         moving = false
@@ -356,6 +370,7 @@ const animate = async () => {
         others[key].sprite.position.y += 3
       }
   } else if (keys.a.pressed && lastKey === 'a') {
+    console.log('a가 눌려있다!')
     player.animate = true
     player.image = player.sprites.left
     player.direction = 1
@@ -363,7 +378,7 @@ const animate = async () => {
     checkForCharacterCollision({
       characters,
       player,
-      characterOffset: { x: 3, y: 0 }
+      characterOffset: { x: 3, y: 0 },
     })
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -375,9 +390,9 @@ const animate = async () => {
             ...boundary,
             position: {
               x: boundary.position.x + 3,
-              y: boundary.position.y
-            }
-          }
+              y: boundary.position.y,
+            },
+          },
         })
       ) {
         moving = false
@@ -401,7 +416,7 @@ const animate = async () => {
     checkForCharacterCollision({
       characters,
       player,
-      characterOffset: { x: 0, y: -3 }
+      characterOffset: { x: 0, y: -3 },
     })
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -413,9 +428,9 @@ const animate = async () => {
             ...boundary,
             position: {
               x: boundary.position.x,
-              y: boundary.position.y - 3
-            }
-          }
+              y: boundary.position.y - 3,
+            },
+          },
         })
       ) {
         moving = false
@@ -439,7 +454,7 @@ const animate = async () => {
     checkForCharacterCollision({
       characters,
       player,
-      characterOffset: { x: -3, y: 0 }
+      characterOffset: { x: -3, y: 0 },
     })
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -451,9 +466,9 @@ const animate = async () => {
             ...boundary,
             position: {
               x: boundary.position.x - 3,
-              y: boundary.position.y
-            }
-          }
+              y: boundary.position.y,
+            },
+          },
         })
       ) {
         moving = false
@@ -473,6 +488,7 @@ const animate = async () => {
 }
 // animate()
 var previousAnimate = false
+
 setInterval(() => {
   if (player.animate === true) {
     moveUser(global_position(), player.direction)

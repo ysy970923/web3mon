@@ -1,5 +1,6 @@
 import { player } from '../js/index'
 import { worker } from '../js/utils'
+import { monsters } from '../game/data/monsters'
 import * as nearAPI from 'near-api-js'
 
 export let playerUrl
@@ -13,11 +14,6 @@ function truncate(input, length) {
 }
 
 export async function connectWallets(nearAPI) {
-  console.log(
-    '니어 테스트',
-    new nearAPI.keyStores.BrowserLocalStorageKeyStore()
-  )
-
   const nearConfig = {
     networkId: 'mainnet',
     nodeUrl: 'https://rpc.mainnet.near.org',
@@ -37,7 +33,6 @@ export async function connectWallets(nearAPI) {
   )
   // Initializing Wallet based Account. It can work with NEAR testnet wallet that
   // is hosted at https://wallet.testnet.near.org
-  console.log('니어', near)
   window.walletConnection = new nearAPI.WalletConnection(near)
 
   // Getting the Account ID. If still unauthorized, it's just empty string
@@ -46,6 +41,7 @@ export async function connectWallets(nearAPI) {
 }
 
 document.getElementById('joinGame').addEventListener('click', (e) => {
+  console.log('클릭')
   // initContract 실행
   initContract().then(() => {
     tokenId = document.getElementById('tokenId').value
@@ -57,7 +53,6 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
           return
         }
         player.name = truncate(msg.owner_id, 20)
-        console.log('메타데이터', window.metadata)
         if (msg.metadata.media.includes('https://'))
           playerUrl = msg.metadata.media
         else playerUrl = window.metadata.base_uri + '/' + msg.metadata.media
@@ -110,13 +105,10 @@ async function initContract() {
       changeMethods: []
     }
   )
-  console.log('1111', window.contract)
   window.metadata = await window.contract.nft_metadata()
-  console.log('19999', window.metadata)
 }
 
 async function authorize() {
-  console.log('오소라이즈')
   await initContract()
   var contract_address = document.getElementById('contractAddress').value
   window.walletConnection.requestSignIn(contract_address)

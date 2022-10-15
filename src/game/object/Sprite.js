@@ -1,6 +1,8 @@
 const chatBubble = new Image()
 chatBubble.src = '../img/chatBubble.png'
 
+import { canva } from '../../js/index'
+
 export class Sprite {
   constructor({
     position,
@@ -36,17 +38,17 @@ export class Sprite {
   }
 
   draw() {
-    c.save()
-    c.translate(
+    canva.save()
+    canva.translate(
       this.position.x + this.width / 2,
       this.position.y + this.height / 2
     )
-    c.rotate(this.rotation)
-    c.translate(
+    canva.rotate(this.rotation)
+    canva.translate(
       -this.position.x - this.width / 2,
       -this.position.y - this.height / 2
     )
-    c.globalAlpha = this.opacity
+    canva.globalAlpha = this.opacity
 
     const crop = {
       position: {
@@ -67,9 +69,9 @@ export class Sprite {
     }
 
     if (this.name.length > 0) {
-      c.font = '10px "Press Start 2P"'
-      var textWidth = c.measureText(this.name).width
-      c.fillText(
+      canva.font = '10px "Press Start 2P"'
+      var textWidth = canva.measureText(this.name).width
+      canva.fillText(
         this.name,
         image.position.x + image.width / 2 - textWidth / 2,
         image.position.y - 5
@@ -78,9 +80,9 @@ export class Sprite {
 
     if (this.chat.length > 0) {
       this.chatShowTime += 1
-      c.drawImage(chatBubble, image.position.x + 40, image.position.y - 80)
+      canva.drawImage(chatBubble, image.position.x + 40, image.position.y - 80)
 
-      c.fillText(this.chat, image.position.x + 45, image.position.y - 40)
+      canva.fillText(this.chat, image.position.x + 45, image.position.y - 40)
 
       if (this.chatShowTime > 600) {
         this.chatShowTime = 0
@@ -88,7 +90,7 @@ export class Sprite {
       }
     }
 
-    c.drawImage(
+    canva.drawImage(
       this.image,
       crop.position.x,
       crop.position.y,
@@ -100,7 +102,7 @@ export class Sprite {
       image.height * this.scale
     )
 
-    c.restore()
+    canva.restore()
 
     if (!this.animate) return
 
