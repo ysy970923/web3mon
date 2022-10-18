@@ -2,6 +2,7 @@
 const path = require('path')
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   // enntry file
@@ -36,11 +37,17 @@ module.exports = {
         test: /\.(png|jpg)$/,
         use: ['file-loader'],
       },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        exclude: /node_modules/,
+      },
     ],
   },
 
   // plugins: [new NodePolyfillPlugin()],
   plugins: [
+    new MiniCssExtractPlugin({ filename: 'css/style.css' }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),

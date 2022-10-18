@@ -2,12 +2,10 @@
   display: inline-block;
   position: relative;
   width: 100vw;
-  border: 5px solid green;
 }
 
 #login_screen {
   height: max(100%, 1500px);
-  background-image: url('../img/bg24-l.jpg');
   background-size: cover;
   color: white;
   line-height: 1.5;
@@ -137,8 +135,8 @@ img {
   left: calc(50% - 200px);
   z-index: 9;
   display: none;
-}
 
-#profileName {
-  font-size: 19px;
+  #profileName {
+    font-size: 14px;
+  }
 }

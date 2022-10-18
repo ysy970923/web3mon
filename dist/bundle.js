@@ -1,6 +1,395 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/game/animate.js":
+/*!*****************************!*\
+  !*** ./src/game/animate.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "animate": () => (/* binding */ animate)
+/* harmony export */ });
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.timers.js */ "./node_modules/core-js/modules/web.timers.js");
+/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.object.keys.js */ "./node_modules/core-js/modules/es.object.keys.js");
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ "./node_modules/core-js/modules/es.array.filter.js");
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.object.get-own-property-descriptor.js */ "./node_modules/core-js/modules/es.object.get-own-property-descriptor.js");
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.object.get-own-property-descriptors.js */ "./node_modules/core-js/modules/es.object.get-own-property-descriptors.js");
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.object.define-properties.js */ "./node_modules/core-js/modules/es.object.define-properties.js");
+/* harmony import */ var core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
+/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
+/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.object.set-prototype-of.js */ "./node_modules/core-js/modules/es.object.set-prototype-of.js");
+/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.array.reverse.js */ "./node_modules/core-js/modules/es.array.reverse.js");
+/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _interaction_move__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./interaction/move */ "./src/game/interaction/move.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../js/network */ "./src/js/network.js");
+/* harmony import */ var _utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./utils/checkCollision */ "./src/game/utils/checkCollision.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+
+
+var animate = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var animationId, key, moving, i, battleZone, _i, boundary, _key, _i2, _boundary, _key2, _i3, _boundary2, _key3, _i4, _boundary3, _key4;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            animationId = window.requestAnimationFrame(animate);
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.renderables.forEach(function (renderable) {
+              renderable.draw();
+            });
+            if (animationId % 600 < 200) _js_network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Come in';else if (animationId % 600 < 400) _js_network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Battle Zone';else _js_network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Click Me!';
+            for (key in _js_network__WEBPACK_IMPORTED_MODULE_29__.others) {
+              if (_js_network__WEBPACK_IMPORTED_MODULE_29__.others[key].draw === true) _js_network__WEBPACK_IMPORTED_MODULE_29__.others[key].sprite.draw();
+            }
+            (0,_interaction_move__WEBPACK_IMPORTED_MODULE_27__.joyToKey)();
+            moving = true;
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate = false;
+            if (!_js_index__WEBPACK_IMPORTED_MODULE_28__.battle.initiated) {
+              _context.next = 9;
+              break;
+            }
+            return _context.abrupt("return");
+          case 9:
+            if (_js_network__WEBPACK_IMPORTED_MODULE_29__.battle_start) {
+              _js_network__WEBPACK_IMPORTED_MODULE_29__.battle_start = false;
+              document.getElementById('acceptBattleCard').style.display = 'none';
+              (0,_js_index__WEBPACK_IMPORTED_MODULE_28__.enterBattle)(animationId);
+            }
+
+            // 만약 채팅 중이라면 움직이지 않는다.
+            // if (document.getElementById('chatForm').style.display !== 'none') return
+
+            // enable to battle with others
+            if (!(_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.w.pressed || _interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.a.pressed || _interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.s.pressed || _interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.d.pressed)) {
+              _context.next = 21;
+              break;
+            }
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.battle.ready = false;
+            i = 0;
+          case 13:
+            if (!(i < _js_index__WEBPACK_IMPORTED_MODULE_28__.battleZones.length)) {
+              _context.next = 21;
+              break;
+            }
+            battleZone = _js_index__WEBPACK_IMPORTED_MODULE_28__.battleZones[i];
+            if (!(0,_js_index__WEBPACK_IMPORTED_MODULE_28__.checkCollision)(_js_index__WEBPACK_IMPORTED_MODULE_28__.player, battleZone)) {
+              _context.next = 18;
+              break;
+            }
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.battle.ready = true;
+            return _context.abrupt("break", 21);
+          case 18:
+            i++;
+            _context.next = 13;
+            break;
+          case 21:
+            if (!(_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.w.pressed && _interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 'w')) {
+              _context.next = 40;
+              break;
+            }
+            console.log('w가 눌려있다!');
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.image = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.up;
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 0;
+            (0,_utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__.checkForCharacterCollision)({
+              characters: _js_index__WEBPACK_IMPORTED_MODULE_28__.characters,
+              player: _js_index__WEBPACK_IMPORTED_MODULE_28__.player,
+              characterOffset: {
+                x: 0,
+                y: 3
+              }
+            });
+            _i = 0;
+          case 28:
+            if (!(_i < _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries.length)) {
+              _context.next = 36;
+              break;
+            }
+            boundary = _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries[_i];
+            if (!(0,_utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__.rectangularCollision)({
+              rectangle1: _js_index__WEBPACK_IMPORTED_MODULE_28__.player,
+              rectangle2: _objectSpread(_objectSpread({}, boundary), {}, {
+                position: {
+                  x: boundary.position.x,
+                  y: boundary.position.y + 3
+                }
+              })
+            })) {
+              _context.next = 33;
+              break;
+            }
+            moving = false;
+            return _context.abrupt("break", 36);
+          case 33:
+            _i++;
+            _context.next = 28;
+            break;
+          case 36:
+            if (moving) _js_index__WEBPACK_IMPORTED_MODULE_28__.movables.forEach(function (movable) {
+              movable.position.y += 3;
+            });
+            if (moving) for (_key in _js_network__WEBPACK_IMPORTED_MODULE_29__.others) {
+              _js_network__WEBPACK_IMPORTED_MODULE_29__.others[_key].sprite.position.y += 3;
+            }
+            _context.next = 93;
+            break;
+          case 40:
+            if (!(_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.a.pressed && _interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 'a')) {
+              _context.next = 59;
+              break;
+            }
+            console.log('a가 눌려있다!');
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.image = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.left;
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 1;
+            (0,_utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__.checkForCharacterCollision)({
+              characters: _js_index__WEBPACK_IMPORTED_MODULE_28__.characters,
+              player: _js_index__WEBPACK_IMPORTED_MODULE_28__.player,
+              characterOffset: {
+                x: 3,
+                y: 0
+              }
+            });
+            _i2 = 0;
+          case 47:
+            if (!(_i2 < _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries.length)) {
+              _context.next = 55;
+              break;
+            }
+            _boundary = _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries[_i2];
+            if (!(0,_utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__.rectangularCollision)({
+              rectangle1: _js_index__WEBPACK_IMPORTED_MODULE_28__.player,
+              rectangle2: _objectSpread(_objectSpread({}, _boundary), {}, {
+                position: {
+                  x: _boundary.position.x + 3,
+                  y: _boundary.position.y
+                }
+              })
+            })) {
+              _context.next = 52;
+              break;
+            }
+            moving = false;
+            return _context.abrupt("break", 55);
+          case 52:
+            _i2++;
+            _context.next = 47;
+            break;
+          case 55:
+            if (moving) _js_index__WEBPACK_IMPORTED_MODULE_28__.movables.forEach(function (movable) {
+              movable.position.x += 3;
+            });
+            if (moving) for (_key2 in _js_network__WEBPACK_IMPORTED_MODULE_29__.others) {
+              _js_network__WEBPACK_IMPORTED_MODULE_29__.others[_key2].sprite.position.x += 3;
+            }
+            _context.next = 93;
+            break;
+          case 59:
+            if (!(_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.s.pressed && _interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 's')) {
+              _context.next = 77;
+              break;
+            }
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.image = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.down;
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 2;
+            (0,_utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__.checkForCharacterCollision)({
+              characters: _js_index__WEBPACK_IMPORTED_MODULE_28__.characters,
+              player: _js_index__WEBPACK_IMPORTED_MODULE_28__.player,
+              characterOffset: {
+                x: 0,
+                y: -3
+              }
+            });
+            _i3 = 0;
+          case 65:
+            if (!(_i3 < _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries.length)) {
+              _context.next = 73;
+              break;
+            }
+            _boundary2 = _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries[_i3];
+            if (!(0,_utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__.rectangularCollision)({
+              rectangle1: _js_index__WEBPACK_IMPORTED_MODULE_28__.player,
+              rectangle2: _objectSpread(_objectSpread({}, _boundary2), {}, {
+                position: {
+                  x: _boundary2.position.x,
+                  y: _boundary2.position.y - 3
+                }
+              })
+            })) {
+              _context.next = 70;
+              break;
+            }
+            moving = false;
+            return _context.abrupt("break", 73);
+          case 70:
+            _i3++;
+            _context.next = 65;
+            break;
+          case 73:
+            if (moving) _js_index__WEBPACK_IMPORTED_MODULE_28__.movables.forEach(function (movable) {
+              movable.position.y -= 3;
+            });
+            if (moving) for (_key3 in _js_network__WEBPACK_IMPORTED_MODULE_29__.others) {
+              _js_network__WEBPACK_IMPORTED_MODULE_29__.others[_key3].sprite.position.y -= 3;
+            }
+            _context.next = 93;
+            break;
+          case 77:
+            if (!(_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.d.pressed && _interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 'd')) {
+              _context.next = 93;
+              break;
+            }
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.image = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.right;
+            _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 3;
+            (0,_utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__.checkForCharacterCollision)({
+              characters: _js_index__WEBPACK_IMPORTED_MODULE_28__.characters,
+              player: _js_index__WEBPACK_IMPORTED_MODULE_28__.player,
+              characterOffset: {
+                x: -3,
+                y: 0
+              }
+            });
+            _i4 = 0;
+          case 83:
+            if (!(_i4 < _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries.length)) {
+              _context.next = 91;
+              break;
+            }
+            _boundary3 = _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries[_i4];
+            if (!(0,_utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__.rectangularCollision)({
+              rectangle1: _js_index__WEBPACK_IMPORTED_MODULE_28__.player,
+              rectangle2: _objectSpread(_objectSpread({}, _boundary3), {}, {
+                position: {
+                  x: _boundary3.position.x - 3,
+                  y: _boundary3.position.y
+                }
+              })
+            })) {
+              _context.next = 88;
+              break;
+            }
+            moving = false;
+            return _context.abrupt("break", 91);
+          case 88:
+            _i4++;
+            _context.next = 83;
+            break;
+          case 91:
+            if (moving) _js_index__WEBPACK_IMPORTED_MODULE_28__.movables.forEach(function (movable) {
+              movable.position.x -= 3;
+            });
+            if (moving) for (_key4 in _js_network__WEBPACK_IMPORTED_MODULE_29__.others) {
+              _js_network__WEBPACK_IMPORTED_MODULE_29__.others[_key4].sprite.position.x -= 3;
+            }
+          case 93:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return function animate() {
+    return _ref.apply(this, arguments);
+  };
+}();
+// animate()
+var previousAnimate = false;
+setInterval(function () {
+  if (_js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate === true) {
+    (0,_js_network__WEBPACK_IMPORTED_MODULE_29__.moveUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_28__.global_position)(), _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction);
+    previousAnimate = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate;
+  } else if (previousAnimate === true) {
+    (0,_js_network__WEBPACK_IMPORTED_MODULE_29__.stopUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_28__.global_position)());
+  }
+}, 50);
+
+/***/ }),
+
 /***/ "./src/game/chat/chatForm.js":
 /*!***********************************!*\
   !*** ./src/game/chat/chatForm.js ***!
@@ -1364,392 +1753,80 @@ var Sprite = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "./src/js/animate.js":
-/*!***************************!*\
-  !*** ./src/js/animate.js ***!
-  \***************************/
+/***/ "./src/game/utils/checkCollision.js":
+/*!******************************************!*\
+  !*** ./src/game/utils/checkCollision.js ***!
+  \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "animate": () => (/* binding */ animate)
+/* harmony export */   "checkForCharacterCollision": () => (/* binding */ checkForCharacterCollision),
+/* harmony export */   "rectangularCollision": () => (/* binding */ rectangularCollision)
 /* harmony export */ });
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.timers.js */ "./node_modules/core-js/modules/web.timers.js");
-/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
-/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.object.keys.js */ "./node_modules/core-js/modules/es.object.keys.js");
-/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ "./node_modules/core-js/modules/es.array.filter.js");
-/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.object.get-own-property-descriptor.js */ "./node_modules/core-js/modules/es.object.get-own-property-descriptor.js");
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.object.get-own-property-descriptors.js */ "./node_modules/core-js/modules/es.object.get-own-property-descriptors.js");
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.object.define-properties.js */ "./node_modules/core-js/modules/es.object.define-properties.js");
-/* harmony import */ var core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
-/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
-/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.object.set-prototype-of.js */ "./node_modules/core-js/modules/es.object.set-prototype-of.js");
-/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.array.reverse.js */ "./node_modules/core-js/modules/es.array.reverse.js");
-/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var _game_interaction_move__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../game/interaction/move */ "./src/game/interaction/move.js");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
-/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.keys.js */ "./node_modules/core-js/modules/es.object.keys.js");
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ "./node_modules/core-js/modules/es.array.filter.js");
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.object.get-own-property-descriptor.js */ "./node_modules/core-js/modules/es.object.get-own-property-descriptor.js");
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.object.get-own-property-descriptors.js */ "./node_modules/core-js/modules/es.object.get-own-property-descriptors.js");
+/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.object.define-properties.js */ "./node_modules/core-js/modules/es.object.define-properties.js");
+/* harmony import */ var core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_9__);
+
+
+
+
+
+
+
+
+
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-
-
-
-
-var animate = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var animationId, key, moving, i, battleZone, _i, boundary, _key, _i2, _boundary, _key2, _i3, _boundary2, _key3, _i4, _boundary3, _key4;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            animationId = window.requestAnimationFrame(animate);
-            _index__WEBPACK_IMPORTED_MODULE_28__.renderables.forEach(function (renderable) {
-              renderable.draw();
-            });
-            if (animationId % 600 < 200) _network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Come in';else if (animationId % 600 < 400) _network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Battle Zone';else _network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Click Me!';
-            for (key in _network__WEBPACK_IMPORTED_MODULE_29__.others) {
-              if (_network__WEBPACK_IMPORTED_MODULE_29__.others[key].draw === true) _network__WEBPACK_IMPORTED_MODULE_29__.others[key].sprite.draw();
-            }
-            (0,_game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.joyToKey)();
-            moving = true;
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.animate = false;
-            if (!_index__WEBPACK_IMPORTED_MODULE_28__.battle.initiated) {
-              _context.next = 9;
-              break;
-            }
-            return _context.abrupt("return");
-          case 9:
-            if (_network__WEBPACK_IMPORTED_MODULE_29__.battle_start) {
-              _network__WEBPACK_IMPORTED_MODULE_29__.battle_start = false;
-              document.getElementById('acceptBattleCard').style.display = 'none';
-              (0,_index__WEBPACK_IMPORTED_MODULE_28__.enterBattle)(animationId);
-            }
-
-            // 만약 채팅 중이라면 움직이지 않는다.
-            // if (document.getElementById('chatForm').style.display !== 'none') return
-
-            // enable to battle with others
-            if (!(_game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.w.pressed || _game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.a.pressed || _game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.s.pressed || _game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.d.pressed)) {
-              _context.next = 21;
-              break;
-            }
-            _index__WEBPACK_IMPORTED_MODULE_28__.battle.ready = false;
-            i = 0;
-          case 13:
-            if (!(i < _index__WEBPACK_IMPORTED_MODULE_28__.battleZones.length)) {
-              _context.next = 21;
-              break;
-            }
-            battleZone = _index__WEBPACK_IMPORTED_MODULE_28__.battleZones[i];
-            if (!(0,_index__WEBPACK_IMPORTED_MODULE_28__.checkCollision)(_index__WEBPACK_IMPORTED_MODULE_28__.player, battleZone)) {
-              _context.next = 18;
-              break;
-            }
-            _index__WEBPACK_IMPORTED_MODULE_28__.battle.ready = true;
-            return _context.abrupt("break", 21);
-          case 18:
-            i++;
-            _context.next = 13;
-            break;
-          case 21:
-            if (!(_game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.w.pressed && _game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 'w')) {
-              _context.next = 40;
-              break;
-            }
-            console.log('w가 눌려있다!');
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.image = _index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.up;
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 0;
-            (0,_utils__WEBPACK_IMPORTED_MODULE_30__.checkForCharacterCollision)({
-              characters: _index__WEBPACK_IMPORTED_MODULE_28__.characters,
-              player: _index__WEBPACK_IMPORTED_MODULE_28__.player,
-              characterOffset: {
-                x: 0,
-                y: 3
-              }
-            });
-            _i = 0;
-          case 28:
-            if (!(_i < _index__WEBPACK_IMPORTED_MODULE_28__.boundaries.length)) {
-              _context.next = 36;
-              break;
-            }
-            boundary = _index__WEBPACK_IMPORTED_MODULE_28__.boundaries[_i];
-            if (!(0,_utils__WEBPACK_IMPORTED_MODULE_30__.rectangularCollision)({
-              rectangle1: _index__WEBPACK_IMPORTED_MODULE_28__.player,
-              rectangle2: _objectSpread(_objectSpread({}, boundary), {}, {
-                position: {
-                  x: boundary.position.x,
-                  y: boundary.position.y + 3
-                }
-              })
-            })) {
-              _context.next = 33;
-              break;
-            }
-            moving = false;
-            return _context.abrupt("break", 36);
-          case 33:
-            _i++;
-            _context.next = 28;
-            break;
-          case 36:
-            if (moving) _index__WEBPACK_IMPORTED_MODULE_28__.movables.forEach(function (movable) {
-              movable.position.y += 3;
-            });
-            if (moving) for (_key in _network__WEBPACK_IMPORTED_MODULE_29__.others) {
-              _network__WEBPACK_IMPORTED_MODULE_29__.others[_key].sprite.position.y += 3;
-            }
-            _context.next = 93;
-            break;
-          case 40:
-            if (!(_game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.a.pressed && _game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 'a')) {
-              _context.next = 59;
-              break;
-            }
-            console.log('a가 눌려있다!');
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.image = _index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.left;
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 1;
-            (0,_utils__WEBPACK_IMPORTED_MODULE_30__.checkForCharacterCollision)({
-              characters: _index__WEBPACK_IMPORTED_MODULE_28__.characters,
-              player: _index__WEBPACK_IMPORTED_MODULE_28__.player,
-              characterOffset: {
-                x: 3,
-                y: 0
-              }
-            });
-            _i2 = 0;
-          case 47:
-            if (!(_i2 < _index__WEBPACK_IMPORTED_MODULE_28__.boundaries.length)) {
-              _context.next = 55;
-              break;
-            }
-            _boundary = _index__WEBPACK_IMPORTED_MODULE_28__.boundaries[_i2];
-            if (!(0,_utils__WEBPACK_IMPORTED_MODULE_30__.rectangularCollision)({
-              rectangle1: _index__WEBPACK_IMPORTED_MODULE_28__.player,
-              rectangle2: _objectSpread(_objectSpread({}, _boundary), {}, {
-                position: {
-                  x: _boundary.position.x + 3,
-                  y: _boundary.position.y
-                }
-              })
-            })) {
-              _context.next = 52;
-              break;
-            }
-            moving = false;
-            return _context.abrupt("break", 55);
-          case 52:
-            _i2++;
-            _context.next = 47;
-            break;
-          case 55:
-            if (moving) _index__WEBPACK_IMPORTED_MODULE_28__.movables.forEach(function (movable) {
-              movable.position.x += 3;
-            });
-            if (moving) for (_key2 in _network__WEBPACK_IMPORTED_MODULE_29__.others) {
-              _network__WEBPACK_IMPORTED_MODULE_29__.others[_key2].sprite.position.x += 3;
-            }
-            _context.next = 93;
-            break;
-          case 59:
-            if (!(_game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.s.pressed && _game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 's')) {
-              _context.next = 77;
-              break;
-            }
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.image = _index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.down;
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 2;
-            (0,_utils__WEBPACK_IMPORTED_MODULE_30__.checkForCharacterCollision)({
-              characters: _index__WEBPACK_IMPORTED_MODULE_28__.characters,
-              player: _index__WEBPACK_IMPORTED_MODULE_28__.player,
-              characterOffset: {
-                x: 0,
-                y: -3
-              }
-            });
-            _i3 = 0;
-          case 65:
-            if (!(_i3 < _index__WEBPACK_IMPORTED_MODULE_28__.boundaries.length)) {
-              _context.next = 73;
-              break;
-            }
-            _boundary2 = _index__WEBPACK_IMPORTED_MODULE_28__.boundaries[_i3];
-            if (!(0,_utils__WEBPACK_IMPORTED_MODULE_30__.rectangularCollision)({
-              rectangle1: _index__WEBPACK_IMPORTED_MODULE_28__.player,
-              rectangle2: _objectSpread(_objectSpread({}, _boundary2), {}, {
-                position: {
-                  x: _boundary2.position.x,
-                  y: _boundary2.position.y - 3
-                }
-              })
-            })) {
-              _context.next = 70;
-              break;
-            }
-            moving = false;
-            return _context.abrupt("break", 73);
-          case 70:
-            _i3++;
-            _context.next = 65;
-            break;
-          case 73:
-            if (moving) _index__WEBPACK_IMPORTED_MODULE_28__.movables.forEach(function (movable) {
-              movable.position.y -= 3;
-            });
-            if (moving) for (_key3 in _network__WEBPACK_IMPORTED_MODULE_29__.others) {
-              _network__WEBPACK_IMPORTED_MODULE_29__.others[_key3].sprite.position.y -= 3;
-            }
-            _context.next = 93;
-            break;
-          case 77:
-            if (!(_game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.d.pressed && _game_interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 'd')) {
-              _context.next = 93;
-              break;
-            }
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.image = _index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.right;
-            _index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 3;
-            (0,_utils__WEBPACK_IMPORTED_MODULE_30__.checkForCharacterCollision)({
-              characters: _index__WEBPACK_IMPORTED_MODULE_28__.characters,
-              player: _index__WEBPACK_IMPORTED_MODULE_28__.player,
-              characterOffset: {
-                x: -3,
-                y: 0
-              }
-            });
-            _i4 = 0;
-          case 83:
-            if (!(_i4 < _index__WEBPACK_IMPORTED_MODULE_28__.boundaries.length)) {
-              _context.next = 91;
-              break;
-            }
-            _boundary3 = _index__WEBPACK_IMPORTED_MODULE_28__.boundaries[_i4];
-            if (!(0,_utils__WEBPACK_IMPORTED_MODULE_30__.rectangularCollision)({
-              rectangle1: _index__WEBPACK_IMPORTED_MODULE_28__.player,
-              rectangle2: _objectSpread(_objectSpread({}, _boundary3), {}, {
-                position: {
-                  x: _boundary3.position.x - 3,
-                  y: _boundary3.position.y
-                }
-              })
-            })) {
-              _context.next = 88;
-              break;
-            }
-            moving = false;
-            return _context.abrupt("break", 91);
-          case 88:
-            _i4++;
-            _context.next = 83;
-            break;
-          case 91:
-            if (moving) _index__WEBPACK_IMPORTED_MODULE_28__.movables.forEach(function (movable) {
-              movable.position.x -= 3;
-            });
-            if (moving) for (_key4 in _network__WEBPACK_IMPORTED_MODULE_29__.others) {
-              _network__WEBPACK_IMPORTED_MODULE_29__.others[_key4].sprite.position.x -= 3;
-            }
-          case 93:
-          case "end":
-            return _context.stop();
+function rectangularCollision(_ref) {
+  var rectangle1 = _ref.rectangle1,
+    rectangle2 = _ref.rectangle2;
+  return rectangle1.position.x + rectangle1.width >= rectangle2.position.x && rectangle1.position.x <= rectangle2.position.x + rectangle2.width && rectangle1.position.y <= rectangle2.position.y + rectangle2.height && rectangle1.position.y + rectangle1.height >= rectangle2.position.y;
+}
+function checkForCharacterCollision(_ref2) {
+  var characters = _ref2.characters,
+    player = _ref2.player,
+    _ref2$characterOffset = _ref2.characterOffset,
+    characterOffset = _ref2$characterOffset === void 0 ? {
+      x: 0,
+      y: 0
+    } : _ref2$characterOffset;
+  // monitor for character collision
+  for (var i = 0; i < characters.length; i++) {
+    var character = characters[i];
+    if (rectangularCollision({
+      rectangle1: player,
+      rectangle2: _objectSpread(_objectSpread({}, character), {}, {
+        position: {
+          x: character.position.x + characterOffset.x,
+          y: character.position.y + characterOffset.y
         }
-      }
-    }, _callee);
-  }));
-  return function animate() {
-    return _ref.apply(this, arguments);
-  };
-}();
-// animate()
-var previousAnimate = false;
-setInterval(function () {
-  if (_index__WEBPACK_IMPORTED_MODULE_28__.player.animate === true) {
-    (0,_network__WEBPACK_IMPORTED_MODULE_29__.moveUser)((0,_index__WEBPACK_IMPORTED_MODULE_28__.global_position)(), _index__WEBPACK_IMPORTED_MODULE_28__.player.direction);
-    previousAnimate = _index__WEBPACK_IMPORTED_MODULE_28__.player.animate;
-  } else if (previousAnimate === true) {
-    (0,_network__WEBPACK_IMPORTED_MODULE_29__.stopUser)((0,_index__WEBPACK_IMPORTED_MODULE_28__.global_position)());
+      })
+    })) {
+      console.log('go');
+    }
   }
-}, 50);
+}
 
 /***/ }),
 
@@ -1789,7 +1866,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var core_js_modules_es_array_index_of_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.array.index-of.js */ "./node_modules/core-js/modules/es.array.index-of.js");
 /* harmony import */ var core_js_modules_es_array_index_of_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_index_of_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _animate__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./animate */ "./src/js/animate.js");
+/* harmony import */ var _game_animate__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../game/animate */ "./src/game/animate.js");
 /* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
 /* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
@@ -1856,7 +1933,7 @@ function endBattle(result) {
       onComplete: function onComplete() {
         cancelAnimationFrame(battleAnimationId);
         console.log('콘로');
-        (0,_animate__WEBPACK_IMPORTED_MODULE_9__.animate)();
+        (0,_game_animate__WEBPACK_IMPORTED_MODULE_9__.animate)();
         document.querySelector('#userInterface').style.display = 'none';
         document.getElementById('battleResultCard').style.display = 'block';
         document.getElementById('battleResult').innerText = "You ".concat(result, "!");
@@ -2030,9 +2107,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
 /* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
-/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
-/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var _game_utils_checkCollision__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../game/utils/checkCollision */ "./src/game/utils/checkCollision.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+
 
 
 
@@ -2053,7 +2132,7 @@ __webpack_require__.r(__webpack_exports__);
 // import playerDownImages from '../../img/playerDown.png'
 
 // 최초로 지갑 연결
-(0,_web_logIn__WEBPACK_IMPORTED_MODULE_5__.connectWallets)(near_api_js__WEBPACK_IMPORTED_MODULE_15__);
+(0,_web_logIn__WEBPACK_IMPORTED_MODULE_5__.connectWallets)(near_api_js__WEBPACK_IMPORTED_MODULE_16__);
 var image = new Image();
 image.src = '../img/Pellet Town.png';
 var foregroundImage = new Image();
@@ -2208,7 +2287,7 @@ function local_position(position) {
 }
 function checkCollision(a, b) {
   var overlappingArea = (Math.min(a.position.x + a.width, b.position.x + b.width) - Math.max(a.position.x, b.position.x)) * (Math.min(a.position.y + a.height, b.position.y + b.height) - Math.max(a.position.y, b.position.y));
-  return (0,_utils__WEBPACK_IMPORTED_MODULE_14__.rectangularCollision)({
+  return (0,_game_utils_checkCollision__WEBPACK_IMPORTED_MODULE_15__.rectangularCollision)({
     rectangle1: a,
     rectangle2: b
   }) && overlappingArea > a.width * a.height / 10;
@@ -2217,20 +2296,20 @@ function enterBattle(animationId, id) {
   // deactivate current animation loop
   window.cancelAnimationFrame(animationId);
   battle.initiated = true;
-  gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to('#overlappingDiv', {
+  gsap__WEBPACK_IMPORTED_MODULE_17__.gsap.to('#overlappingDiv', {
     opacity: 1,
     repeat: 3,
     yoyo: true,
     duration: 0.4,
     onComplete: function onComplete() {
-      gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to('#overlappingDiv', {
+      gsap__WEBPACK_IMPORTED_MODULE_17__.gsap.to('#overlappingDiv', {
         opacity: 1,
         duration: 0.4,
         onComplete: function onComplete() {
           // activate a new animation loop
           (0,_battleScene__WEBPACK_IMPORTED_MODULE_8__.initBattle)();
           (0,_battleScene__WEBPACK_IMPORTED_MODULE_8__.animateBattle)();
-          gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to('#overlappingDiv', {
+          gsap__WEBPACK_IMPORTED_MODULE_17__.gsap.to('#overlappingDiv', {
             opacity: 0,
             duration: 0.4
           });
@@ -2840,99 +2919,35 @@ function connect() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "checkForCharacterCollision": () => (/* binding */ checkForCharacterCollision),
-/* harmony export */   "rectangularCollision": () => (/* binding */ rectangularCollision),
 /* harmony export */   "worker": () => (/* binding */ worker)
 /* harmony export */ });
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.keys.js */ "./node_modules/core-js/modules/es.object.keys.js");
-/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ "./node_modules/core-js/modules/es.array.filter.js");
-/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.object.get-own-property-descriptor.js */ "./node_modules/core-js/modules/es.object.get-own-property-descriptor.js");
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptor_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.object.get-own-property-descriptors.js */ "./node_modules/core-js/modules/es.object.get-own-property-descriptors.js");
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptors_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.object.define-properties.js */ "./node_modules/core-js/modules/es.object.define-properties.js");
-/* harmony import */ var core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_properties_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
-/* harmony import */ var _animate__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./animate */ "./src/js/animate.js");
+/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
+/* harmony import */ var _game_animate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../game/animate */ "./src/game/animate.js");
 
 
 
-
-
-
-
-
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-function rectangularCollision(_ref) {
-  var rectangle1 = _ref.rectangle1,
-    rectangle2 = _ref.rectangle2;
-  return rectangle1.position.x + rectangle1.width >= rectangle2.position.x && rectangle1.position.x <= rectangle2.position.x + rectangle2.width && rectangle1.position.y <= rectangle2.position.y + rectangle2.height && rectangle1.position.y + rectangle1.height >= rectangle2.position.y;
-}
-function checkForCharacterCollision(_ref2) {
-  var characters = _ref2.characters,
-    player = _ref2.player,
-    _ref2$characterOffset = _ref2.characterOffset,
-    characterOffset = _ref2$characterOffset === void 0 ? {
-      x: 0,
-      y: 0
-    } : _ref2$characterOffset;
-  // monitor for character collision
-  for (var i = 0; i < characters.length; i++) {
-    var character = characters[i];
-    if (rectangularCollision({
-      rectangle1: player,
-      rectangle2: _objectSpread(_objectSpread({}, character), {}, {
-        position: {
-          x: character.position.x + characterOffset.x,
-          y: character.position.y + characterOffset.y
-        }
-      })
-    })) {
-      console.log('go');
-    }
-  }
-}
 var worker = new Worker('./js/worker.js');
 worker.onmessage = function (event) {
   if (event.data) {
     if (event.data.id === '-1') {
-      _index__WEBPACK_IMPORTED_MODULE_11__.player.sprites.up.src = event.data.up;
-      _index__WEBPACK_IMPORTED_MODULE_11__.player.sprites.down.src = event.data.down;
-      _index__WEBPACK_IMPORTED_MODULE_11__.player.sprites.left.src = event.data.left;
-      _index__WEBPACK_IMPORTED_MODULE_11__.player.sprites.right.src = event.data.right;
-      _index__WEBPACK_IMPORTED_MODULE_11__.player.baseImage.src = event.data.baseImage;
-      _index__WEBPACK_IMPORTED_MODULE_11__.player.image = _index__WEBPACK_IMPORTED_MODULE_11__.player.sprites.down;
+      _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.up.src = event.data.up;
+      _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.down.src = event.data.down;
+      _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.left.src = event.data.left;
+      _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.right.src = event.data.right;
+      _index__WEBPACK_IMPORTED_MODULE_1__.player.baseImage.src = event.data.baseImage;
+      _index__WEBPACK_IMPORTED_MODULE_1__.player.image = _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.down;
       document.getElementById('loading').style.display = 'none';
-      (0,_animate__WEBPACK_IMPORTED_MODULE_12__.animate)();
-      (0,_network__WEBPACK_IMPORTED_MODULE_10__.connect)();
+      (0,_game_animate__WEBPACK_IMPORTED_MODULE_2__.animate)();
+      (0,_network__WEBPACK_IMPORTED_MODULE_0__.connect)();
     } else {
-      _network__WEBPACK_IMPORTED_MODULE_10__.others[event.data.id].sprite.sprites.up.src = event.data.up;
-      _network__WEBPACK_IMPORTED_MODULE_10__.others[event.data.id].sprite.sprites.down.src = event.data.down;
-      _network__WEBPACK_IMPORTED_MODULE_10__.others[event.data.id].sprite.sprites.left.src = event.data.left;
-      _network__WEBPACK_IMPORTED_MODULE_10__.others[event.data.id].sprite.sprites.right.src = event.data.right;
-      _network__WEBPACK_IMPORTED_MODULE_10__.others[event.data.id].baseImage.src = event.data.baseImage;
-      _network__WEBPACK_IMPORTED_MODULE_10__.others[event.data.id].sprite.image = _network__WEBPACK_IMPORTED_MODULE_10__.others[event.data.id].sprite.sprites.down;
-      _network__WEBPACK_IMPORTED_MODULE_10__.others[event.data.id].draw = true;
+      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.up.src = event.data.up;
+      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.down.src = event.data.down;
+      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.left.src = event.data.left;
+      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.right.src = event.data.right;
+      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].baseImage.src = event.data.baseImage;
+      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.image = _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.down;
+      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].draw = true;
     }
   }
 };
@@ -2942,10 +2957,42 @@ worker.onerror = function (err) {
 
 /***/ }),
 
-/***/ "./src/utils/eventListener.js":
-/*!************************************!*\
-  !*** ./src/utils/eventListener.js ***!
-  \************************************/
+/***/ "./src/web/clickButtons.js":
+/*!*********************************!*\
+  !*** ./src/web/clickButtons.js ***!
+  \*********************************/
+/***/ (() => {
+
+function clickOutSideEvent1(e) {
+  if (!document.getElementById('guidanceCard').contains(e.target)) {
+    document.body.removeEventListener('click', clickOutSideEvent1, true);
+    document.getElementById('guidanceCard').style.display = 'none';
+  }
+}
+document.getElementById('guidanceButton').addEventListener('click', function (e) {
+  document.getElementById('guidanceCard').style.display = 'block';
+  document.body.addEventListener('click', clickOutSideEvent1, true);
+});
+document.getElementById('closeResultBtn').addEventListener('click', function (e) {
+  document.getElementById('battleResultCard').style.display = 'none';
+});
+function clickOutSideEvent(e) {
+  if (!document.getElementById('profileCard').contains(e.target)) {
+    document.body.removeEventListener('click', clickOutSideEvent, true);
+    document.getElementById('profileCard').style.display = 'none';
+  }
+}
+document.getElementById('profileButton').addEventListener('click', function (e) {
+  document.getElementById('profileCard').style.display = 'block';
+  document.body.addEventListener('click', clickOutSideEvent, true);
+});
+
+/***/ }),
+
+/***/ "./src/web/eventListener.js":
+/*!**********************************!*\
+  !*** ./src/web/eventListener.js ***!
+  \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2982,38 +3029,6 @@ function onResizeEvent() {
     _js_network__WEBPACK_IMPORTED_MODULE_4__.others[key].sprite.position.y = _js_network__WEBPACK_IMPORTED_MODULE_4__.others[key].sprite.position.y + delta_y;
   }
 }
-
-/***/ }),
-
-/***/ "./src/web/clickButtons.js":
-/*!*********************************!*\
-  !*** ./src/web/clickButtons.js ***!
-  \*********************************/
-/***/ (() => {
-
-function clickOutSideEvent1(e) {
-  if (!document.getElementById('guidanceCard').contains(e.target)) {
-    document.body.removeEventListener('click', clickOutSideEvent1, true);
-    document.getElementById('guidanceCard').style.display = 'none';
-  }
-}
-document.getElementById('guidanceButton').addEventListener('click', function (e) {
-  document.getElementById('guidanceCard').style.display = 'block';
-  document.body.addEventListener('click', clickOutSideEvent1, true);
-});
-document.getElementById('closeResultBtn').addEventListener('click', function (e) {
-  document.getElementById('battleResultCard').style.display = 'none';
-});
-function clickOutSideEvent(e) {
-  if (!document.getElementById('profileCard').contains(e.target)) {
-    document.body.removeEventListener('click', clickOutSideEvent, true);
-    document.getElementById('profileCard').style.display = 'none';
-  }
-}
-document.getElementById('profileButton').addEventListener('click', function (e) {
-  document.getElementById('profileCard').style.display = 'block';
-  document.body.addEventListener('click', clickOutSideEvent, true);
-});
 
 /***/ }),
 
@@ -27050,6 +27065,19 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
+/***/ "./src/index.scss":
+/*!************************!*\
+  !*** ./src/index.scss ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./node_modules/mustache/mustache.js":
 /*!*******************************************!*\
   !*** ./node_modules/mustache/mustache.js ***!
@@ -39502,8 +39530,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/index */ "./src/js/index.js");
 /* harmony import */ var _js_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/utils */ "./src/js/utils.js");
 /* harmony import */ var _game_interaction_move__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./game/interaction/move */ "./src/game/interaction/move.js");
-/* harmony import */ var _utils_eventListener__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/eventListener */ "./src/utils/eventListener.js");
+/* harmony import */ var _web_eventListener__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./web/eventListener */ "./src/web/eventListener.js");
 /* harmony import */ var _game_chat_chatForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./game/chat/chatForm */ "./src/game/chat/chatForm.js");
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+
 
 
 

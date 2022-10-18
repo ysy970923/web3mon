@@ -1,4 +1,4 @@
-import { animate } from './animate'
+import { animate } from '../game/animate'
 import { Sprite } from '../game/object/Sprite'
 import { skillTypes, others, attack, battle_start } from './network'
 import { player, canva, battle } from './index'
