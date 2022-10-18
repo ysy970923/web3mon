@@ -1,4 +1,4 @@
-import { joyToKey } from '../game/interaction/move'
+import { joyToKey } from './interaction/move'
 import {
   battleZones,
   boundaries,
@@ -10,11 +10,14 @@ import {
   enterBattle,
   global_position,
   movables,
-} from './index'
-import { others } from './network'
-import { checkForCharacterCollision, rectangularCollision } from './utils'
-import { keys, lastKey } from '../game/interaction/move'
-import { battle_start, moveUser, stopUser } from './network'
+} from '../js/index'
+import { others } from '../js/network'
+import {
+  checkForCharacterCollision,
+  rectangularCollision,
+} from './utils/checkCollision'
+import { keys, lastKey } from './interaction/move'
+import { battle_start, moveUser, stopUser } from '../js/network'
 
 export const animate = async () => {
   const animationId = window.requestAnimationFrame(animate)
