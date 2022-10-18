@@ -1,15 +1,8 @@
-import { others } from './network'
+import { others, connect } from './network'
 import { player } from './index'
+import { animate } from './animate'
 
-function openForm() {
-  document.getElementById('myForm').style.display = 'block'
-}
-
-function closeForm() {
-  document.getElementById('myForm').style.display = 'none'
-}
-
-function rectangularCollision({ rectangle1, rectangle2 }) {
+export function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
     rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
@@ -18,10 +11,10 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   )
 }
 
-function checkForCharacterCollision({
+export function checkForCharacterCollision({
   characters,
   player,
-  characterOffset = { x: 0, y: 0 }
+  characterOffset = { x: 0, y: 0 },
 }) {
   // monitor for character collision
   for (let i = 0; i < characters.length; i++) {
@@ -34,9 +27,9 @@ function checkForCharacterCollision({
           ...character,
           position: {
             x: character.position.x + characterOffset.x,
-            y: character.position.y + characterOffset.y
-          }
-        }
+            y: character.position.y + characterOffset.y,
+          },
+        },
       })
     ) {
       console.log('go')
@@ -47,7 +40,6 @@ function checkForCharacterCollision({
 export const worker = new Worker('./js/worker.js')
 
 worker.onmessage = function (event) {
-  console.log(event.data)
   if (event.data) {
     if (event.data.id === '-1') {
       player.sprites.up.src = event.data.up
@@ -57,7 +49,6 @@ worker.onmessage = function (event) {
       player.baseImage.src = event.data.baseImage
       player.image = player.sprites.down
       document.getElementById('loading').style.display = 'none'
-      console.log('콘로')
       animate()
       connect()
     } else {
@@ -71,8 +62,6 @@ worker.onmessage = function (event) {
       others[event.data.id].draw = true
     }
   }
-  console.log(typeof player.image.src)
-  console.log(typeof others['250'].sprite.image.src)
 }
 worker.onerror = function (err) {
   console.log(err)

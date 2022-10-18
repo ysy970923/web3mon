@@ -1,26 +1,39 @@
-var ws = null
-var myID = null
+import {
+  attacked,
+  endBattle,
+  opponent_id,
+  mySkillType,
+  my_turn,
+} from './battleScene'
+import {
+  player,
+  battle,
+  local_position,
+  global_position,
+  playerDownImage,
+} from '../js/index'
+import { sendMsgToPeer } from '../game/chat/sendChat'
+import { worker } from './utils'
+import { Sprite } from '../game/object/Sprite'
+import { playerUrl } from '../web/logIn'
+
+export let skillTypes = {}
+
+export let ws = null
+export let myID = null
 var peerConnection = null
 var webcamStream = null
 var targetID = null
 export const others = {}
-var battle_start = false
+export let battle_start = false
 
 //0 ~ 9: binary; 10 ~: JSON string
 var NumToType = {
   0: 'id',
-  1: 'update-user-list'
+  1: 'update-user-list',
 }
 
-var reverseMapping = (o) =>
-  Object.keys(o).reduce(
-    (r, k) => Object.assign(r, { [o[k]]: (r[o[k]] || []).concat(k) }),
-    {}
-  )
-
-var TypeToNum = reverseMapping(NumToType)
-
-function checkOrReconnect() {
+export function checkOrReconnect() {
   if (!ws) {
     connect()
     return false
@@ -34,7 +47,15 @@ function checkOrReconnect() {
   return false
 }
 
-function moveUser(pos, rot) {
+const reverseMapping = (o) =>
+  Object.keys(o).reduce(
+    (r, k) => Object.assign(r, { [o[k]]: (r[o[k]] || []).concat(k) }),
+    {}
+  )
+
+export let TypeToNum = reverseMapping(NumToType)
+
+export function moveUser(pos, rot) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(9)
   var dataview = new DataView(buffer)
@@ -46,7 +67,7 @@ function moveUser(pos, rot) {
   ws.send(buffer)
 }
 
-function stopUser(pos) {
+export function stopUser(pos) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
@@ -57,18 +78,7 @@ function stopUser(pos) {
   ws.send(buffer)
 }
 
-function sendChat() {
-  if (!checkOrReconnect()) return
-  var chat = document.querySelector('#chat').value
-  player.chat = chat
-  var msg = {
-    chat: chat
-  }
-  sendMsgToAll('send-chat', msg)
-  closeForm()
-}
-
-function battleOffer(id, type) {
+export function battleOffer(id, type) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
@@ -79,7 +89,7 @@ function battleOffer(id, type) {
   ws.send(buffer)
 }
 
-function battleAnswer(id, type) {
+export function battleAnswer(id, type) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
@@ -90,7 +100,7 @@ function battleAnswer(id, type) {
   ws.send(buffer)
 }
 
-function battleDeny(id, reason) {
+export function battleDeny(id, reason) {
   if (!checkOrReconnect()) return
   console.log('refuse battle')
   var buffer = new ArrayBuffer(7)
@@ -149,13 +159,13 @@ function responseUserInfo(id) {
   var msg = {
     collection: window.contractAddress,
     url: playerUrl,
-    username: player.name
+    username: player.name,
   }
   sendMsgToPeer('response-user-info', id, msg)
   stopUser(global_position())
 }
 
-function attack(id, attack) {
+export function attack(id, attack) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
@@ -166,7 +176,7 @@ function attack(id, attack) {
   ws.send(buffer)
 }
 
-function leaveBattle(id) {
+export function leaveBattle(id) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(5)
   var dataview = new DataView(buffer)
@@ -174,69 +184,6 @@ function leaveBattle(id) {
   dataview.setInt16(1, myID)
   dataview.setInt16(3, id)
   ws.send(buffer)
-}
-
-// if type >= 10: data should be dict
-function sendMsgToServer(type, msg) {
-  if (!checkOrReconnect()) return
-  var typeNum = TypeToNum[type]
-
-  var buffer1 = new ArrayBuffer(1)
-  var dataview = new DataView(buffer1)
-  dataview.setInt8(0, typeNum)
-
-  var msgJSON = JSON.stringify(msg)
-  log('Send to server: ' + msgJSON)
-  var encoder = new TextEncoder()
-  var buffer2 = encoder.encode(msgJSON).buffer
-
-  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength)
-  tmp.set(new Uint8Array(buffer1), 0)
-  tmp.set(new Uint8Array(buffer2), 1)
-  ws.send(tmp.buffer)
-}
-
-function sendMsgToAll(type, msg) {
-  if (!checkOrReconnect()) return
-  var typeNum = TypeToNum[type]
-
-  var buffer1 = new ArrayBuffer(3)
-  var dataview = new DataView(buffer1)
-  dataview.setInt8(0, typeNum)
-  dataview.setInt16(1, myID)
-
-  var msgJSON = JSON.stringify(msg)
-  log('Send to all: ' + msgJSON)
-  var encoder = new TextEncoder()
-  var buffer2 = encoder.encode(msgJSON).buffer
-
-  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength)
-  tmp.set(new Uint8Array(buffer1), 0)
-  tmp.set(new Uint8Array(buffer2), 3)
-  ws.send(tmp.buffer)
-}
-
-function sendMsgToPeer(type, id, msg) {
-  if (!checkOrReconnect()) return
-  var typeNum = TypeToNum[type]
-  console.log(type)
-  console.log(typeNum)
-
-  var buffer1 = new ArrayBuffer(5)
-  var dataview = new DataView(buffer1)
-  dataview.setInt8(0, typeNum)
-  dataview.setInt16(1, myID)
-  dataview.setInt16(3, id)
-
-  var msgJSON = JSON.stringify(msg)
-  log('Send to peer: ' + msgJSON)
-  var encoder = new TextEncoder()
-  var buffer2 = encoder.encode(msgJSON).buffer
-
-  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength)
-  tmp.set(new Uint8Array(buffer1), 0)
-  tmp.set(new Uint8Array(buffer2), 5)
-  ws.send(tmp.buffer)
 }
 
 function receiveMsgFromAll(data) {
@@ -264,10 +211,12 @@ function getDictFromBinary(data) {
 
 function onmessage(data) {
   var buf = new Uint8Array(data).buffer
-  var dv = new DataView(buf)
+  var dataview = new DataView(buf)
   var msg = null
 
-  var type = NumToType[dv.getInt8(0)]
+  var type = NumToType[dataview.getInt8(0)]
+
+  const id = dataview.getInt16(1)
 
   switch (type) {
     case 'id': // my id is given
@@ -275,14 +224,12 @@ function onmessage(data) {
       myID = msg.id
       NumToType = msg.NumToType
       TypeToNum = msg.TypeToNum
-      console.log(NumToType)
       skillTypes = msg.skillSets
       log('My ID: ' + myID)
       break
 
     case 'update-user-list': // user list change
       msg = getDictFromBinary(data)
-      console.log(others)
       Object.keys(others).forEach((id) => {
         if (id !== '250') {
           if (!(id in msg['user-list'])) delete others[id]
@@ -297,18 +244,17 @@ function onmessage(data) {
       break
 
     case 'move-user': // other user move
-      var id = dv.getInt16(1)
       if (others[id] === undefined) {
         requestUserInfo(id)
         break
       }
       others[id].sprite.position = local_position({
-        x: dv.getInt16(3),
-        y: dv.getInt16(5)
+        x: dataview.getInt16(3),
+        y: dataview.getInt16(5),
       })
       others[id].sprite.animate = true
-      const rotation = dv.getInt16(7)
-      switch (rotation) {
+
+      switch (dataview.getInt16(7)) {
         case 0:
           others[id].sprite.image = others[id].sprite.sprites.up
           break
@@ -325,26 +271,23 @@ function onmessage(data) {
       break
 
     case 'stop-user':
-      var id = dv.getInt16(1)
       if (others[id] === undefined) {
         requestUserInfo(id)
         break
       }
       others[id].sprite.position = local_position({
-        x: dv.getInt16(3),
-        y: dv.getInt16(5)
+        x: dataview.getInt16(3),
+        y: dataview.getInt16(5),
       })
       others[id].sprite.animate = false
       break
 
     case 'send-chat':
-      var id = dv.getInt16(1)
       msg = receiveMsgFromAll(data)
       others[id].sprite.chat = msg.chat
       break
 
     case 'battle-offer':
-      console.log('battle offered')
       if (!battle.initiated) {
         document.getElementById('acceptBattleBtn').style.display =
           'inline-block'
@@ -363,12 +306,12 @@ function onmessage(data) {
 
         document.getElementById('acceptBattleCard').style.display = 'block'
         document.getElementById('battleOpponentName2').innerText =
-          'Opponent: ' + others[dv.getInt16(1)].sprite.name
+          'Opponent: ' + others[dataview.getInt16(1)].sprite.name
         document
           .getElementById('acceptBattleBtn')
           .addEventListener('click', (e) => {
-            opponent_id = dv.getInt16(1)
-            others[opponent_id].skillType = dv.getInt16(5)
+            opponent_id = dataview.getInt16(1)
+            others[opponent_id].skillType = dataview.getInt16(5)
             document.getElementById('acceptBattleCard').style.display = 'none'
             document.getElementById('selectTypeCard').style.display = 'block'
             document
@@ -385,44 +328,40 @@ function onmessage(data) {
         document
           .getElementById('refuseBattleBtn')
           .addEventListener('click', (e) => {
-            battleDeny(dv.getInt16(1), 1)
+            battleDeny(dataview.getInt16(1), 1)
             document.getElementById('acceptBattleCard').style.display = 'none'
           })
       } else {
-        battleDeny(dv.getInt16(1), 0)
+        battleDeny(dataview.getInt16(1), 0)
       }
       break
 
     case 'battle-deny':
       document.getElementById('acceptBattleCard').style.display = 'none'
       if (!battle.initiated) {
-        var reason = dv.getInt16(5)
-        console.log('battle denied')
-        console.log(reason)
+        var reason = dataview.getInt16(5)
         if (reason === 0) window.alert('Opponent is already on Battle')
         else if (reason === 1) window.alert('Opponent Refused to Battle')
       }
       break
 
     case 'battle-answer':
-      opponent_id = dv.getInt16(1)
-      others[opponent_id].skillType = dv.getInt16(5)
+      opponent_id = dataview.getInt16(1)
+      others[opponent_id].skillType = dataview.getInt16(5)
       battle_start = true
       my_turn = true
       break
 
     case 'attack':
-      var attack = dv.getInt16(5)
+      var attack = dataview.getInt16(5)
       attacked(attack)
       break
 
     case 'request-user-info':
-      var id = dv.getInt16(1)
       responseUserInfo(id)
       break
 
     case 'response-user-info':
-      var id = dv.getInt16(1)
       msg = receiveMsgFromPeer(data)
       if (others[id] === undefined) {
         others[id] = {
@@ -431,33 +370,32 @@ function onmessage(data) {
           sprite: new Sprite({
             position: {
               x: 0,
-              y: 0
+              y: 0,
             },
             image: playerDownImage,
             frames: {
               max: 4,
-              hold: 10
+              hold: 10,
             },
             sprites: {
               up: new Image(),
               left: new Image(),
               right: new Image(),
-              down: new Image()
+              down: new Image(),
             },
-            name: msg.username
-          })
+            name: msg.username,
+          }),
         }
         others[id].baseImage = new Image()
         worker.postMessage({
           url: msg.url,
           contractAddress: msg.collection,
-          id: id
+          id: id,
         })
       }
       break
 
     case 'leave-battle':
-      var id = dv.getInt16(1)
       if (battle.initiated && id === opponent_id) {
         window.alert('opponent left the battle')
         endBattle()
@@ -470,29 +408,32 @@ function onmessage(data) {
   }
 }
 
-function onopen() {
+export function onopen() {
   log('Server Connected')
 }
 
-function onerror(data) {
+export function onerror(data) {
   console.dir(data)
 }
 
-function log(text) {
+export function log(text) {
   var time = new Date()
-  console.log('[' + time.toLocaleTimeString() + '] ' + text)
 }
 
-function log_error(text) {
+export function log_error(text) {
   var time = new Date()
   console.trace('[' + time.toLocaleTimeString() + '] ' + text)
 }
 
-function reportError(errMessage) {
+export function reportError(errMessage) {
   log_error(`Error ${errMessage.name}: ${errMessage.message}`)
 }
 
-function connect() {
+/**
+ * 서버와 연결하도록 하는 함수
+ * ws = new WebSocker(serverUrl)
+ */
+export function connect() {
   var serverUrl
   var scheme = 'ws'
   // var hostName = 'localhost:3000'

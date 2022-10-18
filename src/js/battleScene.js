@@ -1,34 +1,40 @@
+import { animate } from './animate'
+import { Sprite } from '../game/object/Sprite'
+import { skillTypes, others, attack, battle_start } from './network'
+import { player, canva, battle } from './index'
+import { Monster } from '../game/object/Monster'
+import { gsap } from 'gsap'
+
 const battleBackgroundImage = new Image()
 battleBackgroundImage.src = '../img/battleBackground2.png'
 
 const battleBackground = new Sprite({
   position: {
     x: 0,
-    y: 0
+    y: 0,
   },
-  image: battleBackgroundImage
+  image: battleBackgroundImage,
 })
 
-let opponent_id = null
+export let opponent_id = null
 let opponent
 let me
 let renderedSprites
 let battleAnimationId
-let queue
-let my_turn = false
-let mySkillType
-let skillTypes
+export let queue
+export let my_turn = false
+export let mySkillType
 
 //
 // Methods
 //
 
-function attacked(attack) {
+export function attacked(attack) {
   queue.push(() => {
     opponent.attack({
       attack: opponent.attacks[attack],
       recipient: me,
-      renderedSprites
+      renderedSprites,
     })
     my_turn = true
 
@@ -42,7 +48,7 @@ function attacked(attack) {
   })
 }
 
-function endBattle(result) {
+export function endBattle(result) {
   queue.push(() => {
     // fade back to black
     gsap.to('#overlappingDiv', {
@@ -56,18 +62,19 @@ function endBattle(result) {
         document.getElementById('battleResult').innerText = `You ${result}!`
         document.querySelector('#joyDiv').style.display = 'block'
         gsap.to('#overlappingDiv', {
-          opacity: 0
+          opacity: 0,
         })
 
         battle.initiated = false
-      }
+      },
     })
     battle_start = false
   })
 }
-function initBattle() {
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight
+
+export function initBattle() {
+  canva.width = window.innerWidth
+  canva.height = window.innerHeight
   document.querySelector('#joyDiv').style.display = 'none'
   document.querySelector('#userInterface').style.display = 'block'
   document.querySelector('#dialogueBox').style.display = 'none'
@@ -83,7 +90,7 @@ function initBattle() {
     document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
   }
 
-  var opponentMonster = {
+  const opponentMonster = {
     image: others[opponent_id].baseImage,
     isEnemy: true,
     name: others[opponent_id].sprite.name,
@@ -91,17 +98,17 @@ function initBattle() {
     attacks: JSON.parse(
       JSON.stringify(skillTypes[others[opponent_id].skillType].atk)
     ),
-    defenses: skillTypes[others[opponent_id].skillType].def
+    defenses: skillTypes[others[opponent_id].skillType].def,
   }
 
   opponent = new Monster(opponentMonster)
-  var myMonster = {
+  const myMonster = {
     image: player.baseImage,
     isEnemy: false,
     name: player.name,
     health: skillTypes[mySkillType].health,
     attacks: JSON.parse(JSON.stringify(skillTypes[mySkillType].atk)),
-    defenses: skillTypes[mySkillType].def
+    defenses: skillTypes[mySkillType].def,
   }
   me = new Monster(myMonster)
   renderedSprites = [opponent, me]
@@ -138,7 +145,7 @@ function initBattle() {
       me.attack({
         attack: selectedAttack,
         recipient: opponent,
-        renderedSprites
+        renderedSprites,
       })
       me.attacks.forEach((attack) => {
         if (attack.left_cool_time > 0) attack.left_cool_time -= 1
@@ -172,7 +179,7 @@ function initBattle() {
   })
 }
 
-function animateBattle() {
+export function animateBattle() {
   battleAnimationId = window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
 

@@ -9,46 +9,19 @@
       href="https://unpkg.com/nes.css@latest/css/nes.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./style/input.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <div style="display: inline-block; position: relative; width: 100%">
-      <div id="loading" class="loader"></div>
-      <div id="joyDiv"></div>
-      <button
-        id="chatOpenBtn"
-        class="nes-btn"
-        onclick="openForm()"
-        style="display: none"
-      >
-        Chat
-      </button>
-      <div class="chat-popup" id="myForm">
-        <form class="form-container">
-          <h1>Chat</h1>
-          <label for="msg"><b>Message</b></label>
-          <textarea
-            id="chat"
-            placeholder="Up to 10 words..."
-            name="msg"
-            maxlength="10"
-            required
-          ></textarea>
+    <div class="main_container">
+      <!-- canvas to draw things -->
+      <canvas style="display: none"></canvas>
 
-          <button type="button" class="btn" onclick="sendChat()">Send</button>
-          <button type="button" class="btn cancel" onclick="closeForm()">
-            Close
-          </button>
-        </form>
-      </div>
-
-      <div id="overlappingDiv"></div>
-
-      <div id="loginDiv" class="modal">
+      <div id="login_screen" class="modal">
         <div class="landing-container is-rounded is-dark">
           <div style="text-align: center">
             <img src="../img/w3mlogonew.png" alt="Logo" />
@@ -116,184 +89,217 @@
         </div>
       </div>
 
-      <div id="buttonSection">
-        <div style="margin: 10px">
-          <button id="profileButton" type="button" class="nes-btn">
-            My Profile
-          </button>
+      <div id="joyDiv"></div>
+      <div id="game_screen" style="display: none">
+        <div id="loading" class="loader"></div>
+        <div id="overlappingDiv"></div>
+
+        <button id="chatOpenBtn" class="nes-btn">Chat</button>
+        <div class="chat-popup" id="chatForm">
+          <form class="form-container">
+            <h1>Chat</h1>
+            <label for="msg"><b>Message</b></label>
+            <textarea
+              id="chat"
+              class="text_input"
+              placeholder="Up to 10 words..."
+              name="msg"
+              maxlength="10"
+              required
+            ></textarea>
+
+            <button id="sendChatBtn" type="button" class="custom_button">
+              Send
+            </button>
+            <button
+              id="chatCloseBtn"
+              type="button"
+              class="custom_button cancel"
+            >
+              Close
+            </button>
+          </form>
         </div>
-        <div style="margin: 10px">
-          <button id="guidanceButton" type="button" class="nes-btn">
-            Guidance
-          </button>
-        </div>
-        <div style="margin: 10px">
-          <button onclick="location.reload()" type="button" class="nes-btn">
-            Leave Game
-          </button>
-        </div>
-      </div>
-
-      <!-- Add icon library -->
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      />
-
-      <div id="profileCard" class="card" style="padding-bottom: 20px">
-        <img id="profileImg" src="" alt="John" style="width: 100%" />
-        <h1 id="profileName"></h1>
-        <p id="profileNFT" class="title"></p>
-        <p id="profileHP"></p>
-        <p id="profileAP"></p>
-        <button id="parasUrl" class="nes-btn is-primary">see on paras</button>
-      </div>
-
-      <div id="guidanceCard" class="card" style="padding: 20px">
-        <h2>Game Guidance</h2>
-        <p>This is a multiplayer game.</p>
-        <p>You can walk, chat and battle with other players within the game.</p>
-        <p>
-          Step into the same Battle Zone box with other player to enter battle.
-        </p>
-      </div>
-
-      <div id="acceptBattleCard" class="card" style="padding: 20px">
-        <h2>Start Battle</h2>
-        <p id="battleOpponentName2"></p>
-        <button id="acceptBattleBtn" class="nes-btn is-success">YES</button>
-        <button id="refuseBattleBtn" class="nes-btn is-error">NO</button>
-      </div>
-
-      <div id="selectTypeCard" class="card" style="padding: 20px">
-        <h2>Select Type</h2>
-        <div class="nes-select">
-          <select required id="selectType" onchange="connectWallet()">
-            <option value="1">Attack</option>
-            <!-- <option value="2">Defense</option> -->
-            <option value="3">Lucky</option>
-            <!-- <option value="4">Hedgehog</option> -->
-          </select>
-        </div>
-        <button id="selectTypeBtn" class="nes-btn is-success">OK</button>
-      </div>
-
-      <div id="battleResultCard" class="card" style="padding: 20px">
-        <h2 id="battleResult"></h2>
-        <button id="closeResultBtn" class="nes-btn">YES</button>
-      </div>
-
-      <canvas></canvas>
-
-      <div id="userInterface" style="display: none">
-        <!-- Represents health bar of draggle (enemy) -->
-        <div
-          style="
-            background-color: white;
-            width: 250px;
-            position: absolute;
-            top: 50px;
-            left: 50px;
-            border: 4px black solid;
-            padding: 12px;
-          "
-        >
-          <h1 style="font-size: 16px" id="battleOpponentName"></h1>
-          <div style="position: relative">
-            <div
-              style="height: 5px; background-color: #ccc; margin-top: 10px"
-            ></div>
-            <div
-              id="enemyHealthBar"
-              style="
-                height: 5px;
-                background-color: green;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-              "
-            ></div>
+        <div id="buttonSection">
+          <div style="margin: 10px">
+            <button id="profileButton" type="button" class="nes-btn">
+              My Profile
+            </button>
+          </div>
+          <div style="margin: 10px">
+            <button id="guidanceButton" type="button" class="nes-btn">
+              Guidance
+            </button>
+          </div>
+          <div style="margin: 10px">
+            <button onclick="location.reload()" type="button" class="nes-btn">
+              Leave Game
+            </button>
           </div>
         </div>
 
-        <!-- Represents health bar of emby (us) -->
-        <div
-          style="
-            background-color: white;
-            width: 250px;
-            position: absolute;
-            top: 150px;
-            left: 50px;
-            border: 4px black solid;
-            padding: 12px;
-          "
-        >
-          <h1 style="font-size: 16px" id="battleMyName"></h1>
-          <div style="position: relative">
-            <div
-              style="height: 5px; background-color: #ccc; margin-top: 10px"
-            ></div>
-            <div
-              id="playerHealthBar"
-              style="
-                height: 5px;
-                background-color: green;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-              "
-            ></div>
-          </div>
+        <!-- Add icon library -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+
+        <div id="profileCard">
+          <img id="profileImg" src="" alt="John" style="width: 100%" />
+          <p id="profileName"></p>
+          <p id="profileNFT" class="title"></p>
+          <p id="profileHP"></p>
+          <p id="profileAP"></p>
+          <button id="parasUrl" class="nes-btn is-primary">see on paras</button>
         </div>
 
-        <div
-          style="
-            background-color: white;
-            height: 140px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            border-top: 4px black solid;
-            display: flex;
-          "
-        >
+        <div id="guidanceCard" class="card" style="padding: 20px">
+          <h2>Game Guidance</h2>
+          <p>This is a multiplayer game.</p>
+          <p>
+            You can walk, chat and battle with other players within the game.
+          </p>
+          <p>
+            Step into the same Battle Zone box with other player to enter
+            battle.
+          </p>
+        </div>
+
+        <div id="acceptBattleCard" class="card" style="padding: 20px">
+          <h2>Start Battle</h2>
+          <p id="battleOpponentName2"></p>
+          <button id="acceptBattleBtn" class="nes-btn is-success">YES</button>
+          <button id="refuseBattleBtn" class="nes-btn is-error">NO</button>
+        </div>
+
+        <div id="selectTypeCard" class="card" style="padding: 20px">
+          <h2>Select Type</h2>
+          <div class="nes-select">
+            <select required id="selectType" onchange="connectWallet()">
+              <option value="1">Attack</option>
+              <!-- <option value="2">Defense</option> -->
+              <option value="3">Lucky</option>
+              <!-- <option value="4">Hedgehog</option> -->
+            </select>
+          </div>
+          <button id="selectTypeBtn" class="nes-btn is-success">OK</button>
+        </div>
+
+        <div id="battleResultCard" class="card" style="padding: 20px">
+          <h2 id="battleResult"></h2>
+          <button id="closeResultBtn" class="nes-btn">YES</button>
+        </div>
+
+        <div id="userInterface" style="display: none">
+          <!-- Represents health bar of draggle (enemy) -->
           <div
-            id="dialogueBox"
             style="
+              background-color: white;
+              width: 250px;
               position: absolute;
-              top: 0;
-              right: 0;
+              top: 50px;
+              left: 50px;
+              border: 4px black solid;
+              padding: 12px;
+            "
+          >
+            <h1 style="font-size: 16px" id="battleOpponentName"></h1>
+            <div style="position: relative">
+              <div
+                style="height: 5px; background-color: #ccc; margin-top: 10px"
+              ></div>
+              <div
+                id="enemyHealthBar"
+                style="
+                  height: 5px;
+                  background-color: green;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                "
+              ></div>
+            </div>
+          </div>
+
+          <!-- Represents health bar of emby (us) -->
+          <div
+            style="
+              background-color: white;
+              width: 250px;
+              position: absolute;
+              top: 150px;
+              left: 50px;
+              border: 4px black solid;
+              padding: 12px;
+            "
+          >
+            <h1 style="font-size: 16px" id="battleMyName"></h1>
+            <div style="position: relative">
+              <div
+                style="height: 5px; background-color: #ccc; margin-top: 10px"
+              ></div>
+              <div
+                id="playerHealthBar"
+                style="
+                  height: 5px;
+                  background-color: green;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                "
+              ></div>
+            </div>
+          </div>
+
+          <div
+            style="
+              background-color: white;
+              height: 140px;
+              position: absolute;
               bottom: 0;
               left: 0;
-              background-color: white;
-              padding: 12px;
-              display: none;
-              cursor: pointer;
-            "
-          >
-            sdkfjlsdajl
-          </div>
-          <div
-            id="attacksBox"
-            style="
-              width: 66.66%;
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-            "
-          ></div>
-          <div
-            style="
+              right: 0;
+              border-top: 4px black solid;
               display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 33.33%;
-              border-left: 4px black solid;
             "
           >
-            <h1 id="attackType" style="font-size: 16px">Attack Type</h1>
+            <div
+              id="dialogueBox"
+              style="
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: white;
+                padding: 12px;
+                display: none;
+                cursor: pointer;
+              "
+            >
+              sdkfjlsdajl
+            </div>
+            <div
+              id="attacksBox"
+              style="
+                width: 66.66%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+              "
+            ></div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 33.33%;
+                border-left: 4px black solid;
+              "
+            >
+              <h1 id="attackType" style="font-size: 16px">Attack Type</h1>
+            </div>
           </div>
         </div>
       </div>

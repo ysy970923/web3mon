@@ -2,8 +2,10 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@": ["src"]
+    },
+    "target": "es6"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "checkJs": true
 }

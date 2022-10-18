@@ -1,22 +1,49 @@
-import { player } from '../js/index'
+import { player, canvas } from '../js/index'
 import { worker } from '../js/utils'
+import { monsters } from '../game/data/monsters'
+import * as nearAPI from 'near-api-js'
 
 export let playerUrl
 export let tokenId
 
-const nearConfig = {
-  networkId: 'mainnet',
-  nodeUrl: 'https://rpc.mainnet.near.org',
-  walletUrl: 'https://wallet.near.org',
-  helperUrl: 'https://helper.mainnet.near.org',
-  explorerUrl: 'https://explorer.mainnet.near.org'
+function truncate(input, length) {
+  if (input.length > length) {
+    return input.substring(0, length) + '...'
+  }
+  return input
+}
+
+export async function connectWallets(nearAPI) {
+  const nearConfig = {
+    networkId: 'mainnet',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.mainnet.near.org',
+    explorerUrl: 'https://explorer.mainnet.near.org',
+  }
+  // Initialize connection to the NEAR testnet
+
+  const near = await nearAPI.connect(
+    Object.assign(
+      {
+        deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() },
+      },
+      nearConfig
+    )
+  )
+  // Initializing Wallet based Account. It can work with NEAR testnet wallet that
+  // is hosted at https://wallet.testnet.near.org
+  window.walletConnection = new nearAPI.WalletConnection(near)
+
+  // Getting the Account ID. If still unauthorized, it's just empty string
+  window.accountId = window.walletConnection.getAccountId()
+  if (window.accountId !== '') await authorize()
 }
 
 document.getElementById('joinGame').addEventListener('click', (e) => {
+  console.log('클릭')
   // initContract 실행
-  console.log('0')
   initContract().then(() => {
-    console.log('1ㅏㅏㅏㅏ')
     tokenId = document.getElementById('tokenId').value
     window.contract
       .nft_token({ token_id: tokenId })
@@ -29,8 +56,6 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
         if (msg.metadata.media.includes('https://'))
           playerUrl = msg.metadata.media
         else playerUrl = window.metadata.base_uri + '/' + msg.metadata.media
-        document.getElementById('chatOpenBtn').style.display = 'block'
-        document.getElementById('loginDiv').style.display = 'none'
         document.getElementById('profileName').innerHTML =
           window.metadata.name + ' #' + (Number(msg.metadata.title) + 1)
         document.getElementById('profileNFT').innerHTML = player.name
@@ -47,27 +72,39 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
             )
             .focus()
         })
-        console.log('2')
 
+        turnToGameScreen()
         player.baseImage = new Image()
+        player.position.x = canvas.width / 2 - 192 / 4 / 2
+        player.position.y = canvas.height / 2 - 102 / 2
+
         worker.postMessage({
           url: playerUrl,
           contractAddress: window.contractAddress,
-          id: '-1'
+          id: '-1',
         })
+        window.isLoggedIn = true
       })
-      .catch((err) => {
-        console.log('에러', err)
-      })
+      .catch((err) => console.log(err))
   })
 })
+
+/**
+ * 메인화면을 display:none 처리하고, 게임화면을 display:block 한다.
+ */
+const turnToGameScreen = () => {
+  document.getElementById('login_screen').style.display = 'none'
+  document.getElementById('game_screen').style.display = 'block'
+  document.querySelector('canvas').style.display = 'block'
+
+  console.log('canva', canvas)
+}
 
 // Initialize contract & set global variables
 async function initContract() {
   window.contractAddress = document.getElementById('contractAddress').value
   // Initializing our contract APIs by contract name and configuration
-  console.log('여기까지 실행')
-  window.contract = await new nearApi.Contract(
+  window.contract = await new nearAPI.Contract(
     window.walletConnection.account(),
     window.contractAddress,
     {
@@ -76,38 +113,13 @@ async function initContract() {
         'nft_token',
         'nft_metadata',
         'nft_tokens_for_owner',
-        'nft_supply_for_owner'
+        'nft_supply_for_owner',
       ],
       // Change methods can modify the state. But you don't receive the returned value when called.
-      changeMethods: []
+      changeMethods: [],
     }
   )
-  console.log('여기까지 실행22')
-  window.metadata = await window.contract
-    .nft_metadata()
-    .then((res) => console.log('결과 ', res))
-    .catch((err) => console.error(err, '에러러라구'))
-  console.log('여기까지 실행3')
-}
-
-export async function connectWallets() {
-  console.log('1')
-  // Initialize connection to the NEAR testnet
-  const near = await nearApi.connect(
-    Object.assign(
-      {
-        deps: { keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore() }
-      },
-      nearConfig
-    )
-  )
-  // Initializing Wallet based Account. It can work with NEAR testnet wallet that
-  // is hosted at https://wallet.testnet.near.org
-  window.walletConnection = new nearApi.WalletConnection(near)
-
-  // Getting the Account ID. If still unauthorized, it's just empty string
-  window.accountId = window.walletConnection.getAccountId()
-  if (window.accountId !== '') await authorize()
+  window.metadata = await window.contract.nft_metadata()
 }
 
 async function authorize() {
@@ -117,7 +129,7 @@ async function authorize() {
   var data = await window.contract.nft_tokens_for_owner({
     account_id: window.accountId,
     from_index: '0',
-    limit: 50
+    limit: 50,
   })
   // var data = await window.contract.nft_tokens_for_owner({ account_id: 'nearmoondao.near',  })
   document.querySelector('#nftListBox').innerHTML = ''
