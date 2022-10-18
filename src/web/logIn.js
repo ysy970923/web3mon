@@ -1,4 +1,4 @@
-import { player } from '../js/index'
+import { player, canvas } from '../js/index'
 import { worker } from '../js/utils'
 import { monsters } from '../game/data/monsters'
 import * as nearAPI from 'near-api-js'
@@ -19,14 +19,14 @@ export async function connectWallets(nearAPI) {
     nodeUrl: 'https://rpc.mainnet.near.org',
     walletUrl: 'https://wallet.near.org',
     helperUrl: 'https://helper.mainnet.near.org',
-    explorerUrl: 'https://explorer.mainnet.near.org'
+    explorerUrl: 'https://explorer.mainnet.near.org',
   }
   // Initialize connection to the NEAR testnet
 
   const near = await nearAPI.connect(
     Object.assign(
       {
-        deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() }
+        deps: { keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore() },
       },
       nearConfig
     )
@@ -56,8 +56,6 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
         if (msg.metadata.media.includes('https://'))
           playerUrl = msg.metadata.media
         else playerUrl = window.metadata.base_uri + '/' + msg.metadata.media
-        document.getElementById('chatOpenBtn').style.display = 'block'
-        document.getElementById('loginDiv').style.display = 'none'
         document.getElementById('profileName').innerHTML =
           window.metadata.name + ' #' + (Number(msg.metadata.title) + 1)
         document.getElementById('profileNFT').innerHTML = player.name
@@ -75,16 +73,32 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
             .focus()
         })
 
+        turnToGameScreen()
         player.baseImage = new Image()
+        player.position.x = canvas.width / 2 - 192 / 4 / 2
+        player.position.y = canvas.height / 2 - 102 / 2
+
         worker.postMessage({
           url: playerUrl,
           contractAddress: window.contractAddress,
-          id: '-1'
+          id: '-1',
         })
+        window.isLoggedIn = true
       })
       .catch((err) => console.log(err))
   })
 })
+
+/**
+ * 메인화면을 display:none 처리하고, 게임화면을 display:block 한다.
+ */
+const turnToGameScreen = () => {
+  document.getElementById('login_screen').style.display = 'none'
+  document.getElementById('game_screen').style.display = 'block'
+  document.querySelector('canvas').style.display = 'block'
+
+  console.log('canva', canvas)
+}
 
 // Initialize contract & set global variables
 async function initContract() {
@@ -99,10 +113,10 @@ async function initContract() {
         'nft_token',
         'nft_metadata',
         'nft_tokens_for_owner',
-        'nft_supply_for_owner'
+        'nft_supply_for_owner',
       ],
       // Change methods can modify the state. But you don't receive the returned value when called.
-      changeMethods: []
+      changeMethods: [],
     }
   )
   window.metadata = await window.contract.nft_metadata()
@@ -115,7 +129,7 @@ async function authorize() {
   var data = await window.contract.nft_tokens_for_owner({
     account_id: window.accountId,
     from_index: '0',
-    limit: 50
+    limit: 50,
   })
   // var data = await window.contract.nft_tokens_for_owner({ account_id: 'nearmoondao.near',  })
   document.querySelector('#nftListBox').innerHTML = ''

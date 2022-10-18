@@ -13,7 +13,7 @@ export class Sprite {
     rotation = 0,
     scale = 1,
     name = '',
-    baseImage = ''
+    baseImage = '',
   }) {
     this.relative_position = { x: 0, y: 0 }
     this.position = position
@@ -53,19 +53,19 @@ export class Sprite {
     const crop = {
       position: {
         x: this.frames.val * this.width,
-        y: 0
+        y: 0,
       },
       width: this.image.width / this.frames.max,
-      height: this.image.height
+      height: this.image.height,
     }
 
     const image = {
       position: {
         x: this.position.x,
-        y: this.position.y
+        y: this.position.y,
       },
       width: this.image.width / this.frames.max,
-      height: this.image.height
+      height: this.image.height,
     }
 
     if (this.name.length > 0) {

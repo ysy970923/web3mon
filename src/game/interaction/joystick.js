@@ -50,7 +50,7 @@ let StickStatus = {
   yPosition: 0,
   x: 0,
   y: 0,
-  cardinalDirection: 'C'
+  cardinalDirection: 'C',
 }
 
 /**
@@ -158,11 +158,13 @@ export const JoyStick = function (container, parameters, callback) {
    * @desc Draw the external circle used as reference position
    */
   function drawExternal() {
-    context.beginPath()
-    context.arc(centerX, centerY, externalRadius, 0, circumference, false)
-    context.lineWidth = externalLineWidth
-    context.strokeStyle = externalStrokeColor
-    context.stroke()
+    if (window.isLoggedIn) {
+      context.beginPath()
+      context.arc(centerX, centerY, externalRadius, 0, circumference, false)
+      context.lineWidth = externalLineWidth
+      context.strokeStyle = externalStrokeColor
+      context.stroke()
+    }
   }
 
   /**

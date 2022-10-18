@@ -9,7 +9,7 @@ module.exports = {
   // 컴파일 + 번들링된 js 파일이 저장될 경로와 이름 지정
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -25,23 +25,27 @@ module.exports = {
                 '@babel/preset-env',
                 {
                   useBuiltIns: 'usage', // 필요한 폴리필만 추가
-                  corejs: 3
-                }
-              ]
-            ]
-          }
-        }
-      }
-    ]
+                  corejs: 3,
+                },
+              ],
+            ],
+          },
+        },
+      },
+      {
+        test: /\.(png|jpg)$/,
+        use: ['file-loader'],
+      },
+    ],
   },
 
   // plugins: [new NodePolyfillPlugin()],
   plugins: [
     new webpack.ProvidePlugin({
-      process: 'process/browser'
-    })
+      process: 'process/browser',
+    }),
   ],
   devtool: 'source-map',
   // https://webpack.js.org/concepts/mode/#mode-development
-  mode: 'development'
+  mode: 'development',
 }

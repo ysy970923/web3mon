@@ -1,8 +1,9 @@
-import { animate } from './index'
+import { animate } from './animate'
 import { Sprite } from '../game/object/Sprite'
 import { skillTypes, others, attack, battle_start } from './network'
-import { player, canva } from './index'
+import { player, canva, battle } from './index'
 import { Monster } from '../game/object/Monster'
+import { gsap } from 'gsap'
 
 const battleBackgroundImage = new Image()
 battleBackgroundImage.src = '../img/battleBackground2.png'
@@ -15,14 +16,14 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage,
 })
 
-let opponent_id = null
+export let opponent_id = null
 let opponent
 let me
 let renderedSprites
 let battleAnimationId
-let queue
-let my_turn = false
-let mySkillType
+export let queue
+export let my_turn = false
+export let mySkillType
 
 //
 // Methods
