@@ -5,6 +5,7 @@ import { animate } from '../game/animate'
 export const worker = new Worker('./js/worker.js')
 
 worker.onmessage = function (event) {
+  console.log('워커 일함', event.data)
   if (event.data) {
     if (event.data.id === '-1') {
       player.sprites.up.src = event.data.up

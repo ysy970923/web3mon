@@ -66,7 +66,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_25__);
 /* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
 /* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var _interaction_move__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./interaction/move */ "./src/game/interaction/move.js");
+/* harmony import */ var _interaction_move__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../game/interaction/move */ "./src/game/interaction/move.js");
 /* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
 /* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../js/network */ "./src/js/network.js");
 /* harmony import */ var _utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./utils/checkCollision */ "./src/game/utils/checkCollision.js");
@@ -110,6 +110,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
+var npcTalk = function npcTalk(animationId) {
+  if (animationId % 600 < 200) _js_network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Come in';else if (animationId % 600 < 400) _js_network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Battle Zone';else _js_network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Click Me!';
+};
 var animate = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var animationId, key, moving, i, battleZone, _i, boundary, _key, _i2, _boundary, _key2, _i3, _boundary2, _key3, _i4, _boundary3, _key4;
@@ -121,7 +125,8 @@ var animate = /*#__PURE__*/function () {
             _js_index__WEBPACK_IMPORTED_MODULE_28__.renderables.forEach(function (renderable) {
               renderable.draw();
             });
-            if (animationId % 600 < 200) _js_network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Come in';else if (animationId % 600 < 400) _js_network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Battle Zone';else _js_network__WEBPACK_IMPORTED_MODULE_29__.others[250].sprite.chat = 'Click Me!';
+            // NPC가 말하는거
+            npcTalk(animationId);
             for (key in _js_network__WEBPACK_IMPORTED_MODULE_29__.others) {
               if (_js_network__WEBPACK_IMPORTED_MODULE_29__.others[key].draw === true) _js_network__WEBPACK_IMPORTED_MODULE_29__.others[key].sprite.draw();
             }
@@ -141,37 +146,39 @@ var animate = /*#__PURE__*/function () {
             }
 
             // 만약 채팅 중이라면 움직이지 않는다.
-            // if (document.getElementById('chatForm').style.display !== 'none') return
-
-            // enable to battle with others
+            if (!(document.getElementById('chatForm').style.display !== 'none')) {
+              _context.next = 12;
+              break;
+            }
+            return _context.abrupt("return");
+          case 12:
             if (!(_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.w.pressed || _interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.a.pressed || _interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.s.pressed || _interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.d.pressed)) {
-              _context.next = 21;
+              _context.next = 23;
               break;
             }
             _js_index__WEBPACK_IMPORTED_MODULE_28__.battle.ready = false;
             i = 0;
-          case 13:
+          case 15:
             if (!(i < _js_index__WEBPACK_IMPORTED_MODULE_28__.battleZones.length)) {
-              _context.next = 21;
+              _context.next = 23;
               break;
             }
             battleZone = _js_index__WEBPACK_IMPORTED_MODULE_28__.battleZones[i];
             if (!(0,_js_index__WEBPACK_IMPORTED_MODULE_28__.checkCollision)(_js_index__WEBPACK_IMPORTED_MODULE_28__.player, battleZone)) {
-              _context.next = 18;
+              _context.next = 20;
               break;
             }
             _js_index__WEBPACK_IMPORTED_MODULE_28__.battle.ready = true;
-            return _context.abrupt("break", 21);
-          case 18:
+            return _context.abrupt("break", 23);
+          case 20:
             i++;
-            _context.next = 13;
+            _context.next = 15;
             break;
-          case 21:
+          case 23:
             if (!(_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.w.pressed && _interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 'w')) {
-              _context.next = 40;
+              _context.next = 41;
               break;
             }
-            console.log('w가 눌려있다!');
             _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
             _js_index__WEBPACK_IMPORTED_MODULE_28__.player.image = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.up;
             _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 0;
@@ -184,9 +191,9 @@ var animate = /*#__PURE__*/function () {
               }
             });
             _i = 0;
-          case 28:
+          case 29:
             if (!(_i < _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries.length)) {
-              _context.next = 36;
+              _context.next = 37;
               break;
             }
             boundary = _js_index__WEBPACK_IMPORTED_MODULE_28__.boundaries[_i];
@@ -199,16 +206,16 @@ var animate = /*#__PURE__*/function () {
                 }
               })
             })) {
-              _context.next = 33;
+              _context.next = 34;
               break;
             }
             moving = false;
-            return _context.abrupt("break", 36);
-          case 33:
+            return _context.abrupt("break", 37);
+          case 34:
             _i++;
-            _context.next = 28;
+            _context.next = 29;
             break;
-          case 36:
+          case 37:
             if (moving) _js_index__WEBPACK_IMPORTED_MODULE_28__.movables.forEach(function (movable) {
               movable.position.y += 3;
             });
@@ -217,12 +224,11 @@ var animate = /*#__PURE__*/function () {
             }
             _context.next = 93;
             break;
-          case 40:
+          case 41:
             if (!(_interaction_move__WEBPACK_IMPORTED_MODULE_27__.keys.a.pressed && _interaction_move__WEBPACK_IMPORTED_MODULE_27__.lastKey === 'a')) {
               _context.next = 59;
               break;
             }
-            console.log('a가 눌려있다!');
             _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate = true;
             _js_index__WEBPACK_IMPORTED_MODULE_28__.player.image = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.sprites.left;
             _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction = 1;
@@ -381,10 +387,10 @@ var animate = /*#__PURE__*/function () {
 var previousAnimate = false;
 setInterval(function () {
   if (_js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate === true) {
-    (0,_js_network__WEBPACK_IMPORTED_MODULE_29__.moveUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_28__.global_position)(), _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction);
+    (0,_interaction_move__WEBPACK_IMPORTED_MODULE_27__.moveUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_28__.global_position)(), _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction);
     previousAnimate = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate;
   } else if (previousAnimate === true) {
-    (0,_js_network__WEBPACK_IMPORTED_MODULE_29__.stopUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_28__.global_position)());
+    (0,_interaction_move__WEBPACK_IMPORTED_MODULE_27__.stopUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_28__.global_position)());
   }
 }, 50);
 
@@ -411,7 +417,6 @@ function openForm() {
   } else chatDoc.style.display = 'block';
 }
 function closeForm() {
-  console.log('닫기 클릭');
   document.getElementById('chatForm').style.display = 'none';
 }
 document.getElementById('chatOpenBtn').addEventListener('click', openForm, true);
@@ -441,83 +446,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
 /* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.typed-array.uint8-array.js */ "./node_modules/core-js/modules/es.typed-array.uint8-array.js");
-/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.typed-array.copy-within.js */ "./node_modules/core-js/modules/es.typed-array.copy-within.js");
-/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.typed-array.every.js */ "./node_modules/core-js/modules/es.typed-array.every.js");
-/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.typed-array.fill.js */ "./node_modules/core-js/modules/es.typed-array.fill.js");
-/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.typed-array.filter.js */ "./node_modules/core-js/modules/es.typed-array.filter.js");
-/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.typed-array.find.js */ "./node_modules/core-js/modules/es.typed-array.find.js");
-/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.typed-array.find-index.js */ "./node_modules/core-js/modules/es.typed-array.find-index.js");
-/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.typed-array.for-each.js */ "./node_modules/core-js/modules/es.typed-array.for-each.js");
-/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.typed-array.includes.js */ "./node_modules/core-js/modules/es.typed-array.includes.js");
-/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.typed-array.index-of.js */ "./node_modules/core-js/modules/es.typed-array.index-of.js");
-/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.typed-array.iterator.js */ "./node_modules/core-js/modules/es.typed-array.iterator.js");
-/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.typed-array.join.js */ "./node_modules/core-js/modules/es.typed-array.join.js");
-/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.typed-array.last-index-of.js */ "./node_modules/core-js/modules/es.typed-array.last-index-of.js");
-/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.typed-array.map.js */ "./node_modules/core-js/modules/es.typed-array.map.js");
-/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce.js */ "./node_modules/core-js/modules/es.typed-array.reduce.js");
-/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce-right.js */ "./node_modules/core-js/modules/es.typed-array.reduce-right.js");
-/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.typed-array.reverse.js */ "./node_modules/core-js/modules/es.typed-array.reverse.js");
-/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.typed-array.set.js */ "./node_modules/core-js/modules/es.typed-array.set.js");
-/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.typed-array.slice.js */ "./node_modules/core-js/modules/es.typed-array.slice.js");
-/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.typed-array.some.js */ "./node_modules/core-js/modules/es.typed-array.some.js");
-/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.typed-array.sort.js */ "./node_modules/core-js/modules/es.typed-array.sort.js");
-/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.typed-array.subarray.js */ "./node_modules/core-js/modules/es.typed-array.subarray.js");
-/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-locale-string.js */ "./node_modules/core-js/modules/es.typed-array.to-locale-string.js");
-/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-string.js */ "./node_modules/core-js/modules/es.typed-array.to-string.js");
-/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
-/* harmony import */ var _chatForm__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./chatForm */ "./src/game/chat/chatForm.js");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+/* harmony import */ var _chatForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./chatForm */ "./src/game/chat/chatForm.js");
+/* harmony import */ var _network_callType__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../network/callType */ "./src/game/network/callType.js");
 
 
 
@@ -528,66 +460,58 @@ __webpack_require__.r(__webpack_exports__);
 
 document.getElementById('sendChatBtn').addEventListener('click', sendChat, false);
 function sendChat() {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  console.log('전송을 시도');
   var chat = document.querySelector('#chat').value;
-  _js_index__WEBPACK_IMPORTED_MODULE_30__.player.chat = chat;
+  if (chat === 1) {
+    var body = {
+      chat: chat
+    };
+    _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(JSON.stringify(body));
+  }
+  console.log('전송을 메세지', chat);
+  _js_index__WEBPACK_IMPORTED_MODULE_5__.player.chat = chat;
+
+  // sendMsgToAll(CHAT.SEND, chat)
+  // closeForm()
+
+  var buffer = new ArrayBuffer(7);
+  var dataview = new DataView(buffer);
+  dataview.setInt16(1, _js_network__WEBPACK_IMPORTED_MODULE_4__.myID);
+  dataview.setInt16(3, 12323);
+  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(buffer);
+}
+function sendMsgToAll(type, chat) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
   var msg = {
+    type: _network_callType__WEBPACK_IMPORTED_MODULE_7__.CHAT.SEND,
     chat: chat
   };
-  sendMsgToAll('send-chat', msg);
-  (0,_chatForm__WEBPACK_IMPORTED_MODULE_31__.closeForm)();
-}
-function sendMsgToAll(type, msg) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
-  var typeNum = _js_network__WEBPACK_IMPORTED_MODULE_29__.TypeToNum[type];
-  var buffer1 = new ArrayBuffer(3);
-  var dataview = new DataView(buffer1);
-  dataview.setInt8(0, typeNum);
-  dataview.setInt16(1, _js_network__WEBPACK_IMPORTED_MODULE_29__.myID);
+  // var typeNum = TypeToNum[type]
+
   var msgJSON = JSON.stringify(msg);
-  (0,_js_network__WEBPACK_IMPORTED_MODULE_29__.log)('Send to all: ' + msgJSON);
-  var encoder = new TextEncoder();
-  var buffer2 = encoder.encode(msgJSON).buffer;
-  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
-  tmp.set(new Uint8Array(buffer1), 0);
-  tmp.set(new Uint8Array(buffer2), 3);
-  _js_network__WEBPACK_IMPORTED_MODULE_29__.ws.send(tmp.buffer);
+  (0,_js_network__WEBPACK_IMPORTED_MODULE_4__.log)('Send to all: ' + msgJSON);
+  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(msgJSON);
 }
 
 // if type >= 10: data should be dict
-function sendMsgToServer(type, msg) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
-  var typeNum = _js_network__WEBPACK_IMPORTED_MODULE_29__.TypeToNum[type];
-  var buffer1 = new ArrayBuffer(1);
-  var dataview = new DataView(buffer1);
-  dataview.setInt8(0, typeNum);
-  var msgJSON = JSON.stringify(msg);
-  (0,_js_network__WEBPACK_IMPORTED_MODULE_29__.log)('Send to server: ' + msgJSON);
-  var encoder = new TextEncoder();
-  var buffer2 = encoder.encode(msgJSON).buffer;
-  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
-  tmp.set(new Uint8Array(buffer1), 0);
-  tmp.set(new Uint8Array(buffer2), 1);
-  _js_network__WEBPACK_IMPORTED_MODULE_29__.ws.send(tmp.buffer);
+function sendMsgToServer(type, chat) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  var msg = {
+    type: _network_callType__WEBPACK_IMPORTED_MODULE_7__.CHAT.SEND,
+    chat: chat
+  };
+  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(msg);
 }
-function sendMsgToPeer(type, id, msg) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
-  var typeNum = _js_network__WEBPACK_IMPORTED_MODULE_29__.TypeToNum[type];
-  console.log(type);
-  console.log(typeNum);
-  var buffer1 = new ArrayBuffer(5);
-  var dataview = new DataView(buffer1);
-  dataview.setInt8(0, typeNum);
-  dataview.setInt16(1, _js_network__WEBPACK_IMPORTED_MODULE_29__.myID);
-  dataview.setInt16(3, id);
-  var msgJSON = JSON.stringify(msg);
-  (0,_js_network__WEBPACK_IMPORTED_MODULE_29__.log)('Send to peer: ' + msgJSON);
-  var encoder = new TextEncoder();
-  var buffer2 = encoder.encode(msgJSON).buffer;
-  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
-  tmp.set(new Uint8Array(buffer1), 0);
-  tmp.set(new Uint8Array(buffer2), 5);
-  _js_network__WEBPACK_IMPORTED_MODULE_29__.ws.send(tmp.buffer);
+function sendMsgToPeer(type, id, chat) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  console.log('샌드 메시지 투 피어');
+  var msg = {
+    type: type,
+    peer: id,
+    chat: chat
+  };
+  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(msg);
 }
 
 /***/ }),
@@ -1191,9 +1115,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "joyToKey": () => (/* binding */ joyToKey),
 /* harmony export */   "keys": () => (/* binding */ keys),
-/* harmony export */   "lastKey": () => (/* binding */ lastKey)
+/* harmony export */   "lastKey": () => (/* binding */ lastKey),
+/* harmony export */   "moveUser": () => (/* binding */ moveUser),
+/* harmony export */   "stopUser": () => (/* binding */ stopUser)
 /* harmony export */ });
 /* harmony import */ var _joystick__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./joystick */ "./src/game/interaction/joystick.js");
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _network_callType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../network/callType */ "./src/game/network/callType.js");
+
+
 
 var lastKey = '';
 var keys = {
@@ -1211,7 +1141,6 @@ var keys = {
   }
 };
 window.addEventListener('keydown', function (e) {
-  console.log('이동 버튼 클릭');
   switch (e.key) {
     case 'w':
       keys.w.pressed = true;
@@ -1232,7 +1161,6 @@ window.addEventListener('keydown', function (e) {
   }
 });
 window.addEventListener('keyup', function (e) {
-  console.log('이동 버튼 클릭22');
   switch (e.key) {
     case 'w':
       keys.w.pressed = false;
@@ -1278,6 +1206,128 @@ function joyToKey() {
     joyStickMoving = false;
   }
   joyStickMoving = moving;
+}
+function moveUser(position, direction) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  var body = {
+    type: _network_callType__WEBPACK_IMPORTED_MODULE_2__.MOVE.OTHER_USER,
+    myID: _js_network__WEBPACK_IMPORTED_MODULE_1__.myID,
+    x: position.x,
+    y: position.y,
+    direction: direction
+  };
+  var msg = JSON.stringify(body);
+  _js_network__WEBPACK_IMPORTED_MODULE_1__.ws.send(msg);
+}
+function stopUser(position) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  var body = {
+    type: _network_callType__WEBPACK_IMPORTED_MODULE_2__.MOVE.STOP,
+    myID: _js_network__WEBPACK_IMPORTED_MODULE_1__.myID,
+    x: position.x,
+    y: position.y
+  };
+  var msg = JSON.stringify(body);
+  _js_network__WEBPACK_IMPORTED_MODULE_1__.ws.send(msg);
+}
+
+/***/ }),
+
+/***/ "./src/game/network/callType.js":
+/*!**************************************!*\
+  !*** ./src/game/network/callType.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CHAT": () => (/* binding */ CHAT),
+/* harmony export */   "MOVE": () => (/* binding */ MOVE),
+/* harmony export */   "NETWORK": () => (/* binding */ NETWORK)
+/* harmony export */ });
+var CHAT = {
+  SEND: 'send-chat'
+};
+var MOVE = {
+  OTHER_USER: 'move-user',
+  STOP: 'stop-user'
+};
+var NETWORK = {
+  ID: 'id',
+  UPDATE_USER_LIST: 'update-user-list',
+  REQUEST_USER_INFO: 'request-user-info',
+  RESPONSE_USER_INFO: 'response-user-info'
+};
+
+/***/ }),
+
+/***/ "./src/game/network/userConnection.js":
+/*!********************************************!*\
+  !*** ./src/game/network/userConnection.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "requestUserInfo": () => (/* binding */ requestUserInfo),
+/* harmony export */   "responseUserInfo": () => (/* binding */ responseUserInfo)
+/* harmony export */ });
+/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array-buffer.constructor.js */ "./node_modules/core-js/modules/es.array-buffer.constructor.js");
+/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array-buffer.slice.js */ "./node_modules/core-js/modules/es.array-buffer.slice.js");
+/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
+/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _callType__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./callType */ "./src/game/network/callType.js");
+/* harmony import */ var _chat_sendChat__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../chat/sendChat */ "./src/game/chat/sendChat.js");
+/* harmony import */ var _interaction_move__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../interaction/move */ "./src/game/interaction/move.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+/* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../web/logIn */ "./src/web/logIn.js");
+
+
+
+
+
+
+
+
+
+
+
+function requestUserInfo(id) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_5__.checkOrReconnect)()) return;
+  var msg = {
+    id: id,
+    myID: _js_network__WEBPACK_IMPORTED_MODULE_5__.myID,
+    type: _callType__WEBPACK_IMPORTED_MODULE_6__.NETWORK.REQUEST_USER_INFO
+  };
+  var body = JSON.stringify(msg);
+  console.log('십사 다음단계232', body);
+  var buffer = new ArrayBuffer(7);
+  var dataview = new DataView(buffer);
+  dataview.setInt16(1, _js_network__WEBPACK_IMPORTED_MODULE_5__.myID);
+  dataview.setInt16(3, id);
+  dataview.setInt16(5, _callType__WEBPACK_IMPORTED_MODULE_6__.NETWORK.REQUEST_USER_INFO);
+
+  // ws.send(buffer)
+  _js_network__WEBPACK_IMPORTED_MODULE_5__.ws.send(buffer);
+}
+function responseUserInfo(id) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_5__.checkOrReconnect)()) return;
+  var msg = {
+    collection: window.contractAddress,
+    url: _web_logIn__WEBPACK_IMPORTED_MODULE_10__.playerUrl,
+    username: _js_index__WEBPACK_IMPORTED_MODULE_9__.player.name
+  };
+  (0,_chat_sendChat__WEBPACK_IMPORTED_MODULE_7__.sendMsgToPeer)(_callType__WEBPACK_IMPORTED_MODULE_6__.NETWORK.REQUEST_USER_INFO, id, msg);
+  (0,_interaction_move__WEBPACK_IMPORTED_MODULE_8__.stopUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_9__.global_position)());
 }
 
 /***/ }),
@@ -2233,11 +2283,10 @@ charactersMap.forEach(function (row, i) {
     }
   });
 });
-console.log('칸바스의 위스', 'width : ', canvas.width, 'height : ', canvas.height);
 var player = new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_12__.Sprite({
   position: {
-    x: canvas.width / 2 - 192 / 4 / 2,
-    y: canvas.height / 2 - 102 / 2
+    x: window.innerWidth / 2 - 192 / 4 / 2,
+    y: window.innerHeight / 2 - 102 / 2
   },
   image: playerDownImage,
   frames: {
@@ -2318,35 +2367,40 @@ function enterBattle(animationId, id) {
     }
   });
 }
-_network__WEBPACK_IMPORTED_MODULE_13__.others[250] = {
-  draw: false,
-  collection: 'asac.near',
-  skillType: 1,
-  sprite: new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_12__.Sprite({
-    position: {
-      x: battleZones[10].position.x,
-      y: battleZones[10].position.y
-    },
-    image: playerDownImage,
-    frames: {
-      max: 4,
-      hold: 10
-    },
-    sprites: {
-      up: new Image(),
-      left: new Image(),
-      right: new Image(),
-      down: new Image()
-    },
-    name: 'jaewon.near (BOT)'
-  })
+
+// Jaewon NPC 생성
+var makeNPC = function makeNPC() {
+  _network__WEBPACK_IMPORTED_MODULE_13__.others[250] = {
+    draw: false,
+    collection: 'asac.near',
+    skillType: 1,
+    sprite: new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_12__.Sprite({
+      position: {
+        x: battleZones[10].position.x,
+        y: battleZones[10].position.y
+      },
+      image: playerDownImage,
+      frames: {
+        max: 4,
+        hold: 10
+      },
+      sprites: {
+        up: new Image(),
+        left: new Image(),
+        right: new Image(),
+        down: new Image()
+      },
+      name: 'jaewon.near (BOT)'
+    })
+  };
+  _network__WEBPACK_IMPORTED_MODULE_13__.others[250].baseImage = new Image();
+  _utils__WEBPACK_IMPORTED_MODULE_14__.worker.postMessage({
+    url: 'https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png',
+    contractAddress: 'asac.near',
+    id: '250'
+  });
 };
-_network__WEBPACK_IMPORTED_MODULE_13__.others[250].baseImage = new Image();
-_utils__WEBPACK_IMPORTED_MODULE_14__.worker.postMessage({
-  url: 'https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png',
-  contractAddress: 'asac.near',
-  id: '250'
-});
+makeNPC();
 
 /***/ }),
 
@@ -2359,6 +2413,7 @@ _utils__WEBPACK_IMPORTED_MODULE_14__.worker.postMessage({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "NumToType": () => (/* binding */ NumToType),
 /* harmony export */   "TypeToNum": () => (/* binding */ TypeToNum),
 /* harmony export */   "attack": () => (/* binding */ attack),
 /* harmony export */   "battleAnswer": () => (/* binding */ battleAnswer),
@@ -2370,14 +2425,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "leaveBattle": () => (/* binding */ leaveBattle),
 /* harmony export */   "log": () => (/* binding */ log),
 /* harmony export */   "log_error": () => (/* binding */ log_error),
-/* harmony export */   "moveUser": () => (/* binding */ moveUser),
 /* harmony export */   "myID": () => (/* binding */ myID),
 /* harmony export */   "onerror": () => (/* binding */ onerror),
 /* harmony export */   "onopen": () => (/* binding */ onopen),
 /* harmony export */   "others": () => (/* binding */ others),
 /* harmony export */   "reportError": () => (/* binding */ reportError),
 /* harmony export */   "skillTypes": () => (/* binding */ skillTypes),
-/* harmony export */   "stopUser": () => (/* binding */ stopUser),
 /* harmony export */   "ws": () => (/* binding */ ws)
 /* harmony export */ });
 /* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.reduce.js */ "./node_modules/core-js/modules/es.array.reduce.js");
@@ -2396,81 +2449,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
 /* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_number_parse_int_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.number.parse-int.js */ "./node_modules/core-js/modules/es.number.parse-int.js");
-/* harmony import */ var core_js_modules_es_number_parse_int_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_parse_int_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.number.constructor.js */ "./node_modules/core-js/modules/es.number.constructor.js");
-/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.typed-array.uint8-array.js */ "./node_modules/core-js/modules/es.typed-array.uint8-array.js");
-/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.typed-array.copy-within.js */ "./node_modules/core-js/modules/es.typed-array.copy-within.js");
-/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.typed-array.every.js */ "./node_modules/core-js/modules/es.typed-array.every.js");
-/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.typed-array.fill.js */ "./node_modules/core-js/modules/es.typed-array.fill.js");
-/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.typed-array.filter.js */ "./node_modules/core-js/modules/es.typed-array.filter.js");
-/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.typed-array.find.js */ "./node_modules/core-js/modules/es.typed-array.find.js");
-/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.typed-array.find-index.js */ "./node_modules/core-js/modules/es.typed-array.find-index.js");
-/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.typed-array.for-each.js */ "./node_modules/core-js/modules/es.typed-array.for-each.js");
-/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.typed-array.includes.js */ "./node_modules/core-js/modules/es.typed-array.includes.js");
-/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.typed-array.index-of.js */ "./node_modules/core-js/modules/es.typed-array.index-of.js");
-/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.typed-array.iterator.js */ "./node_modules/core-js/modules/es.typed-array.iterator.js");
-/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.typed-array.join.js */ "./node_modules/core-js/modules/es.typed-array.join.js");
-/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.typed-array.last-index-of.js */ "./node_modules/core-js/modules/es.typed-array.last-index-of.js");
-/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.typed-array.map.js */ "./node_modules/core-js/modules/es.typed-array.map.js");
-/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce.js */ "./node_modules/core-js/modules/es.typed-array.reduce.js");
-/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce-right.js */ "./node_modules/core-js/modules/es.typed-array.reduce-right.js");
-/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! core-js/modules/es.typed-array.reverse.js */ "./node_modules/core-js/modules/es.typed-array.reverse.js");
-/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_29__);
-/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! core-js/modules/es.typed-array.set.js */ "./node_modules/core-js/modules/es.typed-array.set.js");
-/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_30__);
-/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! core-js/modules/es.typed-array.slice.js */ "./node_modules/core-js/modules/es.typed-array.slice.js");
-/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_31__);
-/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! core-js/modules/es.typed-array.some.js */ "./node_modules/core-js/modules/es.typed-array.some.js");
-/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_32__);
-/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! core-js/modules/es.typed-array.sort.js */ "./node_modules/core-js/modules/es.typed-array.sort.js");
-/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_33__);
-/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! core-js/modules/es.typed-array.subarray.js */ "./node_modules/core-js/modules/es.typed-array.subarray.js");
-/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_34__);
-/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-locale-string.js */ "./node_modules/core-js/modules/es.typed-array.to-locale-string.js");
-/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_35__);
-/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-string.js */ "./node_modules/core-js/modules/es.typed-array.to-string.js");
-/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_36__);
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_37__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_38___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_38__);
-/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! core-js/modules/es.date.to-string.js */ "./node_modules/core-js/modules/es.date.to-string.js");
-/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_39___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_39__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_40___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_40__);
-/* harmony import */ var _battleScene__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./battleScene */ "./src/js/battleScene.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
-/* harmony import */ var _game_chat_sendChat__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ../game/chat/sendChat */ "./src/game/chat/sendChat.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
-/* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
-/* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ../web/logIn */ "./src/web/logIn.js");
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.typed-array.uint8-array.js */ "./node_modules/core-js/modules/es.typed-array.uint8-array.js");
+/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.typed-array.copy-within.js */ "./node_modules/core-js/modules/es.typed-array.copy-within.js");
+/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.typed-array.every.js */ "./node_modules/core-js/modules/es.typed-array.every.js");
+/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.typed-array.fill.js */ "./node_modules/core-js/modules/es.typed-array.fill.js");
+/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.typed-array.filter.js */ "./node_modules/core-js/modules/es.typed-array.filter.js");
+/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.typed-array.find.js */ "./node_modules/core-js/modules/es.typed-array.find.js");
+/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.typed-array.find-index.js */ "./node_modules/core-js/modules/es.typed-array.find-index.js");
+/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.typed-array.for-each.js */ "./node_modules/core-js/modules/es.typed-array.for-each.js");
+/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.typed-array.includes.js */ "./node_modules/core-js/modules/es.typed-array.includes.js");
+/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.typed-array.index-of.js */ "./node_modules/core-js/modules/es.typed-array.index-of.js");
+/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.typed-array.iterator.js */ "./node_modules/core-js/modules/es.typed-array.iterator.js");
+/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.typed-array.join.js */ "./node_modules/core-js/modules/es.typed-array.join.js");
+/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.typed-array.last-index-of.js */ "./node_modules/core-js/modules/es.typed-array.last-index-of.js");
+/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.typed-array.map.js */ "./node_modules/core-js/modules/es.typed-array.map.js");
+/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce.js */ "./node_modules/core-js/modules/es.typed-array.reduce.js");
+/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce-right.js */ "./node_modules/core-js/modules/es.typed-array.reduce-right.js");
+/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.typed-array.reverse.js */ "./node_modules/core-js/modules/es.typed-array.reverse.js");
+/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! core-js/modules/es.typed-array.set.js */ "./node_modules/core-js/modules/es.typed-array.set.js");
+/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! core-js/modules/es.typed-array.slice.js */ "./node_modules/core-js/modules/es.typed-array.slice.js");
+/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! core-js/modules/es.typed-array.some.js */ "./node_modules/core-js/modules/es.typed-array.some.js");
+/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_29__);
+/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! core-js/modules/es.typed-array.sort.js */ "./node_modules/core-js/modules/es.typed-array.sort.js");
+/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_30__);
+/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! core-js/modules/es.typed-array.subarray.js */ "./node_modules/core-js/modules/es.typed-array.subarray.js");
+/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_31__);
+/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-locale-string.js */ "./node_modules/core-js/modules/es.typed-array.to-locale-string.js");
+/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_32__);
+/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-string.js */ "./node_modules/core-js/modules/es.typed-array.to-string.js");
+/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_33__);
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_34__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_35__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_36__);
+/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! core-js/modules/es.date.to-string.js */ "./node_modules/core-js/modules/es.date.to-string.js");
+/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_37__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_38___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_38__);
+/* harmony import */ var _battleScene__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./battleScene */ "./src/js/battleScene.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
+/* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
+/* harmony import */ var _game_network_callType__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ../game/network/callType */ "./src/game/network/callType.js");
+/* harmony import */ var _game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ../game/network/userConnection */ "./src/game/network/userConnection.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
 
 
 
@@ -2528,7 +2575,10 @@ var battle_start = false;
 //0 ~ 9: binary; 10 ~: JSON string
 var NumToType = {
   0: 'id',
-  1: 'update-user-list'
+  1: 'update-user-list',
+  10: _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.CHAT.SEND,
+  11: _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.MOVE.OTHER_USER,
+  12: _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.MOVE.STOP
 };
 function checkOrReconnect() {
   if (!ws) {
@@ -2548,27 +2598,6 @@ var reverseMapping = function reverseMapping(o) {
   }, {});
 };
 var TypeToNum = reverseMapping(NumToType);
-function moveUser(pos, rot) {
-  if (!checkOrReconnect()) return;
-  var buffer = new ArrayBuffer(9);
-  var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['move-user']);
-  dataview.setInt16(1, myID);
-  dataview.setInt16(3, Number.parseInt(pos.x));
-  dataview.setInt16(5, Number.parseInt(pos.y));
-  dataview.setInt16(7, Number.parseInt(rot));
-  ws.send(buffer);
-}
-function stopUser(pos) {
-  if (!checkOrReconnect()) return;
-  var buffer = new ArrayBuffer(7);
-  var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['stop-user']);
-  dataview.setInt16(1, myID);
-  dataview.setInt16(3, Number.parseInt(pos.x));
-  dataview.setInt16(5, Number.parseInt(pos.y));
-  ws.send(buffer);
-}
 function battleOffer(id, type) {
   if (!checkOrReconnect()) return;
   var buffer = new ArrayBuffer(7);
@@ -2591,7 +2620,6 @@ function battleAnswer(id, type) {
 }
 function battleDeny(id, reason) {
   if (!checkOrReconnect()) return;
-  console.log('refuse battle');
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
   dataview.setInt8(0, TypeToNum['battle-deny']);
@@ -2629,25 +2657,6 @@ function autoBattleSelectType(id, type) {
   dataview.setInt16(5, type);
   ws.send(buffer);
 }
-function requestUserInfo(id) {
-  if (!checkOrReconnect()) return;
-  var buffer = new ArrayBuffer(5);
-  var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['request-user-info']);
-  dataview.setInt16(1, myID);
-  dataview.setInt16(3, id);
-  ws.send(buffer);
-}
-function responseUserInfo(id) {
-  if (!checkOrReconnect()) return;
-  var msg = {
-    collection: window.contractAddress,
-    url: _web_logIn__WEBPACK_IMPORTED_MODULE_46__.playerUrl,
-    username: _js_index__WEBPACK_IMPORTED_MODULE_42__.player.name
-  };
-  (0,_game_chat_sendChat__WEBPACK_IMPORTED_MODULE_43__.sendMsgToPeer)('response-user-info', id, msg);
-  stopUser((0,_js_index__WEBPACK_IMPORTED_MODULE_42__.global_position)());
-}
 function attack(id, attack) {
   if (!checkOrReconnect()) return;
   var buffer = new ArrayBuffer(7);
@@ -2667,18 +2676,6 @@ function leaveBattle(id) {
   dataview.setInt16(3, id);
   ws.send(buffer);
 }
-function receiveMsgFromAll(data) {
-  var buf = new Uint8Array(data).slice(3);
-  var decoder = new TextDecoder();
-  var msg = JSON.parse(decoder.decode(buf));
-  return msg;
-}
-function receiveMsgFromPeer(data) {
-  var buf = new Uint8Array(data).slice(5);
-  var decoder = new TextDecoder();
-  var msg = JSON.parse(decoder.decode(buf));
-  return msg;
-}
 function getDictFromBinary(data) {
   var buf = new Uint8Array(data).slice(1);
   var decoder = new TextDecoder();
@@ -2686,47 +2683,56 @@ function getDictFromBinary(data) {
   return msg;
 }
 function onmessage(data) {
-  var buf = new Uint8Array(data).buffer;
-  var dataview = new DataView(buf);
-  var msg = null;
-  var type = NumToType[dataview.getInt8(0)];
-  var id = dataview.getInt16(1);
+  // var type = NumToType[dataview.getInt8(0)]
+  var id;
+  var msg = JSON.parse(data);
+  console.log('데이터가 넘어왔다.', msg);
+  var type = msg.type;
   switch (type) {
-    case 'id':
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.NETWORK.ID:
       // my id is given
-      msg = getDictFromBinary(data);
       myID = msg.id;
-      NumToType = msg.NumToType;
-      TypeToNum = msg.TypeToNum;
-      skillTypes = msg.skillSets;
+      // NumToType = msg.NumToType
+      // TypeToNum = msg.TypeToNum
+      // skillTypes = msg.skillSets
       log('My ID: ' + myID);
       break;
-    case 'update-user-list':
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.NETWORK.UPDATE_USER_LIST:
       // user list change
-      msg = getDictFromBinary(data);
+      id = msg.id;
       Object.keys(others).forEach(function (id) {
+        // NPC인지 아닌지 체크
         if (id !== '250') {
-          if (!(id in msg['user-list'])) delete others[id];
+          // NPC도 아닌데 userList안에 없는 경우 others에서 빼버린다.
+          if (!(id in msg['userList'])) {
+            console.log('삭제에 해당하나>?', id);
+            delete others[id];
+          }
         }
       });
-      msg['user-list'].forEach(function (id) {
+      msg['userList'].forEach(function (id) {
+        // 유저 리스트 안의 아이디들이 내 id도 아니고, others안에도 없을 때.
+        console.log('222 22222222', id, myID, others, id === myID, id == myID);
         if (!(id in others || id == myID)) {
-          requestUserInfo(id);
+          console.log('십사', id);
+          (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__.requestUserInfo)(id);
         }
       });
       break;
-    case 'move-user':
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.MOVE.OTHER_USER:
       // other user move
+      console.log('움직이기 유저');
+      id = msg.id;
       if (others[id] === undefined) {
-        requestUserInfo(id);
+        (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__.requestUserInfo)(id);
         break;
       }
-      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_42__.local_position)({
-        x: dataview.getInt16(3),
-        y: dataview.getInt16(5)
+      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_40__.local_position)({
+        x: msg.x,
+        y: msg.y
       });
       others[id].sprite.animate = true;
-      switch (dataview.getInt16(7)) {
+      switch (msg.direction) {
         case 0:
           others[id].sprite.image = others[id].sprite.sprites.up;
           break;
@@ -2741,23 +2747,23 @@ function onmessage(data) {
           break;
       }
       break;
-    case 'stop-user':
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.MOVE.STOP:
       if (others[id] === undefined) {
-        requestUserInfo(id);
+        (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__.requestUserInfo)(id);
         break;
       }
-      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_42__.local_position)({
-        x: dataview.getInt16(3),
-        y: dataview.getInt16(5)
+      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_40__.local_position)({
+        x: msg.x,
+        y: msg.y
       });
       others[id].sprite.animate = false;
       break;
-    case 'send-chat':
-      msg = receiveMsgFromAll(data);
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.CHAT.SEND:
+      console.log('메세지', msg);
       others[id].sprite.chat = msg.chat;
       break;
     case 'battle-offer':
-      if (!_js_index__WEBPACK_IMPORTED_MODULE_42__.battle.initiated) {
+      if (!_js_index__WEBPACK_IMPORTED_MODULE_40__.battle.initiated) {
         document.getElementById('acceptBattleBtn').style.display = 'inline-block';
         document.getElementById('refuseBattleBtn').style.display = 'inline-block';
         document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
@@ -2765,16 +2771,16 @@ function onmessage(data) {
         document.getElementById('acceptBattleCard').style.display = 'block';
         document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[dataview.getInt16(1)].sprite.name;
         document.getElementById('acceptBattleBtn').addEventListener('click', function (e) {
-          _battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id = dataview.getInt16(1);
-          others[_battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id].skillType = dataview.getInt16(5);
+          _battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id = dataview.getInt16(1);
+          others[_battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id].skillType = dataview.getInt16(5);
           document.getElementById('acceptBattleCard').style.display = 'none';
           document.getElementById('selectTypeCard').style.display = 'block';
           document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
             document.getElementById('selectTypeCard').style.display = 'none';
             battle_start = true;
-            _battleScene__WEBPACK_IMPORTED_MODULE_41__.my_turn = true;
-            _battleScene__WEBPACK_IMPORTED_MODULE_41__.mySkillType = document.getElementById('selectType').value;
-            battleAnswer(_battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id, _battleScene__WEBPACK_IMPORTED_MODULE_41__.mySkillType);
+            _battleScene__WEBPACK_IMPORTED_MODULE_39__.my_turn = true;
+            _battleScene__WEBPACK_IMPORTED_MODULE_39__.mySkillType = document.getElementById('selectType').value;
+            battleAnswer(_battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id, _battleScene__WEBPACK_IMPORTED_MODULE_39__.mySkillType);
             battle_start = true;
           });
         });
@@ -2788,36 +2794,37 @@ function onmessage(data) {
       break;
     case 'battle-deny':
       document.getElementById('acceptBattleCard').style.display = 'none';
-      if (!_js_index__WEBPACK_IMPORTED_MODULE_42__.battle.initiated) {
+      if (!_js_index__WEBPACK_IMPORTED_MODULE_40__.battle.initiated) {
         var reason = dataview.getInt16(5);
         if (reason === 0) window.alert('Opponent is already on Battle');else if (reason === 1) window.alert('Opponent Refused to Battle');
       }
       break;
     case 'battle-answer':
-      _battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id = dataview.getInt16(1);
-      others[_battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id].skillType = dataview.getInt16(5);
+      _battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id = dataview.getInt16(1);
+      others[_battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id].skillType = dataview.getInt16(5);
       battle_start = true;
-      _battleScene__WEBPACK_IMPORTED_MODULE_41__.my_turn = true;
+      _battleScene__WEBPACK_IMPORTED_MODULE_39__.my_turn = true;
       break;
     case 'attack':
       var attack = dataview.getInt16(5);
-      (0,_battleScene__WEBPACK_IMPORTED_MODULE_41__.attacked)(attack);
+      (0,_battleScene__WEBPACK_IMPORTED_MODULE_39__.attacked)(attack);
       break;
-    case 'request-user-info':
-      responseUserInfo(id);
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.NETWORK.REQUEST_USER_INFO:
+      console.log('아니 잠깐만', msg);
+      (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__.responseUserInfo)(msg.id);
       break;
-    case 'response-user-info':
-      msg = receiveMsgFromPeer(data);
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.NETWORK.RESPONSE_USER_INFO:
+      console.log('이게 실행될 일이 있나?', msg);
       if (others[id] === undefined) {
         others[id] = {
           draw: false,
           collection: msg.collection,
-          sprite: new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_45__.Sprite({
+          sprite: new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_42__.Sprite({
             position: {
               x: 0,
               y: 0
             },
-            image: _js_index__WEBPACK_IMPORTED_MODULE_42__.playerDownImage,
+            image: _js_index__WEBPACK_IMPORTED_MODULE_40__.playerDownImage,
             frames: {
               max: 4,
               hold: 10
@@ -2832,7 +2839,7 @@ function onmessage(data) {
           })
         };
         others[id].baseImage = new Image();
-        _utils__WEBPACK_IMPORTED_MODULE_44__.worker.postMessage({
+        _utils__WEBPACK_IMPORTED_MODULE_41__.worker.postMessage({
           url: msg.url,
           contractAddress: msg.collection,
           id: id
@@ -2840,13 +2847,14 @@ function onmessage(data) {
       }
       break;
     case 'leave-battle':
-      if (_js_index__WEBPACK_IMPORTED_MODULE_42__.battle.initiated && id === _battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id) {
+      if (_js_index__WEBPACK_IMPORTED_MODULE_40__.battle.initiated && id === _battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id) {
         window.alert('opponent left the battle');
-        (0,_battleScene__WEBPACK_IMPORTED_MODULE_41__.endBattle)();
+        (0,_battleScene__WEBPACK_IMPORTED_MODULE_39__.endBattle)();
       }
       break;
     default:
       log_error('Unknown message received:');
+      console.log(msg, '이게 옴');
       log_error(type);
   }
 }
@@ -2888,19 +2896,51 @@ function connect() {
     ws.onerror = ws.onopen = ws.onclose = null;
     ws.close();
   }
+
+  // ws = new WebSocket(NEW_SERVER_URL)
+  // log(`Connecting to server: ${NEW_SERVER_URL}`)
+
   ws = new WebSocket(serverUrl);
+  log("Connecting to server: ".concat(serverUrl));
+
   // ws = new WebSocket('ws://ec2-15-164-162-167.ap-northeast-2.compute.amazonaws.com');
   ws.binaryType = 'arraybuffer';
+  console.log(ws, '웹소켓');
   ws.onopen = function () {
     return onopen();
   };
   ws.onerror = function (_ref) {
     var data = _ref.data;
-    return onerror(data);
+    onerror(data);
   };
-  ws.onmessage = function (_ref2) {
-    var data = _ref2.data;
-    return onmessage(data);
+  ws.onmessage = function (event) {
+    console.log('넘어왔다', getDictFromBinary(event.data));
+    // var buf = new Uint8Array(data).buffer
+    // var dataview = new DataView(buf)
+
+    // const type = NumToType[dataview.getInt8(0)]
+
+    // let msg
+
+    // if (type === 'id') {
+    //   msg = {
+    //     type: type,
+    //     id: dataview.getInt16(1),
+    //   }
+    // } else if (type === 'update-user-list') {
+    //   const translated = getDictFromBinary(data)
+    //   msg = {
+    //     type: type,
+    //     userList: translated['user-list'],
+    //   }
+    // } else {
+    //   msg = {
+    //     type: type,
+    //     ...getDictFromBinary(data),
+    //   }
+    // }
+
+    onmessage(event.data);
   };
   ws.onclose = function () {
     ws = null;
@@ -2929,6 +2969,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var worker = new Worker('./js/worker.js');
 worker.onmessage = function (event) {
+  console.log('워커 일함', event.data);
   if (event.data) {
     if (event.data.id === '-1') {
       _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.up.src = event.data.up;
@@ -2961,7 +3002,81 @@ worker.onerror = function (err) {
 /*!*********************************!*\
   !*** ./src/web/clickButtons.js ***!
   \*********************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
+/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
+/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.object.set-prototype-of.js */ "./node_modules/core-js/modules/es.object.set-prototype-of.js");
+/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.array.reverse.js */ "./node_modules/core-js/modules/es.array.reverse.js");
+/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _logIn__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./logIn */ "./src/web/logIn.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_22__);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 function clickOutSideEvent1(e) {
   if (!document.getElementById('guidanceCard').contains(e.target)) {
@@ -2986,6 +3101,46 @@ document.getElementById('profileButton').addEventListener('click', function (e) 
   document.getElementById('profileCard').style.display = 'block';
   document.body.addEventListener('click', clickOutSideEvent, true);
 });
+
+// 지갑 연결
+document.getElementById('connectWallet').addEventListener('click', /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return (0,_logIn__WEBPACK_IMPORTED_MODULE_21__.authorize)();
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+document.getElementById('contractAddress').addEventListener('change', /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return (0,_logIn__WEBPACK_IMPORTED_MODULE_21__.connectWallets)(near_api_js__WEBPACK_IMPORTED_MODULE_22__);
+          case 2:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return function (_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}());
 
 /***/ }),
 
@@ -3041,7 +3196,9 @@ function onResizeEvent() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "authorize": () => (/* binding */ authorize),
 /* harmony export */   "connectWallets": () => (/* binding */ connectWallets),
+/* harmony export */   "logout": () => (/* binding */ logout),
 /* harmony export */   "playerUrl": () => (/* binding */ playerUrl),
 /* harmony export */   "tokenId": () => (/* binding */ tokenId)
 /* harmony export */ });
@@ -3167,13 +3324,14 @@ function _connectWallets() {
               helperUrl: 'https://helper.mainnet.near.org',
               explorerUrl: 'https://explorer.mainnet.near.org'
             }; // Initialize connection to the NEAR testnet
-            _context.next = 3;
+            console.log('이게 111111?', window.accountId, nearAPI);
+            _context.next = 4;
             return nearAPI.connect(Object.assign({
               deps: {
                 keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore()
               }
             }, nearConfig));
-          case 3:
+          case 4:
             near = _context.sent;
             // Initializing Wallet based Account. It can work with NEAR testnet wallet that
             // is hosted at https://wallet.testnet.near.org
@@ -3182,12 +3340,12 @@ function _connectWallets() {
             // Getting the Account ID. If still unauthorized, it's just empty string
             window.accountId = window.walletConnection.getAccountId();
             if (!(window.accountId !== '')) {
-              _context.next = 9;
+              _context.next = 10;
               break;
             }
-            _context.next = 9;
+            _context.next = 10;
             return authorize();
-          case 9:
+          case 10:
           case "end":
             return _context.stop();
         }
@@ -3195,6 +3353,54 @@ function _connectWallets() {
     }, _callee);
   }));
   return _connectWallets.apply(this, arguments);
+}
+function authorize() {
+  return _authorize.apply(this, arguments);
+}
+function _authorize() {
+  _authorize = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var contract_address, data;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return initContract();
+          case 2:
+            contract_address = document.getElementById('contractAddress').value;
+            if (!window.accountId) window.walletConnection.requestSignIn(contract_address);
+            _context2.next = 6;
+            return window.contract.nft_tokens_for_owner({
+              account_id: window.accountId,
+              from_index: '0',
+              limit: 50
+            });
+          case 6:
+            data = _context2.sent;
+            document.querySelector('#nftListBox').innerHTML = '';
+            document.getElementById('tokenId').value = '';
+            if (data.length !== 0) {
+              data.forEach(function (nft) {
+                var img = document.createElement('img');
+                if (nft.metadata.media.includes('https://')) img.src = nft.metadata.media;else img.src = window.metadata.base_uri + '/' + nft.metadata.media;
+                img.style.width = '100px';
+                img.style.opacity = 0.5;
+                img.onclick = function () {
+                  img.style.opacity = 1.5 - img.style.opacity;
+                  document.getElementById('tokenId').value = nft.token_id;
+                };
+                document.querySelector('#nftListBox').append(img);
+              });
+            }
+            document.getElementById('connectedWallet').innerHTML = "Connected Wallet: ".concat(window.accountId);
+          case 11:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _authorize.apply(this, arguments);
 }
 document.getElementById('joinGame').addEventListener('click', function (e) {
   console.log('클릭');
@@ -3249,14 +3455,14 @@ function initContract() {
   return _initContract.apply(this, arguments);
 }
 function _initContract() {
-  _initContract = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+  _initContract = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
             window.contractAddress = document.getElementById('contractAddress').value;
             // Initializing our contract APIs by contract name and configuration
-            _context2.next = 3;
+            _context3.next = 3;
             return new near_api_js__WEBPACK_IMPORTED_MODULE_31__.Contract(window.walletConnection.account(), window.contractAddress, {
               // View methods are read only. They don't modify the state, but usually return some value.
               viewMethods: ['nft_token', 'nft_metadata', 'nft_tokens_for_owner', 'nft_supply_for_owner'],
@@ -3264,68 +3470,19 @@ function _initContract() {
               changeMethods: []
             });
           case 3:
-            window.contract = _context2.sent;
-            _context2.next = 6;
+            window.contract = _context3.sent;
+            _context3.next = 6;
             return window.contract.nft_metadata();
           case 6:
-            window.metadata = _context2.sent;
+            window.metadata = _context3.sent;
           case 7:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _initContract.apply(this, arguments);
-}
-function authorize() {
-  return _authorize.apply(this, arguments);
-}
-function _authorize() {
-  _authorize = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    var contract_address, data;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return initContract();
-          case 2:
-            contract_address = document.getElementById('contractAddress').value;
-            window.walletConnection.requestSignIn(contract_address);
-            _context3.next = 6;
-            return window.contract.nft_tokens_for_owner({
-              account_id: window.accountId,
-              from_index: '0',
-              limit: 50
-            });
-          case 6:
-            data = _context3.sent;
-            // var data = await window.contract.nft_tokens_for_owner({ account_id: 'nearmoondao.near',  })
-            document.querySelector('#nftListBox').innerHTML = '';
-            document.getElementById('tokenId').value = '';
-            if (data.length !== 0) {
-              data.forEach(function (nft) {
-                var img = document.createElement('img');
-                if (nft.metadata.media.includes('https://')) img.src = nft.metadata.media;else img.src = window.metadata.base_uri + '/' + nft.metadata.media;
-                img.style.width = '100px';
-                img.style.opacity = 0.5;
-                img.onclick = function () {
-                  img.style.opacity = 1.5 - img.style.opacity;
-                  document.getElementById('tokenId').value = nft.token_id;
-                };
-                document.querySelector('#nftListBox').append(img);
-              });
-            }
-            document.getElementById('connectedWallet').innerHTML = "Connected Wallet: ".concat(window.accountId);
-          case 11:
           case "end":
             return _context3.stop();
         }
       }
     }, _callee3);
   }));
-  return _authorize.apply(this, arguments);
+  return _initContract.apply(this, arguments);
 }
 var logout = function logout() {
   window.walletConnection.signOut();
@@ -13566,38 +13723,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "./node_modules/core-js/internals/number-parse-int.js":
-/*!************************************************************!*\
-  !*** ./node_modules/core-js/internals/number-parse-int.js ***!
-  \************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
-var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
-var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "./node_modules/core-js/internals/function-uncurry-this.js");
-var toString = __webpack_require__(/*! ../internals/to-string */ "./node_modules/core-js/internals/to-string.js");
-var trim = (__webpack_require__(/*! ../internals/string-trim */ "./node_modules/core-js/internals/string-trim.js").trim);
-var whitespaces = __webpack_require__(/*! ../internals/whitespaces */ "./node_modules/core-js/internals/whitespaces.js");
-
-var $parseInt = global.parseInt;
-var Symbol = global.Symbol;
-var ITERATOR = Symbol && Symbol.iterator;
-var hex = /^[+-]?0x/i;
-var exec = uncurryThis(hex.exec);
-var FORCED = $parseInt(whitespaces + '08') !== 8 || $parseInt(whitespaces + '0x16') !== 22
-  // MS Edge 18- broken with boxed symbols
-  || (ITERATOR && !fails(function () { $parseInt(Object(ITERATOR)); }));
-
-// `parseInt` method
-// https://tc39.es/ecma262/#sec-parseint-string-radix
-module.exports = FORCED ? function parseInt(string, radix) {
-  var S = trim(toString(string));
-  return $parseInt(S, (radix >>> 0) || (exec(hex, S) ? 16 : 10));
-} : $parseInt;
-
-
-/***/ }),
-
 /***/ "./node_modules/core-js/internals/object-assign.js":
 /*!*********************************************************!*\
   !*** ./node_modules/core-js/internals/object-assign.js ***!
@@ -16856,25 +16981,6 @@ if (isForced(NUMBER, !NativeNumber(' 0o1') || !NativeNumber('0b1') || NativeNumb
   NumberPrototype.constructor = NumberWrapper;
   defineBuiltIn(global, NUMBER, NumberWrapper, { constructor: true });
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/es.number.parse-int.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/core-js/modules/es.number.parse-int.js ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
-var parseInt = __webpack_require__(/*! ../internals/number-parse-int */ "./node_modules/core-js/internals/number-parse-int.js");
-
-// `Number.parseInt` method
-// https://tc39.es/ecma262/#sec-number.parseint
-// eslint-disable-next-line es/no-number-parseint -- required for testing
-$({ target: 'Number', stat: true, forced: Number.parseInt != parseInt }, {
-  parseInt: parseInt
-});
 
 
 /***/ }),
@@ -39525,14 +39631,15 @@ var __webpack_exports__ = {};
   \*********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _web_clickButtons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./web/clickButtons */ "./src/web/clickButtons.js");
-/* harmony import */ var _web_clickButtons__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_web_clickButtons__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./web/logIn */ "./src/web/logIn.js");
 /* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/index */ "./src/js/index.js");
 /* harmony import */ var _js_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/utils */ "./src/js/utils.js");
 /* harmony import */ var _game_interaction_move__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./game/interaction/move */ "./src/game/interaction/move.js");
 /* harmony import */ var _web_eventListener__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./web/eventListener */ "./src/web/eventListener.js");
 /* harmony import */ var _game_chat_chatForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./game/chat/chatForm */ "./src/game/chat/chatForm.js");
-/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+/* harmony import */ var _game_chat_sendChat__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./game/chat/sendChat */ "./src/game/chat/sendChat.js");
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+
 
 
 

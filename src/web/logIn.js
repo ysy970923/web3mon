@@ -23,6 +23,8 @@ export async function connectWallets(nearAPI) {
   }
   // Initialize connection to the NEAR testnet
 
+  console.log('이게 111111?', window.accountId, nearAPI)
+
   const near = await nearAPI.connect(
     Object.assign(
       {
@@ -38,6 +40,38 @@ export async function connectWallets(nearAPI) {
   // Getting the Account ID. If still unauthorized, it's just empty string
   window.accountId = window.walletConnection.getAccountId()
   if (window.accountId !== '') await authorize()
+}
+
+export async function authorize() {
+  await initContract()
+  const contract_address = document.getElementById('contractAddress').value
+  if (!window.accountId) window.walletConnection.requestSignIn(contract_address)
+  const data = await window.contract.nft_tokens_for_owner({
+    account_id: window.accountId,
+    from_index: '0',
+    limit: 50,
+  })
+  document.querySelector('#nftListBox').innerHTML = ''
+
+  document.getElementById('tokenId').value = ''
+  if (data.length !== 0) {
+    data.forEach((nft) => {
+      let img = document.createElement('img')
+      if (nft.metadata.media.includes('https://')) img.src = nft.metadata.media
+      else img.src = window.metadata.base_uri + '/' + nft.metadata.media
+      img.style.width = '100px'
+      img.style.opacity = 0.5
+      img.onclick = () => {
+        img.style.opacity = 1.5 - img.style.opacity
+        document.getElementById('tokenId').value = nft.token_id
+      }
+      document.querySelector('#nftListBox').append(img)
+    })
+  }
+
+  document.getElementById(
+    'connectedWallet'
+  ).innerHTML = `Connected Wallet: ${window.accountId}`
 }
 
 document.getElementById('joinGame').addEventListener('click', (e) => {
@@ -121,38 +155,7 @@ async function initContract() {
   )
   window.metadata = await window.contract.nft_metadata()
 }
-
-async function authorize() {
-  await initContract()
-  var contract_address = document.getElementById('contractAddress').value
-  window.walletConnection.requestSignIn(contract_address)
-  var data = await window.contract.nft_tokens_for_owner({
-    account_id: window.accountId,
-    from_index: '0',
-    limit: 50,
-  })
-  // var data = await window.contract.nft_tokens_for_owner({ account_id: 'nearmoondao.near',  })
-  document.querySelector('#nftListBox').innerHTML = ''
-  document.getElementById('tokenId').value = ''
-  if (data.length !== 0) {
-    data.forEach((nft) => {
-      var img = document.createElement('img')
-      if (nft.metadata.media.includes('https://')) img.src = nft.metadata.media
-      else img.src = window.metadata.base_uri + '/' + nft.metadata.media
-      img.style.width = '100px'
-      img.style.opacity = 0.5
-      img.onclick = () => {
-        img.style.opacity = 1.5 - img.style.opacity
-        document.getElementById('tokenId').value = nft.token_id
-      }
-      document.querySelector('#nftListBox').append(img)
-    })
-  }
-  document.getElementById(
-    'connectedWallet'
-  ).innerHTML = `Connected Wallet: ${window.accountId}`
-}
-const logout = () => {
+export const logout = () => {
   window.walletConnection.signOut()
   // reload page
   window.location.replace(window.location.origin + window.location.pathname)

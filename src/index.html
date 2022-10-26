@@ -38,7 +38,7 @@
           </div>
           <label for="contractAddress">NFT Contract Address:</label>
           <div class="nes-select">
-            <select required id="contractAddress" onchange="connectWallet()">
+            <select required id="contractAddress">
               <option value="nearnautnft.near">NEARNauts</option>
               <option value="asac.near">Antisocial Ape Club</option>
               <option value="near-punks.near">NPunks</option>
@@ -54,11 +54,7 @@
           <div style="margin-top: 50px; margin-bottom: 40px">
             <p>2. Type ID of the NFT to use.</p>
             <p>(You can connect wallet for your NFT)</p>
-            <button
-              type="button"
-              class="nes-btn is-success"
-              onclick="authorize()"
-            >
+            <button id="connectWallet" type="button" class="nes-btn is-success">
               Connect Wallet
             </button>
             <button type="button" class="nes-btn is-error" onclick="logout()">
@@ -99,7 +95,7 @@
         <div id="overlappingDiv"></div>
 
         <button id="chatOpenBtn" class="nes-btn">Chat</button>
-        <div class="chat-popup" id="chatForm">
+        <div class="chat-popup" id="chatForm" style="display: none">
           <form class="form-container">
             <h1>Chat</h1>
             <label for="msg"><b>Message</b></label>

@@ -5,17 +5,14 @@ import {
   mySkillType,
   my_turn,
 } from './battleScene'
-import {
-  player,
-  battle,
-  local_position,
-  global_position,
-  playerDownImage,
-} from '../js/index'
-import { sendMsgToPeer } from '../game/chat/sendChat'
+import { battle, local_position, playerDownImage } from '../js/index'
 import { worker } from './utils'
 import { Sprite } from '../game/object/Sprite'
-import { playerUrl } from '../web/logIn'
+import { CHAT, MOVE, NETWORK } from '../game/network/callType'
+import {
+  responseUserInfo,
+  requestUserInfo,
+} from '../game/network/userConnection'
 
 export let skillTypes = {}
 
@@ -28,9 +25,12 @@ export const others = {}
 export let battle_start = false
 
 //0 ~ 9: binary; 10 ~: JSON string
-var NumToType = {
+export let NumToType = {
   0: 'id',
   1: 'update-user-list',
+  10: CHAT.SEND,
+  11: MOVE.OTHER_USER,
+  12: MOVE.STOP,
 }
 
 export function checkOrReconnect() {
@@ -54,29 +54,6 @@ const reverseMapping = (o) =>
   )
 
 export let TypeToNum = reverseMapping(NumToType)
-
-export function moveUser(pos, rot) {
-  if (!checkOrReconnect()) return
-  var buffer = new ArrayBuffer(9)
-  var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['move-user'])
-  dataview.setInt16(1, myID)
-  dataview.setInt16(3, Number.parseInt(pos.x))
-  dataview.setInt16(5, Number.parseInt(pos.y))
-  dataview.setInt16(7, Number.parseInt(rot))
-  ws.send(buffer)
-}
-
-export function stopUser(pos) {
-  if (!checkOrReconnect()) return
-  var buffer = new ArrayBuffer(7)
-  var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['stop-user'])
-  dataview.setInt16(1, myID)
-  dataview.setInt16(3, Number.parseInt(pos.x))
-  dataview.setInt16(5, Number.parseInt(pos.y))
-  ws.send(buffer)
-}
 
 export function battleOffer(id, type) {
   if (!checkOrReconnect()) return
@@ -102,7 +79,6 @@ export function battleAnswer(id, type) {
 
 export function battleDeny(id, reason) {
   if (!checkOrReconnect()) return
-  console.log('refuse battle')
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
   dataview.setInt8(0, TypeToNum['battle-deny'])
@@ -144,27 +120,6 @@ function autoBattleSelectType(id, type) {
   ws.send(buffer)
 }
 
-function requestUserInfo(id) {
-  if (!checkOrReconnect()) return
-  var buffer = new ArrayBuffer(5)
-  var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['request-user-info'])
-  dataview.setInt16(1, myID)
-  dataview.setInt16(3, id)
-  ws.send(buffer)
-}
-
-function responseUserInfo(id) {
-  if (!checkOrReconnect()) return
-  var msg = {
-    collection: window.contractAddress,
-    url: playerUrl,
-    username: player.name,
-  }
-  sendMsgToPeer('response-user-info', id, msg)
-  stopUser(global_position())
-}
-
 export function attack(id, attack) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
@@ -186,22 +141,6 @@ export function leaveBattle(id) {
   ws.send(buffer)
 }
 
-function receiveMsgFromAll(data) {
-  var buf = new Uint8Array(data).slice(3)
-
-  var decoder = new TextDecoder()
-  var msg = JSON.parse(decoder.decode(buf))
-  return msg
-}
-
-function receiveMsgFromPeer(data) {
-  var buf = new Uint8Array(data).slice(5)
-
-  var decoder = new TextDecoder()
-  var msg = JSON.parse(decoder.decode(buf))
-  return msg
-}
-
 function getDictFromBinary(data) {
   var buf = new Uint8Array(data).slice(1)
   var decoder = new TextDecoder()
@@ -210,51 +149,60 @@ function getDictFromBinary(data) {
 }
 
 function onmessage(data) {
-  var buf = new Uint8Array(data).buffer
-  var dataview = new DataView(buf)
-  var msg = null
+  // var type = NumToType[dataview.getInt8(0)]
+  let id
 
-  var type = NumToType[dataview.getInt8(0)]
+  const msg = JSON.parse(data)
+  console.log('데이터가 넘어왔다.', msg)
 
-  const id = dataview.getInt16(1)
+  const type = msg.type
 
   switch (type) {
-    case 'id': // my id is given
-      msg = getDictFromBinary(data)
+    case NETWORK.ID: // my id is given
       myID = msg.id
-      NumToType = msg.NumToType
-      TypeToNum = msg.TypeToNum
-      skillTypes = msg.skillSets
+      // NumToType = msg.NumToType
+      // TypeToNum = msg.TypeToNum
+      // skillTypes = msg.skillSets
       log('My ID: ' + myID)
       break
 
-    case 'update-user-list': // user list change
-      msg = getDictFromBinary(data)
+    case NETWORK.UPDATE_USER_LIST: // user list change
+      id = msg.id
       Object.keys(others).forEach((id) => {
+        // NPC인지 아닌지 체크
         if (id !== '250') {
-          if (!(id in msg['user-list'])) delete others[id]
+          // NPC도 아닌데 userList안에 없는 경우 others에서 빼버린다.
+          if (!(id in msg['userList'])) {
+            console.log('삭제에 해당하나>?', id)
+            delete others[id]
+          }
         }
       })
 
-      msg['user-list'].forEach((id) => {
+      msg['userList'].forEach((id) => {
+        // 유저 리스트 안의 아이디들이 내 id도 아니고, others안에도 없을 때.
+        console.log('222 22222222', id, myID, others, id === myID, id == myID)
         if (!(id in others || id == myID)) {
+          console.log('십사', id)
           requestUserInfo(id)
         }
       })
       break
 
-    case 'move-user': // other user move
+    case MOVE.OTHER_USER: // other user move
+      console.log('움직이기 유저')
+      id = msg.id
       if (others[id] === undefined) {
         requestUserInfo(id)
         break
       }
       others[id].sprite.position = local_position({
-        x: dataview.getInt16(3),
-        y: dataview.getInt16(5),
+        x: msg.x,
+        y: msg.y,
       })
       others[id].sprite.animate = true
 
-      switch (dataview.getInt16(7)) {
+      switch (msg.direction) {
         case 0:
           others[id].sprite.image = others[id].sprite.sprites.up
           break
@@ -270,20 +218,20 @@ function onmessage(data) {
       }
       break
 
-    case 'stop-user':
+    case MOVE.STOP:
       if (others[id] === undefined) {
         requestUserInfo(id)
         break
       }
       others[id].sprite.position = local_position({
-        x: dataview.getInt16(3),
-        y: dataview.getInt16(5),
+        x: msg.x,
+        y: msg.y,
       })
       others[id].sprite.animate = false
       break
 
-    case 'send-chat':
-      msg = receiveMsgFromAll(data)
+    case CHAT.SEND:
+      console.log('메세지', msg)
       others[id].sprite.chat = msg.chat
       break
 
@@ -357,12 +305,14 @@ function onmessage(data) {
       attacked(attack)
       break
 
-    case 'request-user-info':
-      responseUserInfo(id)
+    case NETWORK.REQUEST_USER_INFO:
+      console.log('아니 잠깐만', msg)
+      responseUserInfo(msg.id)
       break
 
-    case 'response-user-info':
-      msg = receiveMsgFromPeer(data)
+    case NETWORK.RESPONSE_USER_INFO:
+      console.log('이게 실행될 일이 있나?', msg)
+
       if (others[id] === undefined) {
         others[id] = {
           draw: false,
@@ -404,6 +354,7 @@ function onmessage(data) {
 
     default:
       log_error('Unknown message received:')
+      console.log(msg, '이게 옴')
       log_error(type)
   }
 }
@@ -453,13 +404,50 @@ export function connect() {
     ws.close()
   }
 
+  // ws = new WebSocket(NEW_SERVER_URL)
+  // log(`Connecting to server: ${NEW_SERVER_URL}`)
+
   ws = new WebSocket(serverUrl)
+  log(`Connecting to server: ${serverUrl}`)
+
   // ws = new WebSocket('ws://ec2-15-164-162-167.ap-northeast-2.compute.amazonaws.com');
   ws.binaryType = 'arraybuffer'
 
+  console.log(ws, '웹소켓')
+
   ws.onopen = () => onopen()
-  ws.onerror = ({ data }) => onerror(data)
-  ws.onmessage = ({ data }) => onmessage(data)
+  ws.onerror = ({ data }) => {
+    onerror(data)
+  }
+  ws.onmessage = (event) => {
+    console.log('넘어왔다', getDictFromBinary(event.data))
+    // var buf = new Uint8Array(data).buffer
+    // var dataview = new DataView(buf)
+
+    // const type = NumToType[dataview.getInt8(0)]
+
+    // let msg
+
+    // if (type === 'id') {
+    //   msg = {
+    //     type: type,
+    //     id: dataview.getInt16(1),
+    //   }
+    // } else if (type === 'update-user-list') {
+    //   const translated = getDictFromBinary(data)
+    //   msg = {
+    //     type: type,
+    //     userList: translated['user-list'],
+    //   }
+    // } else {
+    //   msg = {
+    //     type: type,
+    //     ...getDictFromBinary(data),
+    //   }
+    // }
+
+    onmessage(event.data)
+  }
   ws.onclose = function () {
     ws = null
   }

@@ -1,24 +1,25 @@
 import { JoyStick } from './joystick'
+import { checkOrReconnect, ws, myID, TypeToNum } from '../../js/network'
+import { MOVE } from '../network/callType'
 
 export let lastKey = ''
 
 export let keys = {
   w: {
-    pressed: false
+    pressed: false,
   },
   a: {
-    pressed: false
+    pressed: false,
   },
   s: {
-    pressed: false
+    pressed: false,
   },
   d: {
-    pressed: false
-  }
+    pressed: false,
+  },
 }
 
 window.addEventListener('keydown', (e) => {
-  console.log('이동 버튼 클릭')
   switch (e.key) {
     case 'w':
       keys.w.pressed = true
@@ -42,7 +43,6 @@ window.addEventListener('keydown', (e) => {
 })
 
 window.addEventListener('keyup', (e) => {
-  console.log('이동 버튼 클릭22')
   switch (e.key) {
     case 'w':
       keys.w.pressed = false
@@ -89,4 +89,34 @@ export function joyToKey() {
     joyStickMoving = false
   }
   joyStickMoving = moving
+}
+
+export function moveUser(position, direction) {
+  if (!checkOrReconnect()) return
+
+  const body = {
+    type: MOVE.OTHER_USER,
+    myID: myID,
+    x: position.x,
+    y: position.y,
+    direction: direction,
+  }
+
+  const msg = JSON.stringify(body)
+
+  ws.send(msg)
+}
+
+export function stopUser(position) {
+  if (!checkOrReconnect()) return
+
+  const body = {
+    type: MOVE.STOP,
+    myID: myID,
+    x: position.x,
+    y: position.y,
+  }
+
+  const msg = JSON.stringify(body)
+  ws.send(msg)
 }

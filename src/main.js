@@ -5,6 +5,7 @@ import './js/utils'
 import './game/interaction/move'
 import './web/eventListener'
 import './game/chat/chatForm'
+import './game/chat/sendChat'
 import './index.scss'
 
 const canvas = document.querySelector('canvas')

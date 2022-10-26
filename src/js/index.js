@@ -143,17 +143,10 @@ charactersMap.forEach((row, i) => {
   })
 })
 
-console.log(
-  '칸바스의 위스',
-  'width : ',
-  canvas.width,
-  'height : ',
-  canvas.height
-)
 export const player = new Sprite({
   position: {
-    x: canvas.width / 2 - 192 / 4 / 2,
-    y: canvas.height / 2 - 102 / 2,
+    x: window.innerWidth / 2 - 192 / 4 / 2,
+    y: window.innerHeight / 2 - 102 / 2,
   },
   image: playerDownImage,
   frames: {
@@ -264,31 +257,39 @@ export function enterBattle(animationId, id) {
   })
 }
 
-others['250'] = {
-  draw: false,
-  collection: 'asac.near',
-  skillType: 1,
-  sprite: new Sprite({
-    position: { x: battleZones[10].position.x, y: battleZones[10].position.y },
-    image: playerDownImage,
-    frames: {
-      max: 4,
-      hold: 10,
-    },
-    sprites: {
-      up: new Image(),
-      left: new Image(),
-      right: new Image(),
-      down: new Image(),
-    },
-    name: 'jaewon.near (BOT)',
-  }),
+// Jaewon NPC 생성
+const makeNPC = () => {
+  others['250'] = {
+    draw: false,
+    collection: 'asac.near',
+    skillType: 1,
+    sprite: new Sprite({
+      position: {
+        x: battleZones[10].position.x,
+        y: battleZones[10].position.y,
+      },
+      image: playerDownImage,
+      frames: {
+        max: 4,
+        hold: 10,
+      },
+      sprites: {
+        up: new Image(),
+        left: new Image(),
+        right: new Image(),
+        down: new Image(),
+      },
+      name: 'jaewon.near (BOT)',
+    }),
+  }
+
+  others['250'].baseImage = new Image()
+
+  worker.postMessage({
+    url: 'https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png',
+    contractAddress: 'asac.near',
+    id: '250',
+  })
 }
 
-others['250'].baseImage = new Image()
-
-worker.postMessage({
-  url: 'https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png',
-  contractAddress: 'asac.near',
-  id: '250',
-})
+makeNPC()

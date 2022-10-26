@@ -17,7 +17,14 @@ import {
   rectangularCollision,
 } from './utils/checkCollision'
 import { keys, lastKey } from './interaction/move'
-import { battle_start, moveUser, stopUser } from '../js/network'
+import { battle_start } from '../js/network'
+import { moveUser, stopUser } from '../game/interaction/move'
+
+const npcTalk = (animationId) => {
+  if (animationId % 600 < 200) others['250'].sprite.chat = 'Come in'
+  else if (animationId % 600 < 400) others['250'].sprite.chat = 'Battle Zone'
+  else others['250'].sprite.chat = 'Click Me!'
+}
 
 export const animate = async () => {
   const animationId = window.requestAnimationFrame(animate)
@@ -25,9 +32,9 @@ export const animate = async () => {
   renderables.forEach((renderable) => {
     renderable.draw()
   })
-  if (animationId % 600 < 200) others['250'].sprite.chat = 'Come in'
-  else if (animationId % 600 < 400) others['250'].sprite.chat = 'Battle Zone'
-  else others['250'].sprite.chat = 'Click Me!'
+  // NPC가 말하는거
+  npcTalk(animationId)
+
   for (const key in others) {
     if (others[key].draw === true) others[key].sprite.draw()
   }
@@ -46,7 +53,7 @@ export const animate = async () => {
   }
 
   // 만약 채팅 중이라면 움직이지 않는다.
-  // if (document.getElementById('chatForm').style.display !== 'none') return
+  if (document.getElementById('chatForm').style.display !== 'none') return
 
   // enable to battle with others
   if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
@@ -61,7 +68,6 @@ export const animate = async () => {
   }
 
   if (keys.w.pressed && lastKey === 'w') {
-    console.log('w가 눌려있다!')
     player.animate = true
     player.image = player.sprites.up
     player.direction = 0
@@ -100,7 +106,6 @@ export const animate = async () => {
         others[key].sprite.position.y += 3
       }
   } else if (keys.a.pressed && lastKey === 'a') {
-    console.log('a가 눌려있다!')
     player.animate = true
     player.image = player.sprites.left
     player.direction = 1

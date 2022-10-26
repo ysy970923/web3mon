@@ -8,7 +8,6 @@ export function openForm() {
 }
 
 export function closeForm() {
-  console.log('닫기 클릭')
   document.getElementById('chatForm').style.display = 'none'
 }
 

@@ -1,3 +1,7 @@
+import { authorize, connectWallets } from './logIn'
+
+import * as nearAPI from 'near-api-js'
+
 function clickOutSideEvent1(e) {
   if (!document.getElementById('guidanceCard').contains(e.target)) {
     document.body.removeEventListener('click', clickOutSideEvent1, true)
@@ -25,3 +29,16 @@ document.getElementById('profileButton').addEventListener('click', (e) => {
   document.getElementById('profileCard').style.display = 'block'
   document.body.addEventListener('click', clickOutSideEvent, true)
 })
+
+// 지갑 연결
+document
+  .getElementById('connectWallet')
+  .addEventListener('click', async (e) => {
+    await authorize()
+  })
+
+document
+  .getElementById('contractAddress')
+  .addEventListener('change', async (e) => {
+    await connectWallets(nearAPI)
+  })
