@@ -12,4 +12,6 @@ export const NETWORK = {
   UPDATE_USER_LIST: 'update-user-list',
   REQUEST_USER_INFO: 'request-user-info',
   RESPONSE_USER_INFO: 'response-user-info',
+  JOIN: 'Join',
+  MAP_STATUS: 'MapStatus',
 }

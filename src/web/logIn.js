@@ -23,8 +23,6 @@ export async function connectWallets(nearAPI) {
   }
   // Initialize connection to the NEAR testnet
 
-  console.log('이게 111111?', window.accountId, nearAPI)
-
   const near = await nearAPI.connect(
     Object.assign(
       {

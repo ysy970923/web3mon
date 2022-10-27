@@ -51,7 +51,6 @@ export const offset = {
   x: window.innerWidth / 2 - 3360 / 2,
   y: window.innerHeight / 2 - 1920 / 2,
 }
-console.log('오프셋', offset)
 
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {

@@ -5,14 +5,29 @@ import {
   mySkillType,
   my_turn,
 } from './battleScene'
-import { battle, local_position, playerDownImage } from '../js/index'
+import {
+  player,
+  battle,
+  local_position,
+  global_position,
+  playerDownImage,
+} from '../js/index'
 import { worker } from './utils'
 import { Sprite } from '../game/object/Sprite'
-import { CHAT, MOVE, NETWORK } from '../game/network/callType'
+import { playerUrl } from '../web/logIn'
+import { NETWORK } from '../game/network/callType'
+import { npc_list } from '../game/data/npc'
 import {
   responseUserInfo,
   requestUserInfo,
 } from '../game/network/userConnection'
+import {
+  battleOffer,
+  battleAnswer,
+  battleDeny,
+} from '../game/battle/battleOffer'
+
+// import { WebSocketServer } from 'ws'
 
 export let skillTypes = {}
 
@@ -25,16 +40,18 @@ export const others = {}
 export let battle_start = false
 
 //0 ~ 9: binary; 10 ~: JSON string
-export let NumToType = {
+var NumToType = {
   0: 'id',
   1: 'update-user-list',
-  10: CHAT.SEND,
-  11: MOVE.OTHER_USER,
-  12: MOVE.STOP,
 }
 
 export function checkOrReconnect() {
+  console.log('연결 확인', ws)
+  console.log('연결 확인2', ws.readyState)
+  console.log('연결 확인3', ws.binaryType)
+  console.log('연결 확인4', ws.url)
   if (!ws) {
+    // 연결이 끊겨 있으면 연결하기
     connect()
     return false
   }
@@ -54,40 +71,6 @@ const reverseMapping = (o) =>
   )
 
 export let TypeToNum = reverseMapping(NumToType)
-
-export function battleOffer(id, type) {
-  if (!checkOrReconnect()) return
-  var buffer = new ArrayBuffer(7)
-  var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['battle-offer'])
-  dataview.setInt16(1, myID)
-  dataview.setInt16(3, id)
-  dataview.setInt16(5, type)
-  ws.send(buffer)
-}
-
-export function battleAnswer(id, type) {
-  if (!checkOrReconnect()) return
-  var buffer = new ArrayBuffer(7)
-  var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['battle-answer'])
-  dataview.setInt16(1, myID)
-  dataview.setInt16(3, id)
-  dataview.setInt16(5, type)
-  ws.send(buffer)
-}
-
-export function battleDeny(id, reason) {
-  if (!checkOrReconnect()) return
-  var buffer = new ArrayBuffer(7)
-  var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['battle-deny'])
-  dataview.setInt16(1, myID)
-  dataview.setInt16(3, id)
-  // 0: already on battle, 1: refuse
-  dataview.setInt16(5, reason)
-  ws.send(buffer)
-}
 
 function audoBattleOffer(id) {
   if (!checkOrReconnect()) return
@@ -119,7 +102,6 @@ function autoBattleSelectType(id, type) {
   dataview.setInt16(5, type)
   ws.send(buffer)
 }
-
 export function attack(id, attack) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
@@ -141,68 +123,78 @@ export function leaveBattle(id) {
   ws.send(buffer)
 }
 
-function getDictFromBinary(data) {
-  var buf = new Uint8Array(data).slice(1)
+function receiveMsgFromAll(data) {
+  var buf = new Uint8Array(data).slice(3)
+
   var decoder = new TextDecoder()
   var msg = JSON.parse(decoder.decode(buf))
   return msg
 }
 
-function onmessage(data) {
-  // var type = NumToType[dataview.getInt8(0)]
-  let id
+function receiveMsgFromPeer(data) {
+  var buf = new Uint8Array(data).slice(5)
 
-  const msg = JSON.parse(data)
-  console.log('데이터가 넘어왔다.', msg)
+  var decoder = new TextDecoder()
+  var msg = JSON.parse(decoder.decode(buf))
+  return msg
+}
 
-  const type = msg.type
+function onmessage(type, data) {
+  console.log('Type', type, '데이터', data)
+
+  const msg = data
+  let id = data.id
 
   switch (type) {
-    case NETWORK.ID: // my id is given
-      myID = msg.id
-      // NumToType = msg.NumToType
-      // TypeToNum = msg.TypeToNum
-      // skillTypes = msg.skillSets
+    case NETWORK.JOIN: // my id is given
+      myID = data.id
       log('My ID: ' + myID)
       break
 
-    case NETWORK.UPDATE_USER_LIST: // user list change
-      id = msg.id
+    case NETWORK.MAP_STATUS:
+      console.log(data['avatar_status'].length, '명 있구만!')
+
       Object.keys(others).forEach((id) => {
-        // NPC인지 아닌지 체크
-        if (id !== '250') {
-          // NPC도 아닌데 userList안에 없는 경우 others에서 빼버린다.
-          if (!(id in msg['userList'])) {
-            console.log('삭제에 해당하나>?', id)
-            delete others[id]
-          }
+        if (!npc_list.includes(id)) {
+          if (!(id in data['avatar_status'])) delete others[id]
         }
       })
 
-      msg['userList'].forEach((id) => {
-        // 유저 리스트 안의 아이디들이 내 id도 아니고, others안에도 없을 때.
-        console.log('222 22222222', id, myID, others, id === myID, id == myID)
+      data['avatar_status'].forEach((id) => {
+        if (!(id in others || id === myID)) {
+          // 유저를 생성하기 위해서 더 자세한 정보를 요청.
+          requestUserInfo(id)
+        }
+      })
+
+      break
+
+    case 'update-user-list': // user list change
+      Object.keys(others).forEach((id) => {
+        if (id !== '250') {
+          if (!(id in msg['user-list'])) delete others[id]
+        }
+      })
+
+      msg['user-list'].forEach((id) => {
         if (!(id in others || id == myID)) {
-          console.log('십사', id)
           requestUserInfo(id)
         }
       })
       break
 
-    case MOVE.OTHER_USER: // other user move
-      console.log('움직이기 유저')
-      id = msg.id
+    case 'move-user': // other user move
       if (others[id] === undefined) {
         requestUserInfo(id)
         break
       }
       others[id].sprite.position = local_position({
-        x: msg.x,
-        y: msg.y,
+        x: data.coordinate[0],
+        y: data.coordinate[1],
       })
       others[id].sprite.animate = true
 
-      switch (msg.direction) {
+      switch (dataview.getInt16(7)) {
         case 0:
           others[id].sprite.image = others[id].sprite.sprites.up
           break
@@ -218,20 +210,20 @@ function onmessage(data) {
       }
       break
 
-    case MOVE.STOP:
+    case 'stop-user':
       if (others[id] === undefined) {
         requestUserInfo(id)
         break
       }
       others[id].sprite.position = local_position({
-        x: msg.x,
-        y: msg.y,
+        x: dataview.getInt16(3),
+        y: dataview.getInt16(5),
       })
       others[id].sprite.animate = false
       break
 
-    case CHAT.SEND:
-      console.log('메세지', msg)
+    case 'send-chat':
+      msg = receiveMsgFromAll(data)
       others[id].sprite.chat = msg.chat
       break
 
@@ -306,15 +298,16 @@ function onmessage(data) {
       break
 
     case NETWORK.REQUEST_USER_INFO:
-      console.log('아니 잠깐만', msg)
-      responseUserInfo(msg.id)
+      // 내 정보를 알려달라고 요청이 왔다.
+      responseUserInfo(data.id)
       break
 
     case NETWORK.RESPONSE_USER_INFO:
-      console.log('이게 실행될 일이 있나?', msg)
-
-      if (others[id] === undefined) {
-        others[id] = {
+      // 유저를 생성하기 위해서 정보를 요청했고, 받았다.
+      //
+      // msg = receiveMsgFromPeer(data)
+      if (others[data.id] === undefined) {
+        others[data.id] = {
           draw: false,
           collection: msg.collection,
           sprite: new Sprite({
@@ -336,11 +329,11 @@ function onmessage(data) {
             name: msg.username,
           }),
         }
-        others[id].baseImage = new Image()
+        others[data.id].baseImage = new Image()
         worker.postMessage({
           url: msg.url,
           contractAddress: msg.collection,
-          id: id,
+          id: data.id,
         })
       }
       break
@@ -354,7 +347,6 @@ function onmessage(data) {
 
     default:
       log_error('Unknown message received:')
-      console.log(msg, '이게 옴')
       log_error(type)
   }
 }
@@ -382,13 +374,13 @@ export function reportError(errMessage) {
 
 /**
  * 서버와 연결하도록 하는 함수
- * ws = new WebSocker(serverUrl)
+ * ws = new WebSocket(serverUrl)
  */
 export function connect() {
-  var serverUrl
-  var scheme = 'ws'
-  // var hostName = 'localhost:3000'
-  var hostName = 'web3mon.yusangyoon.com'
+  let serverUrl
+  let scheme = 'ws'
+  const hostName = 'ec2-44-201-5-87.compute-1.amazonaws.com:8080/ws'
+  // var hostName = 'web3mon.yusangyoon.com'
   log('Hostname: ' + hostName)
 
   if (document.location.protocol === 'https:') {
@@ -400,55 +392,28 @@ export function connect() {
   log(`Connecting to server: ${serverUrl}`)
 
   if (ws != undefined) {
+    console.log('닫고 다시 연결')
     ws.onerror = ws.onopen = ws.onclose = null
     ws.close()
   }
 
-  // ws = new WebSocket(NEW_SERVER_URL)
-  // log(`Connecting to server: ${NEW_SERVER_URL}`)
+  serverUrl = 'ws://ec2-44-201-5-87.compute-1.amazonaws.com:8080/ws'
 
   ws = new WebSocket(serverUrl)
-  log(`Connecting to server: ${serverUrl}`)
-
   // ws = new WebSocket('ws://ec2-15-164-162-167.ap-northeast-2.compute.amazonaws.com');
   ws.binaryType = 'arraybuffer'
 
-  console.log(ws, '웹소켓')
-
-  ws.onopen = () => onopen()
-  ws.onerror = ({ data }) => {
-    onerror(data)
+  ws.onopen = (e) => {
+    onopen()
   }
-  ws.onmessage = (event) => {
-    console.log('넘어왔다', getDictFromBinary(event.data))
-    // var buf = new Uint8Array(data).buffer
-    // var dataview = new DataView(buf)
-
-    // const type = NumToType[dataview.getInt8(0)]
-
-    // let msg
-
-    // if (type === 'id') {
-    //   msg = {
-    //     type: type,
-    //     id: dataview.getInt16(1),
-    //   }
-    // } else if (type === 'update-user-list') {
-    //   const translated = getDictFromBinary(data)
-    //   msg = {
-    //     type: type,
-    //     userList: translated['user-list'],
-    //   }
-    // } else {
-    //   msg = {
-    //     type: type,
-    //     ...getDictFromBinary(data),
-    //   }
-    // }
-
-    onmessage(event.data)
+  ws.onerror = ({ data }) => onerror(data)
+  ws.onmessage = ({ data }) => {
+    const msg = JSON.parse(data)
+    const type = Object.keys(msg)[0]
+    onmessage(type, msg[type])
   }
   ws.onclose = function () {
+    console.log('닫습니까??')
     ws = null
   }
   return ws

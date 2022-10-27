@@ -95,15 +95,19 @@ export function moveUser(position, direction) {
   if (!checkOrReconnect()) return
 
   const body = {
-    type: MOVE.OTHER_USER,
-    myID: myID,
-    x: position.x,
-    y: position.y,
-    direction: direction,
+    Move: {
+      coordinate: [position.x, position.y],
+    },
   }
+  // type: MOVE.OTHER_USER,
+  // myID: myID,
+  // x: position.x,
+  // y: position.y,
+  // direction: direction,
 
   const msg = JSON.stringify(body)
 
+  console.log('진짜 메세지를 보냄?', typeof position.x)
   ws.send(msg)
 }
 

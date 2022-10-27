@@ -396,6 +396,151 @@ setInterval(function () {
 
 /***/ }),
 
+/***/ "./src/game/battle/battleOffer.js":
+/*!****************************************!*\
+  !*** ./src/game/battle/battleOffer.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "battleAnswer": () => (/* binding */ battleAnswer),
+/* harmony export */   "battleDeny": () => (/* binding */ battleDeny),
+/* harmony export */   "battleOffer": () => (/* binding */ battleOffer)
+/* harmony export */ });
+/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array-buffer.constructor.js */ "./node_modules/core-js/modules/es.array-buffer.constructor.js");
+/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array-buffer.slice.js */ "./node_modules/core-js/modules/es.array-buffer.slice.js");
+/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
+/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+
+
+
+
+
+function battleOffer(id, type) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  var buffer = new ArrayBuffer(7);
+  var dataview = new DataView(buffer);
+  //   dataview.setInt8(0, TypeToNum['battle-offer'])
+  dataview.setInt16(1, _js_network__WEBPACK_IMPORTED_MODULE_4__.myID);
+  dataview.setInt16(3, id);
+  dataview.setInt16(5, type);
+  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(buffer);
+}
+function battleAnswer(id, type) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  var buffer = new ArrayBuffer(7);
+  var dataview = new DataView(buffer);
+  //   dataview.setInt8(0, TypeToNum['battle-answer'])
+  dataview.setInt16(1, _js_network__WEBPACK_IMPORTED_MODULE_4__.myID);
+  dataview.setInt16(3, id);
+  dataview.setInt16(5, type);
+  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(buffer);
+}
+function battleDeny(id, reason) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  console.log('refuse battle');
+  var buffer = new ArrayBuffer(7);
+  var dataview = new DataView(buffer);
+  //   dataview.setInt8(0, TypeToNum['battle-deny'])
+  dataview.setInt16(1, _js_network__WEBPACK_IMPORTED_MODULE_4__.myID);
+  dataview.setInt16(3, id);
+  // 0: already on battle, 1: refuse
+  dataview.setInt16(5, reason);
+  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(buffer);
+}
+
+/***/ }),
+
+/***/ "./src/game/battle/battleStart.js":
+/*!****************************************!*\
+  !*** ./src/game/battle/battleStart.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _battleOffer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./battleOffer */ "./src/game/battle/battleOffer.js");
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+/* harmony import */ var _js_battleScene__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/battleScene */ "./src/js/battleScene.js");
+
+
+
+
+
+
+// click opponent to offer battle
+_js_index__WEBPACK_IMPORTED_MODULE_3__.canvas.addEventListener('click', function (e) {
+  // need to be ready and not currently battling
+  if (!_js_index__WEBPACK_IMPORTED_MODULE_3__.battle.ready || _js_index__WEBPACK_IMPORTED_MODULE_3__.battle.initiated) return;
+  var _loop = function _loop(key) {
+    x = e.offsetX - _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.width / 2;
+    y = e.offsetY - _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.height / 2;
+    if (Math.abs(_js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.position.x - x) < _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.width / 2 && Math.abs(_js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.position.y - y) < _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.height / 2) {
+      for (var i = 0; i < _js_index__WEBPACK_IMPORTED_MODULE_3__.battleZones.length; i++) {
+        var battleZone = _js_index__WEBPACK_IMPORTED_MODULE_3__.battleZones[i];
+        if ((0,_js_index__WEBPACK_IMPORTED_MODULE_3__.checkCollision)(_js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite, battleZone)) {
+          document.getElementById('acceptBattleBtn').style.display = 'inline-block';
+          document.getElementById('refuseBattleBtn').style.display = 'inline-block';
+          document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
+          document.getElementById('refuseBattleBtn').replaceWith(document.getElementById('refuseBattleBtn').cloneNode(true));
+          document.getElementById('acceptBattleCard').style.display = 'block';
+          document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.name;
+          document.getElementById('acceptBattleBtn').addEventListener('click', function (e) {
+            console.log('배틀 예스');
+            document.getElementById('refuseBattleBtn').style.display = 'none';
+            document.getElementById('selectTypeCard').style.display = 'block';
+            if (key == 250) {
+              // NPC면
+              console.log('NPC 예스', _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.opponent_id);
+              _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.opponent_id = key;
+              console.log('여기서 막');
+              document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
+                console.log('로그 1');
+                document.getElementById('selectTypeCard').style.display = 'none';
+                battle_start = true;
+                _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.my_turn = true;
+                _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.mySkillType = document.getElementById('selectType').value;
+              });
+            } else {
+              document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
+                console.log('로그 12');
+                document.getElementById('selectTypeCard').style.display = 'none';
+                document.getElementById('battleOpponentName2').innerText = 'Waiting for accpetance...';
+                document.getElementById('acceptBattleBtn').style.display = 'none';
+                _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.mySkillType = document.getElementById('selectType').value;
+                (0,_battleOffer__WEBPACK_IMPORTED_MODULE_1__.battleOffer)(key, _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.mySkillType);
+              });
+            }
+          });
+          document.getElementById('refuseBattleBtn').addEventListener('click', function (e) {
+            document.getElementById('acceptBattleCard').style.display = 'none';
+          });
+          break;
+        }
+      }
+      return "break";
+    }
+  };
+  for (var key in _js_network__WEBPACK_IMPORTED_MODULE_2__.others) {
+    var x;
+    var y;
+    var _ret = _loop(key);
+    if (_ret === "break") break;
+  }
+});
+
+/***/ }),
+
 /***/ "./src/game/chat/chatForm.js":
 /*!***********************************!*\
   !*** ./src/game/chat/chatForm.js ***!
@@ -435,7 +580,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "sendChat": () => (/* binding */ sendChat),
 /* harmony export */   "sendMsgToAll": () => (/* binding */ sendMsgToAll),
-/* harmony export */   "sendMsgToPeer": () => (/* binding */ sendMsgToPeer),
 /* harmony export */   "sendMsgToServer": () => (/* binding */ sendMsgToServer)
 /* harmony export */ });
 /* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array-buffer.constructor.js */ "./node_modules/core-js/modules/es.array-buffer.constructor.js");
@@ -446,10 +590,85 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
 /* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
-/* harmony import */ var _chatForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./chatForm */ "./src/game/chat/chatForm.js");
-/* harmony import */ var _network_callType__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../network/callType */ "./src/game/network/callType.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.typed-array.uint8-array.js */ "./node_modules/core-js/modules/es.typed-array.uint8-array.js");
+/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.typed-array.copy-within.js */ "./node_modules/core-js/modules/es.typed-array.copy-within.js");
+/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.typed-array.every.js */ "./node_modules/core-js/modules/es.typed-array.every.js");
+/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.typed-array.fill.js */ "./node_modules/core-js/modules/es.typed-array.fill.js");
+/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.typed-array.filter.js */ "./node_modules/core-js/modules/es.typed-array.filter.js");
+/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.typed-array.find.js */ "./node_modules/core-js/modules/es.typed-array.find.js");
+/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.typed-array.find-index.js */ "./node_modules/core-js/modules/es.typed-array.find-index.js");
+/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.typed-array.for-each.js */ "./node_modules/core-js/modules/es.typed-array.for-each.js");
+/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.typed-array.includes.js */ "./node_modules/core-js/modules/es.typed-array.includes.js");
+/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.typed-array.index-of.js */ "./node_modules/core-js/modules/es.typed-array.index-of.js");
+/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.typed-array.iterator.js */ "./node_modules/core-js/modules/es.typed-array.iterator.js");
+/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.typed-array.join.js */ "./node_modules/core-js/modules/es.typed-array.join.js");
+/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.typed-array.last-index-of.js */ "./node_modules/core-js/modules/es.typed-array.last-index-of.js");
+/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.typed-array.map.js */ "./node_modules/core-js/modules/es.typed-array.map.js");
+/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce.js */ "./node_modules/core-js/modules/es.typed-array.reduce.js");
+/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce-right.js */ "./node_modules/core-js/modules/es.typed-array.reduce-right.js");
+/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.typed-array.reverse.js */ "./node_modules/core-js/modules/es.typed-array.reverse.js");
+/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.typed-array.set.js */ "./node_modules/core-js/modules/es.typed-array.set.js");
+/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.typed-array.slice.js */ "./node_modules/core-js/modules/es.typed-array.slice.js");
+/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.typed-array.some.js */ "./node_modules/core-js/modules/es.typed-array.some.js");
+/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.typed-array.sort.js */ "./node_modules/core-js/modules/es.typed-array.sort.js");
+/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.typed-array.subarray.js */ "./node_modules/core-js/modules/es.typed-array.subarray.js");
+/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-locale-string.js */ "./node_modules/core-js/modules/es.typed-array.to-locale-string.js");
+/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-string.js */ "./node_modules/core-js/modules/es.typed-array.to-string.js");
+/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+/* harmony import */ var _chatForm__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./chatForm */ "./src/game/chat/chatForm.js");
+/* harmony import */ var _network_callType__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ../network/callType */ "./src/game/network/callType.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -460,58 +679,56 @@ __webpack_require__.r(__webpack_exports__);
 
 document.getElementById('sendChatBtn').addEventListener('click', sendChat, false);
 function sendChat() {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
-  console.log('전송을 시도');
+  console.log('채팅을 보냄', msg);
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
+  console.log('채팅을 보냄22', msg);
   var chat = document.querySelector('#chat').value;
-  if (chat === 1) {
-    var body = {
-      chat: chat
-    };
-    _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(JSON.stringify(body));
-  }
-  console.log('전송을 메세지', chat);
-  _js_index__WEBPACK_IMPORTED_MODULE_5__.player.chat = chat;
-
-  // sendMsgToAll(CHAT.SEND, chat)
-  // closeForm()
-
-  var buffer = new ArrayBuffer(7);
-  var dataview = new DataView(buffer);
-  dataview.setInt16(1, _js_network__WEBPACK_IMPORTED_MODULE_4__.myID);
-  dataview.setInt16(3, 12323);
-  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(buffer);
-}
-function sendMsgToAll(type, chat) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  _js_index__WEBPACK_IMPORTED_MODULE_30__.player.chat = chat;
   var msg = {
-    type: _network_callType__WEBPACK_IMPORTED_MODULE_7__.CHAT.SEND,
-    chat: chat
+    BoardCastChat: {
+      content: chat
+    }
   };
+  _js_network__WEBPACK_IMPORTED_MODULE_29__.ws.send(JSON.stringify(msg));
+  // sendMsgToAll('BoardCastChat', msg)
+  (0,_chatForm__WEBPACK_IMPORTED_MODULE_31__.closeForm)();
+}
+function sendMsgToAll(type, msg) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
   // var typeNum = TypeToNum[type]
 
-  var msgJSON = JSON.stringify(msg);
-  (0,_js_network__WEBPACK_IMPORTED_MODULE_4__.log)('Send to all: ' + msgJSON);
-  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(msgJSON);
+  // var buffer1 = new ArrayBuffer(3)
+  // var dataview = new DataView(buffer1)
+  // dataview.setInt8(0, typeNum)
+  // dataview.setInt16(1, myID)
+
+  // var msgJSON = JSON.stringify(msg)
+  // log('Send to all: ' + msgJSON)
+  // var encoder = new TextEncoder()
+  // var buffer2 = encoder.encode(msgJSON).buffer
+
+  // var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength)
+  // tmp.set(new Uint8Array(buffer1), 0)
+  // tmp.set(new Uint8Array(buffer2), 3)
+
+  _js_network__WEBPACK_IMPORTED_MODULE_29__.ws.send(JSON.stringify(msg));
 }
 
 // if type >= 10: data should be dict
-function sendMsgToServer(type, chat) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
-  var msg = {
-    type: _network_callType__WEBPACK_IMPORTED_MODULE_7__.CHAT.SEND,
-    chat: chat
-  };
-  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(msg);
-}
-function sendMsgToPeer(type, id, chat) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
-  console.log('샌드 메시지 투 피어');
-  var msg = {
-    type: type,
-    peer: id,
-    chat: chat
-  };
-  _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(msg);
+function sendMsgToServer(type, msg) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
+  var typeNum = _js_network__WEBPACK_IMPORTED_MODULE_29__.TypeToNum[type];
+  var buffer1 = new ArrayBuffer(1);
+  var dataview = new DataView(buffer1);
+  dataview.setInt8(0, typeNum);
+  var msgJSON = JSON.stringify(msg);
+  (0,_js_network__WEBPACK_IMPORTED_MODULE_29__.log)('Send to server: ' + msgJSON);
+  var encoder = new TextEncoder();
+  var buffer2 = encoder.encode(msgJSON).buffer;
+  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
+  tmp.set(new Uint8Array(buffer1), 0);
+  tmp.set(new Uint8Array(buffer2), 1);
+  _js_network__WEBPACK_IMPORTED_MODULE_29__.ws.send(tmp.buffer);
 }
 
 /***/ }),
@@ -702,6 +919,21 @@ var monsters = {
     attacks: [_attacks__WEBPACK_IMPORTED_MODULE_0__.attacks["Brown Rage"], _attacks__WEBPACK_IMPORTED_MODULE_0__.attacks.Fireball, _attacks__WEBPACK_IMPORTED_MODULE_0__.attacks.Larva]
   }
 };
+
+/***/ }),
+
+/***/ "./src/game/data/npc.js":
+/*!******************************!*\
+  !*** ./src/game/data/npc.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "npc_list": () => (/* binding */ npc_list)
+/* harmony export */ });
+var npc_list = ['250'];
 
 /***/ }),
 
@@ -1119,9 +1351,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "moveUser": () => (/* binding */ moveUser),
 /* harmony export */   "stopUser": () => (/* binding */ stopUser)
 /* harmony export */ });
-/* harmony import */ var _joystick__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./joystick */ "./src/game/interaction/joystick.js");
-/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
-/* harmony import */ var _network_callType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../network/callType */ "./src/game/network/callType.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _joystick__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./joystick */ "./src/game/interaction/joystick.js");
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _network_callType__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../network/callType */ "./src/game/network/callType.js");
+
+
+
+
+
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 
 
@@ -1176,7 +1430,7 @@ window.addEventListener('keyup', function (e) {
       break;
   }
 });
-var joy = new _joystick__WEBPACK_IMPORTED_MODULE_0__.JoyStick('joyDiv');
+var joy = new _joystick__WEBPACK_IMPORTED_MODULE_7__.JoyStick('joyDiv');
 var joyStickMoving = false;
 function joyToKey() {
   var x = joy.GetX();
@@ -1208,27 +1462,32 @@ function joyToKey() {
   joyStickMoving = moving;
 }
 function moveUser(position, direction) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_8__.checkOrReconnect)()) return;
   var body = {
-    type: _network_callType__WEBPACK_IMPORTED_MODULE_2__.MOVE.OTHER_USER,
-    myID: _js_network__WEBPACK_IMPORTED_MODULE_1__.myID,
-    x: position.x,
-    y: position.y,
-    direction: direction
+    Move: {
+      coordinate: [position.x, position.y]
+    }
   };
+  // type: MOVE.OTHER_USER,
+  // myID: myID,
+  // x: position.x,
+  // y: position.y,
+  // direction: direction,
+
   var msg = JSON.stringify(body);
-  _js_network__WEBPACK_IMPORTED_MODULE_1__.ws.send(msg);
+  console.log('진짜 메세지를 보냄?', _typeof(position.x));
+  _js_network__WEBPACK_IMPORTED_MODULE_8__.ws.send(msg);
 }
 function stopUser(position) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_8__.checkOrReconnect)()) return;
   var body = {
-    type: _network_callType__WEBPACK_IMPORTED_MODULE_2__.MOVE.STOP,
-    myID: _js_network__WEBPACK_IMPORTED_MODULE_1__.myID,
+    type: _network_callType__WEBPACK_IMPORTED_MODULE_9__.MOVE.STOP,
+    myID: _js_network__WEBPACK_IMPORTED_MODULE_8__.myID,
     x: position.x,
     y: position.y
   };
   var msg = JSON.stringify(body);
-  _js_network__WEBPACK_IMPORTED_MODULE_1__.ws.send(msg);
+  _js_network__WEBPACK_IMPORTED_MODULE_8__.ws.send(msg);
 }
 
 /***/ }),
@@ -1257,7 +1516,9 @@ var NETWORK = {
   ID: 'id',
   UPDATE_USER_LIST: 'update-user-list',
   REQUEST_USER_INFO: 'request-user-info',
-  RESPONSE_USER_INFO: 'response-user-info'
+  RESPONSE_USER_INFO: 'response-user-info',
+  JOIN: 'Join',
+  MAP_STATUS: 'MapStatus'
 };
 
 /***/ }),
@@ -1272,29 +1533,16 @@ var NETWORK = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "requestUserInfo": () => (/* binding */ requestUserInfo),
-/* harmony export */   "responseUserInfo": () => (/* binding */ responseUserInfo)
+/* harmony export */   "responseUserInfo": () => (/* binding */ responseUserInfo),
+/* harmony export */   "sendMsgToPeer": () => (/* binding */ sendMsgToPeer)
 /* harmony export */ });
-/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array-buffer.constructor.js */ "./node_modules/core-js/modules/es.array-buffer.constructor.js");
-/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array-buffer.slice.js */ "./node_modules/core-js/modules/es.array-buffer.slice.js");
-/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
-/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
-/* harmony import */ var _callType__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./callType */ "./src/game/network/callType.js");
-/* harmony import */ var _chat_sendChat__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../chat/sendChat */ "./src/game/chat/sendChat.js");
-/* harmony import */ var _interaction_move__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../interaction/move */ "./src/game/interaction/move.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
-/* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../web/logIn */ "./src/web/logIn.js");
-
-
-
-
-
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _callType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./callType */ "./src/game/network/callType.js");
+/* harmony import */ var _interaction_move__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../interaction/move */ "./src/game/interaction/move.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+/* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../web/logIn */ "./src/web/logIn.js");
 
 
 
@@ -1302,32 +1550,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function requestUserInfo(id) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_5__.checkOrReconnect)()) return;
-  var msg = {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  var body = {
     id: id,
-    myID: _js_network__WEBPACK_IMPORTED_MODULE_5__.myID,
-    type: _callType__WEBPACK_IMPORTED_MODULE_6__.NETWORK.REQUEST_USER_INFO
+    myID: _js_network__WEBPACK_IMPORTED_MODULE_1__.myID
   };
-  var body = JSON.stringify(msg);
-  console.log('십사 다음단계232', body);
-  var buffer = new ArrayBuffer(7);
-  var dataview = new DataView(buffer);
-  dataview.setInt16(1, _js_network__WEBPACK_IMPORTED_MODULE_5__.myID);
-  dataview.setInt16(3, id);
-  dataview.setInt16(5, _callType__WEBPACK_IMPORTED_MODULE_6__.NETWORK.REQUEST_USER_INFO);
-
-  // ws.send(buffer)
-  _js_network__WEBPACK_IMPORTED_MODULE_5__.ws.send(buffer);
+  _js_network__WEBPACK_IMPORTED_MODULE_1__.ws.send(JSON.stringify(body));
 }
 function responseUserInfo(id) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_5__.checkOrReconnect)()) return;
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
   var msg = {
     collection: window.contractAddress,
-    url: _web_logIn__WEBPACK_IMPORTED_MODULE_10__.playerUrl,
-    username: _js_index__WEBPACK_IMPORTED_MODULE_9__.player.name
+    url: _web_logIn__WEBPACK_IMPORTED_MODULE_5__.playerUrl,
+    username: _js_index__WEBPACK_IMPORTED_MODULE_4__.player.name
   };
-  (0,_chat_sendChat__WEBPACK_IMPORTED_MODULE_7__.sendMsgToPeer)(_callType__WEBPACK_IMPORTED_MODULE_6__.NETWORK.REQUEST_USER_INFO, id, msg);
-  (0,_interaction_move__WEBPACK_IMPORTED_MODULE_8__.stopUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_9__.global_position)());
+  sendMsgToPeer(_callType__WEBPACK_IMPORTED_MODULE_2__.NETWORK.RESPONSE_USER_INFO, id, msg);
+  (0,_interaction_move__WEBPACK_IMPORTED_MODULE_3__.stopUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_4__.global_position)());
+}
+function sendMsgToPeer(type, id, msg) {
+  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  // var typeNum = TypeToNum[type]
+  // console.log(type)
+  // console.log(typeNum)
+
+  // var buffer1 = new ArrayBuffer(5)
+  // var dataview = new DataView(buffer1)
+  // dataview.setInt8(0, typeNum)
+  // dataview.setInt16(1, myID)
+  // dataview.setInt16(3, id)
+
+  // var msgJSON = JSON.stringify(msg)
+  // log('Send to peer: ' + msgJSON)
+  // var encoder = new TextEncoder()
+  // var buffer2 = encoder.encode(msgJSON).buffer
+
+  // var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength)
+  // tmp.set(new Uint8Array(buffer1), 0)
+  // tmp.set(new Uint8Array(buffer2), 5)
+  var body = {
+    type: type,
+    id: id,
+    msg: msg
+  };
+  _js_network__WEBPACK_IMPORTED_MODULE_1__.ws.send(JSON.stringify(body));
 }
 
 /***/ }),
@@ -2211,7 +2476,6 @@ var offset = {
   x: window.innerWidth / 2 - 3360 / 2,
   y: window.innerHeight / 2 - 1920 / 2
 };
-console.log('오프셋', offset);
 collisionsMap.forEach(function (row, i) {
   row.forEach(function (symbol, j) {
     if (symbol === 1025) boundaries.push(new _game_object_Boundary__WEBPACK_IMPORTED_MODULE_11__.Boundary({
@@ -2413,12 +2677,8 @@ makeNPC();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "NumToType": () => (/* binding */ NumToType),
 /* harmony export */   "TypeToNum": () => (/* binding */ TypeToNum),
 /* harmony export */   "attack": () => (/* binding */ attack),
-/* harmony export */   "battleAnswer": () => (/* binding */ battleAnswer),
-/* harmony export */   "battleDeny": () => (/* binding */ battleDeny),
-/* harmony export */   "battleOffer": () => (/* binding */ battleOffer),
 /* harmony export */   "battle_start": () => (/* binding */ battle_start),
 /* harmony export */   "checkOrReconnect": () => (/* binding */ checkOrReconnect),
 /* harmony export */   "connect": () => (/* binding */ connect),
@@ -2505,18 +2765,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_34__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_35__);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_36__);
-/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! core-js/modules/es.date.to-string.js */ "./node_modules/core-js/modules/es.date.to-string.js");
-/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_37__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_38___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_38__);
-/* harmony import */ var _battleScene__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./battleScene */ "./src/js/battleScene.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
-/* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
-/* harmony import */ var _game_network_callType__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ../game/network/callType */ "./src/game/network/callType.js");
-/* harmony import */ var _game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ../game/network/userConnection */ "./src/game/network/userConnection.js");
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! core-js/modules/es.array.includes.js */ "./node_modules/core-js/modules/es.array.includes.js");
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_36__);
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! core-js/modules/es.string.includes.js */ "./node_modules/core-js/modules/es.string.includes.js");
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_37__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_38___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_38__);
+/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! core-js/modules/es.date.to-string.js */ "./node_modules/core-js/modules/es.date.to-string.js");
+/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_39___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_39__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_40___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_40__);
+/* harmony import */ var _battleScene__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./battleScene */ "./src/js/battleScene.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
+/* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
+/* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ../web/logIn */ "./src/web/logIn.js");
+/* harmony import */ var _game_network_callType__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ../game/network/callType */ "./src/game/network/callType.js");
+/* harmony import */ var _game_data_npc__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ../game/data/npc */ "./src/game/data/npc.js");
+/* harmony import */ var _game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ../game/network/userConnection */ "./src/game/network/userConnection.js");
+/* harmony import */ var _game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ../game/battle/battleOffer */ "./src/game/battle/battleOffer.js");
+function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -2563,6 +2831,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
+
+
+
+
+// import { WebSocketServer } from 'ws'
+
 var skillTypes = {};
 var ws = null;
 var myID = null;
@@ -2575,13 +2851,15 @@ var battle_start = false;
 //0 ~ 9: binary; 10 ~: JSON string
 var NumToType = {
   0: 'id',
-  1: 'update-user-list',
-  10: _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.CHAT.SEND,
-  11: _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.MOVE.OTHER_USER,
-  12: _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.MOVE.STOP
+  1: 'update-user-list'
 };
 function checkOrReconnect() {
+  console.log('연결 확인', ws);
+  console.log('연결 확인2', ws.readyState);
+  console.log('연결 확인3', ws.binaryType);
+  console.log('연결 확인4', ws.url);
   if (!ws) {
+    // 연결이 끊겨 있으면 연결하기
     connect();
     return false;
   }
@@ -2598,37 +2876,6 @@ var reverseMapping = function reverseMapping(o) {
   }, {});
 };
 var TypeToNum = reverseMapping(NumToType);
-function battleOffer(id, type) {
-  if (!checkOrReconnect()) return;
-  var buffer = new ArrayBuffer(7);
-  var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['battle-offer']);
-  dataview.setInt16(1, myID);
-  dataview.setInt16(3, id);
-  dataview.setInt16(5, type);
-  ws.send(buffer);
-}
-function battleAnswer(id, type) {
-  if (!checkOrReconnect()) return;
-  var buffer = new ArrayBuffer(7);
-  var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['battle-answer']);
-  dataview.setInt16(1, myID);
-  dataview.setInt16(3, id);
-  dataview.setInt16(5, type);
-  ws.send(buffer);
-}
-function battleDeny(id, reason) {
-  if (!checkOrReconnect()) return;
-  var buffer = new ArrayBuffer(7);
-  var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['battle-deny']);
-  dataview.setInt16(1, myID);
-  dataview.setInt16(3, id);
-  // 0: already on battle, 1: refuse
-  dataview.setInt16(5, reason);
-  ws.send(buffer);
-}
 function audoBattleOffer(id) {
   if (!checkOrReconnect()) return;
   var buffer = new ArrayBuffer(5);
@@ -2676,63 +2923,67 @@ function leaveBattle(id) {
   dataview.setInt16(3, id);
   ws.send(buffer);
 }
-function getDictFromBinary(data) {
-  var buf = new Uint8Array(data).slice(1);
+function receiveMsgFromAll(data) {
+  var buf = new Uint8Array(data).slice(3);
   var decoder = new TextDecoder();
   var msg = JSON.parse(decoder.decode(buf));
   return msg;
 }
-function onmessage(data) {
-  // var type = NumToType[dataview.getInt8(0)]
-  var id;
-  var msg = JSON.parse(data);
-  console.log('데이터가 넘어왔다.', msg);
-  var type = msg.type;
+function receiveMsgFromPeer(data) {
+  var buf = new Uint8Array(data).slice(5);
+  var decoder = new TextDecoder();
+  var msg = JSON.parse(decoder.decode(buf));
+  return msg;
+}
+function onmessage(type, data) {
+  console.log('Type', type, '데이터', data);
+  var msg = data;
+  var id = data.id;
   switch (type) {
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.NETWORK.ID:
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_46__.NETWORK.JOIN:
       // my id is given
-      myID = msg.id;
-      // NumToType = msg.NumToType
-      // TypeToNum = msg.TypeToNum
-      // skillTypes = msg.skillSets
+      myID = data.id;
       log('My ID: ' + myID);
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.NETWORK.UPDATE_USER_LIST:
-      // user list change
-      id = msg.id;
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_46__.NETWORK.MAP_STATUS:
+      console.log(data['avatar_status'].length, '명 있구만!');
       Object.keys(others).forEach(function (id) {
-        // NPC인지 아닌지 체크
-        if (id !== '250') {
-          // NPC도 아닌데 userList안에 없는 경우 others에서 빼버린다.
-          if (!(id in msg['userList'])) {
-            console.log('삭제에 해당하나>?', id);
-            delete others[id];
-          }
+        if (!_game_data_npc__WEBPACK_IMPORTED_MODULE_47__.npc_list.includes(id)) {
+          if (!(id in data['avatar_status'])) delete others[id];
         }
       });
-      msg['userList'].forEach(function (id) {
-        // 유저 리스트 안의 아이디들이 내 id도 아니고, others안에도 없을 때.
-        console.log('222 22222222', id, myID, others, id === myID, id == myID);
-        if (!(id in others || id == myID)) {
-          console.log('십사', id);
-          (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__.requestUserInfo)(id);
+      data['avatar_status'].forEach(function (id) {
+        if (!(id in others || id === myID)) {
+          // 유저를 생성하기 위해서 더 자세한 정보를 요청.
+          (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.requestUserInfo)(id);
         }
       });
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.MOVE.OTHER_USER:
+    case 'update-user-list':
+      // user list change
+      Object.keys(others).forEach(function (id) {
+        if (id !== '250') {
+          if (!(id in msg['user-list'])) delete others[id];
+        }
+      });
+      msg['user-list'].forEach(function (id) {
+        if (!(id in others || id == myID)) {
+          (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.requestUserInfo)(id);
+        }
+      });
+      break;
+    case 'move-user':
       // other user move
-      console.log('움직이기 유저');
-      id = msg.id;
       if (others[id] === undefined) {
-        (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__.requestUserInfo)(id);
+        (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.requestUserInfo)(id);
         break;
       }
-      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_40__.local_position)({
-        x: msg.x,
-        y: msg.y
+      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_42__.local_position)({
+        x: data.coordinate[0],
+        y: data.coordinate[1]
       });
       others[id].sprite.animate = true;
-      switch (msg.direction) {
+      switch (dataview.getInt16(7)) {
         case 0:
           others[id].sprite.image = others[id].sprite.sprites.up;
           break;
@@ -2747,23 +2998,23 @@ function onmessage(data) {
           break;
       }
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.MOVE.STOP:
+    case 'stop-user':
       if (others[id] === undefined) {
-        (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__.requestUserInfo)(id);
+        (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.requestUserInfo)(id);
         break;
       }
-      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_40__.local_position)({
-        x: msg.x,
-        y: msg.y
+      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_42__.local_position)({
+        x: dataview.getInt16(3),
+        y: dataview.getInt16(5)
       });
       others[id].sprite.animate = false;
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.CHAT.SEND:
-      console.log('메세지', msg);
+    case 'send-chat':
+      receiveMsgFromAll(data), _readOnlyError("msg");
       others[id].sprite.chat = msg.chat;
       break;
     case 'battle-offer':
-      if (!_js_index__WEBPACK_IMPORTED_MODULE_40__.battle.initiated) {
+      if (!_js_index__WEBPACK_IMPORTED_MODULE_42__.battle.initiated) {
         document.getElementById('acceptBattleBtn').style.display = 'inline-block';
         document.getElementById('refuseBattleBtn').style.display = 'inline-block';
         document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
@@ -2771,60 +3022,62 @@ function onmessage(data) {
         document.getElementById('acceptBattleCard').style.display = 'block';
         document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[dataview.getInt16(1)].sprite.name;
         document.getElementById('acceptBattleBtn').addEventListener('click', function (e) {
-          _battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id = dataview.getInt16(1);
-          others[_battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id].skillType = dataview.getInt16(5);
+          _battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id = dataview.getInt16(1);
+          others[_battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id].skillType = dataview.getInt16(5);
           document.getElementById('acceptBattleCard').style.display = 'none';
           document.getElementById('selectTypeCard').style.display = 'block';
           document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
             document.getElementById('selectTypeCard').style.display = 'none';
             battle_start = true;
-            _battleScene__WEBPACK_IMPORTED_MODULE_39__.my_turn = true;
-            _battleScene__WEBPACK_IMPORTED_MODULE_39__.mySkillType = document.getElementById('selectType').value;
-            battleAnswer(_battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id, _battleScene__WEBPACK_IMPORTED_MODULE_39__.mySkillType);
+            _battleScene__WEBPACK_IMPORTED_MODULE_41__.my_turn = true;
+            _battleScene__WEBPACK_IMPORTED_MODULE_41__.mySkillType = document.getElementById('selectType').value;
+            (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_49__.battleAnswer)(_battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id, _battleScene__WEBPACK_IMPORTED_MODULE_41__.mySkillType);
             battle_start = true;
           });
         });
         document.getElementById('refuseBattleBtn').addEventListener('click', function (e) {
-          battleDeny(dataview.getInt16(1), 1);
+          (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_49__.battleDeny)(dataview.getInt16(1), 1);
           document.getElementById('acceptBattleCard').style.display = 'none';
         });
       } else {
-        battleDeny(dataview.getInt16(1), 0);
+        (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_49__.battleDeny)(dataview.getInt16(1), 0);
       }
       break;
     case 'battle-deny':
       document.getElementById('acceptBattleCard').style.display = 'none';
-      if (!_js_index__WEBPACK_IMPORTED_MODULE_40__.battle.initiated) {
+      if (!_js_index__WEBPACK_IMPORTED_MODULE_42__.battle.initiated) {
         var reason = dataview.getInt16(5);
         if (reason === 0) window.alert('Opponent is already on Battle');else if (reason === 1) window.alert('Opponent Refused to Battle');
       }
       break;
     case 'battle-answer':
-      _battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id = dataview.getInt16(1);
-      others[_battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id].skillType = dataview.getInt16(5);
+      _battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id = dataview.getInt16(1);
+      others[_battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id].skillType = dataview.getInt16(5);
       battle_start = true;
-      _battleScene__WEBPACK_IMPORTED_MODULE_39__.my_turn = true;
+      _battleScene__WEBPACK_IMPORTED_MODULE_41__.my_turn = true;
       break;
     case 'attack':
       var attack = dataview.getInt16(5);
-      (0,_battleScene__WEBPACK_IMPORTED_MODULE_39__.attacked)(attack);
+      (0,_battleScene__WEBPACK_IMPORTED_MODULE_41__.attacked)(attack);
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.NETWORK.REQUEST_USER_INFO:
-      console.log('아니 잠깐만', msg);
-      (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_44__.responseUserInfo)(msg.id);
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_46__.NETWORK.REQUEST_USER_INFO:
+      // 내 정보를 알려달라고 요청이 왔다.
+      (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.responseUserInfo)(data.id);
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_43__.NETWORK.RESPONSE_USER_INFO:
-      console.log('이게 실행될 일이 있나?', msg);
-      if (others[id] === undefined) {
-        others[id] = {
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_46__.NETWORK.RESPONSE_USER_INFO:
+      // 유저를 생성하기 위해서 정보를 요청했고, 받았다.
+      //
+      // msg = receiveMsgFromPeer(data)
+      if (others[data.id] === undefined) {
+        others[data.id] = {
           draw: false,
           collection: msg.collection,
-          sprite: new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_42__.Sprite({
+          sprite: new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_44__.Sprite({
             position: {
               x: 0,
               y: 0
             },
-            image: _js_index__WEBPACK_IMPORTED_MODULE_40__.playerDownImage,
+            image: _js_index__WEBPACK_IMPORTED_MODULE_42__.playerDownImage,
             frames: {
               max: 4,
               hold: 10
@@ -2838,23 +3091,22 @@ function onmessage(data) {
             name: msg.username
           })
         };
-        others[id].baseImage = new Image();
-        _utils__WEBPACK_IMPORTED_MODULE_41__.worker.postMessage({
+        others[data.id].baseImage = new Image();
+        _utils__WEBPACK_IMPORTED_MODULE_43__.worker.postMessage({
           url: msg.url,
           contractAddress: msg.collection,
-          id: id
+          id: data.id
         });
       }
       break;
     case 'leave-battle':
-      if (_js_index__WEBPACK_IMPORTED_MODULE_40__.battle.initiated && id === _battleScene__WEBPACK_IMPORTED_MODULE_39__.opponent_id) {
+      if (_js_index__WEBPACK_IMPORTED_MODULE_42__.battle.initiated && id === _battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id) {
         window.alert('opponent left the battle');
-        (0,_battleScene__WEBPACK_IMPORTED_MODULE_39__.endBattle)();
+        (0,_battleScene__WEBPACK_IMPORTED_MODULE_41__.endBattle)();
       }
       break;
     default:
       log_error('Unknown message received:');
-      console.log(msg, '이게 옴');
       log_error(type);
   }
 }
@@ -2877,13 +3129,13 @@ function reportError(errMessage) {
 
 /**
  * 서버와 연결하도록 하는 함수
- * ws = new WebSocker(serverUrl)
+ * ws = new WebSocket(serverUrl)
  */
 function connect() {
   var serverUrl;
   var scheme = 'ws';
-  // var hostName = 'localhost:3000'
-  var hostName = 'web3mon.yusangyoon.com';
+  var hostName = 'ec2-44-201-5-87.compute-1.amazonaws.com:8080/ws';
+  // var hostName = 'web3mon.yusangyoon.com'
   log('Hostname: ' + hostName);
   if (document.location.protocol === 'https:') {
     scheme += 's';
@@ -2893,56 +3145,29 @@ function connect() {
   serverUrl = 'wss' + '://' + hostName;
   log("Connecting to server: ".concat(serverUrl));
   if (ws != undefined) {
+    console.log('닫고 다시 연결');
     ws.onerror = ws.onopen = ws.onclose = null;
     ws.close();
   }
-
-  // ws = new WebSocket(NEW_SERVER_URL)
-  // log(`Connecting to server: ${NEW_SERVER_URL}`)
-
+  serverUrl = 'ws://ec2-44-201-5-87.compute-1.amazonaws.com:8080/ws';
   ws = new WebSocket(serverUrl);
-  log("Connecting to server: ".concat(serverUrl));
-
   // ws = new WebSocket('ws://ec2-15-164-162-167.ap-northeast-2.compute.amazonaws.com');
   ws.binaryType = 'arraybuffer';
-  console.log(ws, '웹소켓');
-  ws.onopen = function () {
-    return onopen();
+  ws.onopen = function (e) {
+    onopen();
   };
   ws.onerror = function (_ref) {
     var data = _ref.data;
-    onerror(data);
+    return onerror(data);
   };
-  ws.onmessage = function (event) {
-    console.log('넘어왔다', getDictFromBinary(event.data));
-    // var buf = new Uint8Array(data).buffer
-    // var dataview = new DataView(buf)
-
-    // const type = NumToType[dataview.getInt8(0)]
-
-    // let msg
-
-    // if (type === 'id') {
-    //   msg = {
-    //     type: type,
-    //     id: dataview.getInt16(1),
-    //   }
-    // } else if (type === 'update-user-list') {
-    //   const translated = getDictFromBinary(data)
-    //   msg = {
-    //     type: type,
-    //     userList: translated['user-list'],
-    //   }
-    // } else {
-    //   msg = {
-    //     type: type,
-    //     ...getDictFromBinary(data),
-    //   }
-    // }
-
-    onmessage(event.data);
+  ws.onmessage = function (_ref2) {
+    var data = _ref2.data;
+    var msg = JSON.parse(data);
+    var type = Object.keys(msg)[0];
+    onmessage(type, msg[type]);
   };
   ws.onclose = function () {
+    console.log('닫습니까??');
     ws = null;
   };
   return ws;
@@ -2969,7 +3194,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var worker = new Worker('./js/worker.js');
 worker.onmessage = function (event) {
-  console.log('워커 일함', event.data);
   if (event.data) {
     if (event.data.id === '-1') {
       _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.up.src = event.data.up;
@@ -3324,14 +3548,13 @@ function _connectWallets() {
               helperUrl: 'https://helper.mainnet.near.org',
               explorerUrl: 'https://explorer.mainnet.near.org'
             }; // Initialize connection to the NEAR testnet
-            console.log('이게 111111?', window.accountId, nearAPI);
-            _context.next = 4;
+            _context.next = 3;
             return nearAPI.connect(Object.assign({
               deps: {
                 keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore()
               }
             }, nearConfig));
-          case 4:
+          case 3:
             near = _context.sent;
             // Initializing Wallet based Account. It can work with NEAR testnet wallet that
             // is hosted at https://wallet.testnet.near.org
@@ -3340,12 +3563,12 @@ function _connectWallets() {
             // Getting the Account ID. If still unauthorized, it's just empty string
             window.accountId = window.walletConnection.getAccountId();
             if (!(window.accountId !== '')) {
-              _context.next = 10;
+              _context.next = 9;
               break;
             }
-            _context.next = 10;
+            _context.next = 9;
             return authorize();
-          case 10:
+          case 9:
           case "end":
             return _context.stop();
         }
@@ -39639,6 +39862,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game_chat_chatForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./game/chat/chatForm */ "./src/game/chat/chatForm.js");
 /* harmony import */ var _game_chat_sendChat__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./game/chat/sendChat */ "./src/game/chat/sendChat.js");
 /* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+/* harmony import */ var _game_battle_battleStart__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./game/battle/battleStart */ "./src/game/battle/battleStart.js");
+
 
 
 
