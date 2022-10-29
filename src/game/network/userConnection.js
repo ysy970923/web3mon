@@ -1,17 +1,20 @@
-import { checkOrReconnect, myID, ws } from '../../js/network'
+import { myID, ws } from '../../js/network'
 import { NETWORK } from './callType'
 import { stopUser } from '../interaction/move'
 import { global_position, player } from '../../js/index'
 import { playerUrl } from '../../web/logIn'
+import { checkOrReconnect } from './checkConnection'
 
 export function requestUserInfo(id) {
+  console.log('일로 와서 실행')
   if (!checkOrReconnect()) return
 
   const body = {
     id: id,
     myID: myID,
   }
-  ws.send(JSON.stringify(body))
+  console.log('보내기까지는 한다', body)
+  // ws.send(JSON.stringify(body))
 }
 
 export function responseUserInfo(id) {

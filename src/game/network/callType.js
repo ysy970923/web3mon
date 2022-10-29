@@ -1,10 +1,10 @@
 export const CHAT = {
   SEND: 'send-chat',
+  BOARD_CAST_CHAT: 'BoardCastChat',
 }
 
-export const MOVE = {
-  OTHER_USER: 'move-user',
-  STOP: 'stop-user',
+export const ACTION = {
+  MOVE: 'Move',
 }
 
 export const NETWORK = {
@@ -14,4 +14,5 @@ export const NETWORK = {
   RESPONSE_USER_INFO: 'response-user-info',
   JOIN: 'Join',
   MAP_STATUS: 'MapStatus',
+  LEAVE: 'Leave',
 }

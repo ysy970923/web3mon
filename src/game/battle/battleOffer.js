@@ -1,4 +1,5 @@
-import { ws, myID, checkOrReconnect } from '../../js/network'
+import { ws, myID } from '../../js/network'
+import { checkOrReconnect } from '../network/checkConnection'
 
 export function battleOffer(id, type) {
   if (!checkOrReconnect()) return

@@ -1,7 +1,8 @@
-import { checkOrReconnect, log, TypeToNum, ws, myID } from '../../js/network'
+import { log, TypeToNum, ws, myID } from '../../js/network'
 import { player } from '../../js/index'
 import { closeForm } from './chatForm'
 import { CHAT } from '../network/callType'
+import { checkOrReconnect } from '../network/checkConnection'
 
 document
   .getElementById('sendChatBtn')
@@ -10,7 +11,6 @@ document
 export function sendChat() {
   console.log('채팅을 보냄', msg)
   if (!checkOrReconnect()) return
-  console.log('채팅을 보냄22', msg)
 
   const chat = document.querySelector('#chat').value
   player.chat = chat
@@ -20,6 +20,8 @@ export function sendChat() {
       content: chat,
     },
   }
+
+  console.log('채팅을 보냄22', msg)
 
   ws.send(JSON.stringify(msg))
   // sendMsgToAll('BoardCastChat', msg)

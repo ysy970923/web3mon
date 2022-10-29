@@ -1,6 +1,6 @@
 import { JoyStick } from './joystick'
-import { checkOrReconnect, ws, myID, TypeToNum } from '../../js/network'
-import { MOVE } from '../network/callType'
+import { ws } from '../../js/network'
+import { checkOrReconnect } from '../network/checkConnection'
 
 export let lastKey = ''
 
@@ -93,34 +93,29 @@ export function joyToKey() {
 
 export function moveUser(position, direction) {
   if (!checkOrReconnect()) return
-
+  console.log(position.x)
   const body = {
     Move: {
       coordinate: [position.x, position.y],
     },
   }
-  // type: MOVE.OTHER_USER,
-  // myID: myID,
-  // x: position.x,
-  // y: position.y,
-  // direction: direction,
 
   const msg = JSON.stringify(body)
 
-  console.log('진짜 메세지를 보냄?', typeof position.x)
   ws.send(msg)
 }
 
 export function stopUser(position) {
+  console.log('스탑 유저')
   if (!checkOrReconnect()) return
 
   const body = {
-    type: MOVE.STOP,
-    myID: myID,
-    x: position.x,
-    y: position.y,
+    Move: {
+      coordinate: [1, 1],
+    },
   }
 
   const msg = JSON.stringify(body)
+
   ws.send(msg)
 }

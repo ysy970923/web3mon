@@ -390,7 +390,9 @@ setInterval(function () {
     (0,_interaction_move__WEBPACK_IMPORTED_MODULE_27__.moveUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_28__.global_position)(), _js_index__WEBPACK_IMPORTED_MODULE_28__.player.direction);
     previousAnimate = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.animate;
   } else if (previousAnimate === true) {
+    console.log('멈췄다는걸 의미');
     (0,_interaction_move__WEBPACK_IMPORTED_MODULE_27__.stopUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_28__.global_position)());
+    previousAnimate = false;
   }
 }, 50);
 
@@ -418,13 +420,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
 /* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _network_checkConnection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../network/checkConnection */ "./src/game/network/checkConnection.js");
+
 
 
 
 
 
 function battleOffer(id, type) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_5__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
   //   dataview.setInt8(0, TypeToNum['battle-offer'])
@@ -434,7 +438,7 @@ function battleOffer(id, type) {
   _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(buffer);
 }
 function battleAnswer(id, type) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_5__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
   //   dataview.setInt8(0, TypeToNum['battle-answer'])
@@ -444,7 +448,7 @@ function battleAnswer(id, type) {
   _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(buffer);
 }
 function battleDeny(id, reason) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_5__.checkOrReconnect)()) return;
   console.log('refuse battle');
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
@@ -644,6 +648,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
 /* harmony import */ var _chatForm__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./chatForm */ "./src/game/chat/chatForm.js");
 /* harmony import */ var _network_callType__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ../network/callType */ "./src/game/network/callType.js");
+/* harmony import */ var _network_checkConnection__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ../network/checkConnection */ "./src/game/network/checkConnection.js");
+
 
 
 
@@ -680,8 +686,7 @@ __webpack_require__.r(__webpack_exports__);
 document.getElementById('sendChatBtn').addEventListener('click', sendChat, false);
 function sendChat() {
   console.log('채팅을 보냄', msg);
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
-  console.log('채팅을 보냄22', msg);
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_33__.checkOrReconnect)()) return;
   var chat = document.querySelector('#chat').value;
   _js_index__WEBPACK_IMPORTED_MODULE_30__.player.chat = chat;
   var msg = {
@@ -689,12 +694,13 @@ function sendChat() {
       content: chat
     }
   };
+  console.log('채팅을 보냄22', msg);
   _js_network__WEBPACK_IMPORTED_MODULE_29__.ws.send(JSON.stringify(msg));
   // sendMsgToAll('BoardCastChat', msg)
   (0,_chatForm__WEBPACK_IMPORTED_MODULE_31__.closeForm)();
 }
 function sendMsgToAll(type, msg) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_33__.checkOrReconnect)()) return;
   // var typeNum = TypeToNum[type]
 
   // var buffer1 = new ArrayBuffer(3)
@@ -716,7 +722,7 @@ function sendMsgToAll(type, msg) {
 
 // if type >= 10: data should be dict
 function sendMsgToServer(type, msg) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_29__.checkOrReconnect)()) return;
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_33__.checkOrReconnect)()) return;
   var typeNum = _js_network__WEBPACK_IMPORTED_MODULE_29__.TypeToNum[type];
   var buffer1 = new ArrayBuffer(1);
   var dataview = new DataView(buffer1);
@@ -1351,31 +1357,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "moveUser": () => (/* binding */ moveUser),
 /* harmony export */   "stopUser": () => (/* binding */ stopUser)
 /* harmony export */ });
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _joystick__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./joystick */ "./src/game/interaction/joystick.js");
-/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
-/* harmony import */ var _network_callType__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../network/callType */ "./src/game/network/callType.js");
-
-
-
-
-
-
-
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+/* harmony import */ var _joystick__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./joystick */ "./src/game/interaction/joystick.js");
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _network_checkConnection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../network/checkConnection */ "./src/game/network/checkConnection.js");
 
 
 
@@ -1430,7 +1414,7 @@ window.addEventListener('keyup', function (e) {
       break;
   }
 });
-var joy = new _joystick__WEBPACK_IMPORTED_MODULE_7__.JoyStick('joyDiv');
+var joy = new _joystick__WEBPACK_IMPORTED_MODULE_0__.JoyStick('joyDiv');
 var joyStickMoving = false;
 function joyToKey() {
   var x = joy.GetX();
@@ -1462,32 +1446,26 @@ function joyToKey() {
   joyStickMoving = moving;
 }
 function moveUser(position, direction) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_8__.checkOrReconnect)()) return;
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_2__.checkOrReconnect)()) return;
+  console.log(position.x);
   var body = {
     Move: {
       coordinate: [position.x, position.y]
     }
   };
-  // type: MOVE.OTHER_USER,
-  // myID: myID,
-  // x: position.x,
-  // y: position.y,
-  // direction: direction,
-
   var msg = JSON.stringify(body);
-  console.log('진짜 메세지를 보냄?', _typeof(position.x));
-  _js_network__WEBPACK_IMPORTED_MODULE_8__.ws.send(msg);
+  _js_network__WEBPACK_IMPORTED_MODULE_1__.ws.send(msg);
 }
 function stopUser(position) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_8__.checkOrReconnect)()) return;
+  console.log('스탑 유저');
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_2__.checkOrReconnect)()) return;
   var body = {
-    type: _network_callType__WEBPACK_IMPORTED_MODULE_9__.MOVE.STOP,
-    myID: _js_network__WEBPACK_IMPORTED_MODULE_8__.myID,
-    x: position.x,
-    y: position.y
+    Move: {
+      coordinate: [1, 1]
+    }
   };
   var msg = JSON.stringify(body);
-  _js_network__WEBPACK_IMPORTED_MODULE_8__.ws.send(msg);
+  _js_network__WEBPACK_IMPORTED_MODULE_1__.ws.send(msg);
 }
 
 /***/ }),
@@ -1501,16 +1479,16 @@ function stopUser(position) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ACTION": () => (/* binding */ ACTION),
 /* harmony export */   "CHAT": () => (/* binding */ CHAT),
-/* harmony export */   "MOVE": () => (/* binding */ MOVE),
 /* harmony export */   "NETWORK": () => (/* binding */ NETWORK)
 /* harmony export */ });
 var CHAT = {
-  SEND: 'send-chat'
+  SEND: 'send-chat',
+  BOARD_CAST_CHAT: 'BoardCastChat'
 };
-var MOVE = {
-  OTHER_USER: 'move-user',
-  STOP: 'stop-user'
+var ACTION = {
+  MOVE: 'Move'
 };
 var NETWORK = {
   ID: 'id',
@@ -1518,8 +1496,43 @@ var NETWORK = {
   REQUEST_USER_INFO: 'request-user-info',
   RESPONSE_USER_INFO: 'response-user-info',
   JOIN: 'Join',
-  MAP_STATUS: 'MapStatus'
+  MAP_STATUS: 'MapStatus',
+  LEAVE: 'Leave'
 };
+
+/***/ }),
+
+/***/ "./src/game/network/checkConnection.js":
+/*!*********************************************!*\
+  !*** ./src/game/network/checkConnection.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "checkOrReconnect": () => (/* binding */ checkOrReconnect)
+/* harmony export */ });
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+
+function checkOrReconnect() {
+  console.log('연결 확인', _js_network__WEBPACK_IMPORTED_MODULE_0__.ws);
+  console.log('연결 확인2', _js_network__WEBPACK_IMPORTED_MODULE_0__.ws.readyState);
+  console.log('연결 확인3', WebSocket.CONNECTING);
+  console.log('연결 확인3', WebSocket.OPEN);
+  if (!_js_network__WEBPACK_IMPORTED_MODULE_0__.ws) {
+    // 연결이 끊겨 있으면 연결하기
+    (0,_js_network__WEBPACK_IMPORTED_MODULE_0__.connect)();
+    return false;
+  }
+  if (_js_network__WEBPACK_IMPORTED_MODULE_0__.ws.readyState === WebSocket.CONNECTING) return false;
+  if (_js_network__WEBPACK_IMPORTED_MODULE_0__.ws.readyState === WebSocket.OPEN) {
+    console.log('트루를 반환');
+    return true;
+  }
+  // connect()
+  return false;
+}
 
 /***/ }),
 
@@ -1543,6 +1556,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _interaction_move__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../interaction/move */ "./src/game/interaction/move.js");
 /* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
 /* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../web/logIn */ "./src/web/logIn.js");
+/* harmony import */ var _checkConnection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./checkConnection */ "./src/game/network/checkConnection.js");
+
 
 
 
@@ -1550,15 +1565,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function requestUserInfo(id) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  console.log('일로 와서 실행');
+  if (!(0,_checkConnection__WEBPACK_IMPORTED_MODULE_6__.checkOrReconnect)()) return;
   var body = {
     id: id,
     myID: _js_network__WEBPACK_IMPORTED_MODULE_1__.myID
   };
-  _js_network__WEBPACK_IMPORTED_MODULE_1__.ws.send(JSON.stringify(body));
+  console.log('보내기까지는 한다', body);
+  // ws.send(JSON.stringify(body))
 }
+
 function responseUserInfo(id) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  if (!(0,_checkConnection__WEBPACK_IMPORTED_MODULE_6__.checkOrReconnect)()) return;
   var msg = {
     collection: window.contractAddress,
     url: _web_logIn__WEBPACK_IMPORTED_MODULE_5__.playerUrl,
@@ -1568,7 +1586,7 @@ function responseUserInfo(id) {
   (0,_interaction_move__WEBPACK_IMPORTED_MODULE_3__.stopUser)((0,_js_index__WEBPACK_IMPORTED_MODULE_4__.global_position)());
 }
 function sendMsgToPeer(type, id, msg) {
-  if (!(0,_js_network__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  if (!(0,_checkConnection__WEBPACK_IMPORTED_MODULE_6__.checkOrReconnect)()) return;
   // var typeNum = TypeToNum[type]
   // console.log(type)
   // console.log(typeNum)
@@ -2065,6 +2083,71 @@ var Sprite = /*#__PURE__*/function () {
   }]);
   return Sprite;
 }();
+
+/***/ }),
+
+/***/ "./src/game/object/makeOthers.js":
+/*!***************************************!*\
+  !*** ./src/game/object/makeOthers.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "makeOthers": () => (/* binding */ makeOthers)
+/* harmony export */ });
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _Sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sprite */ "./src/game/object/Sprite.js");
+/* harmony import */ var _js_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/utils */ "./src/js/utils.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+
+
+
+
+var userDummy = {
+  name: '김호진',
+  userImageUrl: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAH4AfgMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcBAgj/xAA/EAACAQMCAwQHBQcCBwEAAAABAgMABBEFEgYhMRNBUWEUInGBkaGxByMyQtEVUmJygsHCM3M0Q2N0kqLwJP/EABoBAAMBAQEBAAAAAAAAAAAAAAABAwQCBQb/xAAjEQADAAICAgEFAQAAAAAAAAAAAQIDERIxIUEyBBNRYXEi/9oADAMBAAIRAxEAPwDolKUpiFKUoAVGatxBpekNsvrpVlIyIlBZ8eYHT31Jk4BPgM1xa2H7TvZ768USSStvbfz5n9ByHsFct6GXa4+0Oz6WlnI/+7IFJ9gUOfjitOXjnUpcejWSID39mW+ZZfpUOqqgwihR4AYr2ueTA3peJ+IZACkkSeXqL/i1YbbifiCeFJhdbQ35W2EjxB+7rXrXtBte4jPLbISPYQD9SaXJgW/h3iO9nv47XUjCyy5VHQYYNjIB6DBwR0648at9cpMjw/fRD14iJF9qnI+YrqqMrqrocqwyD5Gu5ewPaUpXQhSlKAFKUoAUpXxNL2QX1Wd2O1EXqx64+AJ9gNAGQdefSuOW4FpdX8MpCCGdlJY4HqsV/tXTL7WlsjiRrNyMbo4523AeIJQBvp51zPVexm4p1CW2yVlk3qcZYbkVj7OZPSuKaaHo+pb6GIZ5tnoeSg+wtgGvj0ud/wAEIUdxIJz8do+Zr2NLeJmEalpvzBOo/mPd7zQxXBP+osPngH+3+VcAALqXpLtHigH6H6141uysWkugCQMncy9P6h4+FffoKtzlmmfyLcv/AL319JY2qfhhX3kmmBiWKFzt9MLeIEx6fGup8Oymbh7TJWfezWkRZs5ydgzXMXitYOZijU+UeT8qWfFI0l8WV2sI6mN5EEbe1S30wfOnL0B16lVTQONrXU3WK6iWJ2IUSxSrJGxPTocrnzyPOrXVBClKUAKUpQB7Wldbnt5rhZuyDv6LC4AJA/FKwz34XA/kPjW6vIj21pbz6Po8MmDGYsAf9VQwkz7x8zXFvUs7lbZqSafB2bN6EY4zklu2+859SQeR8SS2agdD0GyuONYoL+yE+nyWMjwF0ZUZwynBHLPJmwD59wFWy5Ha3UEDfg2tK3g20qAD72z/AE1lLJFfWMzEArcBVz3lgUx/7fKseOtV/TRa2iv8YcJafHNE2jJFp8vZs7ogCQhRgD1QORJPcCPxcs1R5Y7u1/4i3ZQPzJy/VfnmuqcXRx+kwm6RzazRGORk5lCGyp9nM59o7qrr6dFDteG7tJ4pP9PCRqz48NkZ3e6q3dTXXgmoTRTEdXwFZCx/KF3N8FNbsmmalHEjyQdirnCGbq3QclHd63eR07++yXFqqQ7o9Lnu5ScCDsmVPaxZF5eQ5/Wsd+usXMNul3EsCNPHHHGYInRSSMZ5k48Rijm2H20iDtNAhRxLd3D3kvXEqI0anyjIK/HJqW0/026kuJkt90cbEIBGOzXAwSq9M5LHHPG4jGDXyi6X+1E0o39s2qdPurcdmG7gVLE946YqyaMq2XD1mObsIFJ8Wdhk/FjU+Vz7KcZfoqqcEaIL8ag8EqXMqkRLEoijWQISp2p6pU45gfrV8jftI0cD8ShvjUY9vutIY95LRIbaAr+eUoUZ/Yilj/Ny6jFSoAUADoOlasW+Pkz5Nb8ClKVQ4FKUoAVhWASl7LekcjydvZyOpIWTq6e8ZOO/LeFZq+ZI0lQpIgdTjkwzSa2NPRhuHSIqL5TbSRnILnAz09VujDr+gPTRubsLc6dIwMnbX8EMXZ80X1wSdx5McKenQfEyirIv4Lu8A/7hz9Sa10soW1TT3ffI6zmTfK5bbtRjkZ6dwz51BYEnsr91taLLc20N1F2c8YdeuD3VUeJtLXTYLie0t5GiuFVXaDBkQjPUEjcp9vxq5gggEdDUTrkwlxYDBEg3T/7f7v8AURj2BvKuq1ryKe/ByThXStfnuzc6Zr+oJavzZ59OSNG8PVLc/cPeKu2qPczWVnb7+zu5LgR7wuQGUFt48ht3Y93jUrcQdsyOHdGTGCp7tysRjz2gezNYNSAWWxnPLs7lRn+dSn1YVld7ZdTpFY0fhVNC4ihisYYUtbxtkt9lnu8nngseSg7W5gczip233W8C20b3B7Jnt41YBd/ZsUITlnHLm5yB5nlUlNbpKCfwOQoEij1htOVPuPMVq6MXeGaa6iiS9aVhctGuAzg5JHMnac5AJ6MKtiaydk73PRs28Bjw8jBpAoQbRhY1HRUHcPme/uxnrylajOKUpQApSlAClKUAKwC5ji1aJZcEC3lOwnBf1c8vPCH51nqscXRz2ssGtQIZZLWWFUiXqVLOsvsyknXypMaL52sen6UJHftI4IhzTmXwO7xJ6D21DxB/XlnIM8rb5CDkA+A8gOQ9lQ41lWlvNKkmD9jc2U8bdPuZFU/J1P8A5CpvurJnbWkaMS9isF/bel2csG4qXXCsOqnqD7jilxdxwOI8NJMRkQxjLEePkPM4HnVZ4k4v0/RAy6perHN3WNmd8x8mbomfcfA1GZb6KOkkTltqvbAxdi73MY+9CjEYPed3QDy647utYLG8kfUi5NvJbzps7a2mEirIv5T0wSM/ADwzzi04gu+JUlurhRa6ZDIBDYwn1WJ3EtIernkOvLyq5cOWqTSjcPWBVHxkZ7LDe872T3A+Jq8rjaJ0+UltpXteVrMwpSlAClKUAKUpQArHKiy3VlC4yss+0jy2OT8hWWviEF9Y05AeaNJMw/hEbJ9XWkxog9d4M3Xd1fW0rK6ANEw6qvIhT+8oZc48/ZXtvrj3MZt2TsLwFhNu5iALgux8hkY8SR3VfqrevcOR3dzLdW9rDL28Ihuoi5jaRVORhh39xBxkAc+XOOSOXkrD0Rf7CuNc7C1t9Rm0yzuIjPL6Mo9JlU4ClpD+Enn3E+rjPcNPXfsl4Tg4Zv8AsLeVLxIGdbxpWdt4GckE45kcxWC9/Zum3fYXOp3Wk3PZq3ZTnYAgJx6y4BGc9GPfWAtbyqWGt6TeRHniW5fZ3/l3sDnJpLJMrSQ3Dr2We54U4X4f4Xlt7axtlEajZKecjy/lJbrkn61oad+zrbUZ4tNMfovbOsexsgb1RxjyOGHtXFRET6dE4IkmvJmBxFpVoyrnzkH1LAVM2VjJLiSe0SzQlG7IP2kzbTuXe/MDB7gT/NzpqnT8ITlSuyXpXteVciKUpQApSlACla17f21iB6Q53MMrGg3O3sA+vSoK713UZTixtY4F/em9dj7gQAfeahl+ox4fmykYrv4o2eLeJ7ThqyEkuJbuXlBbg83PifBR3mof7FtUbUdU12S+ftb+VYpTKeuzLDaPAA45edULjaxvE1T0+7d5fSusjY5MB+Hl05AYHka1+DNVuNO4ktGtbgW/ayCCQtnaysQMHGDjO3vFdTlm45z0DhzXFn6apUdp1zDLLJaybY72EAyQicvyPRhk5Knxx1BFSNCaa2hnO/ths7i1tdP4l09tl3p0ojdsnDRucYI7xuwMeDGsnBuvWvEemekw2yW9xG22eED8LdxB7wf1qwceWsNzwjq0c8jJG0By3UJzB3Y78YzjyriP2fz3UWuGK0uJIWmhbds6MVOeYOQfzfHup1kUS6foSl00jt+T315ULb6zNCQuqQoiDkbiLIVfNlPQeeT7hU3RiyxlnlD2K4qHqjylKVQ4FKUoAV8yyJDE8shwiKWYnuA5mvqtPV/Xtkg6CeQIT/CMsw96qR765uuMuvwdSttIqiWEl9PJdXS5lmO5s9V8F93QVP6TF/8ApSxvB67jMMp/5mOqn+Icvbn21KWdrGyK4HJhkcqyalpourF1Rgk0f3kL/uuOn9wfImvl5byW3Xs9amoWkeXvC9tqNpJa3kAkhkGGU/UEdD51y2/+zPZdSdjqLRIl36M5ki3FNwBRiQw5EHHtwO+uqaZr73mi2l6VYHcgYfvZwP8AIGsWrKLi5u4R6pvLM+t+5JGw2N8X+QrfhpYdqWY7dW/9IpSSto+r6nbz+kXPEtrbboLgdHCgkP5LtI3L9Sav3DeqtdwLa3iGK+hXbJGxycrjPPv5FWz/ABVTtct11vXtGu+2ntTqFqqOYH2nJ5c/EYcDHQ4qM0r0q9/a+uyXkqapaQJOJEOFJAwV296lVT356Vpx5VHldCcbX7Ok8Uq03Deo+jsRIkLSKVXd6yetjHfzXFc2+zrhxm4x1G6uHkASFnhEsYRpQ7YL7e4cj586nNQ4wuNNsbi11KzUzXkDSQm3mJVd2FOcqCObA8s99a3DyS6TxPpN0MFNUtJDntZHfaSXUNuJ5jIGQfdyrvNc1Ph+GhTNSTXGFgVt4rNB60+5j5quM/NlrzhuV5NHgSYkyQZhYnmTtOBn+nB99S2syCW70liPxTtCfYyMfqgrTggFtfXkSY2sUk5eJBH+FZ/otRm1PTQ81c8e32jZpSleuZBSlKAP/9k='
+};
+var makeOthers = function makeOthers(id, coordinate) {
+  var x = coordinate[0];
+  var y = coordinate[1];
+  if (x + y === 0) {
+    x = window.innerWidth / 2 - 192 / 4 / 2;
+    y = window.innerHeight / 2 - 102 / 2;
+  }
+  if (_js_network__WEBPACK_IMPORTED_MODULE_0__.others[id] === undefined) {
+    _js_network__WEBPACK_IMPORTED_MODULE_0__.others[id] = {
+      draw: false,
+      collection: 'msg.collection',
+      sprite: new _Sprite__WEBPACK_IMPORTED_MODULE_1__.Sprite({
+        position: {
+          x: x,
+          y: y
+        },
+        image: _js_index__WEBPACK_IMPORTED_MODULE_3__.playerDownImage,
+        frames: {
+          max: 4,
+          hold: 10
+        },
+        sprites: {
+          up: new Image(),
+          left: new Image(),
+          right: new Image(),
+          down: new Image()
+        },
+        name: userDummy.name
+      })
+    };
+    _js_network__WEBPACK_IMPORTED_MODULE_0__.others[id].baseImage = new Image();
+    _js_utils__WEBPACK_IMPORTED_MODULE_2__.worker.postMessage({
+      url: userDummy.userImageUrl,
+      contractAddress: 'test.collection',
+      id: id
+    });
+  }
+  return;
+};
 
 /***/ }),
 
@@ -2680,7 +2763,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "TypeToNum": () => (/* binding */ TypeToNum),
 /* harmony export */   "attack": () => (/* binding */ attack),
 /* harmony export */   "battle_start": () => (/* binding */ battle_start),
-/* harmony export */   "checkOrReconnect": () => (/* binding */ checkOrReconnect),
 /* harmony export */   "connect": () => (/* binding */ connect),
 /* harmony export */   "leaveBattle": () => (/* binding */ leaveBattle),
 /* harmony export */   "log": () => (/* binding */ log),
@@ -2693,126 +2775,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "skillTypes": () => (/* binding */ skillTypes),
 /* harmony export */   "ws": () => (/* binding */ ws)
 /* harmony export */ });
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.reduce.js */ "./node_modules/core-js/modules/es.array.reduce.js");
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.keys.js */ "./node_modules/core-js/modules/es.object.keys.js");
-/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.object.assign.js */ "./node_modules/core-js/modules/es.object.assign.js");
-/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
-/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array-buffer.constructor.js */ "./node_modules/core-js/modules/es.array-buffer.constructor.js");
-/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.array-buffer.slice.js */ "./node_modules/core-js/modules/es.array-buffer.slice.js");
-/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
-/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.typed-array.uint8-array.js */ "./node_modules/core-js/modules/es.typed-array.uint8-array.js");
-/* harmony import */ var core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_uint8_array_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.typed-array.copy-within.js */ "./node_modules/core-js/modules/es.typed-array.copy-within.js");
-/* harmony import */ var core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_copy_within_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.typed-array.every.js */ "./node_modules/core-js/modules/es.typed-array.every.js");
-/* harmony import */ var core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_every_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.typed-array.fill.js */ "./node_modules/core-js/modules/es.typed-array.fill.js");
-/* harmony import */ var core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_fill_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.typed-array.filter.js */ "./node_modules/core-js/modules/es.typed-array.filter.js");
-/* harmony import */ var core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_filter_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.typed-array.find.js */ "./node_modules/core-js/modules/es.typed-array.find.js");
-/* harmony import */ var core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.typed-array.find-index.js */ "./node_modules/core-js/modules/es.typed-array.find-index.js");
-/* harmony import */ var core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_find_index_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.typed-array.for-each.js */ "./node_modules/core-js/modules/es.typed-array.for-each.js");
-/* harmony import */ var core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_for_each_js__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.typed-array.includes.js */ "./node_modules/core-js/modules/es.typed-array.includes.js");
-/* harmony import */ var core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_includes_js__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.typed-array.index-of.js */ "./node_modules/core-js/modules/es.typed-array.index-of.js");
-/* harmony import */ var core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_index_of_js__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.typed-array.iterator.js */ "./node_modules/core-js/modules/es.typed-array.iterator.js");
-/* harmony import */ var core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_iterator_js__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.typed-array.join.js */ "./node_modules/core-js/modules/es.typed-array.join.js");
-/* harmony import */ var core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_join_js__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.typed-array.last-index-of.js */ "./node_modules/core-js/modules/es.typed-array.last-index-of.js");
-/* harmony import */ var core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_last_index_of_js__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.typed-array.map.js */ "./node_modules/core-js/modules/es.typed-array.map.js");
-/* harmony import */ var core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_map_js__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce.js */ "./node_modules/core-js/modules/es.typed-array.reduce.js");
-/* harmony import */ var core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_js__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.typed-array.reduce-right.js */ "./node_modules/core-js/modules/es.typed-array.reduce-right.js");
-/* harmony import */ var core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reduce_right_js__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.typed-array.reverse.js */ "./node_modules/core-js/modules/es.typed-array.reverse.js");
-/* harmony import */ var core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_reverse_js__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! core-js/modules/es.typed-array.set.js */ "./node_modules/core-js/modules/es.typed-array.set.js");
-/* harmony import */ var core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_set_js__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! core-js/modules/es.typed-array.slice.js */ "./node_modules/core-js/modules/es.typed-array.slice.js");
-/* harmony import */ var core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_slice_js__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! core-js/modules/es.typed-array.some.js */ "./node_modules/core-js/modules/es.typed-array.some.js");
-/* harmony import */ var core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_some_js__WEBPACK_IMPORTED_MODULE_29__);
-/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! core-js/modules/es.typed-array.sort.js */ "./node_modules/core-js/modules/es.typed-array.sort.js");
-/* harmony import */ var core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_sort_js__WEBPACK_IMPORTED_MODULE_30__);
-/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! core-js/modules/es.typed-array.subarray.js */ "./node_modules/core-js/modules/es.typed-array.subarray.js");
-/* harmony import */ var core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_subarray_js__WEBPACK_IMPORTED_MODULE_31__);
-/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-locale-string.js */ "./node_modules/core-js/modules/es.typed-array.to-locale-string.js");
-/* harmony import */ var core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_locale_string_js__WEBPACK_IMPORTED_MODULE_32__);
-/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! core-js/modules/es.typed-array.to-string.js */ "./node_modules/core-js/modules/es.typed-array.to-string.js");
-/* harmony import */ var core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_typed_array_to_string_js__WEBPACK_IMPORTED_MODULE_33__);
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_34__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_35__);
-/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! core-js/modules/es.array.includes.js */ "./node_modules/core-js/modules/es.array.includes.js");
-/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_36__);
-/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! core-js/modules/es.string.includes.js */ "./node_modules/core-js/modules/es.string.includes.js");
-/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_37__);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_38___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_38__);
-/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! core-js/modules/es.date.to-string.js */ "./node_modules/core-js/modules/es.date.to-string.js");
-/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_39___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_39__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_40___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_40__);
-/* harmony import */ var _battleScene__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./battleScene */ "./src/js/battleScene.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
-/* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
-/* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ../web/logIn */ "./src/web/logIn.js");
-/* harmony import */ var _game_network_callType__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ../game/network/callType */ "./src/game/network/callType.js");
-/* harmony import */ var _game_data_npc__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ../game/data/npc */ "./src/game/data/npc.js");
-/* harmony import */ var _game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ../game/network/userConnection */ "./src/game/network/userConnection.js");
-/* harmony import */ var _game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ../game/battle/battleOffer */ "./src/game/battle/battleOffer.js");
-function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.object.keys.js */ "./node_modules/core-js/modules/es.object.keys.js");
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.includes.js */ "./node_modules/core-js/modules/es.array.includes.js");
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.string.includes.js */ "./node_modules/core-js/modules/es.string.includes.js");
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.array.reduce.js */ "./node_modules/core-js/modules/es.array.reduce.js");
+/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.object.assign.js */ "./node_modules/core-js/modules/es.object.assign.js");
+/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.array-buffer.constructor.js */ "./node_modules/core-js/modules/es.array-buffer.constructor.js");
+/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.array-buffer.slice.js */ "./node_modules/core-js/modules/es.array-buffer.slice.js");
+/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
+/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.date.to-string.js */ "./node_modules/core-js/modules/es.date.to-string.js");
+/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _battleScene__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./battleScene */ "./src/js/battleScene.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
+/* harmony import */ var _game_network_callType__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../game/network/callType */ "./src/game/network/callType.js");
+/* harmony import */ var _game_data_npc__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../game/data/npc */ "./src/game/data/npc.js");
+/* harmony import */ var _game_network_userConnection__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../game/network/userConnection */ "./src/game/network/userConnection.js");
+/* harmony import */ var _game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../game/battle/battleOffer */ "./src/game/battle/battleOffer.js");
+/* harmony import */ var _game_object_makeOthers__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../game/object/makeOthers */ "./src/game/object/makeOthers.js");
+/* harmony import */ var _game_network_checkConnection__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../game/network/checkConnection */ "./src/game/network/checkConnection.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2847,28 +2848,129 @@ var webcamStream = null;
 var targetID = null;
 var others = {};
 var battle_start = false;
+var myTurn = false;
 
 //0 ~ 9: binary; 10 ~: JSON string
 var NumToType = {
   0: 'id',
   1: 'update-user-list'
 };
-function checkOrReconnect() {
-  console.log('연결 확인', ws);
-  console.log('연결 확인2', ws.readyState);
-  console.log('연결 확인3', ws.binaryType);
-  console.log('연결 확인4', ws.url);
-  if (!ws) {
-    // 연결이 끊겨 있으면 연결하기
-    connect();
-    return false;
+function onmessage(type, data) {
+  console.log('Type', type, '데이터', data);
+  var msg = data;
+  var id = data.id;
+  switch (type) {
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.NETWORK.JOIN:
+      // 유저가 들어왔다.
+      if (myTurn) {
+        (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_21__.makeOthers)(data.id, [window.innerWidth / 2 - 192 / 4 / 2, window.innerHeight / 2 - 102 / 2]);
+      } else {
+        myID = data.id;
+        myTurn = true;
+      }
+      log('My ID: ' + myID);
+      break;
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.NETWORK.LEAVE:
+      delete others[data.id];
+      break;
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.NETWORK.MAP_STATUS:
+      Object.keys(others).forEach(function (id) {
+        if (!_game_data_npc__WEBPACK_IMPORTED_MODULE_18__.npc_list.includes(id)) {
+          if (!(id in data['avatar_status'])) delete others[id];
+        }
+      });
+      data['avatar_status'].forEach(function (avatar) {
+        if (!(avatar.client_key in others || avatar.client_key === myID)) {
+          // 원래는 유저 정보를 요청해서 받아온 다음 생성이었는데, 이제 애초에 정보가 같이 내려오기 때문에 바로 생성
+          (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_21__.makeOthers)(avatar.client_key, avatar.coordinate);
+        }
+      });
+      break;
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.ACTION.MOVE:
+      if (data.mover_id === myID) {
+        return;
+      } else {
+        var _id = data.mover_id;
+        if (data.coordinate[0] === 1 && data.coordinate[1] === 1) {
+          others[_id].sprite.animate = false;
+        } else {
+          // 디렉션 계산해서 이미지 부여하기
+          var newPosition = (0,_js_index__WEBPACK_IMPORTED_MODULE_16__.local_position)({
+            x: data.coordinate[0],
+            y: data.coordinate[1]
+          });
+          var isLeft = others[_id].sprite.position.x - newPosition.x < 0;
+          var isBottom = others[_id].sprite.position.y - newPosition.y < 0;
+          var isRight = others[_id].sprite.position.x - newPosition.x > 0;
+          var isUp = others[_id].sprite.position.y - newPosition.y > 0;
+          if (isUp) others[_id].sprite.image = others[_id].sprite.sprites.up;else if (isBottom) others[_id].sprite.image = others[_id].sprite.sprites.down;else if (isLeft) others[_id].sprite.image = others[_id].sprite.sprites.right;else if (isRight) others[_id].sprite.image = others[_id].sprite.sprites.left;
+
+          // 포지션 이동
+          others[_id].sprite.position = newPosition;
+          others[_id].sprite.animate = true;
+        }
+      }
+      break;
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.CHAT.BOARD_CAST_CHAT:
+      others[data.sender_id].sprite.chat = data.content;
+      break;
+    case 'battle-offer':
+      if (!_js_index__WEBPACK_IMPORTED_MODULE_16__.battle.initiated) {
+        document.getElementById('acceptBattleBtn').style.display = 'inline-block';
+        document.getElementById('refuseBattleBtn').style.display = 'inline-block';
+        document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
+        document.getElementById('refuseBattleBtn').replaceWith(document.getElementById('refuseBattleBtn').cloneNode(true));
+        document.getElementById('acceptBattleCard').style.display = 'block';
+        document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[dataview.getInt16(1)].sprite.name;
+        document.getElementById('acceptBattleBtn').addEventListener('click', function (e) {
+          _battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id = dataview.getInt16(1);
+          others[_battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id].skillType = dataview.getInt16(5);
+          document.getElementById('acceptBattleCard').style.display = 'none';
+          document.getElementById('selectTypeCard').style.display = 'block';
+          document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
+            document.getElementById('selectTypeCard').style.display = 'none';
+            battle_start = true;
+            _battleScene__WEBPACK_IMPORTED_MODULE_15__.my_turn = true;
+            _battleScene__WEBPACK_IMPORTED_MODULE_15__.mySkillType = document.getElementById('selectType').value;
+            (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_20__.battleAnswer)(_battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id, _battleScene__WEBPACK_IMPORTED_MODULE_15__.mySkillType);
+            battle_start = true;
+          });
+        });
+        document.getElementById('refuseBattleBtn').addEventListener('click', function (e) {
+          (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_20__.battleDeny)(dataview.getInt16(1), 1);
+          document.getElementById('acceptBattleCard').style.display = 'none';
+        });
+      } else {
+        (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_20__.battleDeny)(dataview.getInt16(1), 0);
+      }
+      break;
+    case 'battle-deny':
+      document.getElementById('acceptBattleCard').style.display = 'none';
+      if (!_js_index__WEBPACK_IMPORTED_MODULE_16__.battle.initiated) {
+        var reason = dataview.getInt16(5);
+        if (reason === 0) window.alert('Opponent is already on Battle');else if (reason === 1) window.alert('Opponent Refused to Battle');
+      }
+      break;
+    case 'battle-answer':
+      _battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id = dataview.getInt16(1);
+      others[_battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id].skillType = dataview.getInt16(5);
+      battle_start = true;
+      _battleScene__WEBPACK_IMPORTED_MODULE_15__.my_turn = true;
+      break;
+    case 'attack':
+      var attack = dataview.getInt16(5);
+      (0,_battleScene__WEBPACK_IMPORTED_MODULE_15__.attacked)(attack);
+      break;
+    case 'leave-battle':
+      if (_js_index__WEBPACK_IMPORTED_MODULE_16__.battle.initiated && id === _battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id) {
+        window.alert('opponent left the battle');
+        (0,_battleScene__WEBPACK_IMPORTED_MODULE_15__.endBattle)();
+      }
+      break;
+    default:
+      log_error('Unknown message received:');
+      log_error(type);
   }
-  if (ws.readyState === WebSocket.CONNECTING) return false;
-  if (ws.readyState === WebSocket.OPEN) {
-    return true;
-  }
-  connect();
-  return false;
 }
 var reverseMapping = function reverseMapping(o) {
   return Object.keys(o).reduce(function (r, k) {
@@ -2877,7 +2979,7 @@ var reverseMapping = function reverseMapping(o) {
 };
 var TypeToNum = reverseMapping(NumToType);
 function audoBattleOffer(id) {
-  if (!checkOrReconnect()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_22__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(5);
   var dataview = new DataView(buffer);
   dataview.setInt8(0, TypeToNum['auto-battle-offer']);
@@ -2886,7 +2988,7 @@ function audoBattleOffer(id) {
   ws.send(buffer);
 }
 function autoBattleAnswer(id) {
-  if (!checkOrReconnect()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_22__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(5);
   var dataview = new DataView(buffer);
   dataview.setInt8(0, TypeToNum['auto-battle-answer']);
@@ -2895,7 +2997,7 @@ function autoBattleAnswer(id) {
   ws.send(buffer);
 }
 function autoBattleSelectType(id, type) {
-  if (!checkOrReconnect()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_22__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
   dataview.setInt8(0, TypeToNum['auto-battle-select-type']);
@@ -2905,7 +3007,7 @@ function autoBattleSelectType(id, type) {
   ws.send(buffer);
 }
 function attack(id, attack) {
-  if (!checkOrReconnect()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_22__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
   dataview.setInt8(0, TypeToNum['attack']);
@@ -2915,200 +3017,13 @@ function attack(id, attack) {
   ws.send(buffer);
 }
 function leaveBattle(id) {
-  if (!checkOrReconnect()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_22__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(5);
   var dataview = new DataView(buffer);
   dataview.setInt8(0, TypeToNum['leave-battle']);
   dataview.setInt16(1, myID);
   dataview.setInt16(3, id);
   ws.send(buffer);
-}
-function receiveMsgFromAll(data) {
-  var buf = new Uint8Array(data).slice(3);
-  var decoder = new TextDecoder();
-  var msg = JSON.parse(decoder.decode(buf));
-  return msg;
-}
-function receiveMsgFromPeer(data) {
-  var buf = new Uint8Array(data).slice(5);
-  var decoder = new TextDecoder();
-  var msg = JSON.parse(decoder.decode(buf));
-  return msg;
-}
-function onmessage(type, data) {
-  console.log('Type', type, '데이터', data);
-  var msg = data;
-  var id = data.id;
-  switch (type) {
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_46__.NETWORK.JOIN:
-      // my id is given
-      myID = data.id;
-      log('My ID: ' + myID);
-      break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_46__.NETWORK.MAP_STATUS:
-      console.log(data['avatar_status'].length, '명 있구만!');
-      Object.keys(others).forEach(function (id) {
-        if (!_game_data_npc__WEBPACK_IMPORTED_MODULE_47__.npc_list.includes(id)) {
-          if (!(id in data['avatar_status'])) delete others[id];
-        }
-      });
-      data['avatar_status'].forEach(function (id) {
-        if (!(id in others || id === myID)) {
-          // 유저를 생성하기 위해서 더 자세한 정보를 요청.
-          (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.requestUserInfo)(id);
-        }
-      });
-      break;
-    case 'update-user-list':
-      // user list change
-      Object.keys(others).forEach(function (id) {
-        if (id !== '250') {
-          if (!(id in msg['user-list'])) delete others[id];
-        }
-      });
-      msg['user-list'].forEach(function (id) {
-        if (!(id in others || id == myID)) {
-          (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.requestUserInfo)(id);
-        }
-      });
-      break;
-    case 'move-user':
-      // other user move
-      if (others[id] === undefined) {
-        (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.requestUserInfo)(id);
-        break;
-      }
-      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_42__.local_position)({
-        x: data.coordinate[0],
-        y: data.coordinate[1]
-      });
-      others[id].sprite.animate = true;
-      switch (dataview.getInt16(7)) {
-        case 0:
-          others[id].sprite.image = others[id].sprite.sprites.up;
-          break;
-        case 1:
-          others[id].sprite.image = others[id].sprite.sprites.left;
-          break;
-        case 2:
-          others[id].sprite.image = others[id].sprite.sprites.down;
-          break;
-        case 3:
-          others[id].sprite.image = others[id].sprite.sprites.right;
-          break;
-      }
-      break;
-    case 'stop-user':
-      if (others[id] === undefined) {
-        (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.requestUserInfo)(id);
-        break;
-      }
-      others[id].sprite.position = (0,_js_index__WEBPACK_IMPORTED_MODULE_42__.local_position)({
-        x: dataview.getInt16(3),
-        y: dataview.getInt16(5)
-      });
-      others[id].sprite.animate = false;
-      break;
-    case 'send-chat':
-      receiveMsgFromAll(data), _readOnlyError("msg");
-      others[id].sprite.chat = msg.chat;
-      break;
-    case 'battle-offer':
-      if (!_js_index__WEBPACK_IMPORTED_MODULE_42__.battle.initiated) {
-        document.getElementById('acceptBattleBtn').style.display = 'inline-block';
-        document.getElementById('refuseBattleBtn').style.display = 'inline-block';
-        document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
-        document.getElementById('refuseBattleBtn').replaceWith(document.getElementById('refuseBattleBtn').cloneNode(true));
-        document.getElementById('acceptBattleCard').style.display = 'block';
-        document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[dataview.getInt16(1)].sprite.name;
-        document.getElementById('acceptBattleBtn').addEventListener('click', function (e) {
-          _battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id = dataview.getInt16(1);
-          others[_battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id].skillType = dataview.getInt16(5);
-          document.getElementById('acceptBattleCard').style.display = 'none';
-          document.getElementById('selectTypeCard').style.display = 'block';
-          document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
-            document.getElementById('selectTypeCard').style.display = 'none';
-            battle_start = true;
-            _battleScene__WEBPACK_IMPORTED_MODULE_41__.my_turn = true;
-            _battleScene__WEBPACK_IMPORTED_MODULE_41__.mySkillType = document.getElementById('selectType').value;
-            (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_49__.battleAnswer)(_battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id, _battleScene__WEBPACK_IMPORTED_MODULE_41__.mySkillType);
-            battle_start = true;
-          });
-        });
-        document.getElementById('refuseBattleBtn').addEventListener('click', function (e) {
-          (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_49__.battleDeny)(dataview.getInt16(1), 1);
-          document.getElementById('acceptBattleCard').style.display = 'none';
-        });
-      } else {
-        (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_49__.battleDeny)(dataview.getInt16(1), 0);
-      }
-      break;
-    case 'battle-deny':
-      document.getElementById('acceptBattleCard').style.display = 'none';
-      if (!_js_index__WEBPACK_IMPORTED_MODULE_42__.battle.initiated) {
-        var reason = dataview.getInt16(5);
-        if (reason === 0) window.alert('Opponent is already on Battle');else if (reason === 1) window.alert('Opponent Refused to Battle');
-      }
-      break;
-    case 'battle-answer':
-      _battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id = dataview.getInt16(1);
-      others[_battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id].skillType = dataview.getInt16(5);
-      battle_start = true;
-      _battleScene__WEBPACK_IMPORTED_MODULE_41__.my_turn = true;
-      break;
-    case 'attack':
-      var attack = dataview.getInt16(5);
-      (0,_battleScene__WEBPACK_IMPORTED_MODULE_41__.attacked)(attack);
-      break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_46__.NETWORK.REQUEST_USER_INFO:
-      // 내 정보를 알려달라고 요청이 왔다.
-      (0,_game_network_userConnection__WEBPACK_IMPORTED_MODULE_48__.responseUserInfo)(data.id);
-      break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_46__.NETWORK.RESPONSE_USER_INFO:
-      // 유저를 생성하기 위해서 정보를 요청했고, 받았다.
-      //
-      // msg = receiveMsgFromPeer(data)
-      if (others[data.id] === undefined) {
-        others[data.id] = {
-          draw: false,
-          collection: msg.collection,
-          sprite: new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_44__.Sprite({
-            position: {
-              x: 0,
-              y: 0
-            },
-            image: _js_index__WEBPACK_IMPORTED_MODULE_42__.playerDownImage,
-            frames: {
-              max: 4,
-              hold: 10
-            },
-            sprites: {
-              up: new Image(),
-              left: new Image(),
-              right: new Image(),
-              down: new Image()
-            },
-            name: msg.username
-          })
-        };
-        others[data.id].baseImage = new Image();
-        _utils__WEBPACK_IMPORTED_MODULE_43__.worker.postMessage({
-          url: msg.url,
-          contractAddress: msg.collection,
-          id: data.id
-        });
-      }
-      break;
-    case 'leave-battle':
-      if (_js_index__WEBPACK_IMPORTED_MODULE_42__.battle.initiated && id === _battleScene__WEBPACK_IMPORTED_MODULE_41__.opponent_id) {
-        window.alert('opponent left the battle');
-        (0,_battleScene__WEBPACK_IMPORTED_MODULE_41__.endBattle)();
-      }
-      break;
-    default:
-      log_error('Unknown message received:');
-      log_error(type);
-  }
 }
 function onopen() {
   log('Server Connected');
@@ -3151,10 +3066,9 @@ function connect() {
   }
   serverUrl = 'ws://ec2-44-201-5-87.compute-1.amazonaws.com:8080/ws';
   ws = new WebSocket(serverUrl);
-  // ws = new WebSocket('ws://ec2-15-164-162-167.ap-northeast-2.compute.amazonaws.com');
   ws.binaryType = 'arraybuffer';
   ws.onopen = function (e) {
-    onopen();
+    return onopen();
   };
   ws.onerror = function (_ref) {
     var data = _ref.data;
@@ -3166,8 +3080,7 @@ function connect() {
     var type = Object.keys(msg)[0];
     onmessage(type, msg[type]);
   };
-  ws.onclose = function () {
-    console.log('닫습니까??');
+  ws.onclose = function (e) {
     ws = null;
   };
   return ws;

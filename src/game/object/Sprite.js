@@ -89,7 +89,6 @@ export class Sprite {
         this.chat = ''
       }
     }
-
     canva.drawImage(
       this.image,
       crop.position.x,
