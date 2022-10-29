@@ -5,6 +5,7 @@ export const CHAT = {
 
 export const ACTION = {
   MOVE: 'Move',
+  MAP_TRANSFER: 'MapTransfer',
 }
 
 export const NETWORK = {

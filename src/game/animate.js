@@ -229,7 +229,6 @@ setInterval(() => {
     moveUser(global_position(), player.direction)
     previousAnimate = player.animate
   } else if (previousAnimate === true) {
-    console.log('멈췄다는걸 의미')
     stopUser(global_position())
     previousAnimate = false
   }

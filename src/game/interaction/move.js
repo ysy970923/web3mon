@@ -1,6 +1,7 @@
 import { JoyStick } from './joystick'
 import { ws } from '../../js/network'
 import { checkOrReconnect } from '../network/checkConnection'
+import { player } from '../../js/index'
 
 export let lastKey = ''
 
@@ -93,16 +94,38 @@ export function joyToKey() {
 
 export function moveUser(position, direction) {
   if (!checkOrReconnect()) return
-  console.log(position.x)
-  const body = {
-    Move: {
-      coordinate: [position.x, position.y],
-    },
+
+  if (
+    player.map === 'MAIN' &&
+    position.x > 2350 &&
+    position.x < 2400 &&
+    position.y > 675 &&
+    position.y < 750
+  ) {
+    console.log('맵 이동 합니다!!')
+
+    const body = {
+      MapTransfer: {
+        from: 'MAIN',
+        to: 'TEST',
+      },
+    }
+    player.map = 'TEST'
+
+    const msg = JSON.stringify(body)
+
+    ws.send(msg)
+  } else {
+    const body = {
+      Move: {
+        coordinate: [position.x, position.y],
+      },
+    }
+
+    const msg = JSON.stringify(body)
+
+    ws.send(msg)
   }
-
-  const msg = JSON.stringify(body)
-
-  ws.send(msg)
 }
 
 export function stopUser(position) {

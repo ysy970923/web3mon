@@ -14,7 +14,9 @@ export class Sprite {
     scale = 1,
     name = '',
     baseImage = '',
+    map = 'MAIN',
   }) {
+    this.map = map
     this.relative_position = { x: 0, y: 0 }
     this.position = position
     this.image = new Image()

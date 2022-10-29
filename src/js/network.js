@@ -8,7 +8,6 @@ import {
 import { battle, local_position } from '../js/index'
 import { ACTION, CHAT, NETWORK } from '../game/network/callType'
 import { npc_list } from '../game/data/npc'
-import { requestUserInfo } from '../game/network/userConnection'
 import { battleAnswer, battleDeny } from '../game/battle/battleOffer'
 import { makeOthers } from '../game/object/makeOthers'
 import { checkOrReconnect } from '../game/network/checkConnection'
@@ -33,9 +32,8 @@ var NumToType = {
 }
 
 function onmessage(type, data) {
-  console.log('Type', type, '데이터', data)
+  console.log('타입 읽기', type, data)
 
-  const msg = data
   let id = data.id
 
   switch (type) {
@@ -110,6 +108,10 @@ function onmessage(type, data) {
 
     case CHAT.BOARD_CAST_CHAT:
       others[data.sender_id].sprite.chat = data.content
+      break
+
+    case ACTION.MAP_TRANSFER:
+      console.log('유저의 맵이동', type, data)
       break
 
     case 'battle-offer':
@@ -304,9 +306,14 @@ export function connect() {
 
   ws = new WebSocket(serverUrl)
 
+  console.log('웹소켓', ws)
+
   ws.binaryType = 'arraybuffer'
 
-  ws.onopen = (e) => onopen()
+  ws.onopen = (e) => {
+    console.log('오픈 되었다', e)
+    onopen()
+  }
 
   ws.onerror = ({ data }) => onerror(data)
   ws.onmessage = ({ data }) => {
@@ -315,6 +322,7 @@ export function connect() {
     onmessage(type, msg[type])
   }
   ws.onclose = function (e) {
+    console.log('닫혔다', e)
     ws = null
   }
   return ws
