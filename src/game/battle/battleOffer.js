@@ -35,3 +35,8 @@ export function battleDeny(id, reason) {
   dataview.setInt16(5, reason)
   ws.send(buffer)
 }
+
+export function battleAccept() {
+  document.getElementById('acceptBattleCard').style.display = 'none'
+  document.getElementById('selectTypeCard').style.display = 'block'
+}

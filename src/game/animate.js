@@ -17,7 +17,7 @@ import {
   rectangularCollision,
 } from './utils/checkCollision'
 import { keys, lastKey } from './interaction/move'
-import { battle_start } from '../js/network'
+import { battle_start, setBattleStart } from './battle/utils'
 import { moveUser, stopUser } from '../game/interaction/move'
 
 const npcTalk = (animationId) => {
@@ -47,7 +47,7 @@ export const animate = async () => {
   if (battle.initiated) return
 
   if (battle_start) {
-    battle_start = false
+    setBattleStart(false)
     document.getElementById('acceptBattleCard').style.display = 'none'
     enterBattle(animationId)
   }

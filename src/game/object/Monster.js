@@ -1,6 +1,6 @@
 import { Sprite } from './Sprite'
 import { gsap } from 'gsap'
-import { my_turn } from '../../js/battleScene'
+import { my_turn } from '../battle/utils'
 
 export class Monster extends Sprite {
   constructor({

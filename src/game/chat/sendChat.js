@@ -1,4 +1,4 @@
-import { log, TypeToNum, ws, myID } from '../../js/network'
+import { log, ws, myID } from '../../js/network'
 import { player } from '../../js/index'
 import { closeForm } from './chatForm'
 import { CHAT } from '../network/callType'
@@ -30,7 +30,6 @@ export function sendChat() {
 
 export function sendMsgToAll(type, msg) {
   if (!checkOrReconnect()) return
-  // var typeNum = TypeToNum[type]
 
   // var buffer1 = new ArrayBuffer(3)
   // var dataview = new DataView(buffer1)
@@ -52,11 +51,9 @@ export function sendMsgToAll(type, msg) {
 // if type >= 10: data should be dict
 export function sendMsgToServer(type, msg) {
   if (!checkOrReconnect()) return
-  var typeNum = TypeToNum[type]
 
   var buffer1 = new ArrayBuffer(1)
   var dataview = new DataView(buffer1)
-  dataview.setInt8(0, typeNum)
 
   var msgJSON = JSON.stringify(msg)
   log('Send to server: ' + msgJSON)

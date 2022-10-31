@@ -1,7 +1,6 @@
-import { battleAnswer, battleDeny, battleOffer } from './battleOffer'
 import { others } from '../../js/network'
 import { canvas, battle, battleZones, checkCollision } from '../../js/index'
-import { mySkillType, my_turn, opponent_id } from '../../js/battleScene'
+import { acceptBattleBtn } from './acceptBattleBtn'
 
 // click opponent to offer battle
 canvas.addEventListener('click', (e) => {
@@ -37,43 +36,11 @@ canvas.addEventListener('click', (e) => {
           document.getElementById('acceptBattleCard').style.display = 'block'
           document.getElementById('battleOpponentName2').innerText =
             'Opponent: ' + others[key].sprite.name
-          document
-            .getElementById('acceptBattleBtn')
-            .addEventListener('click', (e) => {
-              console.log('배틀 예스')
-              document.getElementById('refuseBattleBtn').style.display = 'none'
-              document.getElementById('selectTypeCard').style.display = 'block'
-              if (key == 250) {
-                // NPC면
-                console.log('NPC 예스', opponent_id)
-                opponent_id = key
-                console.log('여기서 막')
-                document
-                  .getElementById('selectTypeBtn')
-                  .addEventListener('click', (e) => {
-                    console.log('로그 1')
-                    document.getElementById('selectTypeCard').style.display =
-                      'none'
-                    battle_start = true
-                    my_turn = true
-                    mySkillType = document.getElementById('selectType').value
-                  })
-              } else {
-                document
-                  .getElementById('selectTypeBtn')
-                  .addEventListener('click', (e) => {
-                    console.log('로그 12')
-                    document.getElementById('selectTypeCard').style.display =
-                      'none'
-                    document.getElementById('battleOpponentName2').innerText =
-                      'Waiting for accpetance...'
-                    document.getElementById('acceptBattleBtn').style.display =
-                      'none'
-                    mySkillType = document.getElementById('selectType').value
-                    battleOffer(key, mySkillType)
-                  })
-              }
-            })
+
+          // 배틀 수락
+          acceptBattleBtn(key)
+
+          // 배틀 거절
           document
             .getElementById('refuseBattleBtn')
             .addEventListener('click', (e) => {

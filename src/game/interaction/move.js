@@ -123,6 +123,7 @@ export function moveUser(position, direction) {
     }
 
     const msg = JSON.stringify(body)
+    console.log('이걸 전송합니다', msg)
 
     ws.send(msg)
   }

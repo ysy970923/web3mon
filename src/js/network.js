@@ -1,20 +1,17 @@
-import {
-  attacked,
-  endBattle,
-  opponent_id,
-  mySkillType,
-  my_turn,
-} from './battleScene'
+import { attacked, endBattle, opponent_id } from './battleScene'
+import { battle_start, mySkillType } from '../game/battle/utils'
 import { battle, local_position } from '../js/index'
 import { ACTION, CHAT, NETWORK } from '../game/network/callType'
 import { npc_list } from '../game/data/npc'
-import { battleAnswer, battleDeny } from '../game/battle/battleOffer'
+import {
+  battleAnswer,
+  battleDeny,
+  battleAccept,
+} from '../game/battle/battleOffer'
 import { makeOthers } from '../game/object/makeOthers'
 import { checkOrReconnect } from '../game/network/checkConnection'
 
 // import { WebSocketServer } from 'ws'
-
-export let skillTypes = {}
 
 export let ws = null
 export let myID = null
@@ -22,31 +19,24 @@ var peerConnection = null
 var webcamStream = null
 var targetID = null
 export const others = {}
-export let battle_start = false
-let myTurn = false
-
-//0 ~ 9: binary; 10 ~: JSON string
-var NumToType = {
-  0: 'id',
-  1: 'update-user-list',
-}
+export let isMyEntrance = true
 
 function onmessage(type, data) {
-  console.log('타입 읽기', type, data)
+  console.log('내려왔습니다', type, data)
 
   let id = data.id
 
   switch (type) {
     case NETWORK.JOIN:
       // 유저가 들어왔다.
-      if (myTurn) {
+      if (!isMyEntrance) {
         makeOthers(data.id, [
           window.innerWidth / 2 - 192 / 4 / 2,
           window.innerHeight / 2 - 102 / 2,
         ])
       } else {
         myID = data.id
-        myTurn = true
+        isMyEntrance = false
       }
       log('My ID: ' + myID)
       break
@@ -137,13 +127,14 @@ function onmessage(type, data) {
         document
           .getElementById('acceptBattleBtn')
           .addEventListener('click', (e) => {
-            opponent_id = dataview.getInt16(1)
-            others[opponent_id].skillType = dataview.getInt16(5)
-            document.getElementById('acceptBattleCard').style.display = 'none'
-            document.getElementById('selectTypeCard').style.display = 'block'
+            console.log('이것도 로깅이 돼')
+            battleAccept()
+            // opponent_id = dataview.getInt16(1)
+            // others[opponent_id].skillType = dataview.getInt16(5)
             document
               .getElementById('selectTypeBtn')
               .addEventListener('click', (e) => {
+                console.log('이것도 로깅이 되나? 그럼 왜 둘다 있지?')
                 document.getElementById('selectTypeCard').style.display = 'none'
                 battle_start = true
                 my_turn = true
@@ -155,7 +146,7 @@ function onmessage(type, data) {
         document
           .getElementById('refuseBattleBtn')
           .addEventListener('click', (e) => {
-            battleDeny(dataview.getInt16(1), 1)
+            // battleDeny(dataview.getInt16(1), 1)
             document.getElementById('acceptBattleCard').style.display = 'none'
           })
       } else {
@@ -197,19 +188,10 @@ function onmessage(type, data) {
   }
 }
 
-const reverseMapping = (o) =>
-  Object.keys(o).reduce(
-    (r, k) => Object.assign(r, { [o[k]]: (r[o[k]] || []).concat(k) }),
-    {}
-  )
-
-export let TypeToNum = reverseMapping(NumToType)
-
 function audoBattleOffer(id) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(5)
   var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['auto-battle-offer'])
   dataview.setInt16(1, myID)
   dataview.setInt16(3, id)
   ws.send(buffer)
@@ -219,7 +201,6 @@ function autoBattleAnswer(id) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(5)
   var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['auto-battle-answer'])
   dataview.setInt16(1, myID)
   dataview.setInt16(3, id)
   ws.send(buffer)
@@ -229,7 +210,6 @@ function autoBattleSelectType(id, type) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['auto-battle-select-type'])
   dataview.setInt16(1, myID)
   dataview.setInt16(3, id)
   dataview.setInt16(5, type)
@@ -239,7 +219,6 @@ export function attack(id, attack) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(7)
   var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['attack'])
   dataview.setInt16(1, myID)
   dataview.setInt16(3, id)
   dataview.setInt16(5, attack)
@@ -250,7 +229,6 @@ export function leaveBattle(id) {
   if (!checkOrReconnect()) return
   var buffer = new ArrayBuffer(5)
   var dataview = new DataView(buffer)
-  dataview.setInt8(0, TypeToNum['leave-battle'])
   dataview.setInt16(1, myID)
   dataview.setInt16(3, id)
   ws.send(buffer)
@@ -322,7 +300,7 @@ export function connect() {
     onmessage(type, msg[type])
   }
   ws.onclose = function (e) {
-    console.log('닫혔다', e)
+    console.log('Websocket Server is Closed! with : ', e)
     ws = null
   }
   return ws

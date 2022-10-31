@@ -70,8 +70,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
 /* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../js/network */ "./src/js/network.js");
 /* harmony import */ var _utils_checkCollision__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./utils/checkCollision */ "./src/game/utils/checkCollision.js");
+/* harmony import */ var _battle_utils__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./battle/utils */ "./src/game/battle/utils.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -139,8 +140,8 @@ var animate = /*#__PURE__*/function () {
             }
             return _context.abrupt("return");
           case 9:
-            if (_js_network__WEBPACK_IMPORTED_MODULE_29__.battle_start) {
-              _js_network__WEBPACK_IMPORTED_MODULE_29__.battle_start = false;
+            if (_battle_utils__WEBPACK_IMPORTED_MODULE_31__.battle_start) {
+              (0,_battle_utils__WEBPACK_IMPORTED_MODULE_31__.setBattleStart)(false);
               document.getElementById('acceptBattleCard').style.display = 'none';
               (0,_js_index__WEBPACK_IMPORTED_MODULE_28__.enterBattle)(animationId);
             }
@@ -397,6 +398,59 @@ setInterval(function () {
 
 /***/ }),
 
+/***/ "./src/game/battle/acceptBattleBtn.js":
+/*!********************************************!*\
+  !*** ./src/game/battle/acceptBattleBtn.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "acceptBattleBtn": () => (/* binding */ acceptBattleBtn)
+/* harmony export */ });
+/* harmony import */ var _battleOffer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./battleOffer */ "./src/game/battle/battleOffer.js");
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+/* harmony import */ var _js_battleScene__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../js/battleScene */ "./src/js/battleScene.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils */ "./src/game/battle/utils.js");
+
+
+
+
+
+
+/**
+ * 배틀 수락 혹은 Yes 클릭.
+ * parameter : 배틀 상대방의 id
+ */
+function acceptBattleBtn(opponentId) {
+  document.getElementById('acceptBattleBtn').addEventListener('click', function (e) {
+    document.getElementById('refuseBattleBtn').style.display = 'none';
+    document.getElementById('selectTypeCard').style.display = 'block';
+    if (opponentId == 250) {
+      // NPC면
+      console.log('NPC 예스', opponentId);
+      (0,_js_battleScene__WEBPACK_IMPORTED_MODULE_3__.setOpponentId)(opponentId);
+      document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
+        (0,_utils__WEBPACK_IMPORTED_MODULE_4__.startBattle)();
+      });
+    } else {
+      document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
+        console.log('로그 12');
+        document.getElementById('selectTypeCard').style.display = 'none';
+        document.getElementById('battleOpponentName2').innerText = 'Waiting for accpetance...';
+        document.getElementById('acceptBattleBtn').style.display = 'none';
+        _utils__WEBPACK_IMPORTED_MODULE_4__.mySkillType = document.getElementById('selectType').value;
+        // NPC가 아니면 상대방과 악수하는 과정이 필요
+        (0,_battleOffer__WEBPACK_IMPORTED_MODULE_0__.battleOffer)(opponentId, _utils__WEBPACK_IMPORTED_MODULE_4__.mySkillType);
+      });
+    }
+  });
+}
+
+/***/ }),
+
 /***/ "./src/game/battle/battleOffer.js":
 /*!****************************************!*\
   !*** ./src/game/battle/battleOffer.js ***!
@@ -406,6 +460,7 @@ setInterval(function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "battleAccept": () => (/* binding */ battleAccept),
 /* harmony export */   "battleAnswer": () => (/* binding */ battleAnswer),
 /* harmony export */   "battleDeny": () => (/* binding */ battleDeny),
 /* harmony export */   "battleOffer": () => (/* binding */ battleOffer)
@@ -458,6 +513,10 @@ function battleDeny(id, reason) {
   dataview.setInt16(5, reason);
   _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(buffer);
 }
+function battleAccept() {
+  document.getElementById('acceptBattleCard').style.display = 'none';
+  document.getElementById('selectTypeCard').style.display = 'block';
+}
 
 /***/ }),
 
@@ -471,76 +530,207 @@ function battleDeny(id, reason) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _battleOffer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./battleOffer */ "./src/game/battle/battleOffer.js");
-/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
-/* harmony import */ var _js_battleScene__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/battleScene */ "./src/js/battleScene.js");
-
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+/* harmony import */ var _acceptBattleBtn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./acceptBattleBtn */ "./src/game/battle/acceptBattleBtn.js");
 
 
 
 
 
 // click opponent to offer battle
-_js_index__WEBPACK_IMPORTED_MODULE_3__.canvas.addEventListener('click', function (e) {
+_js_index__WEBPACK_IMPORTED_MODULE_2__.canvas.addEventListener('click', function (e) {
   // need to be ready and not currently battling
-  if (!_js_index__WEBPACK_IMPORTED_MODULE_3__.battle.ready || _js_index__WEBPACK_IMPORTED_MODULE_3__.battle.initiated) return;
-  var _loop = function _loop(key) {
-    x = e.offsetX - _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.width / 2;
-    y = e.offsetY - _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.height / 2;
-    if (Math.abs(_js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.position.x - x) < _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.width / 2 && Math.abs(_js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.position.y - y) < _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.height / 2) {
-      for (var i = 0; i < _js_index__WEBPACK_IMPORTED_MODULE_3__.battleZones.length; i++) {
-        var battleZone = _js_index__WEBPACK_IMPORTED_MODULE_3__.battleZones[i];
-        if ((0,_js_index__WEBPACK_IMPORTED_MODULE_3__.checkCollision)(_js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite, battleZone)) {
+  if (!_js_index__WEBPACK_IMPORTED_MODULE_2__.battle.ready || _js_index__WEBPACK_IMPORTED_MODULE_2__.battle.initiated) return;
+  for (var key in _js_network__WEBPACK_IMPORTED_MODULE_1__.others) {
+    var x = e.offsetX - _js_network__WEBPACK_IMPORTED_MODULE_1__.others[key].sprite.width / 2;
+    var y = e.offsetY - _js_network__WEBPACK_IMPORTED_MODULE_1__.others[key].sprite.height / 2;
+    if (Math.abs(_js_network__WEBPACK_IMPORTED_MODULE_1__.others[key].sprite.position.x - x) < _js_network__WEBPACK_IMPORTED_MODULE_1__.others[key].sprite.width / 2 && Math.abs(_js_network__WEBPACK_IMPORTED_MODULE_1__.others[key].sprite.position.y - y) < _js_network__WEBPACK_IMPORTED_MODULE_1__.others[key].sprite.height / 2) {
+      for (var i = 0; i < _js_index__WEBPACK_IMPORTED_MODULE_2__.battleZones.length; i++) {
+        var battleZone = _js_index__WEBPACK_IMPORTED_MODULE_2__.battleZones[i];
+        if ((0,_js_index__WEBPACK_IMPORTED_MODULE_2__.checkCollision)(_js_network__WEBPACK_IMPORTED_MODULE_1__.others[key].sprite, battleZone)) {
           document.getElementById('acceptBattleBtn').style.display = 'inline-block';
           document.getElementById('refuseBattleBtn').style.display = 'inline-block';
           document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
           document.getElementById('refuseBattleBtn').replaceWith(document.getElementById('refuseBattleBtn').cloneNode(true));
           document.getElementById('acceptBattleCard').style.display = 'block';
-          document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + _js_network__WEBPACK_IMPORTED_MODULE_2__.others[key].sprite.name;
-          document.getElementById('acceptBattleBtn').addEventListener('click', function (e) {
-            console.log('배틀 예스');
-            document.getElementById('refuseBattleBtn').style.display = 'none';
-            document.getElementById('selectTypeCard').style.display = 'block';
-            if (key == 250) {
-              // NPC면
-              console.log('NPC 예스', _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.opponent_id);
-              _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.opponent_id = key;
-              console.log('여기서 막');
-              document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
-                console.log('로그 1');
-                document.getElementById('selectTypeCard').style.display = 'none';
-                battle_start = true;
-                _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.my_turn = true;
-                _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.mySkillType = document.getElementById('selectType').value;
-              });
-            } else {
-              document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
-                console.log('로그 12');
-                document.getElementById('selectTypeCard').style.display = 'none';
-                document.getElementById('battleOpponentName2').innerText = 'Waiting for accpetance...';
-                document.getElementById('acceptBattleBtn').style.display = 'none';
-                _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.mySkillType = document.getElementById('selectType').value;
-                (0,_battleOffer__WEBPACK_IMPORTED_MODULE_1__.battleOffer)(key, _js_battleScene__WEBPACK_IMPORTED_MODULE_4__.mySkillType);
-              });
-            }
-          });
+          document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + _js_network__WEBPACK_IMPORTED_MODULE_1__.others[key].sprite.name;
+
+          // 배틀 수락
+          (0,_acceptBattleBtn__WEBPACK_IMPORTED_MODULE_3__.acceptBattleBtn)(key);
+
+          // 배틀 거절
           document.getElementById('refuseBattleBtn').addEventListener('click', function (e) {
             document.getElementById('acceptBattleCard').style.display = 'none';
           });
           break;
         }
       }
-      return "break";
+      break;
     }
-  };
-  for (var key in _js_network__WEBPACK_IMPORTED_MODULE_2__.others) {
-    var x;
-    var y;
-    var _ret = _loop(key);
-    if (_ret === "break") break;
   }
 });
+
+/***/ }),
+
+/***/ "./src/game/battle/utils.js":
+/*!**********************************!*\
+  !*** ./src/game/battle/utils.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "battle_start": () => (/* binding */ battle_start),
+/* harmony export */   "mySkillType": () => (/* binding */ mySkillType),
+/* harmony export */   "my_turn": () => (/* binding */ my_turn),
+/* harmony export */   "setBattleStart": () => (/* binding */ setBattleStart),
+/* harmony export */   "startBattle": () => (/* binding */ startBattle)
+/* harmony export */ });
+/* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../web/logIn */ "./src/web/logIn.js");
+
+var battle_start = false;
+var my_turn;
+var mySkillType;
+document.getElementById('selectType').addEventListener('change', function () {
+  (0,_web_logIn__WEBPACK_IMPORTED_MODULE_0__.connectWallets)();
+});
+function startBattle() {
+  document.getElementById('selectTypeCard').style.display = 'none';
+  battle_start = true;
+  my_turn = true;
+  mySkillType = document.getElementById('selectType').value;
+  console.log('선택한 스킬 타입', mySkillType);
+}
+function setBattleStart(bool) {
+  battle_start = bool;
+}
+
+/***/ }),
+
+/***/ "./src/game/battle/utils/skillSets.js":
+/*!********************************************!*\
+  !*** ./src/game/battle/utils/skillSets.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "skillTypes": () => (/* binding */ skillTypes)
+/* harmony export */ });
+/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.assign.js */ "./node_modules/core-js/modules/es.object.assign.js");
+/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_0__);
+
+var attacks = {
+  Default: {
+    criticial_prob: 0.3,
+    limit: 10000,
+    cool_time: 0,
+    left_cool_time: 0,
+    atk: 10
+  },
+  Skill1: {
+    critical_prob: 0,
+    limit: 10000,
+    cool_time: 3,
+    left_cool_time: 0,
+    atk: 15
+  },
+  Skill2: {
+    critical_prob: 0,
+    limit: 1,
+    cool_time: 0,
+    left_cool_time: 0,
+    atk: 20
+  }
+};
+var defenses = {
+  Default: {
+    limit: 10000,
+    cool_time: 0,
+    left_cool_time: 0,
+    effect: 'Slash',
+    def: 5
+  },
+  Shield: {
+    limit: 10000,
+    cool_time: 3,
+    left_cool_time: 0,
+    effect: 'Shield',
+    def: 10000
+  },
+  Thorn: {
+    limit: 1,
+    cool_time: 0,
+    left_cool_time: 0,
+    effect: 'Thorn',
+    def: 0
+  }
+};
+var skillTypes = {
+  1: {
+    health: 100,
+    atk: [Object.assign({}, attacks.Default, {
+      atk: 12,
+      effect: 'Tackle',
+      name: 'Tackle'
+    }), Object.assign({}, attacks.Skill1, {
+      effect: 'Fireball',
+      name: 'Fireball'
+    }), Object.assign({}, attacks.Skill2, {
+      effect: 'Larva',
+      name: 'Larva'
+    })],
+    def: [defenses.Default, defenses.Shield, defenses.Thorn]
+  },
+  2: {
+    health: 100,
+    atk: [Object.assign({}, attacks.Default, {
+      effect: 'Tackle',
+      name: 'Tackle'
+    }), Object.assign({}, attacks.Skill1, {
+      effect: 'Fireball',
+      name: 'Fireball'
+    }), Object.assign({}, attacks.Skill2, {
+      effect: 'Lightning',
+      name: 'Lightning'
+    })],
+    def: [Object.assign({}, defenses.Default, {
+      def: 7
+    }), defenses.Shield, defenses.Thorn]
+  },
+  3: {
+    health: 100,
+    atk: [Object.assign({}, attacks.Default, {
+      effect: 'Tackle',
+      name: 'Tackle'
+    }), Object.assign({}, attacks.Skill1, {
+      atk: 18,
+      effect: 'Fireball',
+      name: 'Fireball'
+    }), Object.assign({}, attacks.Skill2, {
+      atk: 24,
+      effect: 'Lightning',
+      name: 'Lightning'
+    })],
+    def: [defenses.Default, defenses.Shield, defenses.Thorn]
+  },
+  4: {
+    health: 100,
+    atk: [Object.assign({}, attacks.Default, {
+      effect: 'Tackle'
+    }), Object.assign({}, attacks.Skill1, {
+      effect: 'Shield'
+    }), Object.assign({}, attacks.Skill2, {
+      effect: 'Lightning'
+    })],
+    def: [defenses.Default, defenses.Shield, Object.assign({}, defenses.Thorn, {
+      def: 10000
+    })]
+  }
+};
 
 /***/ }),
 
@@ -700,7 +890,6 @@ function sendChat() {
 }
 function sendMsgToAll(type, msg) {
   if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_33__.checkOrReconnect)()) return;
-  // var typeNum = TypeToNum[type]
 
   // var buffer1 = new ArrayBuffer(3)
   // var dataview = new DataView(buffer1)
@@ -722,10 +911,8 @@ function sendMsgToAll(type, msg) {
 // if type >= 10: data should be dict
 function sendMsgToServer(type, msg) {
   if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_33__.checkOrReconnect)()) return;
-  var typeNum = _js_network__WEBPACK_IMPORTED_MODULE_29__.TypeToNum[type];
   var buffer1 = new ArrayBuffer(1);
   var dataview = new DataView(buffer1);
-  dataview.setInt8(0, typeNum);
   var msgJSON = JSON.stringify(msg);
   (0,_js_network__WEBPACK_IMPORTED_MODULE_29__.log)('Send to server: ' + msgJSON);
   var encoder = new TextEncoder();
@@ -1469,6 +1656,7 @@ function moveUser(position, direction) {
       }
     };
     var _msg = JSON.stringify(_body);
+    console.log('이걸 전송합니다', _msg);
     _js_network__WEBPACK_IMPORTED_MODULE_2__.ws.send(_msg);
   }
 }
@@ -1640,7 +1828,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_15__);
 /* harmony import */ var _Sprite__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Sprite */ "./src/game/object/Sprite.js");
 /* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
-/* harmony import */ var _js_battleScene__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../js/battleScene */ "./src/js/battleScene.js");
+/* harmony import */ var _battle_utils__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../battle/utils */ "./src/game/battle/utils.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 
@@ -1735,7 +1923,7 @@ var Monster = /*#__PURE__*/function (_Sprite) {
       document.querySelector('#dialogueBox').style.display = 'block';
       document.querySelector('#dialogueBox').innerHTML = this.name + ' used ' + _attack.name;
       setTimeout(function () {
-        if (_js_battleScene__WEBPACK_IMPORTED_MODULE_17__.my_turn) document.querySelector('#dialogueBox').style.display = 'none';
+        if (_battle_utils__WEBPACK_IMPORTED_MODULE_17__.my_turn) document.querySelector('#dialogueBox').style.display = 'none';
       }, 2000);
       var healthBar = '#enemyHealthBar';
       if (this.isEnemy) healthBar = '#playerHealthBar';
@@ -2180,10 +2368,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "attacked": () => (/* binding */ attacked),
 /* harmony export */   "endBattle": () => (/* binding */ endBattle),
 /* harmony export */   "initBattle": () => (/* binding */ initBattle),
-/* harmony export */   "mySkillType": () => (/* binding */ mySkillType),
-/* harmony export */   "my_turn": () => (/* binding */ my_turn),
 /* harmony export */   "opponent_id": () => (/* binding */ opponent_id),
-/* harmony export */   "queue": () => (/* binding */ queue)
+/* harmony export */   "queue": () => (/* binding */ queue),
+/* harmony export */   "setOpponentId": () => (/* binding */ setOpponentId)
 /* harmony export */ });
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__);
@@ -2206,9 +2393,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game_animate__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../game/animate */ "./src/game/animate.js");
 /* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
 /* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
-/* harmony import */ var _game_object_Monster__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../game/object/Monster */ "./src/game/object/Monster.js");
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../game/battle/utils/skillSets */ "./src/game/battle/utils/skillSets.js");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
+/* harmony import */ var _game_object_Monster__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../game/object/Monster */ "./src/game/object/Monster.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var _game_battle_utils__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../game/battle/utils */ "./src/game/battle/utils.js");
+
+
 
 
 
@@ -2239,8 +2430,6 @@ var me;
 var renderedSprites;
 var battleAnimationId;
 var queue;
-var my_turn = false;
-var mySkillType;
 
 //
 // Methods
@@ -2253,7 +2442,7 @@ function attacked(attack) {
       recipient: me,
       renderedSprites: renderedSprites
     });
-    my_turn = true;
+    _game_battle_utils__WEBPACK_IMPORTED_MODULE_15__.my_turn = true;
     if (me.health <= 0) {
       queue.push(function () {
         me.faint();
@@ -2265,7 +2454,7 @@ function attacked(attack) {
 function endBattle(result) {
   queue.push(function () {
     // fade back to black
-    gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to('#overlappingDiv', {
+    gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to('#overlappingDiv', {
       opacity: 1,
       onComplete: function onComplete() {
         cancelAnimationFrame(battleAnimationId);
@@ -2275,48 +2464,50 @@ function endBattle(result) {
         document.getElementById('battleResultCard').style.display = 'block';
         document.getElementById('battleResult').innerText = "You ".concat(result, "!");
         document.querySelector('#joyDiv').style.display = 'block';
-        gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to('#overlappingDiv', {
+        gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to('#overlappingDiv', {
           opacity: 0
         });
-        _index__WEBPACK_IMPORTED_MODULE_12__.battle.initiated = false;
+        _index__WEBPACK_IMPORTED_MODULE_13__.battle.initiated = false;
       }
     });
-    _network__WEBPACK_IMPORTED_MODULE_11__.battle_start = false;
+    _game_battle_utils__WEBPACK_IMPORTED_MODULE_15__.battle_start = false;
   });
 }
 function initBattle() {
-  _index__WEBPACK_IMPORTED_MODULE_12__.canva.width = window.innerWidth;
-  _index__WEBPACK_IMPORTED_MODULE_12__.canva.height = window.innerHeight;
+  _index__WEBPACK_IMPORTED_MODULE_13__.canva.width = window.innerWidth;
+  _index__WEBPACK_IMPORTED_MODULE_13__.canva.height = window.innerHeight;
   document.querySelector('#joyDiv').style.display = 'none';
   document.querySelector('#userInterface').style.display = 'block';
   document.querySelector('#dialogueBox').style.display = 'none';
   document.querySelector('#enemyHealthBar').style.width = '100%';
   document.querySelector('#playerHealthBar').style.width = '100%';
   document.querySelector('#attacksBox').replaceChildren();
-  document.querySelector('#battleMyName').innerHTML = "me(".concat(_index__WEBPACK_IMPORTED_MODULE_12__.player.name, ")");
+  document.querySelector('#battleMyName').innerHTML = "me(".concat(_index__WEBPACK_IMPORTED_MODULE_13__.player.name, ")");
   document.querySelector('#battleOpponentName').innerHTML = "opponent(".concat(_network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].sprite.name, ")");
-  if (!my_turn) {
+  if (!_game_battle_utils__WEBPACK_IMPORTED_MODULE_15__.my_turn) {
     document.querySelector('#dialogueBox').style.display = 'block';
     document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn';
   }
+  console.log('스킬 타입', _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_12__.skillTypes, _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_12__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].skillType]);
+  console.log('아더스', _network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id]);
   var opponentMonster = {
     image: _network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].baseImage,
     isEnemy: true,
     name: _network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].sprite.name,
-    health: _network__WEBPACK_IMPORTED_MODULE_11__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].skillType].health,
-    attacks: JSON.parse(JSON.stringify(_network__WEBPACK_IMPORTED_MODULE_11__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].skillType].atk)),
-    defenses: _network__WEBPACK_IMPORTED_MODULE_11__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].skillType].def
+    health: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_12__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].skillType].health,
+    attacks: JSON.parse(JSON.stringify(_game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_12__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].skillType].atk)),
+    defenses: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_12__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_11__.others[opponent_id].skillType].def
   };
-  opponent = new _game_object_Monster__WEBPACK_IMPORTED_MODULE_13__.Monster(opponentMonster);
+  opponent = new _game_object_Monster__WEBPACK_IMPORTED_MODULE_14__.Monster(opponentMonster);
   var myMonster = {
-    image: _index__WEBPACK_IMPORTED_MODULE_12__.player.baseImage,
+    image: _index__WEBPACK_IMPORTED_MODULE_13__.player.baseImage,
     isEnemy: false,
-    name: _index__WEBPACK_IMPORTED_MODULE_12__.player.name,
-    health: _network__WEBPACK_IMPORTED_MODULE_11__.skillTypes[mySkillType].health,
-    attacks: JSON.parse(JSON.stringify(_network__WEBPACK_IMPORTED_MODULE_11__.skillTypes[mySkillType].atk)),
-    defenses: _network__WEBPACK_IMPORTED_MODULE_11__.skillTypes[mySkillType].def
+    name: _index__WEBPACK_IMPORTED_MODULE_13__.player.name,
+    health: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_12__.skillTypes[_game_battle_utils__WEBPACK_IMPORTED_MODULE_15__.mySkillType].health,
+    attacks: JSON.parse(JSON.stringify(_game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_12__.skillTypes[_game_battle_utils__WEBPACK_IMPORTED_MODULE_15__.mySkillType].atk)),
+    defenses: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_12__.skillTypes[_game_battle_utils__WEBPACK_IMPORTED_MODULE_15__.mySkillType].def
   };
-  me = new _game_object_Monster__WEBPACK_IMPORTED_MODULE_13__.Monster(myMonster);
+  me = new _game_object_Monster__WEBPACK_IMPORTED_MODULE_14__.Monster(myMonster);
   renderedSprites = [opponent, me];
   queue = [];
   document.querySelector('#attacksBox').style['grid-template-columns'] = "repeat(".concat(me.attacks.length, ", 1fr)");
@@ -2330,7 +2521,7 @@ function initBattle() {
   // our event listeners for our buttons (attack)
   document.querySelectorAll('button').forEach(function (button) {
     button.addEventListener('click', function (e) {
-      if (!my_turn) return;
+      if (!_game_battle_utils__WEBPACK_IMPORTED_MODULE_15__.my_turn) return;
       var selectedAttack = me.attacks[e.currentTarget.value];
       if (selectedAttack.left_cool_time > 0) {
         window.alert('cool time is left');
@@ -2340,7 +2531,7 @@ function initBattle() {
         window.alert('limit is over');
         return;
       }
-      my_turn = false;
+      _game_battle_utils__WEBPACK_IMPORTED_MODULE_15__.my_turn = false;
       me.attack({
         attack: selectedAttack,
         recipient: opponent,
@@ -2391,6 +2582,9 @@ document.querySelector('#dialogueBox').addEventListener('click', function (e) {
     queue.shift();
   } else document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn';
 });
+function setOpponentId(id) {
+  opponent_id = id;
+}
 
 /***/ }),
 
@@ -2699,10 +2893,9 @@ makeNPC();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TypeToNum": () => (/* binding */ TypeToNum),
 /* harmony export */   "attack": () => (/* binding */ attack),
-/* harmony export */   "battle_start": () => (/* binding */ battle_start),
 /* harmony export */   "connect": () => (/* binding */ connect),
+/* harmony export */   "isMyEntrance": () => (/* binding */ isMyEntrance),
 /* harmony export */   "leaveBattle": () => (/* binding */ leaveBattle),
 /* harmony export */   "log": () => (/* binding */ log),
 /* harmony export */   "log_error": () => (/* binding */ log_error),
@@ -2711,7 +2904,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "onopen": () => (/* binding */ onopen),
 /* harmony export */   "others": () => (/* binding */ others),
 /* harmony export */   "reportError": () => (/* binding */ reportError),
-/* harmony export */   "skillTypes": () => (/* binding */ skillTypes),
 /* harmony export */   "ws": () => (/* binding */ ws)
 /* harmony export */ });
 /* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
@@ -2728,32 +2920,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.array.reduce.js */ "./node_modules/core-js/modules/es.array.reduce.js");
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.object.assign.js */ "./node_modules/core-js/modules/es.object.assign.js");
-/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
-/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.array-buffer.constructor.js */ "./node_modules/core-js/modules/es.array-buffer.constructor.js");
-/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.array-buffer.slice.js */ "./node_modules/core-js/modules/es.array-buffer.slice.js");
-/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
-/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.date.to-string.js */ "./node_modules/core-js/modules/es.date.to-string.js");
-/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _battleScene__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./battleScene */ "./src/js/battleScene.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
-/* harmony import */ var _game_network_callType__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../game/network/callType */ "./src/game/network/callType.js");
-/* harmony import */ var _game_data_npc__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../game/data/npc */ "./src/game/data/npc.js");
-/* harmony import */ var _game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../game/battle/battleOffer */ "./src/game/battle/battleOffer.js");
-/* harmony import */ var _game_object_makeOthers__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../game/object/makeOthers */ "./src/game/object/makeOthers.js");
-/* harmony import */ var _game_network_checkConnection__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../game/network/checkConnection */ "./src/game/network/checkConnection.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
+/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.array-buffer.constructor.js */ "./node_modules/core-js/modules/es.array-buffer.constructor.js");
+/* harmony import */ var core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_constructor_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.array-buffer.slice.js */ "./node_modules/core-js/modules/es.array-buffer.slice.js");
+/* harmony import */ var core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_buffer_slice_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.data-view.js */ "./node_modules/core-js/modules/es.data-view.js");
+/* harmony import */ var core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_data_view_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.date.to-string.js */ "./node_modules/core-js/modules/es.date.to-string.js");
+/* harmony import */ var core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_date_to_string_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _battleScene__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./battleScene */ "./src/js/battleScene.js");
+/* harmony import */ var _game_battle_utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../game/battle/utils */ "./src/game/battle/utils.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
+/* harmony import */ var _game_network_callType__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../game/network/callType */ "./src/game/network/callType.js");
+/* harmony import */ var _game_data_npc__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../game/data/npc */ "./src/game/data/npc.js");
+/* harmony import */ var _game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../game/battle/battleOffer */ "./src/game/battle/battleOffer.js");
+/* harmony import */ var _game_object_makeOthers__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../game/object/makeOthers */ "./src/game/object/makeOthers.js");
+/* harmony import */ var _game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../game/network/checkConnection */ "./src/game/network/checkConnection.js");
 
 
 
@@ -2777,52 +2961,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 // import { WebSocketServer } from 'ws'
 
-var skillTypes = {};
 var ws = null;
 var myID = null;
 var peerConnection = null;
 var webcamStream = null;
 var targetID = null;
 var others = {};
-var battle_start = false;
-var myTurn = false;
-
-//0 ~ 9: binary; 10 ~: JSON string
-var NumToType = {
-  0: 'id',
-  1: 'update-user-list'
-};
+var isMyEntrance = true;
 function onmessage(type, data) {
-  console.log('타입 읽기', type, data);
+  console.log('내려왔습니다', type, data);
   var id = data.id;
   switch (type) {
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.NETWORK.JOIN:
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_15__.NETWORK.JOIN:
       // 유저가 들어왔다.
-      if (myTurn) {
-        (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_20__.makeOthers)(data.id, [window.innerWidth / 2 - 192 / 4 / 2, window.innerHeight / 2 - 102 / 2]);
+      if (!isMyEntrance) {
+        (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_18__.makeOthers)(data.id, [window.innerWidth / 2 - 192 / 4 / 2, window.innerHeight / 2 - 102 / 2]);
       } else {
         myID = data.id;
-        myTurn = true;
+        isMyEntrance = false;
       }
       log('My ID: ' + myID);
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.NETWORK.LEAVE:
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_15__.NETWORK.LEAVE:
       delete others[data.id];
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.NETWORK.MAP_STATUS:
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_15__.NETWORK.MAP_STATUS:
       Object.keys(others).forEach(function (id) {
-        if (!_game_data_npc__WEBPACK_IMPORTED_MODULE_18__.npc_list.includes(id)) {
+        if (!_game_data_npc__WEBPACK_IMPORTED_MODULE_16__.npc_list.includes(id)) {
           if (!(id in data['avatar_status'])) delete others[id];
         }
       });
       data['avatar_status'].forEach(function (avatar) {
         if (!(avatar.client_key in others || avatar.client_key === myID)) {
           // 원래는 유저 정보를 요청해서 받아온 다음 생성이었는데, 이제 애초에 정보가 같이 내려오기 때문에 바로 생성
-          (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_20__.makeOthers)(avatar.client_key, avatar.coordinate);
+          (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_18__.makeOthers)(avatar.client_key, avatar.coordinate);
         }
       });
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.ACTION.MOVE:
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_15__.ACTION.MOVE:
       if (data.mover_id === myID) {
         return;
       } else {
@@ -2831,7 +3007,7 @@ function onmessage(type, data) {
           others[_id].sprite.animate = false;
         } else {
           // 디렉션 계산해서 이미지 부여하기
-          var newPosition = (0,_js_index__WEBPACK_IMPORTED_MODULE_16__.local_position)({
+          var newPosition = (0,_js_index__WEBPACK_IMPORTED_MODULE_14__.local_position)({
             x: data.coordinate[0],
             y: data.coordinate[1]
           });
@@ -2847,14 +3023,14 @@ function onmessage(type, data) {
         }
       }
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.CHAT.BOARD_CAST_CHAT:
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_15__.CHAT.BOARD_CAST_CHAT:
       others[data.sender_id].sprite.chat = data.content;
       break;
-    case _game_network_callType__WEBPACK_IMPORTED_MODULE_17__.ACTION.MAP_TRANSFER:
+    case _game_network_callType__WEBPACK_IMPORTED_MODULE_15__.ACTION.MAP_TRANSFER:
       console.log('유저의 맵이동', type, data);
       break;
     case 'battle-offer':
-      if (!_js_index__WEBPACK_IMPORTED_MODULE_16__.battle.initiated) {
+      if (!_js_index__WEBPACK_IMPORTED_MODULE_14__.battle.initiated) {
         document.getElementById('acceptBattleBtn').style.display = 'inline-block';
         document.getElementById('refuseBattleBtn').style.display = 'inline-block';
         document.getElementById('acceptBattleBtn').replaceWith(document.getElementById('acceptBattleBtn').cloneNode(true));
@@ -2862,48 +3038,49 @@ function onmessage(type, data) {
         document.getElementById('acceptBattleCard').style.display = 'block';
         document.getElementById('battleOpponentName2').innerText = 'Opponent: ' + others[dataview.getInt16(1)].sprite.name;
         document.getElementById('acceptBattleBtn').addEventListener('click', function (e) {
-          _battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id = dataview.getInt16(1);
-          others[_battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id].skillType = dataview.getInt16(5);
-          document.getElementById('acceptBattleCard').style.display = 'none';
-          document.getElementById('selectTypeCard').style.display = 'block';
+          console.log('이것도 로깅이 돼');
+          (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_17__.battleAccept)();
+          // opponent_id = dataview.getInt16(1)
+          // others[opponent_id].skillType = dataview.getInt16(5)
           document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
+            console.log('이것도 로깅이 되나? 그럼 왜 둘다 있지?');
             document.getElementById('selectTypeCard').style.display = 'none';
-            battle_start = true;
-            _battleScene__WEBPACK_IMPORTED_MODULE_15__.my_turn = true;
-            _battleScene__WEBPACK_IMPORTED_MODULE_15__.mySkillType = document.getElementById('selectType').value;
-            (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_19__.battleAnswer)(_battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id, _battleScene__WEBPACK_IMPORTED_MODULE_15__.mySkillType);
-            battle_start = true;
+            _game_battle_utils__WEBPACK_IMPORTED_MODULE_13__.battle_start = true;
+            my_turn = true;
+            _game_battle_utils__WEBPACK_IMPORTED_MODULE_13__.mySkillType = document.getElementById('selectType').value;
+            (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_17__.battleAnswer)(_battleScene__WEBPACK_IMPORTED_MODULE_12__.opponent_id, _game_battle_utils__WEBPACK_IMPORTED_MODULE_13__.mySkillType);
+            _game_battle_utils__WEBPACK_IMPORTED_MODULE_13__.battle_start = true;
           });
         });
         document.getElementById('refuseBattleBtn').addEventListener('click', function (e) {
-          (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_19__.battleDeny)(dataview.getInt16(1), 1);
+          // battleDeny(dataview.getInt16(1), 1)
           document.getElementById('acceptBattleCard').style.display = 'none';
         });
       } else {
-        (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_19__.battleDeny)(dataview.getInt16(1), 0);
+        (0,_game_battle_battleOffer__WEBPACK_IMPORTED_MODULE_17__.battleDeny)(dataview.getInt16(1), 0);
       }
       break;
     case 'battle-deny':
       document.getElementById('acceptBattleCard').style.display = 'none';
-      if (!_js_index__WEBPACK_IMPORTED_MODULE_16__.battle.initiated) {
+      if (!_js_index__WEBPACK_IMPORTED_MODULE_14__.battle.initiated) {
         var reason = dataview.getInt16(5);
         if (reason === 0) window.alert('Opponent is already on Battle');else if (reason === 1) window.alert('Opponent Refused to Battle');
       }
       break;
     case 'battle-answer':
-      _battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id = dataview.getInt16(1);
-      others[_battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id].skillType = dataview.getInt16(5);
-      battle_start = true;
-      _battleScene__WEBPACK_IMPORTED_MODULE_15__.my_turn = true;
+      _battleScene__WEBPACK_IMPORTED_MODULE_12__.opponent_id = dataview.getInt16(1);
+      others[_battleScene__WEBPACK_IMPORTED_MODULE_12__.opponent_id].skillType = dataview.getInt16(5);
+      _game_battle_utils__WEBPACK_IMPORTED_MODULE_13__.battle_start = true;
+      my_turn = true;
       break;
     case 'attack':
       var attack = dataview.getInt16(5);
-      (0,_battleScene__WEBPACK_IMPORTED_MODULE_15__.attacked)(attack);
+      (0,_battleScene__WEBPACK_IMPORTED_MODULE_12__.attacked)(attack);
       break;
     case 'leave-battle':
-      if (_js_index__WEBPACK_IMPORTED_MODULE_16__.battle.initiated && id === _battleScene__WEBPACK_IMPORTED_MODULE_15__.opponent_id) {
+      if (_js_index__WEBPACK_IMPORTED_MODULE_14__.battle.initiated && id === _battleScene__WEBPACK_IMPORTED_MODULE_12__.opponent_id) {
         window.alert('opponent left the battle');
-        (0,_battleScene__WEBPACK_IMPORTED_MODULE_15__.endBattle)();
+        (0,_battleScene__WEBPACK_IMPORTED_MODULE_12__.endBattle)();
       }
       break;
     default:
@@ -2911,55 +3088,44 @@ function onmessage(type, data) {
       log_error(type);
   }
 }
-var reverseMapping = function reverseMapping(o) {
-  return Object.keys(o).reduce(function (r, k) {
-    return Object.assign(r, _defineProperty({}, o[k], (r[o[k]] || []).concat(k)));
-  }, {});
-};
-var TypeToNum = reverseMapping(NumToType);
 function audoBattleOffer(id) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_21__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(5);
   var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['auto-battle-offer']);
   dataview.setInt16(1, myID);
   dataview.setInt16(3, id);
   ws.send(buffer);
 }
 function autoBattleAnswer(id) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_21__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(5);
   var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['auto-battle-answer']);
   dataview.setInt16(1, myID);
   dataview.setInt16(3, id);
   ws.send(buffer);
 }
 function autoBattleSelectType(id, type) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_21__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['auto-battle-select-type']);
   dataview.setInt16(1, myID);
   dataview.setInt16(3, id);
   dataview.setInt16(5, type);
   ws.send(buffer);
 }
 function attack(id, attack) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_21__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['attack']);
   dataview.setInt16(1, myID);
   dataview.setInt16(3, id);
   dataview.setInt16(5, attack);
   ws.send(buffer);
 }
 function leaveBattle(id) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_21__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(5);
   var dataview = new DataView(buffer);
-  dataview.setInt8(0, TypeToNum['leave-battle']);
   dataview.setInt16(1, myID);
   dataview.setInt16(3, id);
   ws.send(buffer);
@@ -3022,7 +3188,7 @@ function connect() {
     onmessage(type, msg[type]);
   };
   ws.onclose = function (e) {
-    console.log('닫혔다', e);
+    console.log('Websocket Server is Closed! with : ', e);
     ws = null;
   };
   return ws;
@@ -3089,28 +3255,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
 /* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
 /* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
@@ -3152,7 +3318,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
 
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
@@ -3305,28 +3471,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22__);
 /* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
 /* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23__);
 /* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
@@ -3343,7 +3509,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
 /* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_31__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 
 
 
@@ -12414,8 +12580,8 @@ var FunctionPrototype = Function.prototype;
 var call = FunctionPrototype.call;
 var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
-module.exports = function (fn) {
-  return NATIVE_BIND ? uncurryThisWithBind(fn) : function () {
+module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
+  return function () {
     return call.apply(fn, arguments);
   };
 };
@@ -14967,10 +15133,10 @@ var store = __webpack_require__(/*! ../internals/shared-store */ "./node_modules
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.25.5',
+  version: '3.26.0',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2022 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.25.5/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.26.0/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -16558,37 +16724,6 @@ var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
 $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
   map: function map(callbackfn /* , thisArg */) {
     return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-  }
-});
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/es.array.reduce.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/core-js/modules/es.array.reduce.js ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
-var $reduce = (__webpack_require__(/*! ../internals/array-reduce */ "./node_modules/core-js/internals/array-reduce.js").left);
-var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "./node_modules/core-js/internals/array-method-is-strict.js");
-var CHROME_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "./node_modules/core-js/internals/engine-v8-version.js");
-var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "./node_modules/core-js/internals/engine-is-node.js");
-
-var STRICT_METHOD = arrayMethodIsStrict('reduce');
-// Chrome 80-82 has a critical bug
-// https://bugs.chromium.org/p/chromium/issues/detail?id=1049982
-var CHROME_BUG = !IS_NODE && CHROME_VERSION > 79 && CHROME_VERSION < 83;
-
-// `Array.prototype.reduce` method
-// https://tc39.es/ecma262/#sec-array.prototype.reduce
-$({ target: 'Array', proto: true, forced: !STRICT_METHOD || CHROME_BUG }, {
-  reduce: function reduce(callbackfn /* , initialValue */) {
-    var length = arguments.length;
-    return $reduce(this, callbackfn, length, length > 1 ? arguments[1] : undefined);
   }
 });
 
@@ -39734,16 +39869,19 @@ var __webpack_exports__ = {};
   !*** ./src/main.js ***!
   \*********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _web_clickButtons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./web/clickButtons */ "./src/web/clickButtons.js");
-/* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./web/logIn */ "./src/web/logIn.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/index */ "./src/js/index.js");
-/* harmony import */ var _js_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/utils */ "./src/js/utils.js");
-/* harmony import */ var _game_interaction_move__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./game/interaction/move */ "./src/game/interaction/move.js");
-/* harmony import */ var _web_eventListener__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./web/eventListener */ "./src/web/eventListener.js");
-/* harmony import */ var _game_chat_chatForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./game/chat/chatForm */ "./src/game/chat/chatForm.js");
-/* harmony import */ var _game_chat_sendChat__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./game/chat/sendChat */ "./src/game/chat/sendChat.js");
-/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
-/* harmony import */ var _game_battle_battleStart__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./game/battle/battleStart */ "./src/game/battle/battleStart.js");
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.keys.js */ "./node_modules/core-js/modules/es.object.keys.js");
+/* harmony import */ var core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _web_clickButtons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./web/clickButtons */ "./src/web/clickButtons.js");
+/* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./web/logIn */ "./src/web/logIn.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/index */ "./src/js/index.js");
+/* harmony import */ var _js_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/utils */ "./src/js/utils.js");
+/* harmony import */ var _game_interaction_move__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./game/interaction/move */ "./src/game/interaction/move.js");
+/* harmony import */ var _web_eventListener__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./web/eventListener */ "./src/web/eventListener.js");
+/* harmony import */ var _game_chat_chatForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./game/chat/chatForm */ "./src/game/chat/chatForm.js");
+/* harmony import */ var _game_chat_sendChat__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./game/chat/sendChat */ "./src/game/chat/sendChat.js");
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+/* harmony import */ var _game_battle_battleStart__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./game/battle/battleStart */ "./src/game/battle/battleStart.js");
+
 
 
 
@@ -39757,6 +39895,28 @@ __webpack_require__.r(__webpack_exports__);
 var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+var serverUrl = 'ws://ec2-44-201-5-87.compute-1.amazonaws.com:8080/ws';
+var ws = new WebSocket(serverUrl);
+console.log('웹소켓', ws);
+ws.binaryType = 'arraybuffer';
+ws.onopen = function (e) {
+  console.log('오픈 되었다', e);
+};
+ws.onerror = function (_ref) {
+  var data = _ref.data;
+  console.log('ㅇㅔ러보기', data);
+};
+ws.onmessage = function (_ref2) {
+  var data = _ref2.data;
+  console.log('데이터', data);
+  var msg = JSON.parse(data);
+  var type = Object.keys(msg)[0];
+  onmessage(type, msg[type]);
+};
+ws.onclose = function (e) {
+  console.log('닫혔다', e);
+  ws = null;
+};
 })();
 
 /******/ })()

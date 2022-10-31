@@ -1,9 +1,11 @@
 import { animate } from '../game/animate'
 import { Sprite } from '../game/object/Sprite'
-import { skillTypes, others, attack, battle_start } from './network'
+import { others, attack } from './network'
+import { skillTypes } from '../game/battle/utils/skillSets'
 import { player, canva, battle } from './index'
 import { Monster } from '../game/object/Monster'
 import { gsap } from 'gsap'
+import { mySkillType, battle_start, my_turn } from '../game/battle/utils'
 
 const battleBackgroundImage = new Image()
 battleBackgroundImage.src = '../img/battleBackground2.png'
@@ -22,8 +24,6 @@ let me
 let renderedSprites
 let battleAnimationId
 export let queue
-export let my_turn = false
-export let mySkillType
 
 //
 // Methods
@@ -89,6 +89,13 @@ export function initBattle() {
     document.querySelector('#dialogueBox').style.display = 'block'
     document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
   }
+
+  console.log(
+    '스킬 타입',
+    skillTypes,
+    skillTypes[others[opponent_id].skillType]
+  )
+  console.log('아더스', others[opponent_id])
 
   const opponentMonster = {
     image: others[opponent_id].baseImage,
@@ -201,3 +208,7 @@ document.querySelector('#dialogueBox').addEventListener('click', (e) => {
     queue.shift()
   } else document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
 })
+
+export function setOpponentId(id) {
+  opponent_id = id
+}
