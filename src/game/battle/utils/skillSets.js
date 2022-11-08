@@ -4,7 +4,7 @@ const attacks = {
     limit: 10000,
     cool_time: 0,
     left_cool_time: 0,
-    atk: 10,
+    atk: 100,
   },
   Skill1: {
     critical_prob: 0,

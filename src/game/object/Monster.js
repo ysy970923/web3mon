@@ -1,6 +1,13 @@
 import { Sprite } from './Sprite'
 import { gsap } from 'gsap'
 import { my_turn } from '../battle/utils'
+import { MonsterType } from './objectType'
+
+var larvaImage = new Image()
+larvaImage.src = '../../../img/draggleSprite.png'
+
+var fireballImage = new Image()
+fireballImage.src = '../../../img/fireball.png'
 
 export class Monster extends Sprite {
   constructor({
@@ -66,9 +73,7 @@ export class Monster extends Sprite {
     if (this.isEnemy) rotation = -2.2
     recipient.health -= attack.atk
     switch (attack.effect) {
-      case 'Fireball':
-        var fireballImage = new Image()
-        fireballImage.src = './img/fireball.png'
+      case MonsterType.FIREBALL:
         var fireball = new Sprite({
           position: {
             x: this.position.x,
@@ -81,6 +86,7 @@ export class Monster extends Sprite {
           },
           animate: true,
           rotation,
+          name: MonsterType.FIREBALL,
         })
         renderedSprites.splice(1, 0, fireball)
 
@@ -111,9 +117,7 @@ export class Monster extends Sprite {
         })
         break
 
-      case 'Larva':
-        var larvaImage = new Image()
-        larvaImage.src = './img/draggleSprite.png'
+      case MonsterType.LARVA:
         var larva = new Sprite({
           position: {
             x: this.position.x,
@@ -126,6 +130,7 @@ export class Monster extends Sprite {
           },
           animate: true,
           rotation,
+          name: MonsterType.LARVA,
         })
         renderedSprites.splice(1, 0, larva)
 
@@ -156,7 +161,7 @@ export class Monster extends Sprite {
         })
         break
 
-      case 'Tackle':
+      case MonsterType.TACKLE:
         var tl = gsap.timeline()
 
         var movementDistance = 20

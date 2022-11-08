@@ -16,4 +16,7 @@ export const NETWORK = {
   JOIN: 'Join',
   MAP_STATUS: 'MapStatus',
   LEAVE: 'Leave',
+  BATTLE_OFFER: 'BattleOffer',
+  BATTLE_REJECT: 'BattleReject',
+  BATTLE_INIT_INFO: 'BattleInitInfo',
 }

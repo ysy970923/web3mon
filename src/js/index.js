@@ -1,6 +1,5 @@
 import { connectWallets } from '../web/logIn'
 import { collisions } from '../game/data/collisions'
-import { joyToKey } from '../game/interaction/move'
 import { initBattle, animateBattle } from './battleScene'
 import { battleZonesData } from '../game/data/battleZones'
 import { charactersMapData } from '../game/data/characters'
@@ -11,16 +10,11 @@ import { worker } from './utils'
 import { rectangularCollision } from '../game/utils/checkCollision'
 import * as nearAPI from 'near-api-js'
 import { gsap } from 'gsap'
-// import playerDownImages from '../../img/playerDown.png'
+import { background, foreground } from '../game/data/map'
+import { clickEvent } from '../game/battle/battleStart'
 
 // 최초로 지갑 연결
 connectWallets(nearAPI)
-
-const image = new Image()
-image.src = '../img/Pellet Town.png'
-
-const foregroundImage = new Image()
-foregroundImage.src = '../img/foregroundObjects.png'
 
 // export const playerDownImage = playerDownImages
 
@@ -28,6 +22,7 @@ export const playerDownImage = new Image()
 playerDownImage.src = '../img/playerDown.png'
 
 export const canvas = document.querySelector('canvas')
+clickEvent()
 export const canva = canvas.getContext('2d')
 
 export const collisionsMap = []
@@ -162,22 +157,6 @@ export const player = new Sprite({
   direction: 0,
 })
 
-export const background = new Sprite({
-  position: {
-    x: offset.x,
-    y: offset.y,
-  },
-  image: image,
-})
-
-export const foreground = new Sprite({
-  position: {
-    x: offset.x,
-    y: offset.y,
-  },
-  image: foregroundImage,
-})
-
 export const movables = [
   background,
   ...boundaries,
@@ -197,7 +176,7 @@ export const renderables = [
 
 export const battle = {
   initiated: false,
-  ready: false,
+  ready: true,
 }
 
 export function global_position() {
@@ -226,34 +205,6 @@ export function checkCollision(a, b) {
       rectangle2: b,
     }) && overlappingArea > (a.width * a.height) / 10
   )
-}
-
-export function enterBattle(animationId, id) {
-  // deactivate current animation loop
-  window.cancelAnimationFrame(animationId)
-
-  battle.initiated = true
-  gsap.to('#overlappingDiv', {
-    opacity: 1,
-    repeat: 3,
-    yoyo: true,
-    duration: 0.4,
-    onComplete() {
-      gsap.to('#overlappingDiv', {
-        opacity: 1,
-        duration: 0.4,
-        onComplete() {
-          // activate a new animation loop
-          initBattle()
-          animateBattle()
-          gsap.to('#overlappingDiv', {
-            opacity: 0,
-            duration: 0.4,
-          })
-        },
-      })
-    },
-  })
 }
 
 // Jaewon NPC 생성
@@ -292,3 +243,9 @@ const makeNPC = () => {
 }
 
 makeNPC()
+initalSetting()
+
+function initalSetting() {
+  document.getElementById('map_identifier').innerText =
+    'MAIN map : you cannot fight here!'
+}

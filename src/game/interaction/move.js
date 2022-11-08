@@ -2,6 +2,7 @@ import { JoyStick } from './joystick'
 import { ws } from '../../js/network'
 import { checkOrReconnect } from '../network/checkConnection'
 import { player } from '../../js/index'
+import { transferMap } from '../data/map'
 
 export let lastKey = ''
 
@@ -102,19 +103,15 @@ export function moveUser(position, direction) {
     position.y > 675 &&
     position.y < 750
   ) {
-    console.log('맵 이동 합니다!!')
-
-    const body = {
-      MapTransfer: {
-        from: 'MAIN',
-        to: 'TEST',
-      },
-    }
-    player.map = 'TEST'
-
-    const msg = JSON.stringify(body)
-
-    ws.send(msg)
+    transferMap('TEST')
+  } else if (
+    player.map === 'TEST' &&
+    position.x > 2163 &&
+    position.x < 2200 &&
+    position.y > 660 &&
+    position.y < 750
+  ) {
+    transferMap('MAIN')
   } else {
     const body = {
       Move: {
@@ -123,14 +120,12 @@ export function moveUser(position, direction) {
     }
 
     const msg = JSON.stringify(body)
-    console.log('이걸 전송합니다', msg)
 
     ws.send(msg)
   }
 }
 
 export function stopUser(position) {
-  console.log('스탑 유저')
   if (!checkOrReconnect()) return
 
   const body = {

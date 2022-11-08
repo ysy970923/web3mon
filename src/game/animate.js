@@ -7,7 +7,6 @@ import {
   renderables,
   checkCollision,
   characters,
-  enterBattle,
   global_position,
   movables,
 } from '../js/index'
@@ -18,6 +17,7 @@ import {
 } from './utils/checkCollision'
 import { keys, lastKey } from './interaction/move'
 import { battle_start, setBattleStart } from './battle/utils'
+import { enterBattle } from './battle/utils/enterBattle'
 import { moveUser, stopUser } from '../game/interaction/move'
 
 const npcTalk = (animationId) => {
@@ -57,6 +57,8 @@ export const animate = async () => {
 
   // enable to battle with others
   if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
+    // 배틀존 안에 들어왔는지 체크, 삭제된 코드
+    /**
     battle.ready = false
     for (let i = 0; i < battleZones.length; i++) {
       const battleZone = battleZones[i]
@@ -65,6 +67,7 @@ export const animate = async () => {
         break
       }
     }
+     */
   }
 
   if (keys.w.pressed && lastKey === 'w') {

@@ -1,23 +1,16 @@
 import { attacked, endBattle, opponent_id } from './battleScene'
-import { battle_start, mySkillType } from '../game/battle/utils'
+import { battle_start, mySkillType, setMyTurn } from '../game/battle/utils'
 import { battle, local_position } from '../js/index'
 import { ACTION, CHAT, NETWORK } from '../game/network/callType'
 import { npc_list } from '../game/data/npc'
-import {
-  battleAnswer,
-  battleDeny,
-  battleAccept,
-} from '../game/battle/battleOffer'
+import { battleAccept } from '../game/network/battle'
 import { makeOthers } from '../game/object/makeOthers'
 import { checkOrReconnect } from '../game/network/checkConnection'
-
-// import { WebSocketServer } from 'ws'
+import { displayBattleAcceptPopup } from '../game/battle/battleStart'
+import { offerBattle } from '../game/battle/acceptBattleBtn'
 
 export let ws = null
 export let myID = null
-var peerConnection = null
-var webcamStream = null
-var targetID = null
 export const others = {}
 export let isMyEntrance = true
 
@@ -29,43 +22,51 @@ function onmessage(type, data) {
   switch (type) {
     case NETWORK.JOIN:
       // 유저가 들어왔다.
+      if (data.joined_player_id === myID) {
+        break
+      }
       if (!isMyEntrance) {
-        makeOthers(data.id, [
+        makeOthers(data.joined_player_id, [
           window.innerWidth / 2 - 192 / 4 / 2,
           window.innerHeight / 2 - 102 / 2,
         ])
       } else {
-        myID = data.id
+        myID = data.joined_player_id
         isMyEntrance = false
       }
       log('My ID: ' + myID)
       break
 
     case NETWORK.LEAVE:
-      delete others[data.id]
+      delete others[data.leaved_player_id]
       break
 
     case NETWORK.MAP_STATUS:
       Object.keys(others).forEach((id) => {
         if (!npc_list.includes(id)) {
-          if (!(id in data['avatar_status'])) delete others[id]
+          if (!(id in data['player_infos_for_view'])) delete others[id]
         }
       })
 
-      data['avatar_status'].forEach((avatar) => {
-        if (!(avatar.client_key in others || avatar.client_key === myID)) {
+      data['player_infos_for_view'].forEach((avatar) => {
+        if (!(avatar.player_id in others || avatar.player_id === myID)) {
           // 원래는 유저 정보를 요청해서 받아온 다음 생성이었는데, 이제 애초에 정보가 같이 내려오기 때문에 바로 생성
-          makeOthers(avatar.client_key, avatar.coordinate)
+          makeOthers(
+            avatar.player_id,
+            avatar.coordinate,
+            String(avatar.player_id).slice(0, 5),
+            avatar.nft_image_url
+          )
         }
       })
 
       break
 
     case ACTION.MOVE:
-      if (data.mover_id === myID) {
+      if (data.player_key === myID) {
         return
       } else {
-        const id = data.mover_id
+        const id = data.player_key
 
         if (data.coordinate[0] === 1 && data.coordinate[1] === 1) {
           others[id].sprite.animate = false
@@ -76,10 +77,10 @@ function onmessage(type, data) {
             y: data.coordinate[1],
           })
 
-          const isLeft = others[id].sprite.position.x - newPosition.x < 0
-          const isBottom = others[id].sprite.position.y - newPosition.y < 0
-          const isRight = others[id].sprite.position.x - newPosition.x > 0
-          const isUp = others[id].sprite.position.y - newPosition.y > 0
+          const isLeft = others[id].sprite.position.x - newPosition.x < -1
+          const isBottom = others[id].sprite.position.y - newPosition.y < -1
+          const isRight = others[id].sprite.position.x - newPosition.x > 1
+          const isUp = others[id].sprite.position.y - newPosition.y > 1
 
           if (isUp) others[id].sprite.image = others[id].sprite.sprites.up
           else if (isBottom)
@@ -89,8 +90,8 @@ function onmessage(type, data) {
           else if (isRight)
             others[id].sprite.image = others[id].sprite.sprites.left
 
-          // 포지션 이동
-          others[id].sprite.position = newPosition
+          // 포지션 이동이 아니라 새로운 포지션까지 이동하는 애니메이션이어야 하는데?
+          moveObject(id, newPosition, isLeft | isRight, isUp | isBottom)
           others[id].sprite.animate = true
         }
       }
@@ -102,6 +103,36 @@ function onmessage(type, data) {
 
     case ACTION.MAP_TRANSFER:
       console.log('유저의 맵이동', type, data)
+      break
+
+    case NETWORK.BATTLE_OFFER:
+      console.log('누가 나한테 배틀 신청함!', data)
+      // 우선 수락할건지 말건지 화면을 보여줘야한다.
+      displayBattleAcceptPopup(data.proposer_player_id)
+      offerBattle(data.proposer_player_id, false, data.battle_id)
+      break
+
+    case NETWORK.BATTLE_REJECT:
+      console.log('누가 내 배틀 거절함!', data.reason)
+      if (!battle.initiated) {
+        if (data.reason === 0) window.alert('Opponent is already on Battle')
+        else if (data.reason === 1) window.alert('Opponent Refused to Battle')
+      }
+
+      break
+
+    case NETWORK.BATTLE_INIT_INFO:
+      console.log(
+        '배틀이 시작되었다!',
+        data.proposer_player_id,
+        data.receiver_player_id,
+        data.battle_id
+      )
+
+      // others[opponent_id].skillType = 스킬타입
+      battle_start = true
+      setMyTurn(true)
+
       break
 
     case 'battle-offer':
@@ -139,8 +170,7 @@ function onmessage(type, data) {
                 battle_start = true
                 my_turn = true
                 mySkillType = document.getElementById('selectType').value
-                battleAnswer(opponent_id, mySkillType)
-                battle_start = true
+                // battleAnswer(opponent_id, mySkillType)
               })
           })
         document
@@ -150,24 +180,8 @@ function onmessage(type, data) {
             document.getElementById('acceptBattleCard').style.display = 'none'
           })
       } else {
-        battleDeny(dataview.getInt16(1), 0)
+        // battleDeny(dataview.getInt16(1), 0)
       }
-      break
-
-    case 'battle-deny':
-      document.getElementById('acceptBattleCard').style.display = 'none'
-      if (!battle.initiated) {
-        var reason = dataview.getInt16(5)
-        if (reason === 0) window.alert('Opponent is already on Battle')
-        else if (reason === 1) window.alert('Opponent Refused to Battle')
-      }
-      break
-
-    case 'battle-answer':
-      opponent_id = dataview.getInt16(1)
-      others[opponent_id].skillType = dataview.getInt16(5)
-      battle_start = true
-      my_turn = true
       break
 
     case 'attack':
@@ -275,7 +289,6 @@ export function connect() {
   log(`Connecting to server: ${serverUrl}`)
 
   if (ws != undefined) {
-    console.log('닫고 다시 연결')
     ws.onerror = ws.onopen = ws.onclose = null
     ws.close()
   }
@@ -289,7 +302,7 @@ export function connect() {
   ws.binaryType = 'arraybuffer'
 
   ws.onopen = (e) => {
-    console.log('오픈 되었다', e)
+    // console.log('오픈 되었다', e)
     onopen()
   }
 
@@ -304,4 +317,35 @@ export function connect() {
     ws = null
   }
   return ws
+}
+
+let xx
+
+function moveObject(id, position, isHorizontalMove, isVerticalMove) {
+  const pastPostion = others[id].sprite.position
+  xx = Math.max(others[id].sprite.position.x, xx)
+  // others[id].sprite.position = position
+
+  const interval = setInterval(() => {
+    console.log(others[id].sprite.position.x, pastPostion.x)
+    others[id].sprite.position.x += Math.round((position.x - xx) / 10, 3)
+    others[id].sprite.position.y +=
+      (position.y - others[id].sprite.position.y) / 10
+  }, 5)
+
+  setTimeout(() => {
+    clearInterval(interval)
+  }, 300)
+
+  // while (others[id].sprite.position.x - position.x < -1) {
+  //   console.log('실행', others[id].sprite.position.x)
+  //   others[id].sprite.position.x += 0.2
+  // }
+
+  // for (let i = 0; i < 10; i++) {
+  //   others[id].sprite.position.x =
+  //     others[id].sprite.position.x + (position.x - pastPostion.x) / 10
+  //   others[id].sprite.position.y =
+  //     others[id].sprite.position.y + (position.y - pastPostion.y) / 10
+  // }
 }

@@ -1,32 +1,6 @@
-import { myID, ws } from '../../js/network'
-import { NETWORK } from './callType'
-import { stopUser } from '../interaction/move'
-import { global_position, player } from '../../js/index'
-import { playerUrl } from '../../web/logIn'
+import { ws } from '../../js/network'
+
 import { checkOrReconnect } from './checkConnection'
-
-export function requestUserInfo(id) {
-  console.log('일로 와서 실행')
-  if (!checkOrReconnect()) return
-
-  const body = {
-    id: id,
-    myID: myID,
-  }
-  console.log('보내기까지는 한다', body)
-  // ws.send(JSON.stringify(body))
-}
-
-export function responseUserInfo(id) {
-  if (!checkOrReconnect()) return
-  var msg = {
-    collection: window.contractAddress,
-    url: playerUrl,
-    username: player.name,
-  }
-  sendMsgToPeer(NETWORK.RESPONSE_USER_INFO, id, msg)
-  stopUser(global_position())
-}
 
 export function sendMsgToPeer(type, id, msg) {
   if (!checkOrReconnect()) return

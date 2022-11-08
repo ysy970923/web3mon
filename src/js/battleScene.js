@@ -5,7 +5,12 @@ import { skillTypes } from '../game/battle/utils/skillSets'
 import { player, canva, battle } from './index'
 import { Monster } from '../game/object/Monster'
 import { gsap } from 'gsap'
-import { mySkillType, battle_start, my_turn } from '../game/battle/utils'
+import {
+  mySkillType,
+  setBattleStart,
+  my_turn,
+  setMyTurn,
+} from '../game/battle/utils'
 
 const battleBackgroundImage = new Image()
 battleBackgroundImage.src = '../img/battleBackground2.png'
@@ -36,7 +41,7 @@ export function attacked(attack) {
       recipient: me,
       renderedSprites,
     })
-    my_turn = true
+    setMyTurn(true)
 
     if (me.health <= 0) {
       queue.push(() => {
@@ -49,13 +54,18 @@ export function attacked(attack) {
 }
 
 export function endBattle(result) {
+  if (result === 'win') {
+    console.log('이겼다.')
+  } else if (result === 'lose') {
+    console.log('졌다.')
+  }
+
   queue.push(() => {
     // fade back to black
     gsap.to('#overlappingDiv', {
       opacity: 1,
       onComplete: () => {
         cancelAnimationFrame(battleAnimationId)
-        console.log('콘로')
         animate()
         document.querySelector('#userInterface').style.display = 'none'
         document.getElementById('battleResultCard').style.display = 'block'
@@ -64,11 +74,10 @@ export function endBattle(result) {
         gsap.to('#overlappingDiv', {
           opacity: 0,
         })
-
         battle.initiated = false
       },
     })
-    battle_start = false
+    setBattleStart(false)
   })
 }
 
@@ -90,14 +99,7 @@ export function initBattle() {
     document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
   }
 
-  console.log(
-    '스킬 타입',
-    skillTypes,
-    skillTypes[others[opponent_id].skillType]
-  )
-  console.log('아더스', others[opponent_id])
-
-  const opponentMonster = {
+  const opponentUser = {
     image: others[opponent_id].baseImage,
     isEnemy: true,
     name: others[opponent_id].sprite.name,
@@ -108,8 +110,9 @@ export function initBattle() {
     defenses: skillTypes[others[opponent_id].skillType].def,
   }
 
-  opponent = new Monster(opponentMonster)
-  const myMonster = {
+  opponent = new Monster(opponentUser)
+
+  const myCharacter = {
     image: player.baseImage,
     isEnemy: false,
     name: player.name,
@@ -117,77 +120,106 @@ export function initBattle() {
     attacks: JSON.parse(JSON.stringify(skillTypes[mySkillType].atk)),
     defenses: skillTypes[mySkillType].def,
   }
-  me = new Monster(myMonster)
+
+  me = new Monster(myCharacter)
+
   renderedSprites = [opponent, me]
+
   queue = []
 
   document.querySelector('#attacksBox').style[
     'grid-template-columns'
   ] = `repeat(${me.attacks.length}, 1fr)`
-  me.attacks.forEach((attack, i) => {
+
+  me.attacks.forEach((attack, index) => {
     const button = document.createElement('button')
-    button.innerHTML = `${attack.name}\n (Atk: ${attack.atk})\n (Cool: ${attack.left_cool_time})\n (Left: ${attack.limit})`
-    button.value = i
+
+    button.id = `skill_button_${index}th`
+    button.innerHTML = `
+      ${attack.name}\n 
+      (Atk: ${attack.atk})\n 
+      (Cool: ${attack.left_cool_time})\n 
+      (Left: ${attack.limit})
+    `
+
+    button.value = index
+
     document.querySelector('#attacksBox').append(button)
   })
 
   // our event listeners for our buttons (attack)
   document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (e) => {
-      if (!my_turn) return
-      const selectedAttack = me.attacks[e.currentTarget.value]
-
-      if (selectedAttack.left_cool_time > 0) {
-        window.alert('cool time is left')
-        return
-      }
-
-      if (selectedAttack.limit == 0) {
-        window.alert('limit is over')
-        return
-      }
-
-      my_turn = false
-
-      me.attack({
-        attack: selectedAttack,
-        recipient: opponent,
-        renderedSprites,
-      })
-      me.attacks.forEach((attack) => {
-        if (attack.left_cool_time > 0) attack.left_cool_time -= 1
-      })
-
-      selectedAttack.limit -= 1
-      selectedAttack.left_cool_time = selectedAttack.cool_time
-
-      Array.from(document.querySelector('#attacksBox').childNodes).forEach(
-        (button, i) => {
-          var attack = me.attacks[i]
-          button.innerHTML = `${attack.name}\n (Cool: ${attack.left_cool_time})\n (Left: ${attack.limit})`
-        }
-      )
-
-      // 250 is bot
-      if (opponent_id == 250) {
-        setTimeout(() => {
-          if (Math.random() < 0.5) attacked(0)
-          else attacked(1)
-        }, 3000)
-      } else attack(opponent_id, me.attacks.indexOf(selectedAttack))
-
-      if (opponent.health <= 0) {
-        queue.push(() => {
-          opponent.faint()
-        })
-        endBattle('WIN')
-      }
+      clickSkillButton(e.currentTarget.value)
     })
   })
 }
 
+const checkCanUserSkill = (selectedAttack) => {
+  if (selectedAttack.left_cool_time > 0) {
+    window.alert('cool time is left')
+    return false
+  } else if (selectedAttack.limit == 0) {
+    window.alert('limit is over')
+    return false
+  } else {
+    return true
+  }
+}
+
+const clickSkillButton = (skillValue) => {
+  if (!my_turn) return
+
+  const selectedAttack = me.attacks[skillValue]
+
+  if (!checkCanUserSkill(selectedAttack)) {
+    return
+  }
+
+  setMyTurn(false)
+
+  me.attack({
+    attack: selectedAttack,
+    recipient: opponent,
+    renderedSprites,
+  })
+
+  me.attacks.forEach((attack) => {
+    // 한번 공격했으니 전체 쿨타임 1씩 감소
+    if (attack.left_cool_time > 0) attack.left_cool_time -= 1
+  })
+
+  // 사용한 공격의 사용 가능 횟수 1 감수
+  selectedAttack.limit -= 1
+  selectedAttack.left_cool_time = selectedAttack.cool_time
+
+  Array.from(document.querySelector('#attacksBox').childNodes).forEach(
+    (button, index) => {
+      const attack = me.attacks[index]
+      button.innerHTML = `${attack.name}\n (Cool: ${attack.left_cool_time})\n (Left: ${attack.limit})`
+    }
+  )
+
+  // 250 is NPC
+  if (opponent_id == 250) {
+    setTimeout(() => {
+      if (Math.random() < 0.5) attacked(0)
+      else attacked(1)
+    }, 3000)
+  } else attack(opponent_id, me.attacks.indexOf(selectedAttack))
+
+  // 내가 이긴 경우
+  if (opponent.health <= 0) {
+    queue.push(() => {
+      opponent.faint()
+    })
+    endBattle('WIN')
+  }
+}
+
 export function animateBattle() {
   battleAnimationId = window.requestAnimationFrame(animateBattle)
+
   battleBackground.draw()
 
   if (queue.length > 0) {
@@ -199,8 +231,6 @@ export function animateBattle() {
     sprite.draw()
   })
 }
-// initBattle()
-// animateBattle()
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
   if (queue.length > 0) {

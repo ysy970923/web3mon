@@ -13,9 +13,16 @@ export function startBattle() {
   battle_start = true
   my_turn = true
   mySkillType = document.getElementById('selectType').value
-  console.log('선택한 스킬 타입', mySkillType)
 }
 
 export function setBattleStart(bool) {
   battle_start = bool
+}
+
+export function setMyTurn(bool) {
+  my_turn = bool
+}
+
+export function setMySkillType(type) {
+  mySkillType = type
 }
