@@ -11,6 +11,7 @@ import {
   my_turn,
   setMyTurn,
 } from '../game/battle/utils'
+import { checkCanUserSkill } from '../game/battle/attack'
 
 const battleBackgroundImage = new Image()
 battleBackgroundImage.src = '../img/battleBackground2.png'
@@ -25,7 +26,7 @@ const battleBackground = new Sprite({
 
 export let opponent_id = null
 let opponent
-let me
+let myMonster
 let renderedSprites
 let battleAnimationId
 export let queue
@@ -34,20 +35,20 @@ export let queue
 // Methods
 //
 
+/** 공격이 들어와서 내가 공격을 받음 */
 export function attacked(attack) {
   queue.push(() => {
     opponent.attack({
       attack: opponent.attacks[attack],
-      recipient: me,
+      recipient: myMonster,
       renderedSprites,
     })
     setMyTurn(true)
 
-    if (me.health <= 0) {
+    if (myMonster.health <= 0) {
       queue.push(() => {
-        me.faint()
+        myMonster.faint()
       })
-
       endBattle('LOSE')
     }
   })
@@ -109,7 +110,6 @@ export function initBattle() {
     ),
     defenses: skillTypes[others[opponent_id].skillType].def,
   }
-
   opponent = new Monster(opponentUser)
 
   const myCharacter = {
@@ -120,20 +120,18 @@ export function initBattle() {
     attacks: JSON.parse(JSON.stringify(skillTypes[mySkillType].atk)),
     defenses: skillTypes[mySkillType].def,
   }
+  myMonster = new Monster(myCharacter)
 
-  me = new Monster(myCharacter)
-
-  renderedSprites = [opponent, me]
+  renderedSprites = [opponent, myMonster]
 
   queue = []
 
   document.querySelector('#attacksBox').style[
     'grid-template-columns'
-  ] = `repeat(${me.attacks.length}, 1fr)`
+  ] = `repeat(${myMonster.attacks.length}, 1fr)`
 
-  me.attacks.forEach((attack, index) => {
+  myMonster.attacks.forEach((attack, index) => {
     const button = document.createElement('button')
-
     button.id = `skill_button_${index}th`
     button.innerHTML = `
       ${attack.name}\n 
@@ -141,9 +139,7 @@ export function initBattle() {
       (Cool: ${attack.left_cool_time})\n 
       (Left: ${attack.limit})
     `
-
-    button.value = index
-
+    button.value = attack.value
     document.querySelector('#attacksBox').append(button)
   })
 
@@ -155,58 +151,47 @@ export function initBattle() {
   })
 }
 
-const checkCanUserSkill = (selectedAttack) => {
-  if (selectedAttack.left_cool_time > 0) {
-    window.alert('cool time is left')
-    return false
-  } else if (selectedAttack.limit == 0) {
-    window.alert('limit is over')
-    return false
-  } else {
-    return true
-  }
-}
-
+/** 내가 공격하는 것 */
 const clickSkillButton = (skillValue) => {
   if (!my_turn) return
-
-  const selectedAttack = me.attacks[skillValue]
+  console.log('밸류', skillValue)
+  const selectedAttack = myMonster.attacks.filter(
+    (doc) => parseInt(doc.value) === parseInt(skillValue)
+  )[0]
 
   if (!checkCanUserSkill(selectedAttack)) {
     return
   }
 
-  setMyTurn(false)
-
-  me.attack({
+  myMonster.attack({
     attack: selectedAttack,
     recipient: opponent,
     renderedSprites,
   })
 
-  me.attacks.forEach((attack) => {
+  myMonster.attacks.forEach((attack) => {
     // 한번 공격했으니 전체 쿨타임 1씩 감소
     if (attack.left_cool_time > 0) attack.left_cool_time -= 1
   })
 
-  // 사용한 공격의 사용 가능 횟수 1 감수
+  // 한번 공격했으니 사용한 공격의 사용 가능 횟수 1 감수
   selectedAttack.limit -= 1
   selectedAttack.left_cool_time = selectedAttack.cool_time
 
   Array.from(document.querySelector('#attacksBox').childNodes).forEach(
     (button, index) => {
-      const attack = me.attacks[index]
+      const attack = myMonster.attacks[index]
       button.innerHTML = `${attack.name}\n (Cool: ${attack.left_cool_time})\n (Left: ${attack.limit})`
     }
   )
 
-  // 250 is NPC
+  // NPC는 알아서 랜덤으로 공격해야하니까
   if (opponent_id == 250) {
     setTimeout(() => {
       if (Math.random() < 0.5) attacked(0)
       else attacked(1)
     }, 3000)
-  } else attack(opponent_id, me.attacks.indexOf(selectedAttack))
+  } else attack(opponent_id, myMonster.attacks.indexOf(selectedAttack))
 
   // 내가 이긴 경우
   if (opponent.health <= 0) {
@@ -215,6 +200,8 @@ const clickSkillButton = (skillValue) => {
     })
     endBattle('WIN')
   }
+
+  setMyTurn(false)
 }
 
 export function animateBattle() {

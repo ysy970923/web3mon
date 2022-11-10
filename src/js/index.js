@@ -18,6 +18,11 @@ connectWallets(nearAPI)
 
 // export const playerDownImage = playerDownImages
 
+export let stopAllPlay = false
+export const setStopAllPlay = (bol) => {
+  stopAllPlay = bol
+}
+
 export const playerDownImage = new Image()
 playerDownImage.src = '../img/playerDown.png'
 
@@ -157,7 +162,7 @@ export const player = new Sprite({
   direction: 0,
 })
 
-export const movables = [
+export let movables = [
   background,
   ...boundaries,
   foreground,
@@ -165,7 +170,7 @@ export const movables = [
   ...characters,
 ]
 
-export const renderables = [
+export let renderables = [
   background,
   ...boundaries,
   ...battleZones,
@@ -173,6 +178,13 @@ export const renderables = [
   player,
   foreground,
 ]
+
+export const setMovables = (mova) => {
+  movables = mova
+}
+export const setRenderables = (rend) => {
+  renderables = rend
+}
 
 export const battle = {
   initiated: false,

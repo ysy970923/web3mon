@@ -19,4 +19,6 @@ export const NETWORK = {
   BATTLE_OFFER: 'BattleOffer',
   BATTLE_REJECT: 'BattleReject',
   BATTLE_INIT_INFO: 'BattleInitInfo',
+  ATTACK: 'attack',
+  LEAVE_BATTLE: 'leave_battle',
 }

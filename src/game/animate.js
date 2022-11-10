@@ -9,6 +9,7 @@ import {
   characters,
   global_position,
   movables,
+  stopAllPlay,
 } from '../js/index'
 import { others } from '../js/network'
 import {
@@ -70,6 +71,8 @@ export const animate = async () => {
      */
   }
 
+  // 아래부터는 나의 이동
+  if (stopAllPlay) return
   if (keys.w.pressed && lastKey === 'w') {
     player.animate = true
     player.image = player.sprites.up

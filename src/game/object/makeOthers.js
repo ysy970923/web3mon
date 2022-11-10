@@ -19,6 +19,7 @@ export const makeOthers = (id, coordinate, nickname, nft_image_url) => {
 
   if (others[id] === undefined) {
     others[id] = {
+      skillType: 1,
       draw: false,
       collection: 'msg.collection',
       sprite: new Sprite({

@@ -1,11 +1,18 @@
 import { Sprite } from '../object/Sprite'
-import { player, renderables } from '../../js/index'
+import { player } from '../../js/index'
 import {
   mainBackgroundImage,
   foregroundImage,
   battleBackgroundImage,
 } from '../../js/load'
 import { ws } from '../../js/network'
+import {
+  boundaries,
+  battleZones,
+  characters,
+  setMovables,
+  setRenderables,
+} from '../../js/index'
 
 const offset = {
   x: window.innerWidth / 2 - 3360 / 2,
@@ -33,6 +40,14 @@ export const foreground = new Sprite({
   image: foregroundImage,
 })
 
+export const battleBackground = new Sprite({
+  position: {
+    x: offset.x,
+    y: offset.y,
+  },
+  image: battleBackgroundImage,
+})
+
 export function transferMap(toMap) {
   console.log('맵이동', player.map, '에서 ', toMap, '으로')
   // map 이동의 효과 : 뭐가 있을까?
@@ -45,6 +60,23 @@ export function transferMap(toMap) {
     document.getElementById('map_identifier').innerText =
       'BATTLE map : you can fight here!'
     // background.image = battleBackgroundImage
+    setRenderables([
+      battleBackground,
+      ...boundaries,
+      ...battleZones,
+      ...characters,
+      player,
+      foreground,
+    ])
+
+    setMovables([
+      battleBackground,
+      ...boundaries,
+      ...battleZones,
+      ...characters,
+      foreground,
+    ])
+
     const body = {
       MapTransfer: {
         from: 'MAIN',

@@ -1,13 +1,14 @@
 import { others } from '../../js/network'
-import { canvas, battle } from '../../js/index'
+import { canvas, battle, stopAllPlay } from '../../js/index'
 import { offerBattle } from './acceptBattleBtn'
 import { player } from '../../js/index'
 
 export function clickEvent() {
   canvas.addEventListener('click', (e) => {
     // need to be ready and not currently battling and in BATTLE map
-    if (!battle.ready || battle.initiated || player.map === 'MAIN') return
-    // if (!battle.ready || battle.initiated) return
+    // if (!battle.ready || battle.initiated || player.map === 'MAIN') return
+    if (!battle.ready || battle.initiated) return
+    if (stopAllPlay) return
 
     for (const key in others) {
       var x = e.offsetX - others[key].sprite.width / 2

@@ -1,7 +1,7 @@
 import { Sprite } from './Sprite'
 import { gsap } from 'gsap'
 import { my_turn } from '../battle/utils'
-import { MonsterType } from './objectType'
+import { MonsterSkillType } from './objectType'
 
 var larvaImage = new Image()
 larvaImage.src = '../../../img/draggleSprite.png'
@@ -57,11 +57,11 @@ export class Monster extends Sprite {
     })
   }
 
+  /** 공격 : 공격의 종류, 공격 받는 사람, 배틀에 참여중인 sprites */
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector('#dialogueBox').style.display = 'block'
     document.querySelector('#dialogueBox').innerHTML =
       this.name + ' used ' + attack.name
-
     setTimeout(() => {
       if (my_turn) document.querySelector('#dialogueBox').style.display = 'none'
     }, 2000)
@@ -71,9 +71,11 @@ export class Monster extends Sprite {
 
     let rotation = 1
     if (this.isEnemy) rotation = -2.2
+
     recipient.health -= attack.atk
+
     switch (attack.effect) {
-      case MonsterType.FIREBALL:
+      case MonsterSkillType.FIREBALL:
         var fireball = new Sprite({
           position: {
             x: this.position.x,
@@ -86,38 +88,17 @@ export class Monster extends Sprite {
           },
           animate: true,
           rotation,
-          name: MonsterType.FIREBALL,
+          name: MonsterSkillType.FIREBALL,
         })
         renderedSprites.splice(1, 0, fireball)
 
-        gsap.to(fireball.position, {
-          x: recipient.position.x,
-          y: recipient.position.y,
-          onComplete: () => {
-            // Enemy actually gets hit
-            gsap.to(healthBar, {
-              width: (100 * recipient.health) / recipient.initialHealth + '%',
-            })
-
-            gsap.to(recipient.position, {
-              x: recipient.position.x + 10,
-              yoyo: true,
-              repeat: 5,
-              duration: 0.08,
-            })
-
-            gsap.to(recipient, {
-              opacity: 0,
-              repeat: 5,
-              yoyo: true,
-              duration: 0.08,
-            })
-            renderedSprites.splice(1, 1)
-          },
-        })
+        gsap.to(
+          fireball.position,
+          attackGaspAnimation(healthBar, renderedSprites, recipient)
+        )
         break
 
-      case MonsterType.LARVA:
+      case MonsterSkillType.LARVA:
         var larva = new Sprite({
           position: {
             x: this.position.x,
@@ -130,38 +111,17 @@ export class Monster extends Sprite {
           },
           animate: true,
           rotation,
-          name: MonsterType.LARVA,
+          name: MonsterSkillType.LARVA,
         })
         renderedSprites.splice(1, 0, larva)
 
-        gsap.to(larva.position, {
-          x: recipient.position.x,
-          y: recipient.position.y,
-          onComplete: () => {
-            // Enemy actually gets hit
-            gsap.to(healthBar, {
-              width: (100 * recipient.health) / recipient.initialHealth + '%',
-            })
-
-            gsap.to(recipient.position, {
-              x: recipient.position.x + 10,
-              yoyo: true,
-              repeat: 5,
-              duration: 0.08,
-            })
-
-            gsap.to(recipient, {
-              opacity: 0,
-              repeat: 5,
-              yoyo: true,
-              duration: 0.08,
-            })
-            renderedSprites.splice(1, 1)
-          },
-        })
+        gsap.to(
+          larva.position,
+          attackGaspAnimation(healthBar, renderedSprites, recipient)
+        )
         break
 
-      case MonsterType.TACKLE:
+      case MonsterSkillType.TACKLE:
         var tl = gsap.timeline()
 
         var movementDistance = 20
@@ -199,5 +159,33 @@ export class Monster extends Sprite {
           })
         break
     }
+  }
+}
+
+const attackGaspAnimation = (healthBar, renderedSprites, recipient) => {
+  return {
+    x: recipient.position.x,
+    y: recipient.position.y,
+    onComplete: () => {
+      // Enemy actually gets hit
+      gsap.to(healthBar, {
+        width: (100 * recipient.health) / recipient.initialHealth + '%',
+      })
+
+      gsap.to(recipient.position, {
+        x: recipient.position.x + 10,
+        yoyo: true,
+        repeat: 5,
+        duration: 0.08,
+      })
+
+      gsap.to(recipient, {
+        opacity: 0,
+        repeat: 5,
+        yoyo: true,
+        duration: 0.08,
+      })
+      renderedSprites.splice(1, 1)
+    },
   }
 }

@@ -49,6 +49,10 @@ function onmessage(type, data) {
       })
 
       data['player_infos_for_view'].forEach((avatar) => {
+        // if (isMyEntrance) {
+        //   myID = avatar['player_id']
+        //   isMyEntrance = false
+        // } else
         if (!(avatar.player_id in others || avatar.player_id === myID)) {
           // 원래는 유저 정보를 요청해서 받아온 다음 생성이었는데, 이제 애초에 정보가 같이 내려오기 때문에 바로 생성
           makeOthers(
@@ -98,7 +102,8 @@ function onmessage(type, data) {
       break
 
     case CHAT.BOARD_CAST_CHAT:
-      others[data.sender_id].sprite.chat = data.content
+      if (data.send_player_id !== myID)
+        others[data.send_player_id].sprite.chat = data['content']
       break
 
     case ACTION.MAP_TRANSFER:
@@ -122,6 +127,7 @@ function onmessage(type, data) {
       break
 
     case NETWORK.BATTLE_INIT_INFO:
+      // 배틀 시작할 때 상대방의 스킬 공개.
       console.log(
         '배틀이 시작되었다!',
         data.proposer_player_id,
@@ -129,67 +135,17 @@ function onmessage(type, data) {
         data.battle_id
       )
 
-      // others[opponent_id].skillType = 스킬타입
-      battle_start = true
-      setMyTurn(true)
-
+      others[opponent_id].skillType = 1
+      battle_start = true // 하면 배틀 애니메이션이 시작
+      if (data.proposer_player_id === myID) setMyTurn(false)
+      else setMyTurn(true)
       break
 
-    case 'battle-offer':
-      if (!battle.initiated) {
-        document.getElementById('acceptBattleBtn').style.display =
-          'inline-block'
-        document.getElementById('refuseBattleBtn').style.display =
-          'inline-block'
-        document
-          .getElementById('acceptBattleBtn')
-          .replaceWith(
-            document.getElementById('acceptBattleBtn').cloneNode(true)
-          )
-        document
-          .getElementById('refuseBattleBtn')
-          .replaceWith(
-            document.getElementById('refuseBattleBtn').cloneNode(true)
-          )
-
-        document.getElementById('acceptBattleCard').style.display = 'block'
-        document.getElementById('battleOpponentName2').innerText =
-          'Opponent: ' + others[dataview.getInt16(1)].sprite.name
-        document
-          .getElementById('acceptBattleBtn')
-          .addEventListener('click', (e) => {
-            console.log('이것도 로깅이 돼')
-            battleAccept()
-            // opponent_id = dataview.getInt16(1)
-            // others[opponent_id].skillType = dataview.getInt16(5)
-            document
-              .getElementById('selectTypeBtn')
-              .addEventListener('click', (e) => {
-                console.log('이것도 로깅이 되나? 그럼 왜 둘다 있지?')
-                document.getElementById('selectTypeCard').style.display = 'none'
-                battle_start = true
-                my_turn = true
-                mySkillType = document.getElementById('selectType').value
-                // battleAnswer(opponent_id, mySkillType)
-              })
-          })
-        document
-          .getElementById('refuseBattleBtn')
-          .addEventListener('click', (e) => {
-            // battleDeny(dataview.getInt16(1), 1)
-            document.getElementById('acceptBattleCard').style.display = 'none'
-          })
-      } else {
-        // battleDeny(dataview.getInt16(1), 0)
-      }
-      break
-
-    case 'attack':
-      var attack = dataview.getInt16(5)
+    case NETWORK.ATTACK:
       attacked(attack)
       break
 
-    case 'leave-battle':
+    case NETWORK.LEAVE_BATTLE:
       if (battle.initiated && id === opponent_id) {
         window.alert('opponent left the battle')
         endBattle()
@@ -322,20 +278,18 @@ export function connect() {
 let xx
 
 function moveObject(id, position, isHorizontalMove, isVerticalMove) {
-  const pastPostion = others[id].sprite.position
-  xx = Math.max(others[id].sprite.position.x, xx)
-  // others[id].sprite.position = position
+  others[id].sprite.position = position
+  // const pastPosition = others[id].sprite.position
 
-  const interval = setInterval(() => {
-    console.log(others[id].sprite.position.x, pastPostion.x)
-    others[id].sprite.position.x += Math.round((position.x - xx) / 10, 3)
-    others[id].sprite.position.y +=
-      (position.y - others[id].sprite.position.y) / 10
-  }, 5)
+  // const interval = setInterval(() => {
+  //   others[id].sprite.position.x += (position.x - pastPosition.x) / 5
+  //   others[id].sprite.position.y +=
+  //     (position.y - others[id].sprite.position.y) / 5
+  // }, 5)
 
-  setTimeout(() => {
-    clearInterval(interval)
-  }, 300)
+  // setTimeout(() => {
+  //   clearInterval(interval)
+  // }, 100)
 
   // while (others[id].sprite.position.x - position.x < -1) {
   //   console.log('실행', others[id].sprite.position.x)

@@ -32,6 +32,7 @@ export function offerBattle(opponentId, isMyRequest, battleId) {
           document.getElementById('battleOpponentName2').innerText =
             'Waiting for accpetance...'
           document.getElementById('acceptBattleBtn').style.display = 'none'
+          // 내 스킬타입 확정
           setMySkillType(document.getElementById('selectType').value)
           // NPC가 아니면 상대방과 악수하는 과정이 필요
           // 내가 제안하는 거면 Request, 내가 수락하는거면 Accept
