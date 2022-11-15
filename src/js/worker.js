@@ -41,7 +41,7 @@ async function makeChracterImage(url, contractAddress) {
       r: image.bitmap.data[idx + 0],
       g: image.bitmap.data[idx + 1],
       b: image.bitmap.data[idx + 2],
-      a: image.bitmap.data[idx + 3]
+      a: image.bitmap.data[idx + 3],
     }
     for (var i = 0; i < 20; i++) {
       var targetColor = targetColors[i]
@@ -73,6 +73,7 @@ async function makeChracterImage(url, contractAddress) {
   else if (contractAddress === 'realbirds.near')
     image = image.crop(27, 0, 127, 127)
   else if (contractAddress === 'mrbrownproject.near') image = image
+  else if (contractAddress === 'PUFF') image = image.crop(25, 0, 150, 150)
   else image = image.crop(27, 24, 127, 127)
 
   image = image.resize(46, 48)

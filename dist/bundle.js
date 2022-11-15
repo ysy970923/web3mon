@@ -990,55 +990,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var core_js_modules_es_array_map_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.map.js */ "./node_modules/core-js/modules/es.array.map.js");
 /* harmony import */ var core_js_modules_es_array_map_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_map_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
-/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_array_is_array_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.array.is-array.js */ "./node_modules/core-js/modules/es.array.is-array.js");
-/* harmony import */ var core_js_modules_es_array_is_array_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_is_array_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.array.from.js */ "./node_modules/core-js/modules/es.array.from.js");
-/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
-/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.regexp.exec.js */ "./node_modules/core-js/modules/es.regexp.exec.js");
-/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _object_Sprite__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../object/Sprite */ "./src/game/object/Sprite.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
-/* harmony import */ var _js_load__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../js/load */ "./src/js/load.js");
-/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* harmony import */ var _object_Sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../object/Sprite */ "./src/game/object/Sprite.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+/* harmony import */ var _js_load__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../js/load */ "./src/js/load.js");
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
 
 
 
@@ -1053,39 +1008,52 @@ var MAP = {
   MAIN: 'MAIN',
   TEST: 'TEST'
 };
-var background = new _object_Sprite__WEBPACK_IMPORTED_MODULE_14__.Sprite({
+var background = new _object_Sprite__WEBPACK_IMPORTED_MODULE_1__.Sprite({
   position: {
     x: offset.x,
     y: offset.y
   },
-  image: _js_load__WEBPACK_IMPORTED_MODULE_16__.mainBackgroundImage
+  image: _js_load__WEBPACK_IMPORTED_MODULE_3__.mainBackgroundImage
 });
-var foreground = new _object_Sprite__WEBPACK_IMPORTED_MODULE_14__.Sprite({
+var foreground = new _object_Sprite__WEBPACK_IMPORTED_MODULE_1__.Sprite({
   position: {
     x: offset.x,
     y: offset.y
   },
-  image: _js_load__WEBPACK_IMPORTED_MODULE_16__.foregroundImage
+  image: _js_load__WEBPACK_IMPORTED_MODULE_3__.foregroundImage
 });
-var battleBackground = new _object_Sprite__WEBPACK_IMPORTED_MODULE_14__.Sprite({
+var battleBackground = new _object_Sprite__WEBPACK_IMPORTED_MODULE_1__.Sprite({
   position: {
-    x: offset.x,
-    y: offset.y
+    x: 0,
+    y: 0
   },
-  image: _js_load__WEBPACK_IMPORTED_MODULE_16__.battleBackgroundImage
+  image: _js_load__WEBPACK_IMPORTED_MODULE_3__.battleBackgroundImage
 });
 function transferMap(toMap) {
-  console.log('맵이동', _js_index__WEBPACK_IMPORTED_MODULE_15__.player.map, '에서 ', toMap, '으로');
+  console.log('맵이동', _js_index__WEBPACK_IMPORTED_MODULE_2__.player.map, '에서 ', toMap, '으로');
   // map 이동의 효과 : 뭐가 있을까?
   // map UI 자체 변경 -> renderables, movables, boundaries 가 바뀌는 것
   // map에 존재하는 유저들 변경
-  _js_index__WEBPACK_IMPORTED_MODULE_15__.player.map = toMap;
-  _js_index__WEBPACK_IMPORTED_MODULE_15__.player.chat = '맵이동' + toMap;
+  _js_index__WEBPACK_IMPORTED_MODULE_2__.player.map = toMap;
+  _js_index__WEBPACK_IMPORTED_MODULE_2__.player.chat = '맵이동' + toMap;
   if (toMap === MAP.TEST) {
     document.getElementById('map_identifier').innerText = 'BATTLE map : you can fight here!';
-    // background.image = battleBackgroundImage
-    (0,_js_index__WEBPACK_IMPORTED_MODULE_15__.setRenderables)([battleBackground].concat(_toConsumableArray(_js_index__WEBPACK_IMPORTED_MODULE_15__.boundaries), _toConsumableArray(_js_index__WEBPACK_IMPORTED_MODULE_15__.battleZones), _toConsumableArray(_js_index__WEBPACK_IMPORTED_MODULE_15__.characters), [_js_index__WEBPACK_IMPORTED_MODULE_15__.player, foreground]));
-    (0,_js_index__WEBPACK_IMPORTED_MODULE_15__.setMovables)([battleBackground].concat(_toConsumableArray(_js_index__WEBPACK_IMPORTED_MODULE_15__.boundaries), _toConsumableArray(_js_index__WEBPACK_IMPORTED_MODULE_15__.battleZones), _toConsumableArray(_js_index__WEBPACK_IMPORTED_MODULE_15__.characters), [foreground]));
+    battleBackground.draw();
+    (0,_js_index__WEBPACK_IMPORTED_MODULE_2__.setRenderables)([battleBackground,
+    // ...boundaries,
+    // ...battleZones,
+    // ...characters,
+    _js_index__WEBPACK_IMPORTED_MODULE_2__.player
+    // foreground,
+    ]);
+
+    (0,_js_index__WEBPACK_IMPORTED_MODULE_2__.setMovables)([battleBackground
+    // ...boundaries,
+    // ...battleZones,
+    // ...characters,
+    // foreground,
+    ]);
+
     var body = {
       MapTransfer: {
         from: 'MAIN',
@@ -1093,7 +1061,7 @@ function transferMap(toMap) {
       }
     };
     var msg = JSON.stringify(body);
-    _js_network__WEBPACK_IMPORTED_MODULE_17__.ws.send(msg);
+    _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(msg);
   } else if (toMap === MAP.MAIN) {
     document.getElementById('map_identifier').innerText = 'MAIN map : you cannot fight here!';
 
@@ -1105,7 +1073,7 @@ function transferMap(toMap) {
       }
     };
     var _msg = JSON.stringify(_body);
-    _js_network__WEBPACK_IMPORTED_MODULE_17__.ws.send(_msg);
+    _js_network__WEBPACK_IMPORTED_MODULE_4__.ws.send(_msg);
   }
 }
 
@@ -1125,6 +1093,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _attacks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./attacks */ "./src/game/data/attacks.js");
 
 var monsters = {
+  PUFF: {
+    health: 120,
+    attacks: [_attacks__WEBPACK_IMPORTED_MODULE_0__.attacks["Bird Kick"], _attacks__WEBPACK_IMPORTED_MODULE_0__.attacks.Fireball, _attacks__WEBPACK_IMPORTED_MODULE_0__.attacks.Larva]
+  },
   'asac.near': {
     health: 120,
     attacks: [_attacks__WEBPACK_IMPORTED_MODULE_0__.attacks["Banana Kick"], _attacks__WEBPACK_IMPORTED_MODULE_0__.attacks.Fireball, _attacks__WEBPACK_IMPORTED_MODULE_0__.attacks.Larva]
@@ -1732,8 +1704,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "rejectBattleRequest": () => (/* binding */ rejectBattleRequest),
 /* harmony export */   "requestBattle": () => (/* binding */ requestBattle)
 /* harmony export */ });
-/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
-/* harmony import */ var _network_checkConnection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../network/checkConnection */ "./src/game/network/checkConnection.js");
+/* harmony import */ var core_js_modules_es_parse_int_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.parse-int.js */ "./node_modules/core-js/modules/es.parse-int.js");
+/* harmony import */ var core_js_modules_es_parse_int_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_parse_int_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+/* harmony import */ var _network_checkConnection__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../network/checkConnection */ "./src/game/network/checkConnection.js");
+
+
+
+
+
+
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 
 
@@ -1741,7 +1738,7 @@ __webpack_require__.r(__webpack_exports__);
  * 스킬 타입이 있긴한데.. 처음에는 요청을 안보내지?
  */
 function requestBattle(receiver_player_id, skillType) {
-  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_9__.checkOrReconnect)()) return;
   console.log('이사람한테 보낸다22222', receiver_player_id, skillType);
   var body = {
     RequestBattle: {
@@ -1749,30 +1746,34 @@ function requestBattle(receiver_player_id, skillType) {
     }
   };
   var msg = JSON.stringify(body);
-  _js_network__WEBPACK_IMPORTED_MODULE_0__.ws.send(msg);
+  _js_network__WEBPACK_IMPORTED_MODULE_8__.ws.send(msg);
 }
 function acceptBattleRequest(proposer_player_id, battle_id) {
-  console.log('이사람꺼 수락', proposer_player_id, '배틀 아이디', battle_id);
-  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  console.log('이사람꺼 수락', proposer_player_id, '배틀 아이디', battle_id, _typeof(battle_id));
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_9__.checkOrReconnect)()) return;
   var body = {
     AcceptBattle: {
       proposer_player_id: proposer_player_id,
-      battle_id: battle_id
+      battle_id: parseInt(battle_id)
     }
   };
-  _js_network__WEBPACK_IMPORTED_MODULE_0__.ws.send(JSON.stringify(body));
+  console.log(JSON.stringify(body), ' 제이썬');
+  // ws.send(JSON.stringify(body))
 }
+
 function rejectBattleRequest(proposer_player_id, battle_id) {
-  console.log('이사람꺼 거절', proposer_player_id, '배틀 아이디', battle_id);
-  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_1__.checkOrReconnect)()) return;
+  console.log('이사람꺼 거절', proposer_player_id, '배틀 아이디', battle_id, _typeof(battle_id));
+  if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_9__.checkOrReconnect)()) return;
   var body = {
     RejectBattle: {
       proposer_player_id: proposer_player_id,
-      battle_id: battle_id
+      battle_id: parseInt(battle_id)
     }
   };
-  _js_network__WEBPACK_IMPORTED_MODULE_0__.ws.send(JSON.stringify(body));
+  console.log(JSON.stringify(body), ' 제이썬');
+  // ws.send(JSON.stringify(body))
 }
+
 function battleAccept() {
   document.getElementById('acceptBattleCard').style.display = 'none';
   document.getElementById('selectTypeCard').style.display = 'block';
@@ -2548,7 +2549,8 @@ var battleBackground = new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_12__.Spr
     x: 0,
     y: 0
   },
-  image: battleBackgroundImage
+  image: battleBackgroundImage,
+  scale: 1.2
 });
 var opponent_id = null;
 var opponent;
@@ -2799,7 +2801,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // 최초로 지갑 연결
-(0,_web_logIn__WEBPACK_IMPORTED_MODULE_5__.connectWallets)(near_api_js__WEBPACK_IMPORTED_MODULE_15__);
+// connectWallets(nearAPI)
 
 // export const playerDownImage = playerDownImages
 
@@ -3007,7 +3009,7 @@ __webpack_require__.r(__webpack_exports__);
 var mainBackgroundImage = new Image();
 mainBackgroundImage.src = '../img/Pellet Town.png';
 var battleBackgroundImage = new Image();
-battleBackgroundImage.src = '../img/logo-24.png';
+battleBackgroundImage.src = '../img/battleBackground2.png';
 var foregroundImage = new Image();
 foregroundImage.src = '../img/foregroundObjects.png';
 
@@ -3066,12 +3068,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
 /* harmony import */ var _game_network_callType__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../game/network/callType */ "./src/game/network/callType.js");
 /* harmony import */ var _game_data_npc__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../game/data/npc */ "./src/game/data/npc.js");
-/* harmony import */ var _game_network_battle__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../game/network/battle */ "./src/game/network/battle.js");
-/* harmony import */ var _game_object_makeOthers__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../game/object/makeOthers */ "./src/game/object/makeOthers.js");
-/* harmony import */ var _game_network_checkConnection__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../game/network/checkConnection */ "./src/game/network/checkConnection.js");
-/* harmony import */ var _game_battle_battleStart__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../game/battle/battleStart */ "./src/game/battle/battleStart.js");
-/* harmony import */ var _game_battle_acceptBattleBtn__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../game/battle/acceptBattleBtn */ "./src/game/battle/acceptBattleBtn.js");
-
+/* harmony import */ var _game_object_makeOthers__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../game/object/makeOthers */ "./src/game/object/makeOthers.js");
+/* harmony import */ var _game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../game/network/checkConnection */ "./src/game/network/checkConnection.js");
+/* harmony import */ var _game_battle_battleStart__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../game/battle/battleStart */ "./src/game/battle/battleStart.js");
+/* harmony import */ var _game_battle_acceptBattleBtn__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../game/battle/acceptBattleBtn */ "./src/game/battle/acceptBattleBtn.js");
 
 
 
@@ -3103,14 +3103,22 @@ function onmessage(type, data) {
   var id = data.id;
   switch (type) {
     case _game_network_callType__WEBPACK_IMPORTED_MODULE_16__.NETWORK.JOIN:
+    case 'your_player_id':
+      console.log('실행합니다');
       // 유저가 들어왔다.
-      if (data.joined_player_id === myID) {
+      // if (data.joined_player_id === myID) {
+      if (data === myID) {
         break;
       }
       if (!isMyEntrance) {
-        (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_19__.makeOthers)(data.joined_player_id, [window.innerWidth / 2 - 192 / 4 / 2, window.innerHeight / 2 - 102 / 2]);
+        // makeOthers(data.joined_player_id, [
+        //   window.innerWidth / 2 - 192 / 4 / 2,
+        //   window.innerHeight / 2 - 102 / 2,
+        // ])
+        (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_18__.makeOthers)(data, [window.innerWidth / 2 - 192 / 4 / 2, window.innerHeight / 2 - 102 / 2]);
       } else {
-        myID = data.joined_player_id;
+        myID = data;
+        // myID = data.joined_player_id
         isMyEntrance = false;
       }
       log('My ID: ' + myID);
@@ -3131,7 +3139,7 @@ function onmessage(type, data) {
         // } else
         if (!(avatar.player_id in others || avatar.player_id === myID)) {
           // 원래는 유저 정보를 요청해서 받아온 다음 생성이었는데, 이제 애초에 정보가 같이 내려오기 때문에 바로 생성
-          (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_19__.makeOthers)(avatar.player_id, avatar.coordinate, String(avatar.player_id).slice(0, 5), avatar.nft_image_url);
+          (0,_game_object_makeOthers__WEBPACK_IMPORTED_MODULE_18__.makeOthers)(avatar.player_id, avatar.coordinate, String(avatar.player_id).slice(0, 5), avatar.nft_image_url);
         }
       });
       break;
@@ -3169,8 +3177,8 @@ function onmessage(type, data) {
     case _game_network_callType__WEBPACK_IMPORTED_MODULE_16__.NETWORK.BATTLE_OFFER:
       console.log('누가 나한테 배틀 신청함!', data);
       // 우선 수락할건지 말건지 화면을 보여줘야한다.
-      (0,_game_battle_battleStart__WEBPACK_IMPORTED_MODULE_21__.displayBattleAcceptPopup)(data.proposer_player_id);
-      (0,_game_battle_acceptBattleBtn__WEBPACK_IMPORTED_MODULE_22__.offerBattle)(data.proposer_player_id, false, data.battle_id);
+      (0,_game_battle_battleStart__WEBPACK_IMPORTED_MODULE_20__.displayBattleAcceptPopup)(data.proposer_player_id);
+      (0,_game_battle_acceptBattleBtn__WEBPACK_IMPORTED_MODULE_21__.offerBattle)(data.proposer_player_id, false, data.battle_id);
       break;
     case _game_network_callType__WEBPACK_IMPORTED_MODULE_16__.NETWORK.BATTLE_REJECT:
       console.log('누가 내 배틀 거절함!', data.reason);
@@ -3179,8 +3187,12 @@ function onmessage(type, data) {
       }
       break;
     case _game_network_callType__WEBPACK_IMPORTED_MODULE_16__.NETWORK.BATTLE_INIT_INFO:
-      // 배틀 시작할 때 상대방의 스킬 공개.
       console.log('배틀이 시작되었다!', data.proposer_player_id, data.receiver_player_id, data.battle_id);
+
+      // 예상 컨트랙트 코드 위치
+      // battle_init
+
+      // 배틀 시작할 때 상대방의 스킬 공개.
       others[_battleScene__WEBPACK_IMPORTED_MODULE_13__.opponent_id].skillType = 1;
       _game_battle_utils__WEBPACK_IMPORTED_MODULE_14__.battle_start = true; // 하면 배틀 애니메이션이 시작
       if (data.proposer_player_id === myID) (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_14__.setMyTurn)(false);else (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_14__.setMyTurn)(true);
@@ -3200,7 +3212,7 @@ function onmessage(type, data) {
   }
 }
 function audoBattleOffer(id) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_20__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(5);
   var dataview = new DataView(buffer);
   dataview.setInt16(1, myID);
@@ -3208,7 +3220,7 @@ function audoBattleOffer(id) {
   ws.send(buffer);
 }
 function autoBattleAnswer(id) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_20__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(5);
   var dataview = new DataView(buffer);
   dataview.setInt16(1, myID);
@@ -3216,7 +3228,7 @@ function autoBattleAnswer(id) {
   ws.send(buffer);
 }
 function autoBattleSelectType(id, type) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_20__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
   dataview.setInt16(1, myID);
@@ -3225,7 +3237,7 @@ function autoBattleSelectType(id, type) {
   ws.send(buffer);
 }
 function attack(id, attack) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_20__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(7);
   var dataview = new DataView(buffer);
   dataview.setInt16(1, myID);
@@ -3234,7 +3246,7 @@ function attack(id, attack) {
   ws.send(buffer);
 }
 function leaveBattle(id) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_20__.checkOrReconnect)()) return;
+  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
   var buffer = new ArrayBuffer(5);
   var dataview = new DataView(buffer);
   dataview.setInt16(1, myID);
@@ -3342,11 +3354,103 @@ function moveObject(id, position, isHorizontalMove, isVerticalMove) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "chainConfigInit": () => (/* binding */ chainConfigInit),
 /* harmony export */   "worker": () => (/* binding */ worker)
 /* harmony export */ });
-/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
-/* harmony import */ var _game_animate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../game/animate */ "./src/game/animate.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.object.assign.js */ "./node_modules/core-js/modules/es.object.assign.js");
+/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.array.includes.js */ "./node_modules/core-js/modules/es.array.includes.js");
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.string.includes.js */ "./node_modules/core-js/modules/es.string.includes.js");
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.number.constructor.js */ "./node_modules/core-js/modules/es.number.constructor.js");
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_string_starts_with_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.string.starts-with.js */ "./node_modules/core-js/modules/es.string.starts-with.js");
+/* harmony import */ var core_js_modules_es_string_starts_with_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_starts_with_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.regexp.exec.js */ "./node_modules/core-js/modules/es.regexp.exec.js");
+/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.string.replace.js */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
+/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
+/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.object.set-prototype-of.js */ "./node_modules/core-js/modules/es.object.set-prototype-of.js");
+/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.array.reverse.js */ "./node_modules/core-js/modules/es.array.reverse.js");
+/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
+/* harmony import */ var _game_animate__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../game/animate */ "./src/game/animate.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_31__);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -3354,29 +3458,207 @@ var worker = new Worker('./js/worker.js');
 worker.onmessage = function (event) {
   if (event.data) {
     if (event.data.id === '-1') {
-      _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.up.src = event.data.up;
-      _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.down.src = event.data.down;
-      _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.left.src = event.data.left;
-      _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.right.src = event.data.right;
-      _index__WEBPACK_IMPORTED_MODULE_1__.player.baseImage.src = event.data.baseImage;
-      _index__WEBPACK_IMPORTED_MODULE_1__.player.image = _index__WEBPACK_IMPORTED_MODULE_1__.player.sprites.down;
+      _index__WEBPACK_IMPORTED_MODULE_29__.player.sprites.up.src = event.data.up;
+      _index__WEBPACK_IMPORTED_MODULE_29__.player.sprites.down.src = event.data.down;
+      _index__WEBPACK_IMPORTED_MODULE_29__.player.sprites.left.src = event.data.left;
+      _index__WEBPACK_IMPORTED_MODULE_29__.player.sprites.right.src = event.data.right;
+      _index__WEBPACK_IMPORTED_MODULE_29__.player.baseImage.src = event.data.baseImage;
+      _index__WEBPACK_IMPORTED_MODULE_29__.player.image = _index__WEBPACK_IMPORTED_MODULE_29__.player.sprites.down;
       document.getElementById('loading').style.display = 'none';
-      (0,_game_animate__WEBPACK_IMPORTED_MODULE_2__.animate)();
-      (0,_network__WEBPACK_IMPORTED_MODULE_0__.connect)();
+      (0,_game_animate__WEBPACK_IMPORTED_MODULE_30__.animate)();
+      (0,_network__WEBPACK_IMPORTED_MODULE_28__.connect)();
     } else {
-      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.up.src = event.data.up;
-      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.down.src = event.data.down;
-      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.left.src = event.data.left;
-      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.right.src = event.data.right;
-      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].baseImage.src = event.data.baseImage;
-      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.image = _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].sprite.sprites.down;
-      _network__WEBPACK_IMPORTED_MODULE_0__.others[event.data.id].draw = true;
+      _network__WEBPACK_IMPORTED_MODULE_28__.others[event.data.id].sprite.sprites.up.src = event.data.up;
+      _network__WEBPACK_IMPORTED_MODULE_28__.others[event.data.id].sprite.sprites.down.src = event.data.down;
+      _network__WEBPACK_IMPORTED_MODULE_28__.others[event.data.id].sprite.sprites.left.src = event.data.left;
+      _network__WEBPACK_IMPORTED_MODULE_28__.others[event.data.id].sprite.sprites.right.src = event.data.right;
+      _network__WEBPACK_IMPORTED_MODULE_28__.others[event.data.id].baseImage.src = event.data.baseImage;
+      _network__WEBPACK_IMPORTED_MODULE_28__.others[event.data.id].sprite.image = _network__WEBPACK_IMPORTED_MODULE_28__.others[event.data.id].sprite.sprites.down;
+      _network__WEBPACK_IMPORTED_MODULE_28__.others[event.data.id].draw = true;
     }
   }
 };
 worker.onerror = function (err) {
   console.log(err);
 };
+function chainConfigInit() {
+  return _chainConfigInit.apply(this, arguments);
+}
+function _chainConfigInit() {
+  _chainConfigInit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var nearConfig, near, walletConnection, metadata, data, imgs, base_url, url, res, _imgs, i, nft, _url, nft_data, img;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            console.log('로그 찍힘');
+            nearConfig = {
+              networkId: 'mainnet',
+              nodeUrl: 'https://rpc.mainnet.near.org',
+              walletUrl: 'https://wallet.near.org',
+              helperUrl: 'https://helper.mainnet.near.org',
+              explorerUrl: 'https://explorer.mainnet.near.org'
+            };
+            window.chain = document.getElementById('chainType').value; // NEAR Protocol
+            window.collection = document.getElementById('contractAddress').value; // NPunks
+            window.accountId = document.getElementById('accountId').value; // khjdaniel.near
+            if (!(window.chain === '' || window.collection === '' || window.accountId === '')) {
+              _context.next = 7;
+              break;
+            }
+            return _context.abrupt("return");
+          case 7:
+            if (!(window.chain === 'near')) {
+              _context.next = 28;
+              break;
+            }
+            _context.next = 10;
+            return near_api_js__WEBPACK_IMPORTED_MODULE_31__.connect(Object.assign({
+              deps: {
+                keyStore: new near_api_js__WEBPACK_IMPORTED_MODULE_31__.keyStores.BrowserLocalStorageKeyStore()
+              }
+            }, nearConfig));
+          case 10:
+            near = _context.sent;
+            walletConnection = new near_api_js__WEBPACK_IMPORTED_MODULE_31__.WalletConnection(near);
+            _context.next = 14;
+            return new near_api_js__WEBPACK_IMPORTED_MODULE_31__.Contract(walletConnection.account(), window.collection, {
+              // View methods are read only. They don't modify the state, but usually return some value.
+              viewMethods: ['nft_token', 'nft_metadata', 'nft_tokens_for_owner', 'nft_supply_for_owner'],
+              // Change methods can modify the state. But you don't receive the returned value when called.
+              changeMethods: []
+            });
+          case 14:
+            window.contract = _context.sent;
+            _context.next = 17;
+            return window.contract.nft_metadata();
+          case 17:
+            metadata = _context.sent;
+            _context.next = 20;
+            return window.contract.nft_tokens_for_owner({
+              account_id: window.accountId,
+              from_index: '0',
+              limit: 50
+            });
+          case 20:
+            data = _context.sent;
+            console.log('메타데이터 로그', metadata);
+            console.log('데이터 로그', data);
+
+            // 초기화
+            document.querySelector('#nftListBox').innerHTML = '';
+            document.getElementById('tokenId').value = '';
+            imgs = [];
+            if (data.length !== 0) {
+              data.forEach(function (nft) {
+                var src = '';
+                if (nft.metadata.media.includes('https://')) src = nft.metadata.media;else src = metadata.base_uri + '/' + nft.metadata.media;
+                var name = metadata.name + ' #' + (Number(nft.metadata.title) + 1);
+                var img = document.createElement('img');
+                img.src = src;
+                img.style = 'width: 100px; opacity: 0.5;';
+                img.onclick = function () {
+                  onImgClick(img, nft.token_id, name);
+                };
+                imgs.push(img);
+              });
+            }
+            imgs.forEach(function (i) {
+              document.querySelector('#nftListBox').appendChild(i);
+            });
+          case 28:
+            if (!(window.chain === 'algo')) {
+              _context.next = 59;
+              break;
+            }
+            base_url = 'https://broken-spring-moon.algorand-mainnet.discover.quiknode.pro/index/v2/';
+            url = "accounts/".concat(window.accountId, "/assets");
+            _context.next = 33;
+            return fetch(base_url + url, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+          case 33:
+            res = _context.sent;
+            _context.next = 36;
+            return res.json();
+          case 36:
+            res = _context.sent;
+            // 초기화
+            document.querySelector('#nftListBox').innerHTML = '';
+            document.getElementById('tokenId').value = '';
+            _imgs = [];
+            _context.t0 = _regeneratorRuntime().keys(res.assets);
+          case 41:
+            if ((_context.t1 = _context.t0()).done) {
+              _context.next = 58;
+              break;
+            }
+            i = _context.t1.value;
+            nft = res.assets[i];
+            if (!(nft.amount !== 1)) {
+              _context.next = 46;
+              break;
+            }
+            return _context.abrupt("continue", 41);
+          case 46:
+            _url = "assets/".concat(nft['asset-id']);
+            _context.next = 49;
+            return fetch(base_url + _url, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+          case 49:
+            nft_data = _context.sent;
+            _context.next = 52;
+            return nft_data.json();
+          case 52:
+            nft_data = _context.sent;
+            if (!(nft_data.asset.params['unit-name'] === undefined)) {
+              _context.next = 55;
+              break;
+            }
+            return _context.abrupt("continue", 41);
+          case 55:
+            if (nft_data.asset.params['unit-name'].startsWith(window.collection)) {
+              img = document.createElement('img');
+              console.log(nft['asset-id']);
+              img.src = "https://ipfs.io/ipfs/".concat(nft_data.asset.params.url.replace('ipfs://', ''));
+              img.style = 'width: 100px; opacity: 0.5;';
+              img.onclick = onImgClick(img, nft['asset-id'], nft['name']);
+              _imgs.push(img);
+            }
+            _context.next = 41;
+            break;
+          case 58:
+            _imgs.forEach(function (i) {
+              document.querySelector('#nftListBox').appendChild(i);
+            });
+          case 59:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _chainConfigInit.apply(this, arguments);
+}
+var prevSelect = undefined;
+function onImgClick(img, asset_id, nft_name) {
+  if (prevSelect !== undefined) prevSelect.style.opacity = 0.5;
+  img.style.opacity = 1.0;
+  prevSelect = img;
+  document.getElementById('tokenId').value = asset_id;
+  window.imgUrl = img.src;
+  window.name = nft_name;
+  window.tokenId = document.getElementById('tokenId').value;
+}
 
 /***/ }),
 
@@ -3433,6 +3715,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logIn__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./logIn */ "./src/web/logIn.js");
 /* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
 /* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _js_utils__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../js/utils */ "./src/js/utils.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 
@@ -3455,9 +3738,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
 
+var _document$getElementB, _document$getElementB2;
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 function clickOutSideEvent1(e) {
@@ -3485,7 +3770,7 @@ document.getElementById('profileButton').addEventListener('click', function (e) 
 });
 
 // 지갑 연결
-document.getElementById('connectWallet').addEventListener('click', /*#__PURE__*/function () {
+(_document$getElementB = document.getElementById('connectWallet')) === null || _document$getElementB === void 0 ? void 0 : _document$getElementB.addEventListener('click', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
@@ -3504,15 +3789,12 @@ document.getElementById('connectWallet').addEventListener('click', /*#__PURE__*/
     return _ref.apply(this, arguments);
   };
 }());
-document.getElementById('contractAddress').addEventListener('change', /*#__PURE__*/function () {
+(_document$getElementB2 = document.getElementById('contractAddress')) === null || _document$getElementB2 === void 0 ? void 0 : _document$getElementB2.addEventListener('change', /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
-            return (0,_logIn__WEBPACK_IMPORTED_MODULE_21__.connectWallets)(near_api_js__WEBPACK_IMPORTED_MODULE_22__);
-          case 2:
           case "end":
             return _context2.stop();
         }
@@ -3521,6 +3803,25 @@ document.getElementById('contractAddress').addEventListener('change', /*#__PURE_
   }));
   return function (_x2) {
     return _ref2.apply(this, arguments);
+  };
+}());
+document.getElementById('find_my_nft').addEventListener('click', /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return (0,_js_utils__WEBPACK_IMPORTED_MODULE_23__.chainConfigInit)();
+          case 2:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return function (_x3) {
+    return _ref3.apply(this, arguments);
   };
 }());
 
@@ -3586,14 +3887,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.includes.js */ "./node_modules/core-js/modules/es.array.includes.js");
-/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.string.includes.js */ "./node_modules/core-js/modules/es.string.includes.js");
-/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.number.constructor.js */ "./node_modules/core-js/modules/es.number.constructor.js");
-/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
-/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.array.includes.js */ "./node_modules/core-js/modules/es.array.includes.js");
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.string.includes.js */ "./node_modules/core-js/modules/es.string.includes.js");
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.number.constructor.js */ "./node_modules/core-js/modules/es.number.constructor.js");
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.regexp.exec.js */ "./node_modules/core-js/modules/es.regexp.exec.js");
 /* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.replace.js */ "./node_modules/core-js/modules/es.string.replace.js");
@@ -3785,7 +4086,33 @@ function _authorize() {
 }
 document.getElementById('joinGame').addEventListener('click', function (e) {
   console.log('클릭');
-  // initContract 실행
+  temporaryLogin();
+});
+var temporaryLogin = function temporaryLogin() {
+  _js_index__WEBPACK_IMPORTED_MODULE_28__.player.name = truncate(window.accountId, 20);
+  playerUrl = window.imgUrl;
+  document.getElementById('chatOpenBtn').style.display = 'block';
+  // document.getElementById('loginDiv').style.display = 'none'
+  document.getElementById('profileName').innerHTML = window.name;
+  document.getElementById('profileNFT').innerHTML = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.name;
+  document.getElementById('profileImg').src = playerUrl;
+  document.getElementById('profileHP').innerHTML = 'HP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_30__.monsters[window.collection].health;
+  console.log('클릭44');
+  document.getElementById('profileAP').innerHTML = 'AP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_30__.monsters[window.collection].attacks[0].damage;
+  if (window.chain === 'near') {
+    document.getElementById('parasUrl').addEventListener('click', function (e) {
+      window.open("https://paras.id/token/".concat(window.contract.contractId, "::").concat(window.tokenId, "/").concat(window.tokenId), '_blank').focus();
+    });
+  }
+  _js_index__WEBPACK_IMPORTED_MODULE_28__.player.baseImage = new Image();
+  _js_utils__WEBPACK_IMPORTED_MODULE_29__.worker.postMessage({
+    url: playerUrl,
+    contractAddress: window.collection,
+    id: '-1'
+  });
+  turnToGameScreen();
+};
+var realLogin = function realLogin() {
   initContract().then(function () {
     tokenId = document.getElementById('tokenId').value;
     window.contract.nft_token({
@@ -3819,7 +4146,7 @@ document.getElementById('joinGame').addEventListener('click', function (e) {
       return console.log(err);
     });
   });
-});
+};
 
 /**
  * 메인화면을 display:none 처리하고, 게임화면을 display:block 한다.
@@ -15880,24 +16207,6 @@ $({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || !STRICT_METHOD }, {
 
 /***/ }),
 
-/***/ "./node_modules/core-js/modules/es.array.is-array.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/core-js/modules/es.array.is-array.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
-var isArray = __webpack_require__(/*! ../internals/is-array */ "./node_modules/core-js/internals/is-array.js");
-
-// `Array.isArray` method
-// https://tc39.es/ecma262/#sec-array.isarray
-$({ target: 'Array', stat: true }, {
-  isArray: isArray
-});
-
-
-/***/ }),
-
 /***/ "./node_modules/core-js/modules/es.array.iterator.js":
 /*!***********************************************************!*\
   !*** ./node_modules/core-js/modules/es.array.iterator.js ***!
@@ -17704,6 +18013,53 @@ fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNa
     }
   ];
 }, !REPLACE_SUPPORTS_NAMED_GROUPS || !REPLACE_KEEPS_$0 || REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE);
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.string.starts-with.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/core-js/modules/es.string.starts-with.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "./node_modules/core-js/internals/function-uncurry-this.js");
+var getOwnPropertyDescriptor = (__webpack_require__(/*! ../internals/object-get-own-property-descriptor */ "./node_modules/core-js/internals/object-get-own-property-descriptor.js").f);
+var toLength = __webpack_require__(/*! ../internals/to-length */ "./node_modules/core-js/internals/to-length.js");
+var toString = __webpack_require__(/*! ../internals/to-string */ "./node_modules/core-js/internals/to-string.js");
+var notARegExp = __webpack_require__(/*! ../internals/not-a-regexp */ "./node_modules/core-js/internals/not-a-regexp.js");
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "./node_modules/core-js/internals/require-object-coercible.js");
+var correctIsRegExpLogic = __webpack_require__(/*! ../internals/correct-is-regexp-logic */ "./node_modules/core-js/internals/correct-is-regexp-logic.js");
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "./node_modules/core-js/internals/is-pure.js");
+
+// eslint-disable-next-line es/no-string-prototype-startswith -- safe
+var nativeStartsWith = uncurryThis(''.startsWith);
+var stringSlice = uncurryThis(''.slice);
+var min = Math.min;
+
+var CORRECT_IS_REGEXP_LOGIC = correctIsRegExpLogic('startsWith');
+// https://github.com/zloirock/core-js/pull/702
+var MDN_POLYFILL_BUG = !IS_PURE && !CORRECT_IS_REGEXP_LOGIC && !!function () {
+  var descriptor = getOwnPropertyDescriptor(String.prototype, 'startsWith');
+  return descriptor && !descriptor.writable;
+}();
+
+// `String.prototype.startsWith` method
+// https://tc39.es/ecma262/#sec-string.prototype.startswith
+$({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC }, {
+  startsWith: function startsWith(searchString /* , position = 0 */) {
+    var that = toString(requireObjectCoercible(this));
+    notARegExp(searchString);
+    var index = toLength(min(arguments.length > 1 ? arguments[1] : undefined, that.length));
+    var search = toString(searchString);
+    return nativeStartsWith
+      ? nativeStartsWith(that, search, index)
+      : stringSlice(that, index, index + search.length) === search;
+  }
+});
 
 
 /***/ }),

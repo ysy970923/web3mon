@@ -22,6 +22,7 @@ const battleBackground = new Sprite({
     y: 0,
   },
   image: battleBackgroundImage,
+  scale: 1.2,
 })
 
 export let opponent_id = null
@@ -85,6 +86,7 @@ export function endBattle(result) {
 export function initBattle() {
   canva.width = window.innerWidth
   canva.height = window.innerHeight
+
   document.querySelector('#joyDiv').style.display = 'none'
   document.querySelector('#userInterface').style.display = 'block'
   document.querySelector('#dialogueBox').style.display = 'none'
@@ -95,6 +97,7 @@ export function initBattle() {
   document.querySelector(
     '#battleOpponentName'
   ).innerHTML = `opponent(${others[opponent_id].sprite.name})`
+
   if (!my_turn) {
     document.querySelector('#dialogueBox').style.display = 'block'
     document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'

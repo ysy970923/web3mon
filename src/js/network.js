@@ -3,7 +3,6 @@ import { battle_start, mySkillType, setMyTurn } from '../game/battle/utils'
 import { battle, local_position } from '../js/index'
 import { ACTION, CHAT, NETWORK } from '../game/network/callType'
 import { npc_list } from '../game/data/npc'
-import { battleAccept } from '../game/network/battle'
 import { makeOthers } from '../game/object/makeOthers'
 import { checkOrReconnect } from '../game/network/checkConnection'
 import { displayBattleAcceptPopup } from '../game/battle/battleStart'
@@ -21,17 +20,25 @@ function onmessage(type, data) {
 
   switch (type) {
     case NETWORK.JOIN:
+    case 'your_player_id':
+      console.log('실행합니다')
       // 유저가 들어왔다.
-      if (data.joined_player_id === myID) {
+      // if (data.joined_player_id === myID) {
+      if (data === myID) {
         break
       }
       if (!isMyEntrance) {
-        makeOthers(data.joined_player_id, [
+        // makeOthers(data.joined_player_id, [
+        //   window.innerWidth / 2 - 192 / 4 / 2,
+        //   window.innerHeight / 2 - 102 / 2,
+        // ])
+        makeOthers(data, [
           window.innerWidth / 2 - 192 / 4 / 2,
           window.innerHeight / 2 - 102 / 2,
         ])
       } else {
-        myID = data.joined_player_id
+        myID = data
+        // myID = data.joined_player_id
         isMyEntrance = false
       }
       log('My ID: ' + myID)
@@ -127,7 +134,6 @@ function onmessage(type, data) {
       break
 
     case NETWORK.BATTLE_INIT_INFO:
-      // 배틀 시작할 때 상대방의 스킬 공개.
       console.log(
         '배틀이 시작되었다!',
         data.proposer_player_id,
@@ -135,6 +141,10 @@ function onmessage(type, data) {
         data.battle_id
       )
 
+      // 예상 컨트랙트 코드 위치
+      // battle_init
+
+      // 배틀 시작할 때 상대방의 스킬 공개.
       others[opponent_id].skillType = 1
       battle_start = true // 하면 배틀 애니메이션이 시작
       if (data.proposer_player_id === myID) setMyTurn(false)

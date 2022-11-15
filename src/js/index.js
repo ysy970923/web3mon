@@ -14,7 +14,7 @@ import { background, foreground } from '../game/data/map'
 import { clickEvent } from '../game/battle/battleStart'
 
 // 최초로 지갑 연결
-connectWallets(nearAPI)
+// connectWallets(nearAPI)
 
 // export const playerDownImage = playerDownImages
 

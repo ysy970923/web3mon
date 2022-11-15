@@ -1,5 +1,5 @@
 import { Sprite } from '../object/Sprite'
-import { player } from '../../js/index'
+import { canvas, player } from '../../js/index'
 import {
   mainBackgroundImage,
   foregroundImage,
@@ -42,8 +42,8 @@ export const foreground = new Sprite({
 
 export const battleBackground = new Sprite({
   position: {
-    x: offset.x,
-    y: offset.y,
+    x: 0,
+    y: 0,
   },
   image: battleBackgroundImage,
 })
@@ -59,22 +59,24 @@ export function transferMap(toMap) {
   if (toMap === MAP.TEST) {
     document.getElementById('map_identifier').innerText =
       'BATTLE map : you can fight here!'
-    // background.image = battleBackgroundImage
+
+    battleBackground.draw()
+
     setRenderables([
       battleBackground,
-      ...boundaries,
-      ...battleZones,
-      ...characters,
+      // ...boundaries,
+      // ...battleZones,
+      // ...characters,
       player,
-      foreground,
+      // foreground,
     ])
 
     setMovables([
       battleBackground,
-      ...boundaries,
-      ...battleZones,
-      ...characters,
-      foreground,
+      // ...boundaries,
+      // ...battleZones,
+      // ...characters,
+      // foreground,
     ])
 
     const body = {

@@ -1,6 +1,6 @@
 import { authorize, connectWallets } from './logIn'
-
 import * as nearAPI from 'near-api-js'
+import { chainConfigInit } from '../js/utils'
 
 function clickOutSideEvent1(e) {
   if (!document.getElementById('guidanceCard').contains(e.target)) {
@@ -33,12 +33,16 @@ document.getElementById('profileButton').addEventListener('click', (e) => {
 // 지갑 연결
 document
   .getElementById('connectWallet')
-  .addEventListener('click', async (e) => {
+  ?.addEventListener('click', async (e) => {
     await authorize()
   })
 
 document
   .getElementById('contractAddress')
-  .addEventListener('change', async (e) => {
-    await connectWallets(nearAPI)
+  ?.addEventListener('change', async (e) => {
+    // await connectWallets(nearAPI)
   })
+
+document.getElementById('find_my_nft').addEventListener('click', async (e) => {
+  await chainConfigInit()
+})

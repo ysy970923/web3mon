@@ -44,14 +44,16 @@ export async function authorize() {
   await initContract()
   const contract_address = document.getElementById('contractAddress').value
   if (!window.accountId) window.walletConnection.requestSignIn(contract_address)
+
   const data = await window.contract.nft_tokens_for_owner({
     account_id: window.accountId,
     from_index: '0',
     limit: 50,
   })
-  document.querySelector('#nftListBox').innerHTML = ''
 
+  document.querySelector('#nftListBox').innerHTML = ''
   document.getElementById('tokenId').value = ''
+
   if (data.length !== 0) {
     data.forEach((nft) => {
       let img = document.createElement('img')
@@ -73,8 +75,41 @@ export async function authorize() {
 }
 
 document.getElementById('joinGame').addEventListener('click', (e) => {
-  console.log('클릭')
-  // initContract 실행
+  temporaryLogin()
+})
+
+const temporaryLogin = () => {
+  player.name = truncate(window.accountId, 20)
+  playerUrl = window.imgUrl
+  document.getElementById('chatOpenBtn').style.display = 'block'
+  // document.getElementById('loginDiv').style.display = 'none'
+  document.getElementById('profileName').innerHTML = window.name
+  document.getElementById('profileNFT').innerHTML = player.name
+  document.getElementById('profileImg').src = playerUrl
+  document.getElementById('profileHP').innerHTML =
+    'HP: ' + monsters[window.collection].health
+  document.getElementById('profileAP').innerHTML =
+    'AP: ' + monsters[window.collection].attacks[0].damage
+  if (window.chain === 'near') {
+    document.getElementById('parasUrl').addEventListener('click', (e) => {
+      window
+        .open(
+          `https://paras.id/token/${window.contract.contractId}::${window.tokenId}/${window.tokenId}`,
+          '_blank'
+        )
+        .focus()
+    })
+  }
+  player.baseImage = new Image()
+  worker.postMessage({
+    url: playerUrl,
+    contractAddress: window.collection,
+    id: '-1',
+  })
+  turnToGameScreen()
+}
+
+const realLogin = () => {
   initContract().then(() => {
     tokenId = document.getElementById('tokenId').value
     window.contract
@@ -119,7 +154,7 @@ document.getElementById('joinGame').addEventListener('click', (e) => {
       })
       .catch((err) => console.log(err))
   })
-})
+}
 
 /**
  * 메인화면을 display:none 처리하고, 게임화면을 display:block 한다.

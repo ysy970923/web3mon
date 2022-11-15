@@ -1,6 +1,7 @@
 import { others, connect } from './network'
 import { player } from './index'
 import { animate } from '../game/animate'
+import * as nearApi from 'near-api-js'
 
 export const worker = new Worker('./js/worker.js')
 
@@ -30,4 +31,162 @@ worker.onmessage = function (event) {
 }
 worker.onerror = function (err) {
   console.log(err)
+}
+
+export async function chainConfigInit() {
+  console.log('로그 찍힘')
+
+  const nearConfig = {
+    networkId: 'mainnet',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.mainnet.near.org',
+    explorerUrl: 'https://explorer.mainnet.near.org',
+  }
+
+  window.chain = document.getElementById('chainType').value // NEAR Protocol
+  window.collection = document.getElementById('contractAddress').value // NPunks
+  window.accountId = document.getElementById('accountId').value // khjdaniel.near
+
+  if (
+    window.chain === '' ||
+    window.collection === '' ||
+    window.accountId === ''
+  )
+    return
+
+  // 체인이 니어일 때
+  if (window.chain === 'near') {
+    const near = await nearApi.connect(
+      Object.assign(
+        {
+          deps: {
+            keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore(),
+          },
+        },
+        nearConfig
+      )
+    )
+    const walletConnection = new nearApi.WalletConnection(near)
+
+    window.contract = await new nearApi.Contract(
+      walletConnection.account(),
+      window.collection,
+      {
+        // View methods are read only. They don't modify the state, but usually return some value.
+        viewMethods: [
+          'nft_token',
+          'nft_metadata',
+          'nft_tokens_for_owner',
+          'nft_supply_for_owner',
+        ],
+        // Change methods can modify the state. But you don't receive the returned value when called.
+        changeMethods: [],
+      }
+    )
+
+    var metadata = await window.contract.nft_metadata() // 이 NFT collection의 정보
+
+    var data = await window.contract.nft_tokens_for_owner({
+      account_id: window.accountId,
+      from_index: '0',
+      limit: 50,
+    })
+
+    console.log('메타데이터 로그', metadata)
+    console.log('데이터 로그', data)
+
+    // 초기화
+    document.querySelector('#nftListBox').innerHTML = ''
+    document.getElementById('tokenId').value = ''
+    let imgs = []
+
+    if (data.length !== 0) {
+      data.forEach((nft) => {
+        let src = ''
+        if (nft.metadata.media.includes('https://')) src = nft.metadata.media
+        else src = metadata.base_uri + '/' + nft.metadata.media
+
+        const name = metadata.name + ' #' + (Number(nft.metadata.title) + 1)
+
+        let img = document.createElement('img')
+        img.src = src
+        img.style = 'width: 100px; opacity: 0.5;'
+        img.onclick = () => {
+          onImgClick(img, nft.token_id, name)
+        }
+        imgs.push(img)
+      })
+    }
+
+    imgs.forEach((i) => {
+      document.querySelector('#nftListBox').appendChild(i)
+    })
+  }
+
+  // 체인이 알고랜드일 때
+  if (window.chain === 'algo') {
+    const base_url =
+      'https://broken-spring-moon.algorand-mainnet.discover.quiknode.pro/index/v2/'
+    const url = `accounts/${window.accountId}/assets`
+
+    var res = await fetch(base_url + url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+
+    res = await res.json()
+
+    // 초기화
+    document.querySelector('#nftListBox').innerHTML = ''
+    document.getElementById('tokenId').value = ''
+    let imgs = []
+
+    for (var i in res.assets) {
+      var nft = res.assets[i]
+      if (nft.amount !== 1) continue
+      let url = `assets/${nft['asset-id']}`
+
+      var nft_data = await fetch(base_url + url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      nft_data = await nft_data.json()
+      if (nft_data.asset.params['unit-name'] === undefined) continue
+      if (nft_data.asset.params['unit-name'].startsWith(window.collection)) {
+        let img = document.createElement('img')
+        console.log(nft['asset-id'])
+
+        img.src = `https://ipfs.io/ipfs/${nft_data.asset.params.url.replace(
+          'ipfs://',
+          ''
+        )}`
+        img.style = 'width: 100px; opacity: 0.5;'
+        img.onclick = onImgClick(img, nft['asset-id'], nft['name'])
+        imgs.push(img)
+      }
+    }
+
+    imgs.forEach((i) => {
+      document.querySelector('#nftListBox').appendChild(i)
+    })
+  }
+}
+
+let prevSelect = undefined
+function onImgClick(img, asset_id, nft_name) {
+  if (prevSelect !== undefined) prevSelect.style.opacity = 0.5
+  img.style.opacity = 1.0
+  prevSelect = img
+
+  document.getElementById('tokenId').value = asset_id
+  window.imgUrl = img.src
+  window.name = nft_name
+  window.tokenId = document.getElementById('tokenId').value
 }

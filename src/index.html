@@ -33,12 +33,47 @@
           <div style="margin-bottom: 40px">
             <h2>Welcome to Web3Mon!</h2>
           </div>
-          <div style="margin-bottom: 40px">
+          <div style="margin-bottom: 20px">
+            <p>0. Choose Chain.</p>
+          </div>
+          <div class="nes-select">
+            <select required id="chainType">
+              <option value="near">NEAR Protocol</option>
+              <option value="algo">Algorand</option>
+            </select>
+          </div>
+          <div
+            style="
+              width: 100%;
+              margin: 8px 0;
+              display: inline-block;
+              box-sizing: border-box;
+              margin-bottom: 40px;
+            "
+          ></div>
+          <div style="margin-bottom: 20px">
             <p>1. Choose NFT collection to use.</p>
           </div>
-          <label for="contractAddress">NFT Contract Address:</label>
+          <label for="contractAddress">NFT Contract :</label>
           <div class="nes-select">
             <select required id="contractAddress">
+              <!-- <option value="myconstant-mascot.near">Battle Boars</option> -->
+              <!-- <option
+                value="terra16ds898j530kn4nnlc7xlj6hcxzqpcxxk4mj8gkcl3vswksu6s3zszs8kp2"
+              >
+                Galactic Punks
+              </option>
+              <option
+                value="terra17vysjt8ws64v8w696mavjpqs8mksf8s993qghlust9yey8qcmppqnhgw0e"
+              >
+                Luna Ape Club
+              </option> -->
+              <!-- <option
+                value="terra1hh9rgaxtmfqfkeqkruckwah6qc4ajlxgnweexyjeh4dsptkfnhmqeelzfl"
+              >
+              Redacted RONINs
+              </option> -->
+              <!-- <option value="PUFF">Poppin Puffins</option> -->
               <option value="nearnautnft.near">NEARNauts</option>
               <option value="asac.near">Antisocial Ape Club</option>
               <option value="near-punks.near">NPunks</option>
@@ -52,26 +87,40 @@
             </select>
           </div>
           <div style="margin-top: 50px; margin-bottom: 40px">
-            <p>2. Type ID of the NFT to use.</p>
+            <!-- <p>2. Type ID of the NFT to use.</p>
             <p>(You can connect wallet for your NFT)</p>
             <button id="connectWallet" type="button" class="nes-btn is-success">
               Connect Wallet
             </button>
             <button type="button" class="nes-btn is-error" onclick="logout()">
               Disconnect Wallet
-            </button>
+            </button>  -->
             <p id="connectedWallet" style="margin-top: 10px"></p>
-            <p>Select NFT to use</p>
+            <p>2. Select NFT to use.</p>
+            <p>(Find My NFT)</p>
+            <div style="margin-bottom: 40px">
+              <label for="accountId">Wallet Address:</label>
+              <input
+                type="text"
+                placeholder="Enter Wallet Address"
+                id="accountId"
+                class="nes-input"
+                required
+              />
+            </div>
+            <button id="find_my_nft" type="button" class="nes-btn is-success">
+              Find My NFT
+            </button>
             <div id="nftListBox"></div>
           </div>
           <div style="margin-bottom: 40px">
             <label for="tokenId">NFT ID:</label>
             <input
               type="text"
-              placeholder="Enter ID"
+              placeholder="Enter NFT ID"
               id="tokenId"
               class="nes-input"
-              required
+              disabled
             />
           </div>
           <div>
