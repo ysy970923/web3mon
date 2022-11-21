@@ -2,6 +2,7 @@ import { others } from '../../js/network'
 import { Sprite } from './Sprite'
 import { worker } from '../../js/utils'
 import { playerDownImage } from '../../js/index'
+import { clothesList } from '../../js/clothes'
 
 const userDummy = {
   name: '김호진',
@@ -46,6 +47,10 @@ export const makeOthers = (id, coordinate, nickname, nft_image_url) => {
       url: userDummy.userImageUrl,
       contractAddress: 'test.collection',
       id: id,
+      leftSource: clothesList[0].left,
+      rightSource: clothesList[0].right,
+      upSource: clothesList[0].up,
+      downSource: clothesList[0].down,
     })
   }
   return

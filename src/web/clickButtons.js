@@ -1,6 +1,6 @@
-import { authorize, connectWallets } from './logIn'
+import { authorize, temporaryLogin, realLogin } from './logIn'
 import * as nearAPI from 'near-api-js'
-import { chainConfigInit } from '../js/utils'
+import { chainConfigInit, author } from '../js/utils'
 
 function clickOutSideEvent1(e) {
   if (!document.getElementById('guidanceCard').contains(e.target)) {
@@ -45,4 +45,14 @@ document
 
 document.getElementById('find_my_nft').addEventListener('click', async (e) => {
   await chainConfigInit()
+})
+
+document
+  .getElementById('find_my_login')
+  .addEventListener('click', async (e) => {
+    await author()
+  })
+
+document.getElementById('joinGame').addEventListener('click', (e) => {
+  temporaryLogin()
 })

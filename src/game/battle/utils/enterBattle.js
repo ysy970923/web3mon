@@ -1,8 +1,19 @@
 import { gsap } from 'gsap'
-import { initBattle, animateBattle } from '../../../js/battleScene'
+import {
+  initBattle,
+  battleBackground,
+  queue,
+  renderedSprites,
+} from '../../../js/battleScene'
 import { battle } from '../../../js/index'
 
-export function enterBattle(animationId, id) {
+export let battleAnimationId
+
+/**
+ * battle animation start logic
+ * @param {any} animationId idk
+ */
+export function enterBattle(animationId) {
   // deactivate current animation loop
   window.cancelAnimationFrame(animationId)
 
@@ -27,5 +38,20 @@ export function enterBattle(animationId, id) {
         },
       })
     },
+  })
+}
+
+export function animateBattle() {
+  battleAnimationId = window.requestAnimationFrame(animateBattle)
+
+  battleBackground.draw()
+
+  if (queue.length > 0) {
+    queue[0]()
+    queue.shift()
+  }
+
+  renderedSprites.forEach((sprite) => {
+    sprite.draw()
   })
 }

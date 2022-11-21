@@ -8,6 +8,11 @@ document
   .getElementById('sendChatBtn')
   .addEventListener('click', sendChat, false)
 
+document.getElementById('chatForm').addEventListener('submit', (e) => {
+  e.preventDefault()
+  sendChat()
+})
+
 export function sendChat() {
   if (!checkOrReconnect()) return
 

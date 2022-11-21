@@ -3,6 +3,9 @@ import { worker } from '../js/utils'
 import { monsters } from '../game/data/monsters'
 import * as nearAPI from 'near-api-js'
 
+import { chosenCloth } from './initialSetting'
+import { clothesList } from '../js/clothes'
+
 export let playerUrl
 export let tokenId
 
@@ -14,6 +17,7 @@ function truncate(input, length) {
 }
 
 export async function connectWallets(nearAPI) {
+  console.log('연결 실행')
   const nearConfig = {
     networkId: 'mainnet',
     nodeUrl: 'https://rpc.mainnet.near.org',
@@ -37,7 +41,9 @@ export async function connectWallets(nearAPI) {
 
   // Getting the Account ID. If still unauthorized, it's just empty string
   window.accountId = window.walletConnection.getAccountId()
+  console.log('연결 끝', window.accountId, 'ㅁㅇㅈ')
   if (window.accountId !== '') await authorize()
+  console.log('연결 끝22', window.accountId)
 }
 
 export async function authorize() {
@@ -54,6 +60,7 @@ export async function authorize() {
   document.querySelector('#nftListBox').innerHTML = ''
   document.getElementById('tokenId').value = ''
 
+  // NFT 목록으로 채워넣기
   if (data.length !== 0) {
     data.forEach((nft) => {
       let img = document.createElement('img')
@@ -74,11 +81,8 @@ export async function authorize() {
   ).innerHTML = `Connected Wallet: ${window.accountId}`
 }
 
-document.getElementById('joinGame').addEventListener('click', (e) => {
-  temporaryLogin()
-})
-
-const temporaryLogin = () => {
+/** temp login : only  */
+export const temporaryLogin = () => {
   player.name = truncate(window.accountId, 20)
   playerUrl = window.imgUrl
   document.getElementById('chatOpenBtn').style.display = 'block'
@@ -101,15 +105,34 @@ const temporaryLogin = () => {
     })
   }
   player.baseImage = new Image()
+
+  console.log('생성', clothesList)
+
   worker.postMessage({
     url: playerUrl,
+    leftSource: clothesList.find((doc) => doc.id === chosenCloth).left,
+    rightSource: clothesList.find((doc) => doc.id === chosenCloth).right,
+    downSource: clothesList.find((doc) => doc.id === chosenCloth).down,
+    upSource: clothesList.find((doc) => doc.id === chosenCloth).up,
     contractAddress: window.collection,
     id: '-1',
   })
+
+  // {
+  //       "signautre": "dnaskjldnmaslkdmaskldmaskldma123knckjzdaredq",
+  //       "message": {
+  //           "chain": "NEAR",
+  //           "nft": "nearnautnft.near",
+  //           "nft_token_id": "2314",
+  //           "pub_key": "kldansmkldasnmd",
+  //           "account_id": "daniel_nearmoon.near"
+  //       }
+  //   }
   turnToGameScreen()
 }
 
-const realLogin = () => {
+/** original real login */
+export const realLogin = () => {
   initContract().then(() => {
     tokenId = document.getElementById('tokenId').value
     window.contract
@@ -148,6 +171,7 @@ const realLogin = () => {
         worker.postMessage({
           url: playerUrl,
           contractAddress: window.contractAddress,
+
           id: '-1',
         })
         window.isLoggedIn = true
@@ -159,7 +183,7 @@ const realLogin = () => {
 /**
  * 메인화면을 display:none 처리하고, 게임화면을 display:block 한다.
  */
-const turnToGameScreen = () => {
+export const turnToGameScreen = () => {
   document.getElementById('login_screen').style.display = 'none'
   document.getElementById('game_screen').style.display = 'block'
   document.querySelector('canvas').style.display = 'block'
@@ -168,7 +192,7 @@ const turnToGameScreen = () => {
 }
 
 // Initialize contract & set global variables
-async function initContract() {
+export async function initContract() {
   window.contractAddress = document.getElementById('contractAddress').value
   // Initializing our contract APIs by contract name and configuration
   window.contract = await new nearAPI.Contract(
@@ -188,6 +212,7 @@ async function initContract() {
   )
   window.metadata = await window.contract.nft_metadata()
 }
+
 export const logout = () => {
   window.walletConnection.signOut()
   // reload page

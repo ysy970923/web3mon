@@ -1,6 +1,5 @@
 import { connectWallets } from '../web/logIn'
 import { collisions } from '../game/data/collisions'
-import { initBattle, animateBattle } from './battleScene'
 import { battleZonesData } from '../game/data/battleZones'
 import { charactersMapData } from '../game/data/characters'
 import { Boundary } from '../game/object/Boundary'
@@ -12,6 +11,7 @@ import * as nearAPI from 'near-api-js'
 import { gsap } from 'gsap'
 import { background, foreground } from '../game/data/map'
 import { clickEvent } from '../game/battle/battleStart'
+import { clothesList } from './clothes'
 
 // 최초로 지갑 연결
 // connectWallets(nearAPI)
@@ -251,6 +251,10 @@ const makeNPC = () => {
     url: 'https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png',
     contractAddress: 'asac.near',
     id: '250',
+    leftSource: clothesList[0].left,
+    rightSource: clothesList[0].right,
+    upSource: clothesList[0].up,
+    downSource: clothesList[0].down,
   })
 }
 

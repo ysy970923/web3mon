@@ -16,25 +16,20 @@ export function requestBattle(receiver_player_id, skillType) {
   ws.send(msg)
 }
 
-export function acceptBattleRequest(proposer_player_id, battle_id) {
-  console.log(
-    '이사람꺼 수락',
-    proposer_player_id,
-    '배틀 아이디',
-    battle_id,
-    typeof battle_id
-  )
+export function acceptBattleRequest(proposer_player_id, skillType, battle_id) {
   if (!checkOrReconnect()) return
 
   const body = {
     AcceptBattle: {
       proposer_player_id: proposer_player_id,
-      battle_id: parseInt(battle_id),
+      battle_id: battle_id,
     },
   }
 
-  console.log(JSON.stringify(body), ' 제이썬')
-  // ws.send(JSON.stringify(body))
+  console.log('바디', body)
+
+  const msg = JSON.stringify(body)
+  ws.send(msg)
 }
 
 export function rejectBattleRequest(proposer_player_id, battle_id) {

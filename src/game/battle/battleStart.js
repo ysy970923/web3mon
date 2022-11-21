@@ -43,7 +43,9 @@ const clickToStartBattle = (key) => {
 }
 
 /**
- * 지금 클릭한 애랑 배틀 할거야? or 얘가 너랑 싸우고 싶다는게 배틀할거야?
+ *
+ * 지금 클릭한 애랑 배틀 할거야? or 얘가 너랑 싸우고 싶다는데 배틀할거야?
+ * @param {string} key 상대방의 아이디
  */
 export const displayBattleAcceptPopup = (key) => {
   document.getElementById('acceptBattleBtn').style.display = 'inline-block'

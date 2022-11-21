@@ -1,5 +1,5 @@
 import { attacked, endBattle, opponent_id } from './battleScene'
-import { battle_start, mySkillType, setMyTurn } from '../game/battle/utils'
+import { startBattleSetting } from '../game/battle/utils'
 import { battle, local_position } from '../js/index'
 import { ACTION, CHAT, NETWORK } from '../game/network/callType'
 import { npc_list } from '../game/data/npc'
@@ -134,25 +134,25 @@ function onmessage(type, data) {
       break
 
     case NETWORK.BATTLE_INIT_INFO:
-      console.log(
-        '배틀이 시작되었다!',
-        data.proposer_player_id,
-        data.receiver_player_id,
-        data.battle_id
-      )
+      console.log('배틀 시작')
 
       // 예상 컨트랙트 코드 위치
       // battle_init
 
       // 배틀 시작할 때 상대방의 스킬 공개.
-      others[opponent_id].skillType = 1
-      battle_start = true // 하면 배틀 애니메이션이 시작
-      if (data.proposer_player_id === myID) setMyTurn(false)
-      else setMyTurn(true)
+
+      // for now, battle proposer attacks later
+      if (data.proposer_player_id === myID) {
+        others[data.receiver_player_id].skillType = 1
+        startBattleSetting(data.receiver_player_id, true, data.battle_id)
+      } else {
+        others[data.proposer_player_id].skillType = 1
+        startBattleSetting(data.proposer_player_id, false, data.battle_id)
+      }
       break
 
     case NETWORK.ATTACK:
-      attacked(attack)
+      attacked('attack')
       break
 
     case NETWORK.LEAVE_BATTLE:
@@ -193,15 +193,6 @@ function autoBattleSelectType(id, type) {
   dataview.setInt16(1, myID)
   dataview.setInt16(3, id)
   dataview.setInt16(5, type)
-  ws.send(buffer)
-}
-export function attack(id, attack) {
-  if (!checkOrReconnect()) return
-  var buffer = new ArrayBuffer(7)
-  var dataview = new DataView(buffer)
-  dataview.setInt16(1, myID)
-  dataview.setInt16(3, id)
-  dataview.setInt16(5, attack)
   ws.send(buffer)
 }
 
@@ -285,8 +276,13 @@ export function connect() {
   return ws
 }
 
-let xx
-
+/**
+ *
+ * @param {string} id
+ * @param {x : number, y : number} position
+ * @param {boolean} isHorizontalMove 오른쪽으로 가는 건가?
+ * @param {boolean} isVerticalMove 위로 가는건가?
+ */
 function moveObject(id, position, isHorizontalMove, isVerticalMove) {
   others[id].sprite.position = position
   // const pastPosition = others[id].sprite.position

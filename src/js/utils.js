@@ -4,6 +4,7 @@ import { animate } from '../game/animate'
 import * as nearApi from 'near-api-js'
 
 export const worker = new Worker('./js/worker.js')
+window.walletConnection
 
 worker.onmessage = function (event) {
   if (event.data) {
@@ -33,17 +34,36 @@ worker.onerror = function (err) {
   console.log(err)
 }
 
+const nearConfig = {
+  networkId: 'mainnet',
+  keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore(),
+  nodeUrl: 'https://rpc.mainnet.near.org',
+  walletUrl: 'https://wallet.near.org',
+  helperUrl: 'https://helper.mainnet.near.org',
+  explorerUrl: 'https://explorer.mainnet.near.org',
+}
+
+export async function author() {
+  console.log(
+    '브라우저 로컬 스토리지',
+    new nearApi.keyStores.BrowserLocalStorageKeyStore()
+  )
+  const near = await nearApi.connect(
+    Object.assign(
+      {
+        deps: { keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore() },
+      },
+      nearConfig
+    )
+  )
+  // const nearConnection = await nearApi.connect(nearConfig)
+
+  const walletConnection = new nearApi.WalletConnection(near)
+  console.log('월렛 커넥션', walletConnection)
+  await walletConnection.requestSignIn('web3mon.near') // our game contract address
+}
+
 export async function chainConfigInit() {
-  console.log('로그 찍힘')
-
-  const nearConfig = {
-    networkId: 'mainnet',
-    nodeUrl: 'https://rpc.mainnet.near.org',
-    walletUrl: 'https://wallet.near.org',
-    helperUrl: 'https://helper.mainnet.near.org',
-    explorerUrl: 'https://explorer.mainnet.near.org',
-  }
-
   window.chain = document.getElementById('chainType').value // NEAR Protocol
   window.collection = document.getElementById('contractAddress').value // NPunks
   window.accountId = document.getElementById('accountId').value // khjdaniel.near
@@ -57,17 +77,21 @@ export async function chainConfigInit() {
 
   // 체인이 니어일 때
   if (window.chain === 'near') {
-    const near = await nearApi.connect(
-      Object.assign(
-        {
-          deps: {
-            keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore(),
-          },
-        },
-        nearConfig
-      )
-    )
-    const walletConnection = new nearApi.WalletConnection(near)
+    const nearConnection = await nearApi.connect(nearConfig)
+
+    const walletConnection = new nearApi.WalletConnection(nearConnection)
+
+    // await walletConnection.requestSignIn('web3mon.near') // our game contract address
+
+    var keyStore = new nearApi.keyStores.BrowserLocalStorageKeyStore()
+    var keyPair = await keyStore.getKey(
+      'mainnet',
+      walletConnection.getAccountId()
+    ) // wallet account id address
+    var msg = {}
+    // msg = Buffer.from(JSON.stringify(msg))
+    // var signature = keyPair.sign(msg)
+    // console.log(signature)
 
     window.contract = await new nearApi.Contract(
       walletConnection.account(),
@@ -93,9 +117,6 @@ export async function chainConfigInit() {
       limit: 50,
     })
 
-    console.log('메타데이터 로그', metadata)
-    console.log('데이터 로그', data)
-
     // 초기화
     document.querySelector('#nftListBox').innerHTML = ''
     document.getElementById('tokenId').value = ''
@@ -117,6 +138,10 @@ export async function chainConfigInit() {
         }
         imgs.push(img)
       })
+    } else {
+      let p = document.createElement('p')
+      p.innerHTML = 'There is no NFT'
+      document.querySelector('#nftListBox').appendChild(p)
     }
 
     imgs.forEach((i) => {

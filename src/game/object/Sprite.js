@@ -1,5 +1,5 @@
 const chatBubble = new Image()
-chatBubble.src = '../img/chatBubble.png'
+chatBubble.src = '../img/chatBubble2.png'
 
 import { canva } from '../../js/index'
 
@@ -82,9 +82,15 @@ export class Sprite {
 
     if (this.chat.length > 0) {
       this.chatShowTime += 1
-      canva.drawImage(chatBubble, image.position.x + 40, image.position.y - 80)
+      canva.drawImage(
+        chatBubble,
+        image.position.x + 40,
+        image.position.y - 70,
+        150,
+        80
+      )
 
-      canva.fillText(this.chat, image.position.x + 45, image.position.y - 40)
+      canva.fillText(this.chat, image.position.x + 55, image.position.y - 39)
 
       if (this.chatShowTime > 600) {
         this.chatShowTime = 0

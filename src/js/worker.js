@@ -2,7 +2,14 @@ importScripts('https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js')
 
 onmessage = function (event) {
   var data = event.data
-  makeChracterImage(data.url, data.contractAddress).then((sprite) => {
+  makeChracterImage(
+    data.url,
+    data.contractAddress,
+    data.leftSource,
+    data.rightSource,
+    data.upSource,
+    data.downSource
+  ).then((sprite) => {
     sprite.id = data.id
     postMessage(sprite)
   })
@@ -16,7 +23,7 @@ const colorDistance = (c1, c2) =>
       Math.pow(c1.a - c2.a, 2)
   )
 
-async function makeChracterImage(url, contractAddress) {
+async function makeChracterImage(url, contractAddress, lis, ris, ups, downs) {
   var image = await Jimp.read({ url: url })
   image = image.resize(48 * 4, 48 * 4)
   var h = image.bitmap.height
@@ -78,30 +85,28 @@ async function makeChracterImage(url, contractAddress) {
 
   image = image.resize(46, 48)
 
-  var downImage = await Jimp.read('https://demo.web3mon.io/img/playerDown.png')
+  var downImage = await Jimp.read({ url: ups })
   downImage = downImage.composite(image, 1, 0)
   downImage = downImage.composite(image, 48 + 1, 0)
   downImage = downImage.composite(image, 48 * 2 + 1, 0)
   downImage = downImage.composite(image, 48 * 3 + 1, 0)
   sprite.down = await downImage.getBase64Async('image/png')
 
-  var upImage = await Jimp.read('https://demo.web3mon.io/img/playerUp.png')
+  var upImage = await Jimp.read({ url: downs })
   upImage = upImage.composite(image, 1, 0)
   upImage = upImage.composite(image, 48 + 1, 0)
   upImage = upImage.composite(image, 48 * 2 + 1, 0)
   upImage = upImage.composite(image, 48 * 3 + 1, 0)
   sprite.up = await upImage.getBase64Async('image/png')
 
-  var leftImage = await Jimp.read('https://demo.web3mon.io/img/playerLeft.png')
+  var leftImage = await Jimp.read({ url: lis })
   leftImage = leftImage.composite(image, 1, 0)
   leftImage = leftImage.composite(image, 48 + 1, 0)
   leftImage = leftImage.composite(image, 48 * 2 + 1, 0)
   leftImage = leftImage.composite(image, 48 * 3 + 1, 0)
   sprite.left = await leftImage.getBase64Async('image/png')
 
-  var rightImage = await Jimp.read(
-    'https://demo.web3mon.io/img/playerRight.png'
-  )
+  var rightImage = await Jimp.read({ url: ris })
   rightImage = rightImage.composite(image, 1, 0)
   rightImage = rightImage.composite(image, 48 + 1, 0)
   rightImage = rightImage.composite(image, 48 * 2 + 1, 0)

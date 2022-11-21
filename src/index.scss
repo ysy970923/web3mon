@@ -32,6 +32,109 @@
   opacity: 1;
   display: none;
   z-index: 19;
+  padding: 20px;
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    min-width: 100px;
+    .text_input {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.86);
+      border-radius: 1px;
+      width: 100%;
+      min-width: 300px;
+      min-height: 50px;
+      border: 0px;
+      margin: 5px;
+      border: 2px solid black;
+    }
+
+    .text_input:focus {
+      background: rgba(255, 255, 255, 0.98);
+      outline: none;
+    }
+
+    .text_input::after {
+      content: '';
+      background: black;
+      position: absolute;
+      left: -2.5%;
+      top: 0;
+      width: 105%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .text_input::before {
+      content: '';
+      background: black;
+      position: absolute;
+      left: 0;
+      top: -5%;
+      width: 100%;
+      height: 113%;
+      z-index: -1;
+    }
+    .button_container {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      margin-top: 3px;
+
+      .custom_button {
+        margin: 5px;
+        font-size: 0.9em;
+        font-family: 'Press Start 2P', cursive;
+        width: 30%;
+        min-width: 130px;
+        height: 40px;
+        background: #4b9ae7;
+        border: 0px;
+        position: relative;
+        outline: none;
+        // box-shadow: inset -4px 2px 1px 1px grey,
+        //   inset -4px -2px 1px 1px lightgray, inset 4px 0px 1px 1px lightgray;
+      }
+
+      .custom_button:hover {
+        cursor: pointer;
+      }
+
+      .custom_button:active {
+        top: 5px;
+        box-shadow: -4px 2px 1px 1px grey, -4px -2px 1px 1px lightgray,
+          4px 0px 1px 1px lightgray;
+        outline: none;
+      }
+
+      .custom_button::after {
+        content: '';
+        background: black;
+        position: absolute;
+        left: -2.5%;
+        top: 0;
+        width: 105%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .custom_button::before {
+        content: '';
+        background: black;
+        position: absolute;
+        left: 0;
+        top: -5%;
+        width: 100%;
+        height: 113%;
+        z-index: -1;
+      }
+
+      .cancel {
+        background-color: #f3f9ff;
+      }
+    }
+  }
 }
 
 .card {
@@ -140,4 +243,8 @@ img {
   #profileName {
     font-size: 14px;
   }
+}
+
+#nftListBox {
+  margin-top: 20px;
 }

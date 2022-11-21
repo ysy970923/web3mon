@@ -8,6 +8,7 @@ import './game/chat/chatForm'
 import './game/chat/sendChat'
 import './index.scss'
 import './game/data/map'
+import './web/initialSetting'
 
 const canvas = document.querySelector('canvas')
 canvas.width = window.innerWidth

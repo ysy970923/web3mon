@@ -5,18 +5,19 @@ import { skillTypes } from '../game/battle/utils/skillSets'
 import { player, canva, battle } from './index'
 import { Monster } from '../game/object/Monster'
 import { gsap } from 'gsap'
+import { battleAnimationId } from '../game/battle/utils/enterBattle'
 import {
   mySkillType,
   setBattleStart,
   my_turn,
   setMyTurn,
 } from '../game/battle/utils'
-import { checkCanUserSkill } from '../game/battle/attack'
+import { clickSkillButton } from '../game/battle/attack'
 
 const battleBackgroundImage = new Image()
 battleBackgroundImage.src = '../img/battleBackground2.png'
 
-const battleBackground = new Sprite({
+export const battleBackground = new Sprite({
   position: {
     x: 0,
     y: 0,
@@ -26,15 +27,10 @@ const battleBackground = new Sprite({
 })
 
 export let opponent_id = null
-let opponent
-let myMonster
-let renderedSprites
-let battleAnimationId
+export let opponent
+export let myMonster
+export let renderedSprites
 export let queue
-
-//
-// Methods
-//
 
 /** 공격이 들어와서 내가 공격을 받음 */
 export function attacked(attack) {
@@ -55,6 +51,10 @@ export function attacked(attack) {
   })
 }
 
+/**
+ *
+ * @param {'win' | 'lose'} result 이겼으면 win, 졌으면 lose
+ */
 export function endBattle(result) {
   if (result === 'win') {
     console.log('이겼다.')
@@ -83,7 +83,12 @@ export function endBattle(result) {
   })
 }
 
+/**
+ * 진짜 배틀 시작, 배틀 맵으로 이동
+ */
 export function initBattle() {
+  console.log('상대방 아이디', opponent_id, others[opponent_id])
+
   canva.width = window.innerWidth
   canva.height = window.innerHeight
 
@@ -151,74 +156,6 @@ export function initBattle() {
     button.addEventListener('click', (e) => {
       clickSkillButton(e.currentTarget.value)
     })
-  })
-}
-
-/** 내가 공격하는 것 */
-const clickSkillButton = (skillValue) => {
-  if (!my_turn) return
-  console.log('밸류', skillValue)
-  const selectedAttack = myMonster.attacks.filter(
-    (doc) => parseInt(doc.value) === parseInt(skillValue)
-  )[0]
-
-  if (!checkCanUserSkill(selectedAttack)) {
-    return
-  }
-
-  myMonster.attack({
-    attack: selectedAttack,
-    recipient: opponent,
-    renderedSprites,
-  })
-
-  myMonster.attacks.forEach((attack) => {
-    // 한번 공격했으니 전체 쿨타임 1씩 감소
-    if (attack.left_cool_time > 0) attack.left_cool_time -= 1
-  })
-
-  // 한번 공격했으니 사용한 공격의 사용 가능 횟수 1 감수
-  selectedAttack.limit -= 1
-  selectedAttack.left_cool_time = selectedAttack.cool_time
-
-  Array.from(document.querySelector('#attacksBox').childNodes).forEach(
-    (button, index) => {
-      const attack = myMonster.attacks[index]
-      button.innerHTML = `${attack.name}\n (Cool: ${attack.left_cool_time})\n (Left: ${attack.limit})`
-    }
-  )
-
-  // NPC는 알아서 랜덤으로 공격해야하니까
-  if (opponent_id == 250) {
-    setTimeout(() => {
-      if (Math.random() < 0.5) attacked(0)
-      else attacked(1)
-    }, 3000)
-  } else attack(opponent_id, myMonster.attacks.indexOf(selectedAttack))
-
-  // 내가 이긴 경우
-  if (opponent.health <= 0) {
-    queue.push(() => {
-      opponent.faint()
-    })
-    endBattle('WIN')
-  }
-
-  setMyTurn(false)
-}
-
-export function animateBattle() {
-  battleAnimationId = window.requestAnimationFrame(animateBattle)
-
-  battleBackground.draw()
-
-  if (queue.length > 0) {
-    queue[0]()
-    queue.shift()
-  }
-
-  renderedSprites.forEach((sprite) => {
-    sprite.draw()
   })
 }
 

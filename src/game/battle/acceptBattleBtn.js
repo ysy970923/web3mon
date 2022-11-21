@@ -4,11 +4,14 @@ import {
   requestBattle,
 } from '../network/battle'
 import { setOpponentId } from '../../js/battleScene'
-import { setMySkillType, mySkillType, startBattle } from './utils'
+import { setMySkillType, startBattleSetting } from './utils'
 
 /**
+ *
  * 진짜 배틀 제안(Yes 클릭)
- * parameter : 배틀 상대방의 id
+ * @param {string} opponentId 상대방 아이디(나한테 배틀을 건)
+ * @param {boolean} isMyRequest
+ * @param {string} battleId 서버에서 내려받은 배틀아이디
  */
 export function offerBattle(opponentId, isMyRequest, battleId) {
   document.getElementById('acceptBattleBtn').addEventListener('click', (e) => {
@@ -22,7 +25,7 @@ export function offerBattle(opponentId, isMyRequest, battleId) {
       document
         .getElementById('selectTypeBtn')
         .addEventListener('click', (e) => {
-          startBattle()
+          startBattleSetting(250, true, '')
         })
     } else {
       document

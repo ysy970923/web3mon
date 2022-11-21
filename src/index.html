@@ -108,6 +108,9 @@
                 required
               />
             </div>
+            <button id="find_my_login" type="button" class="nes-btn is-success">
+              login
+            </button>
             <button id="find_my_nft" type="button" class="nes-btn is-success">
               Find My NFT
             </button>
@@ -127,7 +130,6 @@
             <p>3. Choose Clothes to wear.</p>
             <div id="clothesBox" style="margin-bottom: 40px">
               <p>(You can only try one type now)</p>
-              <img src="../img/clothes.png" style="width: 100px; opacity: 1" />
             </div>
           </div>
           <div>
@@ -145,28 +147,32 @@
 
         <button id="chatOpenBtn" class="nes-btn">Chat</button>
         <div class="chat-popup" id="chatForm" style="display: none">
-          <form class="form-container">
+          <form class="form-container" id="chatForm">
             <h1>Chat</h1>
             <label for="msg"><b>Message</b></label>
-            <textarea
+            <input
               id="chat"
+              type="text"
               class="text_input"
-              placeholder="Up to 10 words..."
+              placeholder="Up to 13 words..."
               name="msg"
-              maxlength="10"
+              maxlength="13"
               required
-            ></textarea>
-
-            <button id="sendChatBtn" type="button" class="custom_button">
-              Send
-            </button>
-            <button
-              id="chatCloseBtn"
-              type="button"
-              class="custom_button cancel"
-            >
-              Close
-            </button>
+              autocomplete="off"
+              autofocus
+            ></input>
+            <div class="button_container">
+              <button id="sendChatBtn" type="button" class="custom_button">
+                Send
+              </button>
+              <button
+                id="chatCloseBtn"
+                type="button"
+                class="custom_button cancel"
+              >
+                Close
+              </button>
+            </div>
           </form>
         </div>
         <div id="buttonSection">

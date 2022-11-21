@@ -73,7 +73,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _battle_utils__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./battle/utils */ "./src/game/battle/utils.js");
 /* harmony import */ var _battle_utils_enterBattle__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./battle/utils/enterBattle */ "./src/game/battle/utils/enterBattle.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -419,8 +419,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
+ *
  * 진짜 배틀 제안(Yes 클릭)
- * parameter : 배틀 상대방의 id
+ * @param {string} opponentId 상대방 아이디(나한테 배틀을 건)
+ * @param {boolean} isMyRequest
+ * @param {string} battleId 서버에서 내려받은 배틀아이디
  */
 function offerBattle(opponentId, isMyRequest, battleId) {
   document.getElementById('acceptBattleBtn').addEventListener('click', function (e) {
@@ -431,7 +434,7 @@ function offerBattle(opponentId, isMyRequest, battleId) {
       console.log('NPC 예스', opponentId);
       (0,_js_battleScene__WEBPACK_IMPORTED_MODULE_1__.setOpponentId)(opponentId);
       document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
-        (0,_utils__WEBPACK_IMPORTED_MODULE_2__.startBattle)();
+        (0,_utils__WEBPACK_IMPORTED_MODULE_2__.startBattleSetting)(250, true, '');
       });
     } else {
       document.getElementById('selectTypeBtn').addEventListener('click', function (e) {
@@ -468,8 +471,49 @@ function rejectBattle(proposer_player_id, battle_id) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "checkCanUserSkill": () => (/* binding */ checkCanUserSkill)
+/* harmony export */   "checkCanUserSkill": () => (/* binding */ checkCanUserSkill),
+/* harmony export */   "clickSkillButton": () => (/* binding */ clickSkillButton),
+/* harmony export */   "sendAttack": () => (/* binding */ sendAttack)
 /* harmony export */ });
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ "./node_modules/core-js/modules/es.array.filter.js");
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_parse_int_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.parse-int.js */ "./node_modules/core-js/modules/es.parse-int.js");
+/* harmony import */ var core_js_modules_es_parse_int_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_parse_int_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array.from.js */ "./node_modules/core-js/modules/es.array.from.js");
+/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/web.timers.js */ "./node_modules/core-js/modules/web.timers.js");
+/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_array_index_of_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.array.index-of.js */ "./node_modules/core-js/modules/es.array.index-of.js");
+/* harmony import */ var core_js_modules_es_array_index_of_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_index_of_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./utils */ "./src/game/battle/utils.js");
+/* harmony import */ var _js_battleScene__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../js/battleScene */ "./src/js/battleScene.js");
+/* harmony import */ var _js_network__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../js/network */ "./src/js/network.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var checkCanUserSkill = function checkCanUserSkill(selectedAttack) {
   if (selectedAttack.left_cool_time > 0) {
     window.alert('cool time is left');
@@ -480,6 +524,70 @@ var checkCanUserSkill = function checkCanUserSkill(selectedAttack) {
   } else {
     return true;
   }
+};
+
+/**
+ * I clicked skill button to attack opponent
+ * @param {number} skillValue
+ *
+ */
+var clickSkillButton = function clickSkillButton(skillValue) {
+  if (!_utils__WEBPACK_IMPORTED_MODULE_11__.my_turn) return;
+  console.log('밸류', skillValue);
+  var selectedAttack = _js_battleScene__WEBPACK_IMPORTED_MODULE_12__.myMonster.attacks.filter(function (doc) {
+    return parseInt(doc.value) === parseInt(skillValue);
+  })[0];
+  if (!checkCanUserSkill(selectedAttack)) {
+    return;
+  }
+  _js_battleScene__WEBPACK_IMPORTED_MODULE_12__.myMonster.attack({
+    attack: selectedAttack,
+    recipient: _js_battleScene__WEBPACK_IMPORTED_MODULE_12__.opponent,
+    renderedSprites: _js_battleScene__WEBPACK_IMPORTED_MODULE_12__.renderedSprites
+  });
+  _js_battleScene__WEBPACK_IMPORTED_MODULE_12__.myMonster.attacks.forEach(function (attack) {
+    // 한번 공격했으니 전체 쿨타임 1씩 감소
+    if (attack.left_cool_time > 0) attack.left_cool_time -= 1;
+  });
+
+  // 한번 공격했으니 사용한 공격의 사용 가능 횟수 1 감수
+  selectedAttack.limit -= 1;
+  selectedAttack.left_cool_time = selectedAttack.cool_time;
+  Array.from(document.querySelector('#attacksBox').childNodes).forEach(function (button, index) {
+    var attack = _js_battleScene__WEBPACK_IMPORTED_MODULE_12__.myMonster.attacks[index];
+    button.innerHTML = "".concat(attack.name, "\n (Cool: ").concat(attack.left_cool_time, ")\n (Left: ").concat(attack.limit, ")");
+  });
+
+  // NPC는 알아서 랜덤으로 공격해야하니까
+  if (_js_battleScene__WEBPACK_IMPORTED_MODULE_12__.opponent_id == 250) {
+    setTimeout(function () {
+      if (Math.random() < 0.5) (0,_js_battleScene__WEBPACK_IMPORTED_MODULE_12__.attacked)(0);else (0,_js_battleScene__WEBPACK_IMPORTED_MODULE_12__.attacked)(1);
+    }, 3000);
+  } else sendAttack(_js_battleScene__WEBPACK_IMPORTED_MODULE_12__.opponent_id, _js_battleScene__WEBPACK_IMPORTED_MODULE_12__.myMonster.attacks.indexOf(selectedAttack));
+
+  // 내가 이긴 경우
+  if (_js_battleScene__WEBPACK_IMPORTED_MODULE_12__.opponent.health <= 0) {
+    _js_battleScene__WEBPACK_IMPORTED_MODULE_12__.queue.push(function () {
+      _js_battleScene__WEBPACK_IMPORTED_MODULE_12__.opponent.faint();
+    });
+    (0,_js_battleScene__WEBPACK_IMPORTED_MODULE_12__.endBattle)('WIN');
+  }
+  (0,_utils__WEBPACK_IMPORTED_MODULE_11__.setMyTurn)(false);
+};
+
+/**
+ *
+ * @param {string} opponent_id
+ * @param {string} attackType
+ */
+var sendAttack = function sendAttack(opponent_id, attackType) {
+  var body = {
+    Attack: {
+      dwdw: 'dw'
+    }
+  };
+  var msg = JSON.stringify(body);
+  _js_network__WEBPACK_IMPORTED_MODULE_13__.ws.send(msg);
 };
 
 /***/ }),
@@ -538,7 +646,9 @@ var clickToStartBattle = function clickToStartBattle(key) {
 };
 
 /**
- * 지금 클릭한 애랑 배틀 할거야? or 얘가 너랑 싸우고 싶다는게 배틀할거야?
+ *
+ * 지금 클릭한 애랑 배틀 할거야? or 얘가 너랑 싸우고 싶다는데 배틀할거야?
+ * @param {string} key 상대방의 아이디
  */
 var displayBattleAcceptPopup = function displayBattleAcceptPopup(key) {
   document.getElementById('acceptBattleBtn').style.display = 'inline-block';
@@ -560,27 +670,40 @@ var displayBattleAcceptPopup = function displayBattleAcceptPopup(key) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "battleId": () => (/* binding */ battleId),
 /* harmony export */   "battle_start": () => (/* binding */ battle_start),
 /* harmony export */   "mySkillType": () => (/* binding */ mySkillType),
 /* harmony export */   "my_turn": () => (/* binding */ my_turn),
 /* harmony export */   "setBattleStart": () => (/* binding */ setBattleStart),
 /* harmony export */   "setMySkillType": () => (/* binding */ setMySkillType),
 /* harmony export */   "setMyTurn": () => (/* binding */ setMyTurn),
-/* harmony export */   "startBattle": () => (/* binding */ startBattle)
+/* harmony export */   "startBattleSetting": () => (/* binding */ startBattleSetting)
 /* harmony export */ });
 /* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../web/logIn */ "./src/web/logIn.js");
+/* harmony import */ var _js_battleScene__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/battleScene */ "./src/js/battleScene.js");
+
 
 var battle_start = false;
 var my_turn;
 var mySkillType;
+var battleId;
 document.getElementById('selectType').addEventListener('change', function () {
   (0,_web_logIn__WEBPACK_IMPORTED_MODULE_0__.connectWallets)();
 });
-function startBattle() {
+
+/**
+ *
+ * @param {string} opponent_id 상대방 아이디
+ * @param {boolean} isMyTurn 내가 먼저 시작인지?
+ * @param {string} battle_id 배틀 아이디
+ */
+function startBattleSetting(opponent_id, isMyTurn, battle_id) {
   document.getElementById('selectTypeCard').style.display = 'none';
-  battle_start = true;
-  my_turn = true;
+  setBattleStart(true);
+  battleId = battle_id;
+  my_turn = isMyTurn;
   mySkillType = document.getElementById('selectType').value;
+  (0,_js_battleScene__WEBPACK_IMPORTED_MODULE_1__.setOpponentId)(opponent_id);
 }
 function setBattleStart(bool) {
   battle_start = bool;
@@ -603,38 +726,66 @@ function setMySkillType(type) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "animateBattle": () => (/* binding */ animateBattle),
+/* harmony export */   "battleAnimationId": () => (/* binding */ battleAnimationId),
 /* harmony export */   "enterBattle": () => (/* binding */ enterBattle)
 /* harmony export */ });
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
-/* harmony import */ var _js_battleScene__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../js/battleScene */ "./src/js/battleScene.js");
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../js/index */ "./src/js/index.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var _js_battleScene__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../js/battleScene */ "./src/js/battleScene.js");
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../js/index */ "./src/js/index.js");
 
 
 
-function enterBattle(animationId, id) {
+
+
+
+var battleAnimationId;
+
+/**
+ * battle animation start logic
+ * @param {any} animationId idk
+ */
+function enterBattle(animationId) {
   // deactivate current animation loop
   window.cancelAnimationFrame(animationId);
-  _js_index__WEBPACK_IMPORTED_MODULE_1__.battle.initiated = true;
-  gsap__WEBPACK_IMPORTED_MODULE_2__.gsap.to('#overlappingDiv', {
+  _js_index__WEBPACK_IMPORTED_MODULE_4__.battle.initiated = true;
+  gsap__WEBPACK_IMPORTED_MODULE_5__.gsap.to('#overlappingDiv', {
     opacity: 1,
     repeat: 3,
     yoyo: true,
     duration: 0.4,
     onComplete: function onComplete() {
-      gsap__WEBPACK_IMPORTED_MODULE_2__.gsap.to('#overlappingDiv', {
+      gsap__WEBPACK_IMPORTED_MODULE_5__.gsap.to('#overlappingDiv', {
         opacity: 1,
         duration: 0.4,
         onComplete: function onComplete() {
           // activate a new animation loop
-          (0,_js_battleScene__WEBPACK_IMPORTED_MODULE_0__.initBattle)();
-          (0,_js_battleScene__WEBPACK_IMPORTED_MODULE_0__.animateBattle)();
-          gsap__WEBPACK_IMPORTED_MODULE_2__.gsap.to('#overlappingDiv', {
+          (0,_js_battleScene__WEBPACK_IMPORTED_MODULE_3__.initBattle)();
+          animateBattle();
+          gsap__WEBPACK_IMPORTED_MODULE_5__.gsap.to('#overlappingDiv', {
             opacity: 0,
             duration: 0.4
           });
         }
       });
     }
+  });
+}
+function animateBattle() {
+  battleAnimationId = window.requestAnimationFrame(animateBattle);
+  _js_battleScene__WEBPACK_IMPORTED_MODULE_3__.battleBackground.draw();
+  if (_js_battleScene__WEBPACK_IMPORTED_MODULE_3__.queue.length > 0) {
+    _js_battleScene__WEBPACK_IMPORTED_MODULE_3__.queue[0]();
+    _js_battleScene__WEBPACK_IMPORTED_MODULE_3__.queue.shift();
+  }
+  _js_battleScene__WEBPACK_IMPORTED_MODULE_3__.renderedSprites.forEach(function (sprite) {
+    sprite.draw();
   });
 }
 
@@ -769,6 +920,7 @@ function openForm() {
   } else chatDoc.style.display = 'block';
 }
 function closeForm() {
+  document.querySelector('#chat').value = '';
   document.getElementById('chatForm').style.display = 'none';
 }
 document.getElementById('chatOpenBtn').addEventListener('click', openForm, true);
@@ -800,6 +952,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.getElementById('sendChatBtn').addEventListener('click', sendChat, false);
+document.getElementById('chatForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  sendChat();
+});
 function sendChat() {
   if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
   var chat = document.querySelector('#chat').value;
@@ -1748,19 +1904,18 @@ function requestBattle(receiver_player_id, skillType) {
   var msg = JSON.stringify(body);
   _js_network__WEBPACK_IMPORTED_MODULE_8__.ws.send(msg);
 }
-function acceptBattleRequest(proposer_player_id, battle_id) {
-  console.log('이사람꺼 수락', proposer_player_id, '배틀 아이디', battle_id, _typeof(battle_id));
+function acceptBattleRequest(proposer_player_id, skillType, battle_id) {
   if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_9__.checkOrReconnect)()) return;
   var body = {
     AcceptBattle: {
       proposer_player_id: proposer_player_id,
-      battle_id: parseInt(battle_id)
+      battle_id: battle_id
     }
   };
-  console.log(JSON.stringify(body), ' 제이썬');
-  // ws.send(JSON.stringify(body))
+  console.log('바디', body);
+  var msg = JSON.stringify(body);
+  _js_network__WEBPACK_IMPORTED_MODULE_8__.ws.send(msg);
 }
-
 function rejectBattleRequest(proposer_player_id, battle_id) {
   console.log('이사람꺼 거절', proposer_player_id, '배틀 아이디', battle_id, _typeof(battle_id));
   if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_9__.checkOrReconnect)()) return;
@@ -2206,7 +2361,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 var chatBubble = new Image();
-chatBubble.src = '../img/chatBubble.png';
+chatBubble.src = '../img/chatBubble2.png';
 
 var Sprite = /*#__PURE__*/function () {
   function Sprite(_ref) {
@@ -2289,8 +2444,8 @@ var Sprite = /*#__PURE__*/function () {
       }
       if (this.chat.length > 0) {
         this.chatShowTime += 1;
-        _js_index__WEBPACK_IMPORTED_MODULE_12__.canva.drawImage(chatBubble, image.position.x + 40, image.position.y - 80);
-        _js_index__WEBPACK_IMPORTED_MODULE_12__.canva.fillText(this.chat, image.position.x + 45, image.position.y - 40);
+        _js_index__WEBPACK_IMPORTED_MODULE_12__.canva.drawImage(chatBubble, image.position.x + 40, image.position.y - 70, 150, 80);
+        _js_index__WEBPACK_IMPORTED_MODULE_12__.canva.fillText(this.chat, image.position.x + 55, image.position.y - 39);
         if (this.chatShowTime > 600) {
           this.chatShowTime = 0;
           this.chat = '';
@@ -2327,6 +2482,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Sprite */ "./src/game/object/Sprite.js");
 /* harmony import */ var _js_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../js/utils */ "./src/js/utils.js");
 /* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../js/index */ "./src/js/index.js");
+/* harmony import */ var _js_clothes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../js/clothes */ "./src/js/clothes.js");
+
 
 
 
@@ -2370,7 +2527,11 @@ var makeOthers = function makeOthers(id, coordinate, nickname, nft_image_url) {
     _js_utils__WEBPACK_IMPORTED_MODULE_2__.worker.postMessage({
       url: userDummy.userImageUrl,
       contractAddress: 'test.collection',
-      id: id
+      id: id,
+      leftSource: _js_clothes__WEBPACK_IMPORTED_MODULE_4__.clothesList[0].left,
+      rightSource: _js_clothes__WEBPACK_IMPORTED_MODULE_4__.clothesList[0].right,
+      upSource: _js_clothes__WEBPACK_IMPORTED_MODULE_4__.clothesList[0].up,
+      downSource: _js_clothes__WEBPACK_IMPORTED_MODULE_4__.clothesList[0].down
     });
   }
   return;
@@ -2483,12 +2644,15 @@ function checkForCharacterCollision(_ref2) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "animateBattle": () => (/* binding */ animateBattle),
 /* harmony export */   "attacked": () => (/* binding */ attacked),
+/* harmony export */   "battleBackground": () => (/* binding */ battleBackground),
 /* harmony export */   "endBattle": () => (/* binding */ endBattle),
 /* harmony export */   "initBattle": () => (/* binding */ initBattle),
+/* harmony export */   "myMonster": () => (/* binding */ myMonster),
+/* harmony export */   "opponent": () => (/* binding */ opponent),
 /* harmony export */   "opponent_id": () => (/* binding */ opponent_id),
 /* harmony export */   "queue": () => (/* binding */ queue),
+/* harmony export */   "renderedSprites": () => (/* binding */ renderedSprites),
 /* harmony export */   "setOpponentId": () => (/* binding */ setOpponentId)
 /* harmony export */ });
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
@@ -2501,32 +2665,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ "./node_modules/core-js/modules/es.array.filter.js");
-/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_parse_int_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.parse-int.js */ "./node_modules/core-js/modules/es.parse-int.js");
-/* harmony import */ var core_js_modules_es_parse_int_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_parse_int_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.array.from.js */ "./node_modules/core-js/modules/es.array.from.js");
-/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/web.timers.js */ "./node_modules/core-js/modules/web.timers.js");
-/* harmony import */ var core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_array_index_of_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.array.index-of.js */ "./node_modules/core-js/modules/es.array.index-of.js");
-/* harmony import */ var core_js_modules_es_array_index_of_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_index_of_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _game_animate__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../game/animate */ "./src/game/animate.js");
-/* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
-/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
-/* harmony import */ var _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../game/battle/utils/skillSets */ "./src/game/battle/utils/skillSets.js");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
-/* harmony import */ var _game_object_Monster__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../game/object/Monster */ "./src/game/object/Monster.js");
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
-/* harmony import */ var _game_battle_utils__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../game/battle/utils */ "./src/game/battle/utils.js");
-/* harmony import */ var _game_battle_attack__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../game/battle/attack */ "./src/game/battle/attack.js");
-
-
-
-
-
+/* harmony import */ var _game_animate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../game/animate */ "./src/game/animate.js");
+/* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
+/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
+/* harmony import */ var _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../game/battle/utils/skillSets */ "./src/game/battle/utils/skillSets.js");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./index */ "./src/js/index.js");
+/* harmony import */ var _game_object_Monster__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../game/object/Monster */ "./src/game/object/Monster.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var _game_battle_utils_enterBattle__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../game/battle/utils/enterBattle */ "./src/game/battle/utils/enterBattle.js");
+/* harmony import */ var _game_battle_utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../game/battle/utils */ "./src/game/battle/utils.js");
+/* harmony import */ var _game_battle_attack__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../game/battle/attack */ "./src/game/battle/attack.js");
 
 
 
@@ -2544,7 +2692,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var battleBackgroundImage = new Image();
 battleBackgroundImage.src = '../img/battleBackground2.png';
-var battleBackground = new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_12__.Sprite({
+var battleBackground = new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_6__.Sprite({
   position: {
     x: 0,
     y: 0
@@ -2556,12 +2704,7 @@ var opponent_id = null;
 var opponent;
 var myMonster;
 var renderedSprites;
-var battleAnimationId;
 var queue;
-
-//
-// Methods
-//
 
 /** 공격이 들어와서 내가 공격을 받음 */
 function attacked(attack) {
@@ -2571,7 +2714,7 @@ function attacked(attack) {
       recipient: myMonster,
       renderedSprites: renderedSprites
     });
-    (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_17__.setMyTurn)(true);
+    (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_12__.setMyTurn)(true);
     if (myMonster.health <= 0) {
       queue.push(function () {
         myMonster.faint();
@@ -2580,6 +2723,11 @@ function attacked(attack) {
     }
   });
 }
+
+/**
+ *
+ * @param {'win' | 'lose'} result 이겼으면 win, 졌으면 lose
+ */
 function endBattle(result) {
   if (result === 'win') {
     console.log('이겼다.');
@@ -2588,57 +2736,62 @@ function endBattle(result) {
   }
   queue.push(function () {
     // fade back to black
-    gsap__WEBPACK_IMPORTED_MODULE_19__.gsap.to('#overlappingDiv', {
+    gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to('#overlappingDiv', {
       opacity: 1,
       onComplete: function onComplete() {
-        cancelAnimationFrame(battleAnimationId);
-        (0,_game_animate__WEBPACK_IMPORTED_MODULE_11__.animate)();
+        cancelAnimationFrame(_game_battle_utils_enterBattle__WEBPACK_IMPORTED_MODULE_11__.battleAnimationId);
+        (0,_game_animate__WEBPACK_IMPORTED_MODULE_5__.animate)();
         document.querySelector('#userInterface').style.display = 'none';
         document.getElementById('battleResultCard').style.display = 'block';
         document.getElementById('battleResult').innerText = "You ".concat(result, "!");
         document.querySelector('#joyDiv').style.display = 'block';
-        gsap__WEBPACK_IMPORTED_MODULE_19__.gsap.to('#overlappingDiv', {
+        gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to('#overlappingDiv', {
           opacity: 0
         });
-        _index__WEBPACK_IMPORTED_MODULE_15__.battle.initiated = false;
+        _index__WEBPACK_IMPORTED_MODULE_9__.battle.initiated = false;
       }
     });
-    (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_17__.setBattleStart)(false);
+    (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_12__.setBattleStart)(false);
   });
 }
+
+/**
+ * 진짜 배틀 시작, 배틀 맵으로 이동
+ */
 function initBattle() {
-  _index__WEBPACK_IMPORTED_MODULE_15__.canva.width = window.innerWidth;
-  _index__WEBPACK_IMPORTED_MODULE_15__.canva.height = window.innerHeight;
+  console.log('상대방 아이디', opponent_id, _network__WEBPACK_IMPORTED_MODULE_7__.others[opponent_id]);
+  _index__WEBPACK_IMPORTED_MODULE_9__.canva.width = window.innerWidth;
+  _index__WEBPACK_IMPORTED_MODULE_9__.canva.height = window.innerHeight;
   document.querySelector('#joyDiv').style.display = 'none';
   document.querySelector('#userInterface').style.display = 'block';
   document.querySelector('#dialogueBox').style.display = 'none';
   document.querySelector('#enemyHealthBar').style.width = '100%';
   document.querySelector('#playerHealthBar').style.width = '100%';
   document.querySelector('#attacksBox').replaceChildren();
-  document.querySelector('#battleMyName').innerHTML = "me(".concat(_index__WEBPACK_IMPORTED_MODULE_15__.player.name, ")");
-  document.querySelector('#battleOpponentName').innerHTML = "opponent(".concat(_network__WEBPACK_IMPORTED_MODULE_13__.others[opponent_id].sprite.name, ")");
-  if (!_game_battle_utils__WEBPACK_IMPORTED_MODULE_17__.my_turn) {
+  document.querySelector('#battleMyName').innerHTML = "me(".concat(_index__WEBPACK_IMPORTED_MODULE_9__.player.name, ")");
+  document.querySelector('#battleOpponentName').innerHTML = "opponent(".concat(_network__WEBPACK_IMPORTED_MODULE_7__.others[opponent_id].sprite.name, ")");
+  if (!_game_battle_utils__WEBPACK_IMPORTED_MODULE_12__.my_turn) {
     document.querySelector('#dialogueBox').style.display = 'block';
     document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn';
   }
   var opponentUser = {
-    image: _network__WEBPACK_IMPORTED_MODULE_13__.others[opponent_id].baseImage,
+    image: _network__WEBPACK_IMPORTED_MODULE_7__.others[opponent_id].baseImage,
     isEnemy: true,
-    name: _network__WEBPACK_IMPORTED_MODULE_13__.others[opponent_id].sprite.name,
-    health: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_14__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_13__.others[opponent_id].skillType].health,
-    attacks: JSON.parse(JSON.stringify(_game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_14__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_13__.others[opponent_id].skillType].atk)),
-    defenses: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_14__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_13__.others[opponent_id].skillType].def
+    name: _network__WEBPACK_IMPORTED_MODULE_7__.others[opponent_id].sprite.name,
+    health: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_8__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_7__.others[opponent_id].skillType].health,
+    attacks: JSON.parse(JSON.stringify(_game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_8__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_7__.others[opponent_id].skillType].atk)),
+    defenses: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_8__.skillTypes[_network__WEBPACK_IMPORTED_MODULE_7__.others[opponent_id].skillType].def
   };
-  opponent = new _game_object_Monster__WEBPACK_IMPORTED_MODULE_16__.Monster(opponentUser);
+  opponent = new _game_object_Monster__WEBPACK_IMPORTED_MODULE_10__.Monster(opponentUser);
   var myCharacter = {
-    image: _index__WEBPACK_IMPORTED_MODULE_15__.player.baseImage,
+    image: _index__WEBPACK_IMPORTED_MODULE_9__.player.baseImage,
     isEnemy: false,
-    name: _index__WEBPACK_IMPORTED_MODULE_15__.player.name,
-    health: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_14__.skillTypes[_game_battle_utils__WEBPACK_IMPORTED_MODULE_17__.mySkillType].health,
-    attacks: JSON.parse(JSON.stringify(_game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_14__.skillTypes[_game_battle_utils__WEBPACK_IMPORTED_MODULE_17__.mySkillType].atk)),
-    defenses: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_14__.skillTypes[_game_battle_utils__WEBPACK_IMPORTED_MODULE_17__.mySkillType].def
+    name: _index__WEBPACK_IMPORTED_MODULE_9__.player.name,
+    health: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_8__.skillTypes[_game_battle_utils__WEBPACK_IMPORTED_MODULE_12__.mySkillType].health,
+    attacks: JSON.parse(JSON.stringify(_game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_8__.skillTypes[_game_battle_utils__WEBPACK_IMPORTED_MODULE_12__.mySkillType].atk)),
+    defenses: _game_battle_utils_skillSets__WEBPACK_IMPORTED_MODULE_8__.skillTypes[_game_battle_utils__WEBPACK_IMPORTED_MODULE_12__.mySkillType].def
   };
-  myMonster = new _game_object_Monster__WEBPACK_IMPORTED_MODULE_16__.Monster(myCharacter);
+  myMonster = new _game_object_Monster__WEBPACK_IMPORTED_MODULE_10__.Monster(myCharacter);
   renderedSprites = [opponent, myMonster];
   queue = [];
   document.querySelector('#attacksBox').style['grid-template-columns'] = "repeat(".concat(myMonster.attacks.length, ", 1fr)");
@@ -2653,64 +2806,8 @@ function initBattle() {
   // our event listeners for our buttons (attack)
   document.querySelectorAll('button').forEach(function (button) {
     button.addEventListener('click', function (e) {
-      clickSkillButton(e.currentTarget.value);
+      (0,_game_battle_attack__WEBPACK_IMPORTED_MODULE_13__.clickSkillButton)(e.currentTarget.value);
     });
-  });
-}
-
-/** 내가 공격하는 것 */
-var clickSkillButton = function clickSkillButton(skillValue) {
-  if (!_game_battle_utils__WEBPACK_IMPORTED_MODULE_17__.my_turn) return;
-  console.log('밸류', skillValue);
-  var selectedAttack = myMonster.attacks.filter(function (doc) {
-    return parseInt(doc.value) === parseInt(skillValue);
-  })[0];
-  if (!(0,_game_battle_attack__WEBPACK_IMPORTED_MODULE_18__.checkCanUserSkill)(selectedAttack)) {
-    return;
-  }
-  myMonster.attack({
-    attack: selectedAttack,
-    recipient: opponent,
-    renderedSprites: renderedSprites
-  });
-  myMonster.attacks.forEach(function (attack) {
-    // 한번 공격했으니 전체 쿨타임 1씩 감소
-    if (attack.left_cool_time > 0) attack.left_cool_time -= 1;
-  });
-
-  // 한번 공격했으니 사용한 공격의 사용 가능 횟수 1 감수
-  selectedAttack.limit -= 1;
-  selectedAttack.left_cool_time = selectedAttack.cool_time;
-  Array.from(document.querySelector('#attacksBox').childNodes).forEach(function (button, index) {
-    var attack = myMonster.attacks[index];
-    button.innerHTML = "".concat(attack.name, "\n (Cool: ").concat(attack.left_cool_time, ")\n (Left: ").concat(attack.limit, ")");
-  });
-
-  // NPC는 알아서 랜덤으로 공격해야하니까
-  if (opponent_id == 250) {
-    setTimeout(function () {
-      if (Math.random() < 0.5) attacked(0);else attacked(1);
-    }, 3000);
-  } else (0,_network__WEBPACK_IMPORTED_MODULE_13__.attack)(opponent_id, myMonster.attacks.indexOf(selectedAttack));
-
-  // 내가 이긴 경우
-  if (opponent.health <= 0) {
-    queue.push(function () {
-      opponent.faint();
-    });
-    endBattle('WIN');
-  }
-  (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_17__.setMyTurn)(false);
-};
-function animateBattle() {
-  battleAnimationId = window.requestAnimationFrame(animateBattle);
-  battleBackground.draw();
-  if (queue.length > 0) {
-    queue[0]();
-    queue.shift();
-  }
-  renderedSprites.forEach(function (sprite) {
-    sprite.draw();
   });
 }
 document.querySelector('#dialogueBox').addEventListener('click', function (e) {
@@ -2722,6 +2819,60 @@ document.querySelector('#dialogueBox').addEventListener('click', function (e) {
 function setOpponentId(id) {
   opponent_id = id;
 }
+
+/***/ }),
+
+/***/ "./src/js/clothes.js":
+/*!***************************!*\
+  !*** ./src/js/clothes.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "clothesList": () => (/* binding */ clothesList)
+/* harmony export */ });
+var imageStorageLink = 'https://demo.web3mon.io/img/';
+var clothesList = [{
+  source: '../img/clothes.png',
+  up: imageStorageLink + 'playerUp.png',
+  down: imageStorageLink + 'playerDown.png',
+  left: imageStorageLink + 'playerLeft.png',
+  right: imageStorageLink + 'playerRight.png',
+  id: 1
+}, {
+  source: '../img/clothes/c1.png',
+  up: imageStorageLink + 'playerDown.png',
+  down: imageStorageLink + 'playerUp.png',
+  left: imageStorageLink + 'playerLeft.png',
+  right: imageStorageLink + 'playerRight.png',
+  id: 2
+}, {
+  source: '../img/clothes/c2.png',
+  up: 'data:image/jpeg;base64,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',
+  down: 'data:image/jpeg;base64,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',
+  left: 'data:image/jpeg;base64,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',
+  right: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxESEhUSEBAWFhUXEhUXGBUYFyEVFhcVGBcYFxYVFhgZHiggGBomHRgVITEhJyorLi4vFx81ODMsNygtLysBCgoKDg0OGxAQGi0lICUvNy43LS0tNS0vLS8rLy0vMistKy0tLS0tLy83NjQyLS0vLS01LTE3KzE1LSsvLSs1L//AABEIAIIBgwMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABQEDBAYIBwL/xABNEAACAQIDAwkDCAYHBgcBAAABAgMAEQQSIQUTMQYHFCIyQVFhcVKRsSNCcnSBobLBCBUzNMLRJENEYoKDszVFY3PD0oSSk5SipOMl/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAECA//EACoRAQACAAQFBAEFAQAAAAAAAAABEQIhQfAxUXGBoTJhwdHhIkKRsfES/9oADAMBAAIRAxEAPwD3GlKUHiP6SbaYIec59wT+deIV7b+kr/Yf8/8A6deJUCq1SlB1lzVrbZOC/wCQPvJNbXWrc13+ycF9XX862mgUpSgVQiq0oPJefTkXv4unwL8rCtpAPnw+16re/pXPldtyIGBDAEEWIOoIPEGuVudHkcdm4tlQHcS3eE9wF9Yif7vDzFqDTaUpQKUpQKUpQKrVKUGwYPDOY0IQ2yr3eVXeiyew3urEwo6i/RHwq7aqi90WT2G91Oiyew3uqzalqovdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdTosnsN7qs2pagvdFk9hvdVasWqtB17SlKyrwz9JU9bA/RxPxhrxWvaf0le3gfo4n4w14rQVpVKGg645sx/8AysF9Wj+FbNWt82y22VgvqsX3qDWyUClKUClKUCtX5xeSqbSwbwmwkXrxOfmyDgL+yeB9fKtopQcTYiBo2aORSrqxVlPEMpIIPoRVuvZ+f3kdlYbSgTqsQk4Hc3BJfQ9k/wCHxrxigUqlKCtKpSgrSqUoJzC9hfoj4Vdq1hewv0R8Ku1pClKUEtyW2cs+IVZAN0AxkJOVVBBVLsCLXcoB439akdu7CSDAwSGLLMzqkhzEnMEfOCt7L1lHcOFa0sjAFQxANrgGwNuFx32ualdpbfkngjgkF8hU5yxZ2Kqy9Yn6X3VnFE6EcWfyfwuDbCSPOE3qzHrOZRljKx5P2bBRdt4BcEk1ex2BwYklkw8WeNMIJEjcyAOxndM+jBygXLwNjp33qL5P7eOFEg3KSCQLcN3ZSSLXBHf4V87X29JNMs0YMDJEI13TFCACxuCtrXzHhW5nfZM7bHyr5OYaHDlsNGS+/RRqzMMxkvFa9iQVC3tfq+tWV5MwLKiyMCOjkMq5mBxKRkyozhvk2U5Gy94bTvqEflDL0dcOBbK4cShiJMwLm9/G7nXyrE2XtR4HLKSQc11LHKWKsuYjvYBjr5nxqTrvQzrfNd5PYZHaQvHvN3h5JBHcgMy2sDlIawuSbEcONTGP2RAIw4iyl2wZy5mIQTB86C5JscqkXuQDxrV4JWQhkZlZeDKSrA8LhhqDWX+s5DHIjEsZJUkaRmJfMgYDU6k9bj5VYmN9SYltabJwsjSDoqJkx80IyvL1o1gkdc2eRtcyg3FuFRmzdnq2zpZzhImkUjdsWlDug/bSZFlAbIWUXC2HeDrUdhuUGJV1eSaWbLmsssruoLKVuAxNjYmo7fPdTvGuqZFbMbqliMqm/VXrNoNOsfGs1kv7rZ3KDDJFiHjjFkAisLk9qJGbU68ST9tblg+T2DYbxsLI0LZDC8UeJZmXKc5xDWKAXtbJb1rRdp40zStKwALBBYcOqioPuW9TmA5WCKNEGDizImXeCwcn2ichObzvVngmG8rYmx4491JJPhozGgZRKTIsjTEXSNMsoQkcSMpsBrWVhNjwlxnVsm7wC2VrEy4mOIs1yDoCztbzAFhWvSSswALEqubKpJIQMbsFB4XOptxqVg26Rmug7GGyWPZkwyosbm/EHJqPOrFVnvi1Opt/ZscQV4s2UyzxEMbnNFIUvcAaEWNQ9SO1dqb5UXLbKZHbW+aWVy7sPAXNgKjqzF6hSlKqFKUoFKUoFKUoOvaV8u4AJJsBxJ0AHiTWrbY5x9lYa4kxsbMPmxHet6dS4B8iayrzf9JXt4H6OJ+MNeKV6Dzv8uINqSQdHRwsIkF3sM2cobgXuOz3157QVpaqVW9B1XzZ7dwr7Owka4mIumGiRkzjMGCgFSPG9bnXEIaxuND49/vqb2Tyw2jhiDh8dMoHzc5dP/I91PuoOw70rnDZHPjtGOwxEcU4A423TnzJTq+5a6B2Li2mghmdMjSRI5TjkLKGK3tra9qDOpSlApSlBi7RwMc8TwyqGR0Ksp7wRY1yTy35NSbOxcmGe5A60be3E18rfcQfMGuwK0XnW5EDaWGvGAMRFcxH2geMRPgbC3nQct0r6mjKsVZSrKxUqRYgg2KkHvHCvigrSqUoK0qlKCdwvYX6I+FXat4dbKo/uj4VcrSFKUoL+BwUkzZIULNYmwsLAcSSSABw1PjV39Uz5su6bNvdzbQHe2vk48bEHw1q/sbFRqs0UzFFmiC7xVzlSrBhdbi6m1j9lbHJtmMiOfrbuPaMYuRdykeHVcxHibXtUnKt6m/DWsTsLFR9uEjRz2lbSOxfssbWzLf1qg2Fid1v918la+fOlrWvwzXvbutep/DYiArKkMpk6uPmJMZjsJUhCrqTc/JnXzqPXH4XogwuVs9xNvbf1/Dd5b9jLpm8da1XDs1MRUT1Qr4Z1kMTLZw2QqbCzA2IJ4caz5uTmLS2aAjMCR1lYkAFiRlY6WBN/Kq8oFU47EB2yqcVLdgMxAzm5A762bY+1oJZVEKZMmGlhAZFctCkbGNxIRmjbUghSL3XwrN/ptMUVipqa7FxBi34i+StfPnS1rX4Zr38rXrExEDRuyOuVlYqyniGBsQftrbdiYPf4IRCI7piQVihfES9IFrTyOn7MWNgh0Ivr31A8qMVvcXO/UsZpLFAoUjMbG6AB/p6k+JqzlvoRF4b3qjKUpRClKUClKUClKUClKUClKUClKUClKUGXzhct59pYhyXIw6uRFFfq5RcK7DgXI1v3X0rUq9oi5gZPnbQQekRPxasxP0f4+/aTfZCP++sq8LpXv0XMHhfnY6Y+iqvxvWUnMNs352JxZ9HjH/SNBzvSukoOY/ZK8WxDeso/hQVmxczmxRxwzt6zSfwsKDmChrqmLmn2KvDAj7ZJG+L1L7M5FbNw5DQ4GFWHBsgLe83NB4RzXc2k+MmSfFRtHhUIbrCzSkHRVX2dNSa6UVbaCqhQOFVoFKUoFKUoFDSlB5Lzvc2Rxd8Zgl/pAF5IhpvgO9f+J8fWufsRh2RijqVZTYqwswPgQeFdtWqC5Qcjtn43XFYVHb29Vf0zqQ330HH1LV0vLzKbIJuFmXyEpt/8gT99Z+z+abY8RB6JvCO+R2cH1UnKfdQcx7P2bNO2SCJ5GvwRS3vtwr0vkvzJ4uW0mPcYdOO7XrzH1+anvJ8hXQGA2dDAoSCJI1AsAihQB4aVenHVPpQcpbawiw4iaJL5Y5XRbm5spIFz31h1Kcqv33E/WJfxGoutIUpSgVS1SOysHG6zSTZ8kUYYqjBXZmYKoDMrBRc3Jyn76mn5LxB4xvJCsmLjjHZDCKSJZBfq23gva/DyqTNDVCKrWx/qXDsjvHvlyHGLZ5EkucOsLK11hSwO8NxrwFjVkbJi6CMXu58xl3V98m7vl/aZdxmy5tMub/FVrfVqcMxXv8ACBAoRW2bO5LxPNiUkciKKVo0bfJE7FXK6gxvm0AJ6qisDlRsaPDsm4ZmRl1LSJId5c3UZFU2tbivfUtKzpAPGDxAPqL19VKbQwsEUMLZJmklw+9zb1FjU7yRAN3uSxHUv2xxqVw/JmIYyfDTOVWPMUO+RHZRJlUk7twTbUiwPpwrVfPhNL6eWr0qa5U7Kgw7RrA7NmQls0iyWIa2hRE0tbiO+vrAbIhdEDNLvZIJ5lIK7pRE0iqrKVLMTunJIYWuuh1qaWqDpWxYLYUDYx8O8hCLAkgJlWNiWjicgMY2B1kOmXgOOmrbuw8PFLBHFMbSGzs8iyhOsBcFETSxvqPtqzGcQkTcW12lbJtPk+kaTtusTDumUI8zKY57m1kAiSxt1hZnFuNZmzeTGGaKGSZcYTIgcmFWkUKWI0C4RwG0PVL/AG61kafSrrqquQVcqHIy3yOQCRa5U5W9VNj3VtW0OS0CM6hpEy4Qz2knR3Y5M1lRYF6oa4Jv3d1NLWIuaahStnw/J2Iwwu0c4leSNXQTJdInIUYgx7jMFJvYFtNDcjj8LyXUyTRicXE0sUAFn3jxqzhHbQKbBV0HaNrVZySM2t0qYi2GDhxLvLSNFJMsWXjCjBSxa9wx6xAtwXjUPQKUpQKUpQde0pSsqUpSgUpSgUpSgUpSgUpSgUpSgUpSgUpSgUpSgV8Tdk+lfdfE3ZPpQcs8qv33E/WJfxGoupTlV++4n6xL+I1F1pClKUF/BY2SFi0TWJUqbqrqynirI4KsNBoQeArP/XsuTVmM3S+kb02Ou7CAWItpbha1tLVFxRMxyopYngFBYn0A1qohfhka+bLbKe17P0vLjUkSkG35OuJcrAxzKAkUcIDzBQ0hESLmJyrcm50rETa04GXenJuxFksMm7ve2S2W99c1s1ze99asy4KVe3FIuhPWQroOJ1HAVXoM2XPuZMtr5sjZbeOa1redW1uapP7K5SxRYnEzskvyzll3cjIVu5Yhsjpm0NuNYXKrbK4uRHUOMsYTrks2jE9osxPHvNQ7KQbEEEGxB0IPgRVd21yuU3AuRbUDxI7hUJ4zLKbasxRYyY2VUKLnw8MjKpJNld4y41Zjx0vpUph+UAE2KfeYqNJ5HdRBMY2RmkD3IDBWOW66+NQGU2vY2va9tL+F/GqOMps2hBsQdCD4EHvrVzv3TSkntnaZlyqMRi5FBvbESmQBuAKi5A0JF+OtWItqzpGYVlshDi2VSQHtnVXK50VrAlVIB7xWFeq1kbNs7lQI8TJKd+I3ijXdxytH8okcUYdgjrm0Ru/51fPKDlMs7R5EkZFBzRzyySRs+oVsu9NiASLgitbpVmbIyioScu2AwscHhuGhtLceYvMRer8PKNkRo1wuGCtlzC0uuXUf12nE8KhaUGR0xhLvUVEYNmAVcyqfECQt663rNwG23QOsrNIrRzqtyCVeYAMwZusASASL2J1tfWoqlFiam2w7F23h4kjzwneI5ZnWKGQyDMGUM8yF47AADIRwvxrGXbA3d+ssiYszx6lx1zdlZmNyQQDmNydb1D0olNgm5QLJJPO8eVmh3UcS9lVbR+t3WXNbTi3lUTJPCQQsBB61jvSbXN10y62GnnxrFpUpbKUpVQpSlB17StUl5ydjrx2hD9hLfhBrDfna2IP7cD6RSn+Csq3eleeyc8+xhwnkPpE35gVjtz37JHDfn/K/m1B6VSvKpufbZw7MM7fYB+dYb8/uE7sFOf8AEooPYaV4pNz/AEXzMA/2uPyFYUvP/J83Z6/bKR8FoPeL0rn6bn8xR7OCiHq7N+VYU3PttI9iHDj1Vm/iFB0bel65pk579rHh0cekZ/NjWFNzw7ZbhiVX0iX8waDqSlcoSc6u2jxx7fZHGPglYkvOJtduO0Z/sbL+ECg65vVa45bljtM8dpYv/wBxJ/3Viy7fxj9vFzt6yufiaDtCrMmLjXtSKPVgPia4pfFSN2nY+rE1bZieJNB2g+3MIOOKhHrKo/OsaXlXgF7WNg/9RT8DXG1KDr2XnA2Sva2hAP8AFWHiucvZAB/p8Z07rn8q5OqtBuW3sUkuJmljN0eZ2U+KliQawa+cJE2RNPmj4Vd3LeFVHxSvvct4U3LeFUSvJ2dV36b0QySQ5Y5WJUKQwZlLDVcwFr+XnWyS7RiLRzBxkXaUeeW1gxXDqHk8bEjjWjblvCvvLJly3OXNmy5urmtbNa9r20vUnPfub8Nx310kU4lJmttCQZZDJljdIAgJI01VtKwFxkXQRhulNvbibtHd2tl6Nf2sutuF9K12MSLfKSLgg2a11PEGx1B8K+Ny3hWr4dvDU4riI5X5Se3svT585IXpUlyACQN4bkAkA+8Vv2O2xBLBKqzqzGCTeZLsxjCi+SNsRlVgAddePAd/mEiuxLMSzEklibkk8SSTcnzqsayLfKSLgg2NrqeINjqD4VnSiZ/V/wBJlWw3RGwxls7f0jeHsK6qQsDf3ipa54AkCpfaONWCXFYiKM3/AFi0cmdhJdAWZlHUGVXJOmvZGprTNy3hV/fTWkBYkSEGTMQxcg5gxLXOa99eOp8TWpm99PqkvKt6/wCtp2isanEYOJfkIsG0gv2t7dZVck63uwT0Nq0ysiNpVV0U2V8uYaahTcC/G17GwNjYXvYWtblvCsj4pX3uW8KblvCqj4pX3uW8KblvCg+KV97lvCm5bwoPilfe5bwpuW8KD4pX3uW8KblvCg+KV97lvCm5bwoPilfe5bwpQavelUpWVfV6Xr5pQVpVKUFaVSlBWlUpQVpVKUFaVSlBWlUpQVpVKUFaVSlBWlUpQbdgf2afQX4Cr9WMD+zT6C/AVfqoUpSgzNnYESCRncpHGmZmC7xtSFVVXMtySe8gaGpJuTRDIu+FnxCxKwXiroJFktm8D2fvqLwGOaLNZVdXXK6OCVYXBF8rKwIIBBBBqTblAxQObb5cWJQuUiMIsYRVAB0Ata17+dSd/wAm/D5bYSFWaOdiFOIBzxBDmgWNjbLK1wd4NdLW4VZGy4ujDEb6T9pu8m4GXeZc3b33Z7r5b+VX4NuAh1aJI1KYggR5zeWZUBJ3kj2HUXhYCsZduS7oQWTdZMu7ym2a997e995fW97d1raVrLLt+Wpqo7/hi47BmOZ4blskjJcLq1mtcLfj5XqWn5OosecSzs4F2h6Ou8QHstIoxBKqbHUAkd4GlR+0saGxUk0fAzO65lB0LEi6sCD6Gs6TlAd2jKsInLy7x+jRXKEJkF939O/31NEn1ezG2dsR5ULlhGLfJ5+rvn9hCSL6X114VHTxMhKupVhxDCxHqDUrg9rQIjK2HkctEY2JxACgEgkxruTk1HC5rAnxQ3gkiDoRYjNJvHDDvz5V8u6rqmidxHI8ojS9JjKCIuDla7EIGycMl9bdo+ndULHs8nDyYi+iSImW3HMCb5r6WsNLd9TcHK+Uhlk6o3b5WSSfMJMvUNmmK8bX0qITbUoXIAmTI6shBKuX1aR9bl7hTe4tlAFgLUytcqZEnJyYTSRD5kgRSylN4zMVTINeNib3sADc18rsPNrHiIXAkVHKl7IzGyFsyC6k6BluL99Sg5QKJJ5Va5GLE8Ye/XjuymMd6nK3xrCwuKwq/JQbxRJJHnea1kjjcSBVCXzEkDrG3AaampG97+5i1pCzRFGKsLFSQR5g2NfFZO1MSJZpJANGdiPQnSsapHBZ4lKUqoUpSgUpSgUpSgUpSg0qlezw8wGI+fj4h6Rs3xYVlL+j547U/wDrf/tUV4dSvfoeYDDjt4+U/RjVfiTWYnMLs7vxOKJ8mjH3bs0HOtK6Wh5j9lLxM7eslvwqKzI+ZvYw44Zz6zP+TUHLtK6tg5qNjpwwQP0nZviTWbFzd7JH+7oPtS/xoORaV2JByL2anYwEA9IxWdFsPCr2cLEP8tf5UHGCRseCk+gvV9NnzHhDIfRCfyrs9NnwjhDGPRAPyq+kYHBQPQWoOL49iYpuzhZj6RN/Ks2LkbtJuzs/En0hb+VdjUoORIub3azcNnT/AGpl/FasyLmq203DAN9ska/icV1fSg5ai5n9tHQ4NV8zNF/C5rOh5j9rHj0dfWU/wqa6XpQc5R8w+0ietPhQPJ3J927FZsPMDiT28dEvojN8SK6ApQeFR/o/NfrbRFvKG38dZacwcAF3x0h9EA+N69qr4m7J9KDlPaeH6PNJApusTtGCeJCmwJt36Vjb9qz+VX77ifrEv4jUbCbMpPtD41UXHlccRb1FqGRwLkaeNtKn4pWaabefKAS3VWI6qszHegt3KAvVHtD7YzF4h2hIdywM91J4EIrBio4AdZeFBgnEHyp0g+VS/Ja95t1l6Rufkc2W18wz5c/Vz5b2v51sUiQ72MqI/wDacYkItkz7hTIAeGXNfhpe9Jyo5tGGJPiKp0k+IrecWkpR+khS4G0SmiX3QSDdnqd189r68axFlf8AVwi6Qm+sJN1ZM3RbZQua3H51r3tVr48tThqInnfhqRxJ8RQYg+Vb7sCOPpuOChs++cBRGpjVRK3/ABkJPdbS3nwqI5wo7TR5rht0NBEI1KZms2YTyFmvcWIGgqXlCTGcxyaz0g+VDiD5VPbITdRG2z8RiDKhVmKNGqobEbhlD5mOhzkDhbKb3r42bhpoZH3QxqCygEYESORxs6NKAnlZjfyq0kcEJ0k+IoMSfEVuuIOSbAS4kTZSrhpJMPuGLGR8iskZbXhoCTbWs3bMgOHxQlw/yoj0ZIJUjUKoXV5oxdr94PfSYLzee9IPlTpB8q9O2Ls+IxQOIcPKUSMBrkNJqWU5WwjP3+NQXJpYliADRyQh5+ktbKWXdjdZRIucDjbTtXpRpbTukHyp0g+VbNzixqs0WRQo3LGwAH9fMNbDU2tUtstMOmHKZMJKMqCWctApjJ7F4zm3ut9WdM392lDQziT4inSD5VsuzJ2wrSSb6NsOrsQqhPl5MvVRFGfKuouQbAA6k1G8o1T+jkE5jhIS4yBVuV4hgxLE63uot4nuaWsQjN+3lTft5VbpURc37eVN+3lVulBc37eVN+3lVulBc37eVVq1Sg69pSlRSlKUClKUClKUClKUClKUClKUClKUClKUClKUCvibsn0qlKDlrlV++4n6xL+I1F0pWkTc8YOHw7MAWLMLkXNg2gv4DwqxylFpyo0VUQADQAWvYDu1JpSoIoipf/d//jj/AKApSpi4b5rHHfI5NAZp/qc/wFRKjUeopSumH1RvWSfT3n4eqcg4EfaO0ldVZd4dGAYftntoahOdzCxx4qIRxqgMFyFUKCc7am1UpXPTDvm1Pqx75NI6dMNBK4A0ADEADwGtOnzcd89zx651++lK0wvYHFSPLGHkZhvUNixOuYa617hy6wcS4DFOsaBjFqwUBjci9yBelKYvSR6njPJlR0zC6f2qH/UWo+EdZfpD40pWo06/RPonfNtnOT+3h/5Df681RWzP3TGeuG/G1KVI13q1HGOkf0hqluUPGD6nh/wUpU07/Zh16fMIqlKUZKUpQKUpQKUpQf/Z',
+  // down: imageStorageLink + 'playerUp.png',
+  // left: imageStorageLink + 'playerLeft.png',
+  // right: imageStorageLink + 'playerRight.png',
+  id: 3
+}, {
+  source: '../img/clothes/c3.png',
+  up: imageStorageLink + 'playerDown.png',
+  down: imageStorageLink + 'playerUp.png',
+  left: imageStorageLink + 'playerLeft.png',
+  right: imageStorageLink + 'playerRight.png',
+  id: 4
+}, {
+  source: '../img/clothes/c4.png',
+  up: imageStorageLink + 'playerDown.png',
+  down: imageStorageLink + 'playerUp.png',
+  left: imageStorageLink + 'playerLeft.png',
+  right: imageStorageLink + 'playerRight.png',
+  id: 5
+}];
 
 /***/ }),
 
@@ -2768,18 +2919,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _web_logIn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../web/logIn */ "./src/web/logIn.js");
 /* harmony import */ var _game_data_collisions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../game/data/collisions */ "./src/game/data/collisions.js");
-/* harmony import */ var _battleScene__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./battleScene */ "./src/js/battleScene.js");
-/* harmony import */ var _game_data_battleZones__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../game/data/battleZones */ "./src/game/data/battleZones.js");
-/* harmony import */ var _game_data_characters__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../game/data/characters */ "./src/game/data/characters.js");
-/* harmony import */ var _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../game/object/Boundary */ "./src/game/object/Boundary.js");
-/* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
-/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
-/* harmony import */ var _game_utils_checkCollision__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../game/utils/checkCollision */ "./src/game/utils/checkCollision.js");
-/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
-/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _game_data_map__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../game/data/map */ "./src/game/data/map.js");
-/* harmony import */ var _game_battle_battleStart__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../game/battle/battleStart */ "./src/game/battle/battleStart.js");
+/* harmony import */ var _game_data_battleZones__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../game/data/battleZones */ "./src/game/data/battleZones.js");
+/* harmony import */ var _game_data_characters__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../game/data/characters */ "./src/game/data/characters.js");
+/* harmony import */ var _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../game/object/Boundary */ "./src/game/object/Boundary.js");
+/* harmony import */ var _game_object_Sprite__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../game/object/Sprite */ "./src/game/object/Sprite.js");
+/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./network */ "./src/js/network.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./utils */ "./src/js/utils.js");
+/* harmony import */ var _game_utils_checkCollision__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../game/utils/checkCollision */ "./src/game/utils/checkCollision.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _game_data_map__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../game/data/map */ "./src/game/data/map.js");
+/* harmony import */ var _game_battle_battleStart__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../game/battle/battleStart */ "./src/game/battle/battleStart.js");
+/* harmony import */ var _clothes__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./clothes */ "./src/js/clothes.js");
 
 
 
@@ -2812,19 +2963,19 @@ var setStopAllPlay = function setStopAllPlay(bol) {
 var playerDownImage = new Image();
 playerDownImage.src = '../img/playerDown.png';
 var canvas = document.querySelector('canvas');
-(0,_game_battle_battleStart__WEBPACK_IMPORTED_MODULE_17__.clickEvent)();
+(0,_game_battle_battleStart__WEBPACK_IMPORTED_MODULE_16__.clickEvent)();
 var canva = canvas.getContext('2d');
 var collisionsMap = [];
 for (var i = 0; i < _game_data_collisions__WEBPACK_IMPORTED_MODULE_6__.collisions.length; i += 70) {
   collisionsMap.push(_game_data_collisions__WEBPACK_IMPORTED_MODULE_6__.collisions.slice(i, 70 + i));
 }
 var battleZonesMap = [];
-for (var _i = 0; _i < _game_data_battleZones__WEBPACK_IMPORTED_MODULE_8__.battleZonesData.length; _i += 70) {
-  battleZonesMap.push(_game_data_battleZones__WEBPACK_IMPORTED_MODULE_8__.battleZonesData.slice(_i, 70 + _i));
+for (var _i = 0; _i < _game_data_battleZones__WEBPACK_IMPORTED_MODULE_7__.battleZonesData.length; _i += 70) {
+  battleZonesMap.push(_game_data_battleZones__WEBPACK_IMPORTED_MODULE_7__.battleZonesData.slice(_i, 70 + _i));
 }
 var charactersMap = [];
-for (var _i2 = 0; _i2 < _game_data_characters__WEBPACK_IMPORTED_MODULE_9__.charactersMapData.length; _i2 += 70) {
-  charactersMap.push(_game_data_characters__WEBPACK_IMPORTED_MODULE_9__.charactersMapData.slice(_i2, 70 + _i2));
+for (var _i2 = 0; _i2 < _game_data_characters__WEBPACK_IMPORTED_MODULE_8__.charactersMapData.length; _i2 += 70) {
+  charactersMap.push(_game_data_characters__WEBPACK_IMPORTED_MODULE_8__.charactersMapData.slice(_i2, 70 + _i2));
 }
 var boundaries = [];
 var offset = {
@@ -2833,10 +2984,10 @@ var offset = {
 };
 collisionsMap.forEach(function (row, i) {
   row.forEach(function (symbol, j) {
-    if (symbol === 1025) boundaries.push(new _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary({
+    if (symbol === 1025) boundaries.push(new _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary({
       position: {
-        x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.width + offset.x,
-        y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.height + offset.y
+        x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.width + offset.x,
+        y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.height + offset.y
       },
       type: 'collision'
     }));
@@ -2845,10 +2996,10 @@ collisionsMap.forEach(function (row, i) {
 var battleZones = [];
 battleZonesMap.forEach(function (row, i) {
   row.forEach(function (symbol, j) {
-    if (symbol === 1025) battleZones.push(new _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary({
+    if (symbol === 1025) battleZones.push(new _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary({
       position: {
-        x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.width + offset.x,
-        y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.height + offset.y
+        x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.width + offset.x,
+        y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.height + offset.y
       },
       type: 'battle'
     }));
@@ -2863,10 +3014,10 @@ charactersMap.forEach(function (row, i) {
   row.forEach(function (symbol, j) {
     // 1026 === villager
     if (symbol === 1026) {
-      characters.push(new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_11__.Sprite({
+      characters.push(new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_10__.Sprite({
         position: {
-          x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.width + offset.x,
-          y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.height + offset.y
+          x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.width + offset.x,
+          y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.height + offset.y
         },
         image: villagerImg,
         frames: {
@@ -2879,10 +3030,10 @@ charactersMap.forEach(function (row, i) {
     }
     // 1031 === oldMan
     else if (symbol === 1031) {
-      characters.push(new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_11__.Sprite({
+      characters.push(new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_10__.Sprite({
         position: {
-          x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.width + offset.x,
-          y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.height + offset.y
+          x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.width + offset.x,
+          y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.height + offset.y
         },
         image: oldManImg,
         frames: {
@@ -2893,16 +3044,16 @@ charactersMap.forEach(function (row, i) {
       }));
     }
     if (symbol !== 0) {
-      boundaries.push(new _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary({
+      boundaries.push(new _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary({
         position: {
-          x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.width + offset.x,
-          y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_10__.Boundary.height + offset.y
+          x: j * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.width + offset.x,
+          y: i * _game_object_Boundary__WEBPACK_IMPORTED_MODULE_9__.Boundary.height + offset.y
         }
       }));
     }
   });
 });
-var player = new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_11__.Sprite({
+var player = new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_10__.Sprite({
   position: {
     x: window.innerWidth / 2 - 192 / 4 / 2,
     y: window.innerHeight / 2 - 102 / 2
@@ -2921,8 +3072,8 @@ var player = new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_11__.Sprite({
   name: '',
   direction: 0
 });
-var movables = [_game_data_map__WEBPACK_IMPORTED_MODULE_16__.background].concat(boundaries, [_game_data_map__WEBPACK_IMPORTED_MODULE_16__.foreground], battleZones, characters);
-var renderables = [_game_data_map__WEBPACK_IMPORTED_MODULE_16__.background].concat(boundaries, battleZones, characters, [player, _game_data_map__WEBPACK_IMPORTED_MODULE_16__.foreground]);
+var movables = [_game_data_map__WEBPACK_IMPORTED_MODULE_15__.background].concat(boundaries, [_game_data_map__WEBPACK_IMPORTED_MODULE_15__.foreground], battleZones, characters);
+var renderables = [_game_data_map__WEBPACK_IMPORTED_MODULE_15__.background].concat(boundaries, battleZones, characters, [player, _game_data_map__WEBPACK_IMPORTED_MODULE_15__.foreground]);
 var setMovables = function setMovables(mova) {
   movables = mova;
 };
@@ -2935,19 +3086,19 @@ var battle = {
 };
 function global_position() {
   return {
-    x: player.position.x - _game_data_map__WEBPACK_IMPORTED_MODULE_16__.background.position.x,
-    y: player.position.y - _game_data_map__WEBPACK_IMPORTED_MODULE_16__.background.position.y
+    x: player.position.x - _game_data_map__WEBPACK_IMPORTED_MODULE_15__.background.position.x,
+    y: player.position.y - _game_data_map__WEBPACK_IMPORTED_MODULE_15__.background.position.y
   };
 }
 function local_position(position) {
   return {
-    x: position.x + _game_data_map__WEBPACK_IMPORTED_MODULE_16__.background.position.x,
-    y: position.y + _game_data_map__WEBPACK_IMPORTED_MODULE_16__.background.position.y
+    x: position.x + _game_data_map__WEBPACK_IMPORTED_MODULE_15__.background.position.x,
+    y: position.y + _game_data_map__WEBPACK_IMPORTED_MODULE_15__.background.position.y
   };
 }
 function checkCollision(a, b) {
   var overlappingArea = (Math.min(a.position.x + a.width, b.position.x + b.width) - Math.max(a.position.x, b.position.x)) * (Math.min(a.position.y + a.height, b.position.y + b.height) - Math.max(a.position.y, b.position.y));
-  return (0,_game_utils_checkCollision__WEBPACK_IMPORTED_MODULE_14__.rectangularCollision)({
+  return (0,_game_utils_checkCollision__WEBPACK_IMPORTED_MODULE_13__.rectangularCollision)({
     rectangle1: a,
     rectangle2: b
   }) && overlappingArea > a.width * a.height / 10;
@@ -2955,11 +3106,11 @@ function checkCollision(a, b) {
 
 // Jaewon NPC 생성
 var makeNPC = function makeNPC() {
-  _network__WEBPACK_IMPORTED_MODULE_12__.others[250] = {
+  _network__WEBPACK_IMPORTED_MODULE_11__.others[250] = {
     draw: false,
     collection: 'asac.near',
     skillType: 1,
-    sprite: new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_11__.Sprite({
+    sprite: new _game_object_Sprite__WEBPACK_IMPORTED_MODULE_10__.Sprite({
       position: {
         x: battleZones[10].position.x,
         y: battleZones[10].position.y
@@ -2978,11 +3129,15 @@ var makeNPC = function makeNPC() {
       name: 'jaewon.near (BOT)'
     })
   };
-  _network__WEBPACK_IMPORTED_MODULE_12__.others[250].baseImage = new Image();
-  _utils__WEBPACK_IMPORTED_MODULE_13__.worker.postMessage({
+  _network__WEBPACK_IMPORTED_MODULE_11__.others[250].baseImage = new Image();
+  _utils__WEBPACK_IMPORTED_MODULE_12__.worker.postMessage({
     url: 'https://ipfs.io/ipfs/bafybeicj5zfhe3ytmfleeiindnqlj7ydkpoyitxm7idxdw2kucchojf7v4/129.png',
     contractAddress: 'asac.near',
-    id: '250'
+    id: '250',
+    leftSource: _clothes__WEBPACK_IMPORTED_MODULE_17__.clothesList[0].left,
+    rightSource: _clothes__WEBPACK_IMPORTED_MODULE_17__.clothesList[0].right,
+    upSource: _clothes__WEBPACK_IMPORTED_MODULE_17__.clothesList[0].up,
+    downSource: _clothes__WEBPACK_IMPORTED_MODULE_17__.clothesList[0].down
   });
 };
 makeNPC();
@@ -3024,7 +3179,6 @@ foregroundImage.src = '../img/foregroundObjects.png';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "attack": () => (/* binding */ attack),
 /* harmony export */   "connect": () => (/* binding */ connect),
 /* harmony export */   "isMyEntrance": () => (/* binding */ isMyEntrance),
 /* harmony export */   "leaveBattle": () => (/* binding */ leaveBattle),
@@ -3187,18 +3341,24 @@ function onmessage(type, data) {
       }
       break;
     case _game_network_callType__WEBPACK_IMPORTED_MODULE_16__.NETWORK.BATTLE_INIT_INFO:
-      console.log('배틀이 시작되었다!', data.proposer_player_id, data.receiver_player_id, data.battle_id);
+      console.log('배틀 시작');
 
       // 예상 컨트랙트 코드 위치
       // battle_init
 
       // 배틀 시작할 때 상대방의 스킬 공개.
-      others[_battleScene__WEBPACK_IMPORTED_MODULE_13__.opponent_id].skillType = 1;
-      _game_battle_utils__WEBPACK_IMPORTED_MODULE_14__.battle_start = true; // 하면 배틀 애니메이션이 시작
-      if (data.proposer_player_id === myID) (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_14__.setMyTurn)(false);else (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_14__.setMyTurn)(true);
+
+      // for now, battle proposer attacks later
+      if (data.proposer_player_id === myID) {
+        others[data.receiver_player_id].skillType = 1;
+        (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_14__.startBattleSetting)(data.receiver_player_id, true, data.battle_id);
+      } else {
+        others[data.proposer_player_id].skillType = 1;
+        (0,_game_battle_utils__WEBPACK_IMPORTED_MODULE_14__.startBattleSetting)(data.proposer_player_id, false, data.battle_id);
+      }
       break;
     case _game_network_callType__WEBPACK_IMPORTED_MODULE_16__.NETWORK.ATTACK:
-      (0,_battleScene__WEBPACK_IMPORTED_MODULE_13__.attacked)(attack);
+      (0,_battleScene__WEBPACK_IMPORTED_MODULE_13__.attacked)('attack');
       break;
     case _game_network_callType__WEBPACK_IMPORTED_MODULE_16__.NETWORK.LEAVE_BATTLE:
       if (_js_index__WEBPACK_IMPORTED_MODULE_15__.battle.initiated && id === _battleScene__WEBPACK_IMPORTED_MODULE_13__.opponent_id) {
@@ -3234,15 +3394,6 @@ function autoBattleSelectType(id, type) {
   dataview.setInt16(1, myID);
   dataview.setInt16(3, id);
   dataview.setInt16(5, type);
-  ws.send(buffer);
-}
-function attack(id, attack) {
-  if (!(0,_game_network_checkConnection__WEBPACK_IMPORTED_MODULE_19__.checkOrReconnect)()) return;
-  var buffer = new ArrayBuffer(7);
-  var dataview = new DataView(buffer);
-  dataview.setInt16(1, myID);
-  dataview.setInt16(3, id);
-  dataview.setInt16(5, attack);
   ws.send(buffer);
 }
 function leaveBattle(id) {
@@ -3315,7 +3466,14 @@ function connect() {
   };
   return ws;
 }
-var xx;
+
+/**
+ *
+ * @param {string} id
+ * @param {x : number, y : number} position
+ * @param {boolean} isHorizontalMove 오른쪽으로 가는 건가?
+ * @param {boolean} isVerticalMove 위로 가는건가?
+ */
 function moveObject(id, position, isHorizontalMove, isVerticalMove) {
   others[id].sprite.position = position;
   // const pastPosition = others[id].sprite.position
@@ -3354,6 +3512,7 @@ function moveObject(id, position, isHorizontalMove, isVerticalMove) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "author": () => (/* binding */ author),
 /* harmony export */   "chainConfigInit": () => (/* binding */ chainConfigInit),
 /* harmony export */   "worker": () => (/* binding */ worker)
 /* harmony export */ });
@@ -3385,24 +3544,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
 /* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_22__);
 /* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
 /* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23__);
 /* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
@@ -3419,7 +3578,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
 /* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_31__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 
 
 
@@ -3455,6 +3614,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var worker = new Worker('./js/worker.js');
+window.walletConnection;
 worker.onmessage = function (event) {
   if (event.data) {
     if (event.data.id === '-1') {
@@ -3481,70 +3641,105 @@ worker.onmessage = function (event) {
 worker.onerror = function (err) {
   console.log(err);
 };
-function chainConfigInit() {
-  return _chainConfigInit.apply(this, arguments);
+var nearConfig = {
+  networkId: 'mainnet',
+  keyStore: new near_api_js__WEBPACK_IMPORTED_MODULE_31__.keyStores.BrowserLocalStorageKeyStore(),
+  nodeUrl: 'https://rpc.mainnet.near.org',
+  walletUrl: 'https://wallet.near.org',
+  helperUrl: 'https://helper.mainnet.near.org',
+  explorerUrl: 'https://explorer.mainnet.near.org'
+};
+function author() {
+  return _author.apply(this, arguments);
 }
-function _chainConfigInit() {
-  _chainConfigInit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var nearConfig, near, walletConnection, metadata, data, imgs, base_url, url, res, _imgs, i, nft, _url, nft_data, img;
+function _author() {
+  _author = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var near, walletConnection;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.log('로그 찍힘');
-            nearConfig = {
-              networkId: 'mainnet',
-              nodeUrl: 'https://rpc.mainnet.near.org',
-              walletUrl: 'https://wallet.near.org',
-              helperUrl: 'https://helper.mainnet.near.org',
-              explorerUrl: 'https://explorer.mainnet.near.org'
-            };
-            window.chain = document.getElementById('chainType').value; // NEAR Protocol
-            window.collection = document.getElementById('contractAddress').value; // NPunks
-            window.accountId = document.getElementById('accountId').value; // khjdaniel.near
-            if (!(window.chain === '' || window.collection === '' || window.accountId === '')) {
-              _context.next = 7;
-              break;
-            }
-            return _context.abrupt("return");
-          case 7:
-            if (!(window.chain === 'near')) {
-              _context.next = 28;
-              break;
-            }
-            _context.next = 10;
+            console.log('브라우저 로컬 스토리지', new near_api_js__WEBPACK_IMPORTED_MODULE_31__.keyStores.BrowserLocalStorageKeyStore());
+            _context.next = 3;
             return near_api_js__WEBPACK_IMPORTED_MODULE_31__.connect(Object.assign({
               deps: {
                 keyStore: new near_api_js__WEBPACK_IMPORTED_MODULE_31__.keyStores.BrowserLocalStorageKeyStore()
               }
             }, nearConfig));
-          case 10:
+          case 3:
             near = _context.sent;
+            // const nearConnection = await nearApi.connect(nearConfig)
             walletConnection = new near_api_js__WEBPACK_IMPORTED_MODULE_31__.WalletConnection(near);
-            _context.next = 14;
+            console.log('월렛 커넥션', walletConnection);
+            _context.next = 8;
+            return walletConnection.requestSignIn('web3mon.near');
+          case 8:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _author.apply(this, arguments);
+}
+function chainConfigInit() {
+  return _chainConfigInit.apply(this, arguments);
+}
+function _chainConfigInit() {
+  _chainConfigInit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var nearConnection, walletConnection, keyStore, keyPair, msg, metadata, data, imgs, p, base_url, url, res, _imgs, i, nft, _url, nft_data, img;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            window.chain = document.getElementById('chainType').value; // NEAR Protocol
+            window.collection = document.getElementById('contractAddress').value; // NPunks
+            window.accountId = document.getElementById('accountId').value; // khjdaniel.near
+            if (!(window.chain === '' || window.collection === '' || window.accountId === '')) {
+              _context2.next = 5;
+              break;
+            }
+            return _context2.abrupt("return");
+          case 5:
+            if (!(window.chain === 'near')) {
+              _context2.next = 29;
+              break;
+            }
+            _context2.next = 8;
+            return near_api_js__WEBPACK_IMPORTED_MODULE_31__.connect(nearConfig);
+          case 8:
+            nearConnection = _context2.sent;
+            walletConnection = new near_api_js__WEBPACK_IMPORTED_MODULE_31__.WalletConnection(nearConnection); // await walletConnection.requestSignIn('web3mon.near') // our game contract address
+            keyStore = new near_api_js__WEBPACK_IMPORTED_MODULE_31__.keyStores.BrowserLocalStorageKeyStore();
+            _context2.next = 13;
+            return keyStore.getKey('mainnet', walletConnection.getAccountId());
+          case 13:
+            keyPair = _context2.sent;
+            // wallet account id address
+            msg = {}; // msg = Buffer.from(JSON.stringify(msg))
+            // var signature = keyPair.sign(msg)
+            // console.log(signature)
+            _context2.next = 17;
             return new near_api_js__WEBPACK_IMPORTED_MODULE_31__.Contract(walletConnection.account(), window.collection, {
               // View methods are read only. They don't modify the state, but usually return some value.
               viewMethods: ['nft_token', 'nft_metadata', 'nft_tokens_for_owner', 'nft_supply_for_owner'],
               // Change methods can modify the state. But you don't receive the returned value when called.
               changeMethods: []
             });
-          case 14:
-            window.contract = _context.sent;
-            _context.next = 17;
-            return window.contract.nft_metadata();
           case 17:
-            metadata = _context.sent;
-            _context.next = 20;
+            window.contract = _context2.sent;
+            _context2.next = 20;
+            return window.contract.nft_metadata();
+          case 20:
+            metadata = _context2.sent;
+            _context2.next = 23;
             return window.contract.nft_tokens_for_owner({
               account_id: window.accountId,
               from_index: '0',
               limit: 50
             });
-          case 20:
-            data = _context.sent;
-            console.log('메타데이터 로그', metadata);
-            console.log('데이터 로그', data);
-
+          case 23:
+            data = _context2.sent;
             // 초기화
             document.querySelector('#nftListBox').innerHTML = '';
             document.getElementById('tokenId').value = '';
@@ -3562,18 +3757,22 @@ function _chainConfigInit() {
                 };
                 imgs.push(img);
               });
+            } else {
+              p = document.createElement('p');
+              p.innerHTML = 'There is no NFT';
+              document.querySelector('#nftListBox').appendChild(p);
             }
             imgs.forEach(function (i) {
               document.querySelector('#nftListBox').appendChild(i);
             });
-          case 28:
+          case 29:
             if (!(window.chain === 'algo')) {
-              _context.next = 59;
+              _context2.next = 60;
               break;
             }
             base_url = 'https://broken-spring-moon.algorand-mainnet.discover.quiknode.pro/index/v2/';
             url = "accounts/".concat(window.accountId, "/assets");
-            _context.next = 33;
+            _context2.next = 34;
             return fetch(base_url + url, {
               method: 'GET',
               headers: {
@@ -3581,32 +3780,32 @@ function _chainConfigInit() {
               },
               body: JSON.stringify(data)
             });
-          case 33:
-            res = _context.sent;
-            _context.next = 36;
+          case 34:
+            res = _context2.sent;
+            _context2.next = 37;
             return res.json();
-          case 36:
-            res = _context.sent;
+          case 37:
+            res = _context2.sent;
             // 초기화
             document.querySelector('#nftListBox').innerHTML = '';
             document.getElementById('tokenId').value = '';
             _imgs = [];
-            _context.t0 = _regeneratorRuntime().keys(res.assets);
-          case 41:
-            if ((_context.t1 = _context.t0()).done) {
-              _context.next = 58;
+            _context2.t0 = _regeneratorRuntime().keys(res.assets);
+          case 42:
+            if ((_context2.t1 = _context2.t0()).done) {
+              _context2.next = 59;
               break;
             }
-            i = _context.t1.value;
+            i = _context2.t1.value;
             nft = res.assets[i];
             if (!(nft.amount !== 1)) {
-              _context.next = 46;
+              _context2.next = 47;
               break;
             }
-            return _context.abrupt("continue", 41);
-          case 46:
+            return _context2.abrupt("continue", 42);
+          case 47:
             _url = "assets/".concat(nft['asset-id']);
-            _context.next = 49;
+            _context2.next = 50;
             return fetch(base_url + _url, {
               method: 'GET',
               headers: {
@@ -3614,18 +3813,18 @@ function _chainConfigInit() {
               },
               body: JSON.stringify(data)
             });
-          case 49:
-            nft_data = _context.sent;
-            _context.next = 52;
+          case 50:
+            nft_data = _context2.sent;
+            _context2.next = 53;
             return nft_data.json();
-          case 52:
-            nft_data = _context.sent;
+          case 53:
+            nft_data = _context2.sent;
             if (!(nft_data.asset.params['unit-name'] === undefined)) {
-              _context.next = 55;
+              _context2.next = 56;
               break;
             }
-            return _context.abrupt("continue", 41);
-          case 55:
+            return _context2.abrupt("continue", 42);
+          case 56:
             if (nft_data.asset.params['unit-name'].startsWith(window.collection)) {
               img = document.createElement('img');
               console.log(nft['asset-id']);
@@ -3634,18 +3833,18 @@ function _chainConfigInit() {
               img.onclick = onImgClick(img, nft['asset-id'], nft['name']);
               _imgs.push(img);
             }
-            _context.next = 41;
+            _context2.next = 42;
             break;
-          case 58:
+          case 59:
             _imgs.forEach(function (i) {
               document.querySelector('#nftListBox').appendChild(i);
             });
-          case 59:
+          case 60:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
-    }, _callee);
+    }, _callee2);
   }));
   return _chainConfigInit.apply(this, arguments);
 }
@@ -3674,28 +3873,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
 /* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
-/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
-/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
-/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
-/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
-/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
-/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator.js */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.array.iterator.js */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator.js */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.symbol.async-iterator.js */ "./node_modules/core-js/modules/es.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_async_iterator_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.symbol.to-string-tag.js */ "./node_modules/core-js/modules/es.symbol.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_to_string_tag_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.json.to-string-tag.js */ "./node_modules/core-js/modules/es.json.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
+/* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
 /* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
@@ -3739,7 +3938,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
 var _document$getElementB, _document$getElementB2;
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
@@ -3824,6 +4023,28 @@ document.getElementById('find_my_nft').addEventListener('click', /*#__PURE__*/fu
     return _ref3.apply(this, arguments);
   };
 }());
+document.getElementById('find_my_login').addEventListener('click', /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return (0,_js_utils__WEBPACK_IMPORTED_MODULE_23__.author)();
+          case 2:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+  return function (_x4) {
+    return _ref4.apply(this, arguments);
+  };
+}());
+document.getElementById('joinGame').addEventListener('click', function (e) {
+  (0,_logIn__WEBPACK_IMPORTED_MODULE_21__.temporaryLogin)();
+});
 
 /***/ }),
 
@@ -3870,6 +4091,52 @@ function onResizeEvent() {
 
 /***/ }),
 
+/***/ "./src/web/initialSetting.js":
+/*!***********************************!*\
+  !*** ./src/web/initialSetting.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "chosenCloth": () => (/* binding */ chosenCloth)
+/* harmony export */ });
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _js_clothes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../js/clothes */ "./src/js/clothes.js");
+
+
+
+var chosenCloth = 1;
+
+var renderClothes = function renderClothes() {
+  document.querySelector('#clothesBox').innerHTML = '';
+  _js_clothes__WEBPACK_IMPORTED_MODULE_3__.clothesList.forEach(function (item) {
+    var img = document.createElement('img');
+    img.src = item.source;
+    img.style.width = '100px';
+    img.style.background = chosenCloth === item.id ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.15)';
+    img.style.boxShadow = '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )';
+    img.style.backdropFilter = 'blur( 5px )';
+    img.style.borderRadius = '2px';
+    img.style.border = '0.6px solid rgba( 255, 255, 255, 0.18 )';
+    img.style.margin = '3px';
+    img.onclick = function () {
+      chosenCloth = item.id;
+      renderClothes();
+    };
+    document.querySelector('#clothesBox').append(img);
+  });
+};
+renderClothes();
+
+/***/ }),
+
 /***/ "./src/web/logIn.js":
 /*!**************************!*\
   !*** ./src/web/logIn.js ***!
@@ -3881,36 +4148,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "authorize": () => (/* binding */ authorize),
 /* harmony export */   "connectWallets": () => (/* binding */ connectWallets),
+/* harmony export */   "initContract": () => (/* binding */ initContract),
 /* harmony export */   "logout": () => (/* binding */ logout),
 /* harmony export */   "playerUrl": () => (/* binding */ playerUrl),
-/* harmony export */   "tokenId": () => (/* binding */ tokenId)
+/* harmony export */   "realLogin": () => (/* binding */ realLogin),
+/* harmony export */   "temporaryLogin": () => (/* binding */ temporaryLogin),
+/* harmony export */   "tokenId": () => (/* binding */ tokenId),
+/* harmony export */   "turnToGameScreen": () => (/* binding */ turnToGameScreen)
 /* harmony export */ });
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name.js */ "./node_modules/core-js/modules/es.function.name.js");
 /* harmony import */ var core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
 /* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.array.includes.js */ "./node_modules/core-js/modules/es.array.includes.js");
-/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.string.includes.js */ "./node_modules/core-js/modules/es.string.includes.js");
-/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.number.constructor.js */ "./node_modules/core-js/modules/es.number.constructor.js");
-/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.regexp.exec.js */ "./node_modules/core-js/modules/es.regexp.exec.js");
-/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.replace.js */ "./node_modules/core-js/modules/es.string.replace.js");
-/* harmony import */ var core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
-/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
-/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.object.assign.js */ "./node_modules/core-js/modules/es.object.assign.js");
-/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
-/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
-/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.array.find.js */ "./node_modules/core-js/modules/es.array.find.js");
+/* harmony import */ var core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_find_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.includes.js */ "./node_modules/core-js/modules/es.array.includes.js");
+/* harmony import */ var core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_includes_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.string.includes.js */ "./node_modules/core-js/modules/es.string.includes.js");
+/* harmony import */ var core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_includes_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.number.constructor.js */ "./node_modules/core-js/modules/es.number.constructor.js");
+/* harmony import */ var core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_number_constructor_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.regexp.exec.js */ "./node_modules/core-js/modules/es.regexp.exec.js");
+/* harmony import */ var core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.string.replace.js */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/es.object.assign.js */ "./node_modules/core-js/modules/es.object.assign.js");
+/* harmony import */ var core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_assign_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! core-js/modules/es.symbol.js */ "./node_modules/core-js/modules/es.symbol.js");
 /* harmony import */ var core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_js__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var core_js_modules_es_symbol_description_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! core-js/modules/es.symbol.description.js */ "./node_modules/core-js/modules/es.symbol.description.js");
@@ -3931,23 +4202,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_json_to_string_tag_js__WEBPACK_IMPORTED_MODULE_21__);
 /* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! core-js/modules/es.math.to-string-tag.js */ "./node_modules/core-js/modules/es.math.to-string-tag.js");
 /* harmony import */ var core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_math_to_string_tag_js__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
-/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
-/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.object.set-prototype-of.js */ "./node_modules/core-js/modules/es.object.set-prototype-of.js");
-/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.array.reverse.js */ "./node_modules/core-js/modules/es.array.reverse.js");
-/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
-/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
-/* harmony import */ var _js_utils__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../js/utils */ "./src/js/utils.js");
-/* harmony import */ var _game_data_monsters__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../game/data/monsters */ "./src/game/data/monsters.js");
-/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
-/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_31__);
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! core-js/modules/es.object.define-property.js */ "./node_modules/core-js/modules/es.object.define-property.js");
+/* harmony import */ var core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_define_property_js__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! core-js/modules/es.object.create.js */ "./node_modules/core-js/modules/es.object.create.js");
+/* harmony import */ var core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_create_js__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! core-js/modules/es.object.get-prototype-of.js */ "./node_modules/core-js/modules/es.object.get-prototype-of.js");
+/* harmony import */ var core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_prototype_of_js__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! core-js/modules/es.object.set-prototype-of.js */ "./node_modules/core-js/modules/es.object.set-prototype-of.js");
+/* harmony import */ var core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_set_prototype_of_js__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! core-js/modules/es.array.reverse.js */ "./node_modules/core-js/modules/es.array.reverse.js");
+/* harmony import */ var core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reverse_js__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! core-js/modules/es.array.slice.js */ "./node_modules/core-js/modules/es.array.slice.js");
+/* harmony import */ var core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice_js__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var _js_index__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../js/index */ "./src/js/index.js");
+/* harmony import */ var _js_utils__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../js/utils */ "./src/js/utils.js");
+/* harmony import */ var _game_data_monsters__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../game/data/monsters */ "./src/game/data/monsters.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! near-api-js */ "./node_modules/near-api-js/lib/browser-index.js");
+/* harmony import */ var near_api_js__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(near_api_js__WEBPACK_IMPORTED_MODULE_32__);
+/* harmony import */ var _initialSetting__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./initialSetting */ "./src/web/initialSetting.js");
+/* harmony import */ var _js_clothes__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ../js/clothes */ "./src/js/clothes.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
 
 
 
@@ -3982,6 +4258,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
+
 var playerUrl;
 var tokenId;
 function truncate(input, length) {
@@ -4000,6 +4278,7 @@ function _connectWallets() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            console.log('연결 실행');
             nearConfig = {
               networkId: 'mainnet',
               nodeUrl: 'https://rpc.mainnet.near.org',
@@ -4007,13 +4286,13 @@ function _connectWallets() {
               helperUrl: 'https://helper.mainnet.near.org',
               explorerUrl: 'https://explorer.mainnet.near.org'
             }; // Initialize connection to the NEAR testnet
-            _context.next = 3;
+            _context.next = 4;
             return nearAPI.connect(Object.assign({
               deps: {
                 keyStore: new nearAPI.keyStores.BrowserLocalStorageKeyStore()
               }
             }, nearConfig));
-          case 3:
+          case 4:
             near = _context.sent;
             // Initializing Wallet based Account. It can work with NEAR testnet wallet that
             // is hosted at https://wallet.testnet.near.org
@@ -4021,13 +4300,16 @@ function _connectWallets() {
 
             // Getting the Account ID. If still unauthorized, it's just empty string
             window.accountId = window.walletConnection.getAccountId();
+            console.log('연결 끝', window.accountId, 'ㅁㅇㅈ');
             if (!(window.accountId !== '')) {
-              _context.next = 9;
+              _context.next = 11;
               break;
             }
-            _context.next = 9;
+            _context.next = 11;
             return authorize();
-          case 9:
+          case 11:
+            console.log('연결 끝22', window.accountId);
+          case 12:
           case "end":
             return _context.stop();
         }
@@ -4039,6 +4321,8 @@ function _connectWallets() {
 function authorize() {
   return _authorize.apply(this, arguments);
 }
+
+/** temp login : only  */
 function _authorize() {
   _authorize = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
     var contract_address, data;
@@ -4061,6 +4345,8 @@ function _authorize() {
             data = _context2.sent;
             document.querySelector('#nftListBox').innerHTML = '';
             document.getElementById('tokenId').value = '';
+
+            // NFT 목록으로 채워넣기
             if (data.length !== 0) {
               data.forEach(function (nft) {
                 var img = document.createElement('img');
@@ -4084,34 +4370,55 @@ function _authorize() {
   }));
   return _authorize.apply(this, arguments);
 }
-document.getElementById('joinGame').addEventListener('click', function (e) {
-  console.log('클릭');
-  temporaryLogin();
-});
 var temporaryLogin = function temporaryLogin() {
-  _js_index__WEBPACK_IMPORTED_MODULE_28__.player.name = truncate(window.accountId, 20);
+  _js_index__WEBPACK_IMPORTED_MODULE_29__.player.name = truncate(window.accountId, 20);
   playerUrl = window.imgUrl;
   document.getElementById('chatOpenBtn').style.display = 'block';
   // document.getElementById('loginDiv').style.display = 'none'
   document.getElementById('profileName').innerHTML = window.name;
-  document.getElementById('profileNFT').innerHTML = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.name;
+  document.getElementById('profileNFT').innerHTML = _js_index__WEBPACK_IMPORTED_MODULE_29__.player.name;
   document.getElementById('profileImg').src = playerUrl;
-  document.getElementById('profileHP').innerHTML = 'HP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_30__.monsters[window.collection].health;
-  console.log('클릭44');
-  document.getElementById('profileAP').innerHTML = 'AP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_30__.monsters[window.collection].attacks[0].damage;
+  document.getElementById('profileHP').innerHTML = 'HP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_31__.monsters[window.collection].health;
+  document.getElementById('profileAP').innerHTML = 'AP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_31__.monsters[window.collection].attacks[0].damage;
   if (window.chain === 'near') {
     document.getElementById('parasUrl').addEventListener('click', function (e) {
       window.open("https://paras.id/token/".concat(window.contract.contractId, "::").concat(window.tokenId, "/").concat(window.tokenId), '_blank').focus();
     });
   }
-  _js_index__WEBPACK_IMPORTED_MODULE_28__.player.baseImage = new Image();
-  _js_utils__WEBPACK_IMPORTED_MODULE_29__.worker.postMessage({
+  _js_index__WEBPACK_IMPORTED_MODULE_29__.player.baseImage = new Image();
+  console.log('생성', _js_clothes__WEBPACK_IMPORTED_MODULE_34__.clothesList);
+  _js_utils__WEBPACK_IMPORTED_MODULE_30__.worker.postMessage({
     url: playerUrl,
+    leftSource: _js_clothes__WEBPACK_IMPORTED_MODULE_34__.clothesList.find(function (doc) {
+      return doc.id === _initialSetting__WEBPACK_IMPORTED_MODULE_33__.chosenCloth;
+    }).left,
+    rightSource: _js_clothes__WEBPACK_IMPORTED_MODULE_34__.clothesList.find(function (doc) {
+      return doc.id === _initialSetting__WEBPACK_IMPORTED_MODULE_33__.chosenCloth;
+    }).right,
+    downSource: _js_clothes__WEBPACK_IMPORTED_MODULE_34__.clothesList.find(function (doc) {
+      return doc.id === _initialSetting__WEBPACK_IMPORTED_MODULE_33__.chosenCloth;
+    }).down,
+    upSource: _js_clothes__WEBPACK_IMPORTED_MODULE_34__.clothesList.find(function (doc) {
+      return doc.id === _initialSetting__WEBPACK_IMPORTED_MODULE_33__.chosenCloth;
+    }).up,
     contractAddress: window.collection,
     id: '-1'
   });
+
+  // {
+  //       "signautre": "dnaskjldnmaslkdmaskldmaskldma123knckjzdaredq",
+  //       "message": {
+  //           "chain": "NEAR",
+  //           "nft": "nearnautnft.near",
+  //           "nft_token_id": "2314",
+  //           "pub_key": "kldansmkldasnmd",
+  //           "account_id": "daniel_nearmoon.near"
+  //       }
+  //   }
   turnToGameScreen();
 };
+
+/** original real login */
 var realLogin = function realLogin() {
   initContract().then(function () {
     tokenId = document.getElementById('tokenId').value;
@@ -4122,21 +4429,21 @@ var realLogin = function realLogin() {
         window.alert('invalid token id');
         return;
       }
-      _js_index__WEBPACK_IMPORTED_MODULE_28__.player.name = truncate(msg.owner_id, 20);
+      _js_index__WEBPACK_IMPORTED_MODULE_29__.player.name = truncate(msg.owner_id, 20);
       if (msg.metadata.media.includes('https://')) playerUrl = msg.metadata.media;else playerUrl = window.metadata.base_uri + '/' + msg.metadata.media;
       document.getElementById('profileName').innerHTML = window.metadata.name + ' #' + (Number(msg.metadata.title) + 1);
-      document.getElementById('profileNFT').innerHTML = _js_index__WEBPACK_IMPORTED_MODULE_28__.player.name;
+      document.getElementById('profileNFT').innerHTML = _js_index__WEBPACK_IMPORTED_MODULE_29__.player.name;
       document.getElementById('profileImg').src = playerUrl;
-      document.getElementById('profileHP').innerHTML = 'HP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_30__.monsters[window.contractAddress].health;
-      document.getElementById('profileAP').innerHTML = 'AP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_30__.monsters[window.contractAddress].attacks[0].damage;
+      document.getElementById('profileHP').innerHTML = 'HP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_31__.monsters[window.contractAddress].health;
+      document.getElementById('profileAP').innerHTML = 'AP: ' + _game_data_monsters__WEBPACK_IMPORTED_MODULE_31__.monsters[window.contractAddress].attacks[0].damage;
       document.getElementById('parasUrl').addEventListener('click', function (e) {
         window.open("https://paras.id/token/".concat(window.contract.contractId, "::").concat(msg.token_id, "/").concat(msg.token_id), '_blank').focus();
       });
       turnToGameScreen();
-      _js_index__WEBPACK_IMPORTED_MODULE_28__.player.baseImage = new Image();
-      _js_index__WEBPACK_IMPORTED_MODULE_28__.player.position.x = _js_index__WEBPACK_IMPORTED_MODULE_28__.canvas.width / 2 - 192 / 4 / 2;
-      _js_index__WEBPACK_IMPORTED_MODULE_28__.player.position.y = _js_index__WEBPACK_IMPORTED_MODULE_28__.canvas.height / 2 - 102 / 2;
-      _js_utils__WEBPACK_IMPORTED_MODULE_29__.worker.postMessage({
+      _js_index__WEBPACK_IMPORTED_MODULE_29__.player.baseImage = new Image();
+      _js_index__WEBPACK_IMPORTED_MODULE_29__.player.position.x = _js_index__WEBPACK_IMPORTED_MODULE_29__.canvas.width / 2 - 192 / 4 / 2;
+      _js_index__WEBPACK_IMPORTED_MODULE_29__.player.position.y = _js_index__WEBPACK_IMPORTED_MODULE_29__.canvas.height / 2 - 102 / 2;
+      _js_utils__WEBPACK_IMPORTED_MODULE_30__.worker.postMessage({
         url: playerUrl,
         contractAddress: window.contractAddress,
         id: '-1'
@@ -4155,7 +4462,7 @@ var turnToGameScreen = function turnToGameScreen() {
   document.getElementById('login_screen').style.display = 'none';
   document.getElementById('game_screen').style.display = 'block';
   document.querySelector('canvas').style.display = 'block';
-  console.log('canva', _js_index__WEBPACK_IMPORTED_MODULE_28__.canvas);
+  console.log('canva', _js_index__WEBPACK_IMPORTED_MODULE_29__.canvas);
 };
 
 // Initialize contract & set global variables
@@ -4171,7 +4478,7 @@ function _initContract() {
             window.contractAddress = document.getElementById('contractAddress').value;
             // Initializing our contract APIs by contract name and configuration
             _context3.next = 3;
-            return new near_api_js__WEBPACK_IMPORTED_MODULE_31__.Contract(window.walletConnection.account(), window.contractAddress, {
+            return new near_api_js__WEBPACK_IMPORTED_MODULE_32__.Contract(window.walletConnection.account(), window.contractAddress, {
               // View methods are read only. They don't modify the state, but usually return some value.
               viewMethods: ['nft_token', 'nft_metadata', 'nft_tokens_for_owner', 'nft_supply_for_owner'],
               // Change methods can modify the state. But you don't receive the returned value when called.
@@ -12595,8 +12902,8 @@ var FunctionPrototype = Function.prototype;
 var call = FunctionPrototype.call;
 var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
-module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
-  return function () {
+module.exports = function (fn) {
+  return NATIVE_BIND ? uncurryThisWithBind(fn) : function () {
     return call.apply(fn, arguments);
   };
 };
@@ -15142,10 +15449,10 @@ var store = __webpack_require__(/*! ../internals/shared-store */ "./node_modules
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.26.0',
+  version: '3.25.5',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2022 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.26.0/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.25.5/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -16092,6 +16399,38 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
     return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
 });
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.array.find.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/modules/es.array.find.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var $find = (__webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").find);
+var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
+
+var FIND = 'find';
+var SKIPS_HOLES = true;
+
+// Shouldn't skip holes
+if (FIND in []) Array(1)[FIND](function () { SKIPS_HOLES = false; });
+
+// `Array.prototype.find` method
+// https://tc39.es/ecma262/#sec-array.prototype.find
+$({ target: 'Array', proto: true, forced: SKIPS_HOLES }, {
+  find: function find(callbackfn /* , that = undefined */) {
+    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+addToUnscopables(FIND);
 
 
 /***/ }),
@@ -38757,6 +39096,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game_chat_sendChat__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./game/chat/sendChat */ "./src/game/chat/sendChat.js");
 /* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 /* harmony import */ var _game_data_map__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./game/data/map */ "./src/game/data/map.js");
+/* harmony import */ var _web_initialSetting__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./web/initialSetting */ "./src/web/initialSetting.js");
+
 
 
 

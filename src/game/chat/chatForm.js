@@ -8,6 +8,7 @@ export function openForm() {
 }
 
 export function closeForm() {
+  document.querySelector('#chat').value = ''
   document.getElementById('chatForm').style.display = 'none'
 }
 
