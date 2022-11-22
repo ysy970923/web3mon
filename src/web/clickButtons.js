@@ -56,3 +56,11 @@ document
 document.getElementById('joinGame').addEventListener('click', (e) => {
   temporaryLogin()
 })
+
+const guideBtns = document.getElementsByClassName('guideBtn')
+for (let i = 0; i < guideBtns.length; i++) {
+  guideBtns.item(i).addEventListener('click', (e) => {
+    const ee = document.getElementById('guideContainer')
+    ee.scrollTop = 360 * i
+  })
+}

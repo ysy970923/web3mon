@@ -14,6 +14,7 @@ document.getElementById('chatForm').addEventListener('submit', (e) => {
 })
 
 export function sendChat() {
+  console.log('클릭은됨')
   if (!checkOrReconnect()) return
 
   const chat = document.querySelector('#chat').value

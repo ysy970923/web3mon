@@ -74,9 +74,9 @@
               Redacted RONINs
               </option> -->
               <!-- <option value="PUFF">Poppin Puffins</option> -->
+              <option value="near-punks.near">NPunks</option>
               <option value="nearnautnft.near">NEARNauts</option>
               <option value="asac.near">Antisocial Ape Club</option>
-              <option value="near-punks.near">NPunks</option>
               <option value="tinkerunion_nft.enleap.near">
                 Near Tinker Union
               </option>
@@ -97,7 +97,6 @@
             </button>  -->
             <p id="connectedWallet" style="margin-top: 10px"></p>
             <p>2. Select NFT to use.</p>
-            <p>(Find My NFT)</p>
             <div style="margin-bottom: 40px">
               <label for="accountId">Wallet Address:</label>
               <input
@@ -148,8 +147,8 @@
         <button id="chatOpenBtn" class="nes-btn">Chat</button>
         <div class="chat-popup" id="chatForm" style="display: none">
           <form class="form-container" id="chatForm">
-            <h1>Chat</h1>
-            <label for="msg"><b>Message</b></label>
+            <h2>Chat</h2>
+            <!-- <label for="msg"><b>Message</b></label> -->
             <input
               id="chat"
               type="text"
@@ -211,16 +210,34 @@
           <button id="parasUrl" class="nes-btn is-primary">see on paras</button>
         </div>
 
-        <div id="guidanceCard" class="card" style="padding: 20px">
-          <h2>Game Guidance</h2>
-          <p>This is a multiplayer game.</p>
-          <p>
-            You can walk, chat and battle with other players within the game.
-          </p>
-          <p>
-            Step into the same Battle Zone box with other player to enter
-            battle.
-          </p>
+        <div id="guidanceCard" class="guideCard">
+          <div class="guideButtons">
+            <div class="guideBtn leftButton" value="1">
+              1
+            </div>
+            <div class="guideBtn rightButton" value="2">
+              2
+            </div>
+          </div>
+          <div id="guideContainer" class="guideContainer">
+            <div class="guide">
+              <h2>Game Guidance</h2>
+            <p>This is a multiplayer game.</p>
+            <p>
+              You can walk, chat and battle with other players within the game.
+            </p>
+            <p>
+              Step into the same Battle Zone box with other player to enter
+              battle.
+            </p>
+          </div>
+          <div class="guide">
+            <h2>Skill Types</h2>
+            <p>Attack : </p>
+            <p>Defense : </p>
+            <p>Lucky : </p>
+          </div>
+          </div>
         </div>
 
         <div id="acceptBattleCard" class="card" style="padding: 20px">
@@ -251,62 +268,40 @@
 
         <div id="userInterface" style="display: none">
           <!-- Represents health bar of draggle (enemy) -->
-          <div
+          <div class="battleNameTag"
             style="
-              background-color: white;
-              width: 250px;
-              position: absolute;
               top: 50px;
-              left: 50px;
-              border: 4px black solid;
-              padding: 12px;
             "
           >
             <h1 style="font-size: 16px" id="battleOpponentName"></h1>
-            <div style="position: relative">
+            <div style="position: relative; width:250px;">
               <div
-                style="height: 5px; background-color: #ccc; margin-top: 10px"
+               class="healthBar"
+                style="background-color: #ccc;"
               ></div>
               <div
+               class="healthBar"
                 id="enemyHealthBar"
                 style="
-                  height: 5px;
                   background-color: green;
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  right: 0;
                 "
               ></div>
             </div>
           </div>
 
           <!-- Represents health bar of emby (us) -->
-          <div
-            style="
-              background-color: white;
-              width: 250px;
-              position: absolute;
-              top: 150px;
-              left: 50px;
-              border: 4px black solid;
-              padding: 12px;
-            "
-          >
+          <div class="battleNameTag">
             <h1 style="font-size: 16px" id="battleMyName"></h1>
-            <div style="position: relative">
-              <div
-                style="height: 5px; background-color: #ccc; margin-top: 10px"
+            <div style="position: relative; width:250px;">
+              <div class="healthBar"
+                style="
+                  background-color: #ccc;
+                "
               ></div>
-              <div
+              <div class="healthBar"
                 id="playerHealthBar"
                 style="
-                  height: 5px;
                   background-color: green;
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  right: 0;
                 "
               ></div>
             </div>

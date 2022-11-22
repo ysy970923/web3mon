@@ -957,6 +957,7 @@ document.getElementById('chatForm').addEventListener('submit', function (e) {
   sendChat();
 });
 function sendChat() {
+  console.log('클릭은됨');
   if (!(0,_network_checkConnection__WEBPACK_IMPORTED_MODULE_4__.checkOrReconnect)()) return;
   var chat = document.querySelector('#chat').value;
   _js_index__WEBPACK_IMPORTED_MODULE_1__.player.chat = chat;
@@ -4045,6 +4046,16 @@ document.getElementById('find_my_login').addEventListener('click', /*#__PURE__*/
 document.getElementById('joinGame').addEventListener('click', function (e) {
   (0,_logIn__WEBPACK_IMPORTED_MODULE_21__.temporaryLogin)();
 });
+var guideBtns = document.getElementsByClassName('guideBtn');
+var _loop = function _loop(i) {
+  guideBtns.item(i).addEventListener('click', function (e) {
+    var ee = document.getElementById('guideContainer');
+    ee.scrollTop = 360 * i;
+  });
+};
+for (var i = 0; i < guideBtns.length; i++) {
+  _loop(i);
+}
 
 /***/ }),
 

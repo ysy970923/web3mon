@@ -30,23 +30,34 @@
   bottom: 0;
   left: 0;
   opacity: 1;
-  display: none;
+  // display: none;
   z-index: 19;
   padding: 20px;
+
   .form-container {
     display: flex;
     flex-direction: column;
     width: 30%;
-    min-width: 100px;
+    min-width: 400px;
+    padding: 25px;
+    // by glassMorphism css generator
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
     .text_input {
-      padding: 15px;
+      padding: 12px;
       background: rgba(255, 255, 255, 0.86);
       border-radius: 1px;
       width: 100%;
       min-width: 300px;
-      min-height: 50px;
+      min-height: 45px;
+      font-size: 0.9em;
       border: 0px;
-      margin: 5px;
+      margin: 5px 0px;
       border: 2px solid black;
     }
 
@@ -138,6 +149,7 @@
 }
 
 .card {
+  color: #111111;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 400px;
   margin: auto;
@@ -148,6 +160,58 @@
   left: calc(50% - 200px);
   z-index: 9;
   display: none;
+}
+
+.guideCard {
+  color: #111111;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: auto;
+  text-align: center;
+  background-color: white;
+  position: absolute;
+  top: calc(50% - 300px);
+  left: calc(50% - 250px);
+  z-index: 9;
+  width: 500px;
+  height: 380px;
+  padding: 20px;
+  padding-top: 10px;
+  overflow: hidden;
+  display: none;
+
+  .guideContainer {
+    float: left;
+    overflow: scroll;
+    width: 500px;
+    height: 350px;
+    transition: 0.8s all ease;
+  }
+
+  .guide {
+    width: 460px;
+    height: 350px;
+    margin: 10px 0px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.guideButtons {
+  display: flex;
+  flex-direction: row;
+  div {
+    margin-right: 10px;
+    background-color: mediumaquamarine;
+    width: 30px;
+    padding: 3px;
+    &:hover {
+      background-color: rgb(72, 171, 138);
+      transition: all 0.3s ease;
+    }
+  }
 }
 
 .loader {
@@ -247,4 +311,24 @@ img {
 
 #nftListBox {
   margin-top: 20px;
+}
+
+.battleNameTag {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  position: absolute;
+  top: 150px;
+  left: 50px;
+  border: 4px black solid;
+  padding: 12px;
+}
+
+.healthBar {
+  top: 0;
+  left: 0;
+  height: 7px;
+  position: absolute;
+  width: 100%;
 }
