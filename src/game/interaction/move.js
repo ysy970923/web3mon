@@ -1,8 +1,14 @@
 import { JoyStick } from './joystick'
 import { ws } from '../../js/network'
 import { checkOrReconnect } from '../network/checkConnection'
-import { player } from '../../js/index'
-import { transferMap } from '../data/map'
+import { player, global_position } from '../../js/index'
+import { transferMapTo } from '../data/map'
+import {
+  checkForCharacterCollision,
+  rectangularCollision,
+} from '../../game/utils/checkCollision'
+import { boundaries, movables, characters } from '../../js/index'
+import { others } from '../../js/network'
 
 export let lastKey = ''
 
@@ -95,23 +101,24 @@ export function joyToKey() {
 
 export function moveUser(position, direction) {
   if (!checkOrReconnect()) return
-
   if (
     player.map === 'MAIN' &&
-    position.x > 2350 &&
-    position.x < 2400 &&
-    position.y > 675 &&
-    position.y < 750
+    global_position().x < 2200 &&
+    global_position().x > 2170 &&
+    global_position().y > 675 &&
+    global_position().y < 690
   ) {
-    transferMap('TEST')
+    console.log('테스트 맵으로 이동합니다.')
+    transferMapTo('TEST')
   } else if (
     player.map === 'TEST' &&
-    position.x > 2163 &&
-    position.x < 2200 &&
-    position.y > 660 &&
-    position.y < 750
+    global_position().x > 1870 &&
+    global_position().x < 1900 &&
+    global_position().y < 730 &&
+    global_position().y > 700
   ) {
-    transferMap('MAIN')
+    console.log('메인 맵으로 이동합니다.')
+    transferMapTo('MAIN')
   } else {
     const body = {
       Move: {
@@ -137,4 +144,62 @@ export function stopUser(position) {
   const msg = JSON.stringify(body)
 
   ws.send(msg)
+}
+
+export function moveToXDirection(moving, direction, num = 1) {
+  const plusOrNot = (direction === 'w') | (direction === 'a') ? 1 : -1
+  const isX = (direction === 'a') | (direction === 'd') ? 1 : 0
+  const isY = (direction === 'w') | (direction === 's') ? 1 : 0
+
+  player.animate = true
+  player.image =
+    direction === 'w'
+      ? player.sprites.up
+      : direction === 'a'
+      ? player.sprites.left
+      : direction === 'd'
+      ? player.sprites.right
+      : player.sprites.down
+
+  player.direction =
+    direction === 'w' ? 0 : direction === 'a' ? 1 : direction === 'd' ? 3 : 2
+
+  checkForCharacterCollision({
+    characters,
+    player,
+    characterOffset: {
+      x: 3 * num * plusOrNot * isX,
+      y: 3 * num * plusOrNot * isY,
+    },
+  })
+
+  for (let i = 0; i < boundaries.length; i++) {
+    const boundary = boundaries[i]
+    if (
+      rectangularCollision({
+        rectangle1: player,
+        rectangle2: {
+          ...boundary,
+          position: {
+            x: boundary.position.x + 3 * num * plusOrNot * isX,
+            y: boundary.position.y + 3 * num * plusOrNot * isY,
+          },
+        },
+      })
+    ) {
+      moving = false
+      break
+    }
+  }
+
+  if (moving)
+    movables.forEach((movable) => {
+      movable.position.x += 3 * num * plusOrNot * isX
+      movable.position.y += 3 * num * plusOrNot * isY
+    })
+  if (moving)
+    for (const key in others) {
+      others[key].sprite.position.x += 3 * num * plusOrNot * isX
+      others[key].sprite.position.y += 3 * num * plusOrNot * isY
+    }
 }

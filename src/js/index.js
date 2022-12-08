@@ -46,6 +46,7 @@ for (let i = 0; i < charactersMapData.length; i += 70) {
 }
 
 export const boundaries = []
+export const battleMapBoundaries = []
 
 export const offset = {
   x: window.innerWidth / 2 - 3360 / 2,
@@ -69,20 +70,20 @@ collisionsMap.forEach((row, i) => {
 
 export const battleZones = []
 
-battleZonesMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 1025)
-      battleZones.push(
-        new Boundary({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y,
-          },
-          type: 'battle',
-        })
-      )
-  })
-})
+// battleZonesMap.forEach((row, i) => {
+//   row.forEach((symbol, j) => {
+//     if (symbol === 1025)
+//       battleZones.push(
+//         new Boundary({
+//           position: {
+//             x: j * Boundary.width + offset.x,
+//             y: i * Boundary.height + offset.y,
+//           },
+//           type: 'battle',
+//         })
+//       )
+//   })
+// })
 
 export const characters = []
 const villagerImg = new Image()
@@ -160,6 +161,7 @@ export const player = new Sprite({
   },
   name: '',
   direction: 0,
+  nftName: 'Npunks',
 })
 
 export let movables = [
@@ -258,7 +260,7 @@ const makeNPC = () => {
   })
 }
 
-makeNPC()
+// makeNPC()
 initalSetting()
 
 function initalSetting() {

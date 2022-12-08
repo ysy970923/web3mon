@@ -1,7 +1,9 @@
 import { player, canvas } from '../js/index'
 import { worker } from '../js/utils'
 import { monsters } from '../game/data/monsters'
-import * as nearAPI from 'near-api-js'
+import * as nearApi from 'near-api-js'
+import { binary_to_base58 } from 'base58-js'
+import axios from 'axios'
 
 import { chosenCloth } from './initialSetting'
 import { clothesList } from '../js/clothes'
@@ -82,53 +84,96 @@ export async function authorize() {
 }
 
 /** temp login : only  */
-export const temporaryLogin = () => {
-  player.name = truncate(window.accountId, 20)
-  playerUrl = window.imgUrl
-  document.getElementById('chatOpenBtn').style.display = 'block'
-  // document.getElementById('loginDiv').style.display = 'none'
-  document.getElementById('profileName').innerHTML = window.name
-  document.getElementById('profileNFT').innerHTML = player.name
-  document.getElementById('profileImg').src = playerUrl
-  document.getElementById('profileHP').innerHTML =
-    'HP: ' + monsters[window.collection].health
-  document.getElementById('profileAP').innerHTML =
-    'AP: ' + monsters[window.collection].attacks[0].damage
-  if (window.chain === 'near') {
-    document.getElementById('parasUrl').addEventListener('click', (e) => {
-      window
-        .open(
-          `https://paras.id/token/${window.contract.contractId}::${window.tokenId}/${window.tokenId}`,
-          '_blank'
-        )
-        .focus()
-    })
+export const temporaryLogin = async () => {
+  const keyStore = new nearApi.keyStores.BrowserLocalStorageKeyStore()
+
+  const keyPair = await keyStore.getKey(
+    'mainnet',
+    window.walletConnection.getAccountId()
+  ) // wallet account id address
+
+  let msg = {}
+  msg = Buffer.from(JSON.stringify(msg))
+  var signature = keyPair.sign(msg)
+
+  console.log('값', signature)
+  console.log('시그니쳐', signature.publicKey.toString().slice(8))
+  console.log('베이스 사용', binary_to_base58(signature.signature))
+
+  const body = {
+    signature: binary_to_base58(signature.signature),
+    // 'bf25fdefb39ed17928b004cbf3cc7801bdb56c9dc0aeda8ebdc750e92d09c73b278b3dbb60f58df7f183009598db3d88a3e4ec42374ecae9f578eddf8bea6009',
+    message: {
+      chain: 'NEAR',
+      collection: window.collection,
+      token_id: window.tokenId,
+      pub_key: signature.publicKey.toString().slice(8),
+      // '626f4662dc3dffc6ab65bbf0faa36372ef4c44a09cbe8e31e520d84322c18c39',
+      extra_info: {
+        near_account_id: 'web3mon_test.near',
+      },
+    },
   }
-  player.baseImage = new Image()
 
-  console.log('생성', clothesList)
+  const config = {
+    withCredentials: true, // 쿠키 cors 통신 설정
+    OPTIONS: 'http://ec2-44-201-5-87.compute-1.amazonaws.com:8080',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      post: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    },
+  }
 
-  worker.postMessage({
-    url: playerUrl,
-    leftSource: clothesList.find((doc) => doc.id === chosenCloth).left,
-    rightSource: clothesList.find((doc) => doc.id === chosenCloth).right,
-    downSource: clothesList.find((doc) => doc.id === chosenCloth).down,
-    upSource: clothesList.find((doc) => doc.id === chosenCloth).up,
-    contractAddress: window.collection,
-    id: '-1',
-  })
+  axios
+    .post('http://ec2-44-201-5-87.compute-1.amazonaws.com:8080/login', body, {
+      withCredentials: true, // 쿠키 cors 통신 설정
+    })
+    .then((res) => {
+      console.log('답 ', res)
+    })
+    .catch((err) => {
+      console.log('에러', err)
+    })
 
-  // {
-  //       "signautre": "dnaskjldnmaslkdmaskldmaskldma123knckjzdaredq",
-  //       "message": {
-  //           "chain": "NEAR",
-  //           "nft": "nearnautnft.near",
-  //           "nft_token_id": "2314",
-  //           "pub_key": "kldansmkldasnmd",
-  //           "account_id": "daniel_nearmoon.near"
-  //       }
-  //   }
-  turnToGameScreen()
+  // return
+
+  // player.name = truncate(window.accountId, 20)
+  // playerUrl = window.imgUrl
+  // document.getElementById('chatOpenBtn').style.display = 'block'
+  // // document.getElementById('loginDiv').style.display = 'none'
+  // document.getElementById('profileName').innerHTML = window.name
+  // document.getElementById('profileNFT').innerHTML = player.name
+  // document.getElementById('profileImg').src = playerUrl
+  // document.getElementById('profileHP').innerHTML =
+  //   'HP: ' + monsters[window.collection].health
+  // document.getElementById('profileAP').innerHTML =
+  //   'AP: ' + monsters[window.collection].attacks[0].damage
+  // if (window.chain === 'near') {
+  //   document.getElementById('parasUrl').addEventListener('click', (e) => {
+  //     window
+  //       .open(
+  //         `https://paras.id/token/${window.contract.contractId}::${window.tokenId}/${window.tokenId}`,
+  //         '_blank'
+  //       )
+  //       .focus()
+  //   })
+  // }
+
+  // player.baseImage = new Image()
+
+  // worker.postMessage({
+  //   url: playerUrl,
+  //   leftSource: clothesList.find((doc) => doc.id === chosenCloth).left,
+  //   rightSource: clothesList.find((doc) => doc.id === chosenCloth).right,
+  //   downSource: clothesList.find((doc) => doc.id === chosenCloth).down,
+  //   upSource: clothesList.find((doc) => doc.id === chosenCloth).up,
+  //   contractAddress: window.collection,
+  //   id: '-1',
+  // })
+
+  // turnToGameScreen()
 }
 
 /** original real login */
@@ -192,7 +237,7 @@ export const turnToGameScreen = () => {
 }
 
 // Initialize contract & set global variables
-export async function initContract() {
+export async function initContract(nearAPI) {
   window.contractAddress = document.getElementById('contractAddress').value
   // Initializing our contract APIs by contract name and configuration
   window.contract = await new nearAPI.Contract(

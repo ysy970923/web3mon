@@ -1,25 +1,17 @@
 import { joyToKey } from './interaction/move'
 import {
-  battleZones,
-  boundaries,
   battle,
   player,
   renderables,
-  checkCollision,
-  characters,
   global_position,
-  movables,
   stopAllPlay,
 } from '../js/index'
 import { others } from '../js/network'
-import {
-  checkForCharacterCollision,
-  rectangularCollision,
-} from './utils/checkCollision'
 import { keys, lastKey } from './interaction/move'
 import { battle_start, setBattleStart } from './battle/utils'
 import { enterBattle } from './battle/utils/enterBattle'
 import { moveUser, stopUser } from '../game/interaction/move'
+import { moveToXDirection } from './interaction/move'
 
 const npcTalk = (animationId) => {
   if (animationId % 600 < 200) others['250'].sprite.chat = 'Come in'
@@ -74,157 +66,17 @@ export const animate = async () => {
   // 아래부터는 나의 이동
   if (stopAllPlay) return
   if (keys.w.pressed && lastKey === 'w') {
-    player.animate = true
-    player.image = player.sprites.up
-    player.direction = 0
-
-    checkForCharacterCollision({
-      characters,
-      player,
-      characterOffset: { x: 0, y: 3 },
-    })
-
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i]
-      if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: {
-            ...boundary,
-            position: {
-              x: boundary.position.x,
-              y: boundary.position.y + 3,
-            },
-          },
-        })
-      ) {
-        moving = false
-        break
-      }
-    }
-
-    if (moving)
-      movables.forEach((movable) => {
-        movable.position.y += 3
-      })
-    if (moving)
-      for (const key in others) {
-        others[key].sprite.position.y += 3
-      }
-  } else if (keys.a.pressed && lastKey === 'a') {
-    player.animate = true
-    player.image = player.sprites.left
     player.direction = 1
-
-    checkForCharacterCollision({
-      characters,
-      player,
-      characterOffset: { x: 3, y: 0 },
-    })
-
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i]
-      if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: {
-            ...boundary,
-            position: {
-              x: boundary.position.x + 3,
-              y: boundary.position.y,
-            },
-          },
-        })
-      ) {
-        moving = false
-        break
-      }
-    }
-
-    if (moving)
-      movables.forEach((movable) => {
-        movable.position.x += 3
-      })
-    if (moving)
-      for (const key in others) {
-        others[key].sprite.position.x += 3
-      }
-  } else if (keys.s.pressed && lastKey === 's') {
-    player.animate = true
-    player.image = player.sprites.down
+    moveToXDirection(moving, 'w', 1)
+  } else if (keys.a.pressed && lastKey === 'a') {
     player.direction = 2
-
-    checkForCharacterCollision({
-      characters,
-      player,
-      characterOffset: { x: 0, y: -3 },
-    })
-
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i]
-      if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: {
-            ...boundary,
-            position: {
-              x: boundary.position.x,
-              y: boundary.position.y - 3,
-            },
-          },
-        })
-      ) {
-        moving = false
-        break
-      }
-    }
-
-    if (moving)
-      movables.forEach((movable) => {
-        movable.position.y -= 3
-      })
-    if (moving)
-      for (const key in others) {
-        others[key].sprite.position.y -= 3
-      }
-  } else if (keys.d.pressed && lastKey === 'd') {
-    player.animate = true
-    player.image = player.sprites.right
+    moveToXDirection(moving, 'a', 1)
+  } else if (keys.s.pressed && lastKey === 's') {
     player.direction = 3
-
-    checkForCharacterCollision({
-      characters,
-      player,
-      characterOffset: { x: -3, y: 0 },
-    })
-
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i]
-      if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: {
-            ...boundary,
-            position: {
-              x: boundary.position.x - 3,
-              y: boundary.position.y,
-            },
-          },
-        })
-      ) {
-        moving = false
-        break
-      }
-    }
-
-    if (moving)
-      movables.forEach((movable) => {
-        movable.position.x -= 3
-      })
-    if (moving)
-      for (const key in others) {
-        others[key].sprite.position.x -= 3
-      }
+    moveToXDirection(moving, 's', 1)
+  } else if (keys.d.pressed && lastKey === 'd') {
+    player.direction = 0
+    moveToXDirection(moving, 'd', 1)
   }
 }
 // animate()

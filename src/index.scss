@@ -332,3 +332,23 @@ img {
   position: absolute;
   width: 100%;
 }
+
+.loading_screen {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  background-color: black;
+}
+
+.loading_screen_gif {
+  width: 95px;
+  z-index: 1002;
+  position: fixed;
+  top: 41vh;
+  left: 46vw;
+  display: none;
+}

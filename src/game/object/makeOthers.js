@@ -40,6 +40,7 @@ export const makeOthers = (id, coordinate, nickname, nft_image_url) => {
           down: new Image(),
         },
         name: nickname,
+        nftName: 'terra',
       }),
     }
     others[id].baseImage = new Image()

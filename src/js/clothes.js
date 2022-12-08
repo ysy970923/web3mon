@@ -11,10 +11,10 @@ export const clothesList = [
   },
   {
     source: '../img/clothes/c1.png',
-    up: imageStorageLink + 'playerDown.png',
-    down: imageStorageLink + 'playerUp.png',
-    left: imageStorageLink + 'playerLeft.png',
-    right: imageStorageLink + 'playerRight.png',
+    up: imageStorageLink + 'clothes/c1up.png',
+    down: imageStorageLink + 'clothes/c1down.png',
+    left: imageStorageLink + 'clothes/c1left.png',
+    right: imageStorageLink + 'clothes/c1right.png',
     id: 2,
   },
   {

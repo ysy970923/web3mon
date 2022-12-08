@@ -3,6 +3,9 @@ import { canvas, battle, stopAllPlay } from '../../js/index'
 import { offerBattle } from './acceptBattleBtn'
 import { player } from '../../js/index'
 
+/**
+ * check whether click another player to battle.
+ */
 export function clickEvent() {
   canvas.addEventListener('click', (e) => {
     // need to be ready and not currently battling and in BATTLE map
@@ -28,9 +31,12 @@ export function clickEvent() {
   })
 }
 
+/**
+ * when clicked another player to battle.
+ * @param {string} key
+ */
 const clickToStartBattle = (key) => {
-  console.log('상대방을 클릭했다.', key)
-
+  // show battle request popup
   displayBattleAcceptPopup(key)
 
   // 배틀 제안
@@ -43,8 +49,7 @@ const clickToStartBattle = (key) => {
 }
 
 /**
- *
- * 지금 클릭한 애랑 배틀 할거야? or 얘가 너랑 싸우고 싶다는데 배틀할거야?
+ * 지금 클릭한 애랑 배틀 할거야? or 얘가 너랑 싸우고 싶다는데 배틀할거야? 보여주기
  * @param {string} key 상대방의 아이디
  */
 export const displayBattleAcceptPopup = (key) => {

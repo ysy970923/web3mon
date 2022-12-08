@@ -1,6 +1,12 @@
 const chatBubble = new Image()
 chatBubble.src = '../img/chatBubble2.png'
 
+export const terraLogo = new Image()
+terraLogo.src = '../img/terra.png'
+
+export const nearLogo = new Image()
+nearLogo.src = '../img/near.png'
+
 import { canva } from '../../js/index'
 
 export class Sprite {
@@ -15,6 +21,7 @@ export class Sprite {
     name = '',
     baseImage = '',
     map = 'MAIN',
+    nftName = '',
   }) {
     this.map = map
     this.relative_position = { x: 0, y: 0 }
@@ -37,6 +44,7 @@ export class Sprite {
     this.chat = ''
     this.chatShowTime = 0
     this.baseImage = baseImage
+    this.nftName = nftName
   }
 
   draw() {
@@ -78,6 +86,26 @@ export class Sprite {
         image.position.x + image.width / 2 - textWidth / 2,
         image.position.y - 5
       )
+      // draw logo
+      if (this.nftName) {
+        if (this.nftName === 'terra') {
+          canva.drawImage(
+            terraLogo,
+            image.position.x + image.width / 2 - 5,
+            image.position.y - 36,
+            17,
+            17
+          )
+        } else if (this.nftName === 'Npunks') {
+          canva.drawImage(
+            nearLogo,
+            image.position.x + image.width / 2 - 5,
+            image.position.y - 36,
+            17,
+            17
+          )
+        }
+      }
     }
 
     if (this.chat.length > 0) {

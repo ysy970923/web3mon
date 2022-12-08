@@ -4,7 +4,6 @@ import { animate } from '../game/animate'
 import * as nearApi from 'near-api-js'
 
 export const worker = new Worker('./js/worker.js')
-window.walletConnection
 
 worker.onmessage = function (event) {
   if (event.data) {
@@ -44,23 +43,11 @@ const nearConfig = {
 }
 
 export async function author() {
-  console.log(
-    '브라우저 로컬 스토리지',
-    new nearApi.keyStores.BrowserLocalStorageKeyStore()
-  )
-  const near = await nearApi.connect(
-    Object.assign(
-      {
-        deps: { keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore() },
-      },
-      nearConfig
-    )
-  )
-  // const nearConnection = await nearApi.connect(nearConfig)
+  const nearConnection = await nearApi.connect(nearConfig)
 
-  const walletConnection = new nearApi.WalletConnection(near)
+  const walletConnection = new nearApi.WalletConnection(nearConnection)
   console.log('월렛 커넥션', walletConnection)
-  await walletConnection.requestSignIn('web3mon.near') // our game contract address
+  await walletConnection.requestSignIn({ contractId: 'web3mon.near' }) // our game contract address
 }
 
 export async function chainConfigInit() {
@@ -79,22 +66,12 @@ export async function chainConfigInit() {
   if (window.chain === 'near') {
     const nearConnection = await nearApi.connect(nearConfig)
 
-    const walletConnection = new nearApi.WalletConnection(nearConnection)
+    window.walletConnection = new nearApi.WalletConnection(nearConnection)
 
     // await walletConnection.requestSignIn('web3mon.near') // our game contract address
 
-    var keyStore = new nearApi.keyStores.BrowserLocalStorageKeyStore()
-    var keyPair = await keyStore.getKey(
-      'mainnet',
-      walletConnection.getAccountId()
-    ) // wallet account id address
-    var msg = {}
-    // msg = Buffer.from(JSON.stringify(msg))
-    // var signature = keyPair.sign(msg)
-    // console.log(signature)
-
     window.contract = await new nearApi.Contract(
-      walletConnection.account(),
+      window.walletConnection.account(),
       window.collection,
       {
         // View methods are read only. They don't modify the state, but usually return some value.

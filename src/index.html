@@ -17,6 +17,10 @@
     />
   </head>
   <body>
+    <div class="loading_screen" id="loading_screen">
+      <img class="loading_screen_gif" id="loading_screen_gif" src="../img/loadingpixel.gif" />
+    </div>
+    
     <div class="main_container">
       <!-- canvas to draw things -->
       <canvas style="display: none"></canvas>
@@ -104,6 +108,7 @@
                 placeholder="Enter Wallet Address"
                 id="accountId"
                 class="nes-input"
+                defaultValue="khjdaniel.near"
                 required
               />
             </div>
