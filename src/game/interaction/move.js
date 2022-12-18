@@ -203,3 +203,14 @@ export function moveToXDirection(moving, direction, num = 1) {
       others[key].sprite.position.y += 3 * num * plusOrNot * isY
     }
 }
+
+export function moveToPosition(x, y) {
+  movables.forEach((movable) => {
+    movable.position.x += 3 * x
+    movable.position.y += 3 * y
+  })
+  for (const key in others) {
+    others[key].sprite.position.x += 3 * x
+    others[key].sprite.position.y += 3 * y
+  }
+}

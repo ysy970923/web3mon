@@ -7,6 +7,7 @@ import './web/eventListener'
 import './game/chat/chatForm'
 import './game/chat/sendChat'
 import './index.scss'
+import './game.scss'
 import './game/data/map'
 import './web/initialSetting'
 

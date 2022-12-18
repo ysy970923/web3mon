@@ -9,6 +9,7 @@ import {
   queue,
 } from '../../js/battleScene'
 import { ws } from '../../js/network'
+import { insertButton } from '../../js/battleScene'
 
 export const checkCanUserSkill = (selectedAttack) => {
   if (selectedAttack.left_cool_time > 0) {
@@ -57,7 +58,7 @@ export const clickSkillButton = (skillValue) => {
   Array.from(document.querySelector('#attacksBox').childNodes).forEach(
     (button, index) => {
       const attack = myMonster.attacks[index]
-      button.innerHTML = `${attack.name}\n (Cool: ${attack.left_cool_time})\n (Left: ${attack.limit})`
+      button.innerHTML = insertButton(attack)
     }
   )
 

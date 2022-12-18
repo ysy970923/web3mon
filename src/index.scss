@@ -321,16 +321,44 @@ img {
   position: absolute;
   top: 150px;
   left: 50px;
-  border: 4px black solid;
+  border: 4px rgb(29, 0, 73) solid;
   padding: 12px;
-}
+  border-radius: 2px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 
-.healthBar {
-  top: 0;
-  left: 0;
-  height: 7px;
-  position: absolute;
-  width: 100%;
+  .health_container {
+    margin-top: 3px;
+    border-radius: 2px;
+    background-color: rgb(29, 0, 73);
+    padding: 3px 7px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+  }
+
+  .hp_desc {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgb(233, 175, 0);
+  }
+
+  .healthBar {
+    top: 0;
+    left: 0;
+    height: 14px;
+    width: 100%;
+    border-radius: 2px;
+  }
+
+  #playerHealthBar {
+    position: absolute;
+  }
+  #enemyHealthBar {
+    position: absolute;
+  }
 }
 
 .loading_screen {
@@ -351,4 +379,56 @@ img {
   top: 41vh;
   left: 46vw;
   display: none;
+}
+
+.battle_skill_box {
+  background-color: white;
+  height: 180px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 4px black solid;
+  display: flex;
+}
+
+#profileButton {
+  background-color: white;
+  color: black;
+  border: 3px solid black;
+  border-radius: 0px;
+  padding: 10px 15px;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+#profileButton > span.bg {
+  background: black;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+
+#profileButton:hover {
+  color: white;
+}
+
+#profileButton:hover > span.bg {
+  transition: all 0.3s ease-in-out;
+}
+/* left */
+
+#profileButton > .bg {
+  left: 0;
+  bottom: 0;
+  transform: translateX(-100%);
+}
+
+#profileButton:hover > .bg {
+  transform: translateX(0);
 }

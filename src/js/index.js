@@ -12,6 +12,9 @@ import { gsap } from 'gsap'
 import { background, foreground } from '../game/data/map'
 import { clickEvent } from '../game/battle/battleStart'
 import { clothesList } from './clothes'
+import { moveToXDirection } from '../game/interaction/move'
+import { lastKey } from '../game/interaction/move'
+import { initBattle } from './battleScene'
 
 // 최초로 지갑 연결
 // connectWallets(nearAPI)
@@ -28,6 +31,23 @@ playerDownImage.src = '../img/playerDown.png'
 
 export const canvas = document.querySelector('canvas')
 clickEvent()
+
+const body = document.querySelector('body')
+body.addEventListener('keydown', (event) => {
+  let key = event.code
+  let keyCode = event.keyCode
+  if (key === 'Space' || keyCode === 32) {
+    moveToXDirection(true, lastKey, 4)
+    moveToXDirection(true, lastKey, 4)
+    const time = setTimeout(() => {
+      moveToXDirection(true, lastKey, 4)
+      moveToXDirection(true, lastKey, 4)
+      clearTimeout(time)
+    }, 100)
+    event.preventDefault()
+  }
+})
+
 export const canva = canvas.getContext('2d')
 
 export const collisionsMap = []
@@ -45,7 +65,11 @@ for (let i = 0; i < charactersMapData.length; i += 70) {
   charactersMap.push(charactersMapData.slice(i, 70 + i))
 }
 
-export const boundaries = []
+export let boundaries = []
+export const setBoundaries = (bound) => {
+  boundaries = bound
+}
+export const mainMapBoundaries = []
 export const battleMapBoundaries = []
 
 export const offset = {
@@ -56,7 +80,7 @@ export const offset = {
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 1025)
-      boundaries.push(
+      mainMapBoundaries.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
@@ -131,7 +155,7 @@ charactersMap.forEach((row, i) => {
     }
 
     if (symbol !== 0) {
-      boundaries.push(
+      mainMapBoundaries.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
@@ -162,7 +186,10 @@ export const player = new Sprite({
   name: '',
   direction: 0,
   nftName: 'Npunks',
+  myCharacter: true,
 })
+
+setBoundaries(mainMapBoundaries)
 
 export let movables = [
   background,
@@ -229,8 +256,8 @@ const makeNPC = () => {
     skillType: 1,
     sprite: new Sprite({
       position: {
-        x: battleZones[10].position.x,
-        y: battleZones[10].position.y,
+        x: 100,
+        y: 200,
       },
       image: playerDownImage,
       frames: {
@@ -260,7 +287,7 @@ const makeNPC = () => {
   })
 }
 
-// makeNPC()
+makeNPC()
 initalSetting()
 
 function initalSetting() {

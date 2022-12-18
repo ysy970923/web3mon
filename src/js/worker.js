@@ -85,14 +85,14 @@ async function makeChracterImage(url, contractAddress, lis, ris, ups, downs) {
 
   image = image.resize(46, 48)
 
-  var downImage = await Jimp.read({ url: ups })
+  var downImage = await Jimp.read({ url: downs })
   downImage = downImage.composite(image, 1, 0)
   downImage = downImage.composite(image, 48 + 1, 0)
   downImage = downImage.composite(image, 48 * 2 + 1, 0)
   downImage = downImage.composite(image, 48 * 3 + 1, 0)
   sprite.down = await downImage.getBase64Async('image/png')
 
-  var upImage = await Jimp.read({ url: downs })
+  var upImage = await Jimp.read({ url: ups })
   upImage = upImage.composite(image, 1, 0)
   upImage = upImage.composite(image, 48 + 1, 0)
   upImage = upImage.composite(image, 48 * 2 + 1, 0)

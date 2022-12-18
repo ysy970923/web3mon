@@ -126,54 +126,54 @@ export const temporaryLogin = async () => {
     },
   }
 
-  axios
-    .post('http://ec2-44-201-5-87.compute-1.amazonaws.com:8080/login', body, {
-      withCredentials: true, // 쿠키 cors 통신 설정
-    })
-    .then((res) => {
-      console.log('답 ', res)
-    })
-    .catch((err) => {
-      console.log('에러', err)
-    })
+  // axios
+  //   .post('http://ec2-44-201-5-87.compute-1.amazonaws.com:8080/login', body, {
+  //     withCredentials: true, // 쿠키 cors 통신 설정
+  //   })
+  //   .then((res) => {
+  //     console.log('답 ', res)
+  //   })
+  //   .catch((err) => {
+  //     console.log('에러', err)
+  //   })
 
   // return
 
-  // player.name = truncate(window.accountId, 20)
-  // playerUrl = window.imgUrl
-  // document.getElementById('chatOpenBtn').style.display = 'block'
-  // // document.getElementById('loginDiv').style.display = 'none'
-  // document.getElementById('profileName').innerHTML = window.name
-  // document.getElementById('profileNFT').innerHTML = player.name
-  // document.getElementById('profileImg').src = playerUrl
-  // document.getElementById('profileHP').innerHTML =
-  //   'HP: ' + monsters[window.collection].health
-  // document.getElementById('profileAP').innerHTML =
-  //   'AP: ' + monsters[window.collection].attacks[0].damage
-  // if (window.chain === 'near') {
-  //   document.getElementById('parasUrl').addEventListener('click', (e) => {
-  //     window
-  //       .open(
-  //         `https://paras.id/token/${window.contract.contractId}::${window.tokenId}/${window.tokenId}`,
-  //         '_blank'
-  //       )
-  //       .focus()
-  //   })
-  // }
+  player.name = truncate(window.accountId, 20)
+  playerUrl = window.imgUrl
+  document.getElementById('chatOpenBtn').style.display = 'block'
+  // document.getElementById('loginDiv').style.display = 'none'
+  document.getElementById('profileName').innerHTML = window.name
+  document.getElementById('profileNFT').innerHTML = player.name
+  document.getElementById('profileImg').src = playerUrl
+  document.getElementById('profileHP').innerHTML =
+    'HP: ' + monsters[window.collection].health
+  document.getElementById('profileAP').innerHTML =
+    'AP: ' + monsters[window.collection].attacks[0].damage
+  if (window.chain === 'near') {
+    document.getElementById('parasUrl').addEventListener('click', (e) => {
+      window
+        .open(
+          `https://paras.id/token/${window.contract.contractId}::${window.tokenId}/${window.tokenId}`,
+          '_blank'
+        )
+        .focus()
+    })
+  }
 
-  // player.baseImage = new Image()
+  player.baseImage = new Image()
 
-  // worker.postMessage({
-  //   url: playerUrl,
-  //   leftSource: clothesList.find((doc) => doc.id === chosenCloth).left,
-  //   rightSource: clothesList.find((doc) => doc.id === chosenCloth).right,
-  //   downSource: clothesList.find((doc) => doc.id === chosenCloth).down,
-  //   upSource: clothesList.find((doc) => doc.id === chosenCloth).up,
-  //   contractAddress: window.collection,
-  //   id: '-1',
-  // })
+  worker.postMessage({
+    url: playerUrl,
+    leftSource: clothesList.find((doc) => doc.id === chosenCloth).left,
+    rightSource: clothesList.find((doc) => doc.id === chosenCloth).right,
+    downSource: clothesList.find((doc) => doc.id === chosenCloth).down,
+    upSource: clothesList.find((doc) => doc.id === chosenCloth).up,
+    contractAddress: window.collection,
+    id: '-1',
+  })
 
-  // turnToGameScreen()
+  turnToGameScreen()
 }
 
 /** original real login */

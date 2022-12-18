@@ -39,6 +39,16 @@ const attacks = {
     effect: 'Hammer',
     value: 3,
   },
+  Lightning: {
+    critical_prob: 0,
+    limit: 3,
+    cool_time: 2,
+    left_cool_time: 0,
+    atk: 120,
+    name: 'Lightning',
+    effect: 'Lightning',
+    value: 3,
+  },
 }
 
 const defenses = {
@@ -68,15 +78,19 @@ const defenses = {
 export let skillTypes = {
   1: {
     health: 100,
+    attack: 120,
+    defense: 190,
     atk: [
       Object.assign({}, attacks['Default']),
       Object.assign({}, attacks['Fireball']),
-      Object.assign({}, attacks['Larva']),
+      Object.assign({}, attacks['Lightning']),
     ],
     def: [defenses.Default, defenses.Shield, defenses.Thorn],
   },
   2: {
     health: 100,
+    attack: 180,
+    defense: 180,
     atk: [
       Object.assign({}, attacks['Default']),
       Object.assign({}, attacks['Fireball']),
@@ -90,6 +104,8 @@ export let skillTypes = {
   },
   3: {
     health: 100,
+    attack: 160,
+    defense: 170,
     atk: [
       Object.assign({}, attacks['Default']),
       Object.assign({}, attacks['Fireball']),
@@ -99,6 +115,8 @@ export let skillTypes = {
   },
   4: {
     health: 100,
+    attack: 110,
+    defense: 130,
     atk: [
       Object.assign({}, attacks['Default']),
       Object.assign({}, attacks['Fireball']),

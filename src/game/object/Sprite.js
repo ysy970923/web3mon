@@ -22,6 +22,7 @@ export class Sprite {
     baseImage = '',
     map = 'MAIN',
     nftName = '',
+    myCharacter = false,
   }) {
     this.map = map
     this.relative_position = { x: 0, y: 0 }
@@ -45,6 +46,7 @@ export class Sprite {
     this.chatShowTime = 0
     this.baseImage = baseImage
     this.nftName = nftName
+    this.myCharacter = myCharacter
   }
 
   draw() {
@@ -105,6 +107,15 @@ export class Sprite {
             17
           )
         }
+      }
+      if (this.myCharacter) {
+        // canva.drawImage(
+        //   nearLogo,
+        //   image.position.x + image.width / 2 - 5,
+        //   image.position.y + image.height / 2 + 50,
+        //   17,
+        //   17
+        // )
       }
     }
 

@@ -13,6 +13,7 @@ import {
   setMyTurn,
 } from '../game/battle/utils'
 import { clickSkillButton } from '../game/battle/attack'
+import { playerUrl } from '../web/logIn'
 
 const battleBackgroundImage = new Image()
 battleBackgroundImage.src = '../img/battleBackground2.png'
@@ -87,8 +88,6 @@ export function endBattle(result) {
  * 진짜 배틀 시작, 배틀 맵으로 이동
  */
 export function initBattle() {
-  console.log('상대방 아이디', opponent_id, others[opponent_id])
-
   canva.width = window.innerWidth
   canva.height = window.innerHeight
 
@@ -134,6 +133,8 @@ export function initBattle() {
 
   queue = []
 
+  enterImageAnimation()
+
   document.querySelector('#attacksBox').style[
     'grid-template-columns'
   ] = `repeat(${myMonster.attacks.length}, 1fr)`
@@ -141,12 +142,9 @@ export function initBattle() {
   myMonster.attacks.forEach((attack, index) => {
     const button = document.createElement('button')
     button.id = `skill_button_${index}th`
-    button.innerHTML = `
-      ${attack.name}\n 
-      (Atk: ${attack.atk})\n 
-      (Cool: ${attack.left_cool_time})\n 
-      (Left: ${attack.limit})
-    `
+
+    button.innerHTML = insertButton(attack)
+
     button.value = attack.value
     document.querySelector('#attacksBox').append(button)
   })
@@ -168,4 +166,56 @@ document.querySelector('#dialogueBox').addEventListener('click', (e) => {
 
 export function setOpponentId(id) {
   opponent_id = id
+}
+
+const enterImageAnimation = () => {
+  document.getElementById('enter_img').src = playerUrl
+  document.getElementById('enter_collection').innerText = player.name
+  document.getElementById('enter_name').innerText = player.name
+  document.getElementById('enter_exterior').innerText = player.name
+  document.getElementById(
+    'enter_atk'
+  ).innerText = `${skillTypes[mySkillType].attack} atk`
+  document.getElementById(
+    'enter_def'
+  ).innerText = `${skillTypes[mySkillType].attack} def`
+  document.getElementById(
+    'enter_health'
+  ).innerText = `${skillTypes[mySkillType].health} health`
+
+  console.log('열리는 실행')
+  document.querySelector('#battle_enter').style.transition = 'all 0s ease-out'
+  document.querySelector('#battle_enter').style.opacity = 1
+  document.querySelector('#battle_enter').style.zIndex = 1000
+  setTimeout(() => {
+    console.log('닫히는게 실행')
+    document.querySelector('#battle_enter').style.transition =
+      'all 1.2s ease-out'
+    document.querySelector('#battle_enter').style.opacity = 0
+    document.querySelector('#battle_enter').style.zIndex = -5
+  }, 5000)
+}
+
+export function insertButton(atk) {
+  console.log('공격', atk)
+
+  const buttonDesc = `<div class="skill_button_desc">
+      <div class="skill_desc">
+        <p class="skill_name">${atk.name}</p><p>atk: ${atk.atk}<br>cool: ${atk.left_cool_time}<br>left: ${atk.limit}</p></p>
+      </div>
+    </div>`
+
+  if (atk.name === 'Fireball')
+    return `<div class="game_skill_btn">
+          <img src="../../img/battle/fireball_icon.png" style="height: 90px; object-fit: contain;">
+          ${buttonDesc}
+        </div>`
+  else if (atk.name === 'Lightning')
+    return `<div class="game_skill_btn"><img src="../../img/battle/lightning_icon.jpg" style="height: 90px; object-fit: contain;">
+          ${buttonDesc}
+      </div>`
+  else
+    return `<div class="game_skill_btn"><img src="../../img/battle/punch_icon.png" style="height: 90px; object-fit: contain;">
+          ${buttonDesc}
+      </div>`
 }

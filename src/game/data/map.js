@@ -1,5 +1,11 @@
 import { Sprite } from '../object/Sprite'
-import { canvas, player } from '../../js/index'
+import {
+  battleMapBoundaries,
+  canvas,
+  mainMapBoundaries,
+  player,
+  setBoundaries,
+} from '../../js/index'
 import {
   mainBackgroundImage,
   foregroundImage,
@@ -13,7 +19,7 @@ import {
   setMovables,
   setRenderables,
 } from '../../js/index'
-import { moveToXDirection } from '../../game/interaction/move'
+import { moveToPosition, moveToXDirection } from '../../game/interaction/move'
 
 const offset = {
   x: window.innerWidth / 2 - 3360 / 2,
@@ -66,9 +72,11 @@ export function transferMapTo(toMap) {
 
     background.image.src = '../../../img/battleMap.png'
 
+    setBoundaries(battleMapBoundaries)
+
     setRenderables([
       background,
-      // ...boundaries,
+      ...boundaries,
       ...battleZones,
       ...characters,
       player,
@@ -77,10 +85,10 @@ export function transferMapTo(toMap) {
 
     setMovables([
       background,
-      // ...boundaries,
+      ...boundaries,
       ...battleZones,
       ...characters,
-      // foreground,
+      foreground,
     ])
 
     moveToXDirection(true, 'w', 20)
@@ -91,6 +99,7 @@ export function transferMapTo(toMap) {
         to: 'TEST',
       },
     }
+    moveToPosition(340, -240)
 
     const msg = JSON.stringify(body)
     ws.send(msg)
@@ -107,6 +116,8 @@ export function transferMapTo(toMap) {
       },
     }
 
+    setBoundaries(mainMapBoundaries)
+
     setRenderables([
       background,
       ...boundaries,
@@ -123,6 +134,8 @@ export function transferMapTo(toMap) {
       ...characters,
       foreground,
     ])
+
+    moveToPosition(200, -100)
 
     const msg = JSON.stringify(body)
     ws.send(msg)
