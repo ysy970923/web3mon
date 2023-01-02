@@ -8,6 +8,7 @@ const renderClothes = () => {
     let img = document.createElement('img')
     img.src = item.source
     img.style.width = '100px'
+    img.style.transition = 'all 0.2s'
     img.style.background =
       chosenCloth === item.id
         ? 'rgba(255,255,255,0.35)'

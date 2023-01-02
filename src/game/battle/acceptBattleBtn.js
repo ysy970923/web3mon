@@ -2,6 +2,7 @@ import { setOpponentId } from '../../js/battleScene'
 import { setMySkillType, startBattleSetting } from './utils'
 import { checkOrReconnect } from '../../game/network/checkConnection'
 import { ws } from '../../js/network'
+import { npc_list } from '../data/npc'
 
 /**
  *
@@ -15,7 +16,7 @@ export function offerBattle(opponentId, isMyRequest, battleId) {
     document.getElementById('refuseBattleBtn').style.display = 'none'
     document.getElementById('selectTypeCard').style.display = 'block'
 
-    if (opponentId == 250) {
+    if (npc_list.contains(opponentId)) {
       // NPC면
       console.log('NPC 예스', opponentId)
       setOpponentId(opponentId)

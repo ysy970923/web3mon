@@ -99,127 +99,6 @@
     <div class="main_container">
       <!-- canvas to draw things -->
       <canvas style="display: none"></canvas>
-
-      <div
-        id="login_screen"
-        class="modal"
-        style="background-image: url('../img/bg24-l.jpg');"
-      >
-        <div class="landing-container is-rounded is-dark">
-          <div style="text-align: center">
-            <img src="../img/w3mlogonew.png" alt="Logo" />
-          </div>
-          <div style="margin-bottom: 40px">
-            <h2>Welcome to Web3Mon!</h2>
-          </div>
-          <div style="margin-bottom: 20px">
-            <p>0. Choose Chain.</p>
-          </div>
-          <div class="nes-select">
-            <select required id="chainType">
-              <option value="near">NEAR Protocol</option>
-              <option value="algo">Algorand</option>
-            </select>
-          </div>
-          <div
-            style="
-              width: 100%;
-              margin: 8px 0;
-              display: inline-block;
-              box-sizing: border-box;
-              margin-bottom: 40px;
-            "
-          ></div>
-          <div style="margin-bottom: 20px">
-            <p>1. Choose NFT collection to use.</p>
-          </div>
-          <label for="contractAddress">NFT Contract :</label>
-          <div class="nes-select">
-            <select required id="contractAddress">
-              <!-- <option value="myconstant-mascot.near">Battle Boars</option> -->
-              <!-- <option
-                value="terra16ds898j530kn4nnlc7xlj6hcxzqpcxxk4mj8gkcl3vswksu6s3zszs8kp2"
-              >
-                Galactic Punks
-              </option>
-              <option
-                value="terra17vysjt8ws64v8w696mavjpqs8mksf8s993qghlust9yey8qcmppqnhgw0e"
-              >
-                Luna Ape Club
-              </option> -->
-              <!-- <option
-                value="terra1hh9rgaxtmfqfkeqkruckwah6qc4ajlxgnweexyjeh4dsptkfnhmqeelzfl"
-              >
-              Redacted RONINs
-              </option> -->
-              <!-- <option value="PUFF">Poppin Puffins</option> -->
-              <option value="near-punks.near">NPunks</option>
-              <option value="nearnautnft.near">NEARNauts</option>
-              <option value="asac.near">Antisocial Ape Club</option>
-              <option value="tinkerunion_nft.enleap.near">
-                Near Tinker Union
-              </option>
-              <option value="v0.apemetaerror.near">APE META ERROR Gen 0</option>
-              <option value="cartelgen1.neartopia.near">El Café Cartel</option>
-              <option value="realbirds.near">RealBirds</option>
-              <option value="mrbrownproject.near">MR.BROWN</option>
-            </select>
-          </div>
-          <div style="margin-top: 50px; margin-bottom: 40px">
-            <!-- <p>2. Type ID of the NFT to use.</p>
-            <p>(You can connect wallet for your NFT)</p>
-            <button id="connectWallet" type="button" class="nes-btn is-success">
-              Connect Wallet
-            </button>
-            <button type="button" class="nes-btn is-error" onclick="logout()">
-              Disconnect Wallet
-            </button>  -->
-            <p id="connectedWallet" style="margin-top: 10px"></p>
-            <p>2. Select NFT to use.</p>
-            <div style="margin-bottom: 40px">
-              <label for="accountId">Wallet Address:</label>
-              <input
-                type="text"
-                placeholder="Enter Wallet Address"
-                id="accountId"
-                class="nes-input"
-                defaultValue="khjdaniel.near"
-                required
-              />
-            </div>
-            <button id="find_my_login" type="button" class="nes-btn is-success">
-              login
-            </button>
-            <button id="find_my_nft" type="button" class="nes-btn is-success">
-              Find My NFT
-            </button>
-            <div id="nftListBox"></div>
-          </div>
-          <div style="margin-bottom: 40px">
-            <label for="tokenId">NFT ID:</label>
-            <input
-              type="text"
-              placeholder="Enter NFT ID"
-              id="tokenId"
-              class="nes-input"
-              disabled
-            />
-          </div>
-          <div>
-            <p>3. Choose Clothes to wear.</p>
-            <div id="clothesBox" style="margin-bottom: 40px">
-              <p>(You can only try one type now)</p>
-            </div>
-          </div>
-          <div>
-            <button id="joinGame" type="button" class="nes-btn is-primary">
-              Join Game
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div id="joyDiv"></div>
       <div id="game_screen" style="display: none">
         <div id="loading" class="loader"></div>
         <div id="overlappingDiv"></div>
@@ -228,7 +107,6 @@
         <div class="chat-popup" id="chatForm" style="display: none">
           <form class="form-container" id="chatForm">
             <h2>Chat</h2>
-            <!-- <label for="msg"><b>Message</b></label> -->
             <input
               id="chat"
               type="text"
@@ -259,19 +137,21 @@
             <div id="map_identifier">Clear</div>
           </div>
           <div style="margin: 10px">
-            <button id="profileButton" type="button" class="nes-btn">
+            <button class="custom_button_1" id="profileButton" type="button" class="nes-btn">
               My Profile
               <span class="bg" />
             </button>
           </div>
           <div style="margin: 10px">
-            <button id="guidanceButton" type="button" class="nes-btn">
+            <button class="custom_button_1" id="guidanceButton" type="button" class="nes-btn">
               Guidance
+              <span class="bg" />
             </button>
           </div>
           <div style="margin: 10px">
-            <button onclick="location.reload()" type="button" class="nes-btn">
+            <button class="custom_button_1" onclick="location.reload()" type="button" class="nes-btn">
               Leave Game
+              <span class="bg" />
             </button>
           </div>
         </div>
@@ -291,7 +171,7 @@
           <button id="parasUrl" class="nes-btn is-primary">see on paras</button>
         </div>
 
-        <div id="guidanceCard" class="guideCard">
+        <div id="guidanceCard" class="guideCard" style="display:none">
           <div class="guideButtons">
             <div class="guideBtn leftButton" value="1">
               1
@@ -321,11 +201,12 @@
           </div>
         </div>
 
-        <div id="acceptBattleCard" class="card" style="padding: 20px">
+        <div id="acceptBattleCard" class="battleCard">
           <h2>Start Battle</h2>
           <p id="battleOpponentName2"></p>
           <button id="acceptBattleBtn" class="nes-btn is-success">YES</button>
           <button id="refuseBattleBtn" class="nes-btn is-error">NO</button>
+          <button id="seeOpponentInfo" class="nes-btn">See Info</button>
         </div>
 
         <div id="selectTypeCard" class="card" style="padding: 20px">
@@ -433,6 +314,216 @@
           </div>
         </div>
       </div>
+
+      <div
+        class="modal"
+        style="background-image: url('../img/bg24-l.jpg'); display:none;"
+      >
+        <div class="landing-container is-rounded is-dark">
+          <div style="text-align: center">
+            <img src="../img/w3mlogonew.png" alt="Logo" />
+          </div>
+          <div style="margin-bottom: 40px">
+            <h2>Welcome to Web3Mon!</h2>
+          </div>
+          <div style="margin-bottom: 20px">
+            <p>0. Choose Chain.</p>
+          </div>
+          <div class="nes-select">
+            <select required id="chainType">
+              <option class="option" value="near">NEAR Protocol</option>
+              <option class="option" value="algo">Algorand</option>
+            </select>
+          </div>
+          <div
+            style="
+              width: 100%;
+              margin: 8px 0;
+              display: inline-block;
+              box-sizing: border-box;
+              margin-bottom: 40px;
+            "
+          ></div>
+          <div style="margin-bottom: 20px">
+            <p>1. Choose NFT collection to use.</p>
+          </div>
+          <label for="contractAddress">NFT Contract :</label>
+          <div class="nes-select">
+            <select required id="contractAddress">
+              <option value="near-punks.near">NPunks</option>
+              <option value="nearnautnft.near">NEARNauts</option>
+              <option value="asac.near">Antisocial Ape Club</option>
+              <option value="tinkerunion_nft.enleap.near">
+                Near Tinker Union
+              </option>
+              <option value="v0.apemetaerror.near">APE META ERROR Gen 0</option>
+              <option value="cartelgen1.neartopia.near">El Café Cartel</option>
+              <option value="realbirds.near">RealBirds</option>
+              <option value="mrbrownproject.near">MR.BROWN</option>
+            </select>
+          </div>
+          <div style="margin-top: 50px; margin-bottom: 40px">
+            <p id="connectedWallet" style="margin-top: 10px"></p>
+            <p>2. Select NFT to use.</p>
+            <div style="margin-bottom: 40px">
+              <!-- <label for="accountId">Wallet Address:</label>
+              <input
+                type="text"
+                placeholder="Enter Wallet Address"
+                id="accountId"
+                class="nes-input"
+                defaultValue="khjdaniel.near"
+                required
+              /> -->
+            </div>
+            <button id="find_my_logins" type="button" class="nes-btn is-success">
+              login
+            </button>
+            <!-- <button id="find_my_nft" type="button" class="nes-btn is-success">
+              Find My NFT
+            </button> -->
+            <!-- <div id="nftListBox"></div> -->
+          </div>
+          <div style="margin-bottom: 40px">
+            <label for="tokenId">NFT ID:</label>
+            <input
+              type="text"
+              placeholder="Enter NFT ID"
+              id="tokenId"
+              class="nes-input"
+              disabled
+            />
+          </div>
+          <div>
+            <p>3. Choose Clothes to wear.</p>
+            <!-- <div id="clothesBox" style="margin-bottom: 40px">
+              <p>(You can only try one type now)</p>
+            </div> -->
+          </div>
+          <div>
+            <!-- <button id="joinGame" type="button" class="nes-btn is-primary">
+              Join Game
+            </button> -->
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="login_screen"
+        class="modal"
+        style="background-image: url('../img/main/background.jpg');"
+      >
+        <div class="backdrop"></div>
+        <div class="app_bar">
+          <img class="logo" src="../img/w3mlogonew.png" />
+          <div class="icons">
+            <img class="discord" src="../img/main/discord.png" />
+            <img class="twitter" src="../img/main/twitter.png" />
+            <button class="connect_button" id="find_my_login" >Connect Wallet</button>
+          </div>
+        </div>
+        <div class="login_main_container">
+          <div class="main_box">
+            <div class="connect_text">
+              Welcome to Web3Mon
+              <br />
+              Please Connect Your Wallet to start Playing!
+            </div>
+            <button id="start_login_button" class="web_custom_button">
+              Start Now
+            </button>
+          </div>
+          <div id="connect_modal_box" class="connect_modal_box" style="background: url('../img/main/grad.png') center; background-size: cover; display:none;">
+            <div id="chain_containers" style="height:100%; width:100%;">
+              <div class="connect_text">
+                Connect Your Wallet
+              </div>
+              <div class="chain_containers">
+                <div class="one_chain">
+                  <div>
+                    <button class="one_collection" value="near-punks.near">
+                      <div class="img_outer">
+                        <img src="../img/main/meteor.png" />
+                      </div>
+                      <div class="collection_name">
+                        NPunks
+                      </div>
+                    </button>
+                    <button class="one_collection" value="near-punks.near">
+                      <div class="img_outer">
+                        <img src="../img/main/meteor.png" />
+                      </div>
+                      <div class="collection_name">
+                        Meteor Wallet
+                      </div>
+                    </button>
+                  </div>
+                  <img class="logo" src="../img/main/near.png" />
+                </div>
+                <div class="one_chain">
+                  <div>
+                    <button class="one_collection" id="select_collection_btn" value="near-punks.near">
+                      <div class="img_outer">
+                        <img src="../img/main/meteor.png" />
+                      </div>
+                      <div class="collection_name">
+                        Sender
+                      </div>
+                    </button>
+                    <button class="one_collection" id="select_collection_btn" value="near-punks.near">
+                      <div class="img_outer">
+                        <img src="../img/main/meteor.png" />
+                      </div>
+                      <div class="collection_name">
+                        Terra Station
+                      </div>
+                    </button>
+                  </div>
+                  <img class="logo" src="../img/main/terra.png" />
+                </div>
+                <div class="one_chain">
+                  <div>
+                    <button class="one_collection" value="near-punks.near">
+                      <div class="img_outer">
+                        <img src="../img/main/meteor.png" />
+                      </div>
+                      <div class="collection_name">
+                        Comming Soon..
+                      </div>
+                    </button>
+                  </div>
+                  <img class="logo" src="../img/main/monochrome.png" />
+                </div>
+              </div>
+              <div class="input_container">
+                <input
+                  type="text"
+                  placeholder="Enter NFT ID"
+                  id="accountId"
+                  class="nes-input" />
+                <button id="find_my_nft" type="button" class="web_custom_button" style="margin:0px; margin-left:10px;">Find My NFT</button>
+              </div>
+            </div>
+            <div id="nft_choose_container" class="nft_choose_container" style="display:none;">
+              <div class="nft_outer">
+                <div class="title">Select NFT to use</div>
+                <div id="nftListBox"></div>
+              </div>
+              <div class="nft_outer">
+                <div class="mt20 title">Choose clothes to wear</div>
+                <div class="img_container">
+                  <div id="clothesBox" />
+                </div>
+              </div>
+              <button class="web_custom_button" id="joinGame">
+                Start Game
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="joyDiv"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/gh/nearprotocol/near-api-js/dist/near-api-js.js"></script>
     <script
@@ -450,23 +541,5 @@
     <script src="https://unpkg.com/jimp@0.14.0/browser/lib/jimp.js"></script>
     <!-- <script src="data/audio.js"></script> -->
     <script src="../dist/bundle.js"></script>
-
-    <!-- <script src="../data/battleZones.js"></script> -->
-    <!-- <script src="../data/collisions.js"></script>
-    <script src="../data/attacks.js"></script>
-    <script src="../data/monsters.js"></script>
-    <script src="../data/characters.js"></script>
-    <script src="./game/object/Boundary.js"></script>
-    <script src="./game/object/Sprite.js"></script>
-    <script src="./js/utils.js"></script>
-    <script src="./js/network.js"></script>
-    <script src="./web/logIn.js"></script>
-    <script src="./js/index.js"></script>
-    <script src="./game/interaction/joystick.js"></script>
-    <script src="./game/interaction/move.js"></script>
-    <script src="./js/battleScene.js"></script>
-    <script src="./js/eventListener.js"></script>
-    <script src="./game/object/Monster.js"></script>
-    <script src="./web/clickButtons.js"></script> -->
   </body>
 </html>

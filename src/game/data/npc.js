@@ -1,1 +1,1 @@
-export const npc_list = ['250']
+export const npc_list = [250, 251]

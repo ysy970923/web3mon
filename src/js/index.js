@@ -33,7 +33,11 @@ export const canvas = document.querySelector('canvas')
 clickEvent()
 
 const body = document.querySelector('body')
+
 body.addEventListener('keydown', (event) => {
+  if (document.getElementById('chatForm').style.display !== 'none') {
+    return
+  }
   let key = event.code
   let keyCode = event.keyCode
   if (key === 'Space' || keyCode === 32) {
@@ -110,11 +114,15 @@ export const battleZones = []
 // })
 
 export const characters = []
+
 const villagerImg = new Image()
-villagerImg.src = '../img/villager/Idle.png'
+villagerImg.src = '../../img/villager/Idle.png'
 
 const oldManImg = new Image()
-oldManImg.src = '../img/oldMan/Idle.png'
+oldManImg.src = '../../img/oldMan/Idle.png'
+
+const kobugi = new Image()
+kobugi.src = '../../img/oldMan/kobugi.png'
 
 charactersMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
@@ -126,7 +134,7 @@ charactersMap.forEach((row, i) => {
             x: j * Boundary.width + offset.x,
             y: i * Boundary.height + offset.y,
           },
-          image: villagerImg,
+          image: kobugi,
           frames: {
             max: 4,
             hold: 60,
@@ -144,7 +152,7 @@ charactersMap.forEach((row, i) => {
             x: j * Boundary.width + offset.x,
             y: i * Boundary.height + offset.y,
           },
-          image: oldManImg,
+          image: kobugi,
           frames: {
             max: 4,
             hold: 60,
@@ -287,10 +295,12 @@ const makeNPC = () => {
   })
 }
 
-makeNPC()
 initalSetting()
 
 function initalSetting() {
   document.getElementById('map_identifier').innerText =
     'MAIN map : you cannot fight here!'
 }
+
+// make other charaters or objects.
+makeNPC()

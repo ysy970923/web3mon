@@ -14,9 +14,9 @@ import { moveUser, stopUser } from '../game/interaction/move'
 import { moveToXDirection } from './interaction/move'
 
 const npcTalk = (animationId) => {
-  if (animationId % 600 < 200) others['250'].sprite.chat = 'Come in'
-  else if (animationId % 600 < 400) others['250'].sprite.chat = 'Battle Zone'
-  else others['250'].sprite.chat = 'Click Me!'
+  // if (animationId % 600 < 200) others['250'].sprite.chat = 'Come in'
+  // else if (animationId % 600 < 400) others['250'].sprite.chat = 'Battle Zone'
+  // else others['250'].sprite.chat = 'Click Me!'
 }
 
 export const animate = async () => {

@@ -52,8 +52,15 @@ export async function author() {
 
 export async function chainConfigInit() {
   window.chain = document.getElementById('chainType').value // NEAR Protocol
-  window.collection = document.getElementById('contractAddress').value // NPunks
+  // window.collection = document.getElementById('contractAddress').value // NPunks
   window.accountId = document.getElementById('accountId').value // khjdaniel.near
+
+  console.log(
+    '체콘 실행되고 체크',
+    window.chain,
+    window.collection,
+    window.accountId
+  )
 
   if (
     window.chain === '' ||
@@ -124,6 +131,10 @@ export async function chainConfigInit() {
     imgs.forEach((i) => {
       document.querySelector('#nftListBox').appendChild(i)
     })
+
+    console.log('컬렉션 로그인 완료')
+    document.getElementById('chain_containers').style.display = 'none'
+    document.getElementById('nft_choose_container').style.display = 'flex'
   }
 
   // 체인이 알고랜드일 때

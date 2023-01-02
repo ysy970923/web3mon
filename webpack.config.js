@@ -38,6 +38,10 @@ module.exports = {
         use: ['file-loader'],
       },
       {
+        test: /\.html$/i,
+        use: ['html-loader'],
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
         exclude: /node_modules/,

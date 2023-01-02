@@ -18,16 +18,16 @@ document.getElementById('closeResultBtn').addEventListener('click', (e) => {
   document.getElementById('battleResultCard').style.display = 'none'
 })
 
-function clickOutSideEvent(e) {
+export function clickOutSideProfileEvent(e) {
   if (!document.getElementById('profileCard').contains(e.target)) {
-    document.body.removeEventListener('click', clickOutSideEvent, true)
+    document.body.removeEventListener('click', clickOutSideProfileEvent, true)
     document.getElementById('profileCard').style.display = 'none'
   }
 }
 
 document.getElementById('profileButton').addEventListener('click', (e) => {
   document.getElementById('profileCard').style.display = 'block'
-  document.body.addEventListener('click', clickOutSideEvent, true)
+  document.body.addEventListener('click', clickOutSideProfileEvent, true)
 })
 
 // 지갑 연결
@@ -37,13 +37,8 @@ document
     await authorize()
   })
 
-document
-  .getElementById('contractAddress')
-  ?.addEventListener('change', async (e) => {
-    // await connectWallets(nearAPI)
-  })
-
 document.getElementById('find_my_nft').addEventListener('click', async (e) => {
+  console.log('로그 클릭')
   await chainConfigInit()
 })
 
@@ -64,3 +59,28 @@ for (let i = 0; i < guideBtns.length; i++) {
     ee.scrollTop = 360 * i
   })
 }
+
+document.getElementById('start_login_button').addEventListener('click', (e) => {
+  document.getElementById('connect_modal_box').style.display = 'flex'
+})
+
+const cols = document.querySelectorAll('.one_collection')
+;[].forEach.call(cols, (col) => {
+  col.addEventListener('click', (e) => {
+    console.log('클클릭', e.currentTarget.value)
+    window.collection = e.currentTarget.value
+
+    // document.getElementById('chain_containers').style.display = 'none'
+    // document.getElementById('nft_choose_container').style.display = 'flex'
+
+    cols.forEach((doc) => {
+      if (doc.value === window.collection) {
+        doc.style.backgroundColor = 'rgba(250, 250, 250, 0.2)'
+      } else {
+        doc.style.backgroundColor = 'rgba(250, 250, 250, 0)'
+      }
+    })
+  })
+})
+
+console.log('것들', typeof document.getElementsByClassName('one_collection'))

@@ -2,6 +2,7 @@ import { others } from '../../js/network'
 import { canvas, battle, stopAllPlay } from '../../js/index'
 import { offerBattle } from './acceptBattleBtn'
 import { player } from '../../js/index'
+import { clickOutSideProfileEvent } from '../../web/clickButtons'
 
 /**
  * check whether click another player to battle.
@@ -45,6 +46,18 @@ const clickToStartBattle = (key) => {
   // 배틀 제안 취소
   document.getElementById('refuseBattleBtn').addEventListener('click', (e) => {
     document.getElementById('acceptBattleCard').style.display = 'none'
+  })
+
+  document.getElementById('seeOpponentInfo').addEventListener('click', (e) => {
+    document.getElementById('acceptBattleCard').style.display = 'none'
+    document.getElementById('profileCard').style.display = 'block'
+    document.body.addEventListener(
+      'click',
+      (e) => {
+        clickOutSideProfileEvent(e)
+      },
+      true
+    )
   })
 }
 
