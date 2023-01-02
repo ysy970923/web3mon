@@ -14,3 +14,10 @@ import './web/initialSetting'
 const canvas = document.querySelector('canvas')
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
+
+document
+  .getElementById('nft_choose_container_back')
+  .addEventListener('click', (e) => {
+    document.getElementById('chain_containers').style.display = 'block'
+    document.getElementById('nft_choose_container').style.display = 'none'
+  })

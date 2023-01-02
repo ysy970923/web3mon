@@ -4523,10 +4523,17 @@ var temporaryLogin = /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            keyStore = new near_api_js__WEBPACK_IMPORTED_MODULE_32__.keyStores.BrowserLocalStorageKeyStore();
-            _context.next = 3;
-            return keyStore.getKey('mainnet', window.walletConnection.getAccountId());
+            if (window.tokenId) {
+              _context.next = 3;
+              break;
+            }
+            alert('Please choose NFT!');
+            return _context.abrupt("return");
           case 3:
+            keyStore = new near_api_js__WEBPACK_IMPORTED_MODULE_32__.keyStores.BrowserLocalStorageKeyStore();
+            _context.next = 6;
+            return keyStore.getKey('mainnet', window.walletConnection.getAccountId());
+          case 6:
             keyPair = _context.sent;
             // wallet account id address
             msg = {};
@@ -4609,7 +4616,7 @@ var temporaryLogin = /*#__PURE__*/function () {
               id: '-1'
             });
             turnToGameScreen();
-          case 18:
+          case 21:
           case "end":
             return _context.stop();
         }
@@ -39552,6 +39559,10 @@ __webpack_require__.r(__webpack_exports__);
 var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+document.getElementById('nft_choose_container_back').addEventListener('click', function (e) {
+  document.getElementById('chain_containers').style.display = 'block';
+  document.getElementById('nft_choose_container').style.display = 'none';
+});
 })();
 
 /******/ })()

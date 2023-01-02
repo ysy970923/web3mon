@@ -85,6 +85,10 @@ export async function authorize() {
 
 /** temp login : only  */
 export const temporaryLogin = async () => {
+  if (!window.tokenId) {
+    alert('Please choose NFT!')
+    return
+  }
   const keyStore = new nearApi.keyStores.BrowserLocalStorageKeyStore()
 
   const keyPair = await keyStore.getKey(
