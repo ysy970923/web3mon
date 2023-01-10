@@ -100,6 +100,7 @@ export async function findMyNFT() {
     }
   }
 
+  // terra
   if (window.chain === 'terra') {
     var nft_contract_list = [
       'terra16ds898j530kn4nnlc7xlj6hcxzqpcxxk4mj8gkcl3vswksu6s3zszs8kp2',
