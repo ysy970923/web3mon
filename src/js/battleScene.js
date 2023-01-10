@@ -16,7 +16,7 @@ import { clickSkillButton } from '../game/battle/attack'
 import { playerUrl } from '../web/logIn'
 
 const battleBackgroundImage = new Image()
-battleBackgroundImage.src = '../img/battleBackground2.png'
+battleBackgroundImage.src = 'img/battleBackground2.png'
 
 export const battleBackground = new Sprite({
   position: {
@@ -207,15 +207,15 @@ export function insertButton(atk) {
 
   if (atk.name === 'Fireball')
     return `<div class="game_skill_btn">
-          <img src="../../img/battle/fireball_icon.png" style="height: 90px; object-fit: contain;">
+          <img src="../img/battle/fireball_icon.png" style="height: 90px; object-fit: contain;">
           ${buttonDesc}
         </div>`
   else if (atk.name === 'Lightning')
-    return `<div class="game_skill_btn"><img src="../../img/battle/lightning_icon.jpg" style="height: 90px; object-fit: contain;">
+    return `<div class="game_skill_btn"><img src="../img/battle/lightning_icon.jpg" style="height: 90px; object-fit: contain;">
           ${buttonDesc}
       </div>`
   else
-    return `<div class="game_skill_btn"><img src="../../img/battle/punch_icon.png" style="height: 90px; object-fit: contain;">
+    return `<div class="game_skill_btn"><img src="../img/battle/punch_icon.png" style="height: 90px; object-fit: contain;">
           ${buttonDesc}
       </div>`
 }

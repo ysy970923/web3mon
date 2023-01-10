@@ -53,7 +53,7 @@ export function transferMapTo(toMap) {
   if (toMap === MAP.TEST) {
     document.getElementById('map_identifier').innerText = 'BATTLE map : you can fight here!';
     showMapLoading();
-    background.image.src = '../../../img/battleMap.png';
+    background.image.src = '../../img/battleMap.png';
     setBoundaries(battleMapBoundaries);
     setRenderables([background].concat(_toConsumableArray(boundaries), _toConsumableArray(battleZones), _toConsumableArray(characters), [player
     // foreground,
@@ -72,7 +72,7 @@ export function transferMapTo(toMap) {
     ws.send(msg);
   } else if (toMap === MAP.MAIN) {
     document.getElementById('map_identifier').innerText = 'MAIN map : you cannot fight here!';
-    background.image.src = '../../../img/Pellet Town.png';
+    background.image.src = '../../img/Pellet Town.png';
     showMapLoading();
     var _body = {
       MapTransfer: {

@@ -8,11 +8,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var chatBubble = new Image();
-chatBubble.src = '../img/chatBubble2.png';
+chatBubble.src = 'img/chatBubble2.png';
 export var terraLogo = new Image();
-terraLogo.src = '../img/terra.png';
+terraLogo.src = 'img/terra.png';
 export var nearLogo = new Image();
-nearLogo.src = '../img/near.png';
+nearLogo.src = 'img/near.png';
 import { canva } from '../../js/index';
 export var Sprite = /*#__PURE__*/function () {
   function Sprite(_ref) {

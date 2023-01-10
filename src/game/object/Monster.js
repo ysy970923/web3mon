@@ -4,10 +4,10 @@ import { my_turn } from '../battle/utils'
 import { MonsterSkillType } from './objectType'
 
 var larvaImage = new Image()
-larvaImage.src = '../../../img/draggleSprite.png'
+larvaImage.src = '../../img/draggleSprite.png'
 
 var fireballImage = new Image()
-fireballImage.src = '../../../img/fireball.png'
+fireballImage.src = '../../img/fireball.png'
 
 export class Monster extends Sprite {
   constructor({

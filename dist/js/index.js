@@ -31,7 +31,7 @@ export var setStopAllPlay = function setStopAllPlay(bol) {
   stopAllPlay = bol;
 };
 export var playerDownImage = new Image();
-playerDownImage.src = '../img/playerDown.png';
+playerDownImage.src = 'img/playerDown.png';
 export var canvas = document.querySelector('canvas');
 clickEvent();
 var body = document.querySelector('body');
@@ -105,11 +105,11 @@ export var battleZones = [];
 
 export var characters = [];
 var villagerImg = new Image();
-villagerImg.src = '../../img/villager/Idle.png';
+villagerImg.src = '../img/villager/Idle.png';
 var oldManImg = new Image();
-oldManImg.src = '../../img/oldMan/Idle.png';
+oldManImg.src = '../img/oldMan/Idle.png';
 var kobugi = new Image();
-kobugi.src = '../../img/oldMan/kobugi.png';
+kobugi.src = '../img/oldMan/kobugi.png';
 charactersMap.forEach(function (row, i) {
   row.forEach(function (symbol, j) {
     // 1026 === villager

@@ -26,7 +26,7 @@ export const setStopAllPlay = (bol) => {
 }
 
 export const playerDownImage = new Image()
-playerDownImage.src = '../img/playerDown.png'
+playerDownImage.src = 'img/playerDown.png'
 
 export const canvas = document.querySelector('canvas')
 clickEvent()
@@ -115,13 +115,13 @@ export const battleZones = []
 export const characters = []
 
 const villagerImg = new Image()
-villagerImg.src = '../../img/villager/Idle.png'
+villagerImg.src = '../img/villager/Idle.png'
 
 const oldManImg = new Image()
-oldManImg.src = '../../img/oldMan/Idle.png'
+oldManImg.src = '../img/oldMan/Idle.png'
 
 const kobugi = new Image()
-kobugi.src = '../../img/oldMan/kobugi.png'
+kobugi.src = '../img/oldMan/kobugi.png'
 
 charactersMap.forEach((row, i) => {
   row.forEach((symbol, j) => {

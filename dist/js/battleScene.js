@@ -10,7 +10,7 @@ import { mySkillType, setBattleStart, my_turn, setMyTurn } from '../game/battle/
 import { clickSkillButton } from '../game/battle/attack';
 import { playerUrl } from '../web/logIn';
 var battleBackgroundImage = new Image();
-battleBackgroundImage.src = '../img/battleBackground2.png';
+battleBackgroundImage.src = 'img/battleBackground2.png';
 export var battleBackground = new Sprite({
   position: {
     x: 0,
@@ -160,5 +160,5 @@ var enterImageAnimation = function enterImageAnimation() {
 export function insertButton(atk) {
   console.log('공격', atk);
   var buttonDesc = "<div class=\"skill_button_desc\">\n      <div class=\"skill_desc\">\n        <p class=\"skill_name\">".concat(atk.name, "</p><p>atk: ").concat(atk.atk, "<br>cool: ").concat(atk.left_cool_time, "<br>left: ").concat(atk.limit, "</p></p>\n      </div>\n    </div>");
-  if (atk.name === 'Fireball') return "<div class=\"game_skill_btn\">\n          <img src=\"../../img/battle/fireball_icon.png\" style=\"height: 90px; object-fit: contain;\">\n          ".concat(buttonDesc, "\n        </div>");else if (atk.name === 'Lightning') return "<div class=\"game_skill_btn\"><img src=\"../../img/battle/lightning_icon.jpg\" style=\"height: 90px; object-fit: contain;\">\n          ".concat(buttonDesc, "\n      </div>");else return "<div class=\"game_skill_btn\"><img src=\"../../img/battle/punch_icon.png\" style=\"height: 90px; object-fit: contain;\">\n          ".concat(buttonDesc, "\n      </div>");
+  if (atk.name === 'Fireball') return "<div class=\"game_skill_btn\">\n          <img src=\"../img/battle/fireball_icon.png\" style=\"height: 90px; object-fit: contain;\">\n          ".concat(buttonDesc, "\n        </div>");else if (atk.name === 'Lightning') return "<div class=\"game_skill_btn\"><img src=\"../img/battle/lightning_icon.jpg\" style=\"height: 90px; object-fit: contain;\">\n          ".concat(buttonDesc, "\n      </div>");else return "<div class=\"game_skill_btn\"><img src=\"../img/battle/punch_icon.png\" style=\"height: 90px; object-fit: contain;\">\n          ".concat(buttonDesc, "\n      </div>");
 }
