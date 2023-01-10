@@ -1429,13 +1429,6 @@
     long "^4.0.0"
     protobufjs "~6.11.2"
 
-"@terra-money/use-wallet@^3.11.2":
-  version "3.11.2"
-  resolved "https://registry.yarnpkg.com/@terra-money/use-wallet/-/use-wallet-3.11.2.tgz#a71b3b6ea01b91281c70e56507174bae6f36a2b4"
-  integrity sha512-OFBiKZjGhpW1ghvTVjekrEkyq9tA4i6j84JgvtY6e6GRenseVeJOE+NEXUKgOwwVT8RWaDWVkC/n7maIF9uPRg==
-  dependencies:
-    "@terra-money/wallet-types" "^3.11.2"
-
 "@terra-money/wallet-controller@^3.11.2":
   version "3.11.2"
   resolved "https://registry.yarnpkg.com/@terra-money/wallet-controller/-/wallet-controller-3.11.2.tgz#6541f897790a4091b11154a57fa7c61e2df8a3b6"
@@ -1455,15 +1448,6 @@
     rxjs "^7.0.0"
     secp256k1 "^4.0.0"
     ws "^7.5.5"
-
-"@terra-money/wallet-provider@^3.11.2":
-  version "3.11.2"
-  resolved "https://registry.yarnpkg.com/@terra-money/wallet-provider/-/wallet-provider-3.11.2.tgz#09a02d880ba8a261aa2b2a0b3f887dc2d83db379"
-  integrity sha512-uUBtrQ67OG2s8eHoo1mHpudX22dHQ9v3MLedxPWo9FNGVeBnLOd0G17glL2mnExopTHg4D/C/ivT/O8BvUTpFg==
-  dependencies:
-    "@terra-money/use-wallet" "^3.11.2"
-    "@terra-money/wallet-controller" "^3.11.2"
-    "@terra-money/web-extension-interface" "^3.11.2"
 
 "@terra-money/wallet-types@^3.11.2":
   version "3.11.2"
