@@ -9,7 +9,7 @@ module.exports = {
   entry: './src/main.js',
   // 컴파일 + 번들링된 js 파일이 저장될 경로와 이름 지정
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
   module: {

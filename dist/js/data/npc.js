@@ -1,0 +1,1 @@
+export var npc_list = [250, 251];
