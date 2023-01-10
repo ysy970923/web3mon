@@ -55,6 +55,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
+    new NodePolyfillPlugin()
   ],
   devtool: 'source-map',
   // https://webpack.js.org/concepts/mode/#mode-development

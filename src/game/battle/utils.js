@@ -1,4 +1,3 @@
-import { connectWallets } from '../../web/logIn'
 import { setOpponentId } from '../../js/battleScene'
 
 export let battle_start = false
@@ -6,9 +5,6 @@ export let my_turn
 export let mySkillType
 export let battleId
 
-document.getElementById('selectType').addEventListener('change', () => {
-  connectWallets()
-})
 
 /**
  *

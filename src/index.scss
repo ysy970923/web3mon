@@ -294,8 +294,8 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 200px;
-  height: 200px;
+  width: 20px;
+  height: 20px;
   margin-bottom: 20px;
   z-index: 9;
 }
@@ -679,6 +679,42 @@ img {
         }
 
         .img_outer {
+          background: white;
+          border-radius: 6px;
+          padding: 7px;
+          width: 45px;
+        }
+      }
+
+      .single-wallet {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;
+        border: none;
+        background: rgba(0, 0, 0, 0);
+        color: rgba(255, 255, 255, 0.9);
+        padding: 12px 10px;
+        width: 95%;
+        border-radius: 6px;
+        outline: none;
+
+        &:hover {
+          background-color: rgba(250, 250, 250, 0.15);
+          outline: none;
+          cursor: pointer;
+        }
+        &:focus {
+          outline: 2px solid rgba(240, 240, 240, 0.2);
+        }
+
+        .content {
+          margin-left: 12px;
+          width: 90%;
+          text-align: left;
+        }
+
+        .icon {
           background: white;
           border-radius: 6px;
           padding: 7px;

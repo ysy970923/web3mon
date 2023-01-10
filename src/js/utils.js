@@ -33,108 +33,132 @@ worker.onerror = function (err) {
   console.log(err)
 }
 
-const nearConfig = {
-  networkId: 'mainnet',
-  keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore(),
-  nodeUrl: 'https://rpc.mainnet.near.org',
-  walletUrl: 'https://wallet.near.org',
-  helperUrl: 'https://helper.mainnet.near.org',
-  explorerUrl: 'https://explorer.mainnet.near.org',
-}
+export async function findMyNFT() {
+  document.getElementById('chain_containers').style.display = 'none'
+  document.getElementById('loading_container').style.display = 'block'
 
-export async function author() {
-  const nearConnection = await nearApi.connect(nearConfig)
-
-  const walletConnection = new nearApi.WalletConnection(nearConnection)
-  console.log('월렛 커넥션', walletConnection)
-  await walletConnection.requestSignIn({ contractId: 'web3mon.near' }) // our game contract address
-}
-
-export async function chainConfigInit() {
-  window.chain = document.getElementById('chainType').value // NEAR Protocol
-  // window.collection = document.getElementById('contractAddress').value // NPunks
-  window.accountId = document.getElementById('accountId').value // khjdaniel.near
-
-  console.log(
-    '체콘 실행되고 체크',
-    window.chain,
-    window.collection,
-    window.accountId
-  )
-
-  if (
-    window.chain === '' ||
-    window.collection === '' ||
-    window.accountId === ''
-  )
-    return
+  if (window.chain === '' || window.accountId === '') return
 
   // 체인이 니어일 때
   if (window.chain === 'near') {
-    const nearConnection = await nearApi.connect(nearConfig)
-
-    window.walletConnection = new nearApi.WalletConnection(nearConnection)
-
-    // await walletConnection.requestSignIn('web3mon.near') // our game contract address
-
-    window.contract = await new nearApi.Contract(
-      window.walletConnection.account(),
-      window.collection,
-      {
-        // View methods are read only. They don't modify the state, but usually return some value.
-        viewMethods: [
-          'nft_token',
-          'nft_metadata',
-          'nft_tokens_for_owner',
-          'nft_supply_for_owner',
-        ],
-        // Change methods can modify the state. But you don't receive the returned value when called.
-        changeMethods: [],
-      }
-    )
-
-    var metadata = await window.contract.nft_metadata() // 이 NFT collection의 정보
-
-    var data = await window.contract.nft_tokens_for_owner({
-      account_id: window.accountId,
+    var nft_contract_list = [
+      'near-punks.near',
+      'nearnautnft.near',
+      'asac.near',
+      'tinkerunion_nft.enleap.near',
+      'v0.apemetaerror.near',
+      'cartelgen1.neartopia.near',
+      'realbirds.near',
+      'mrbrownproject.near',
+    ]
+    var args = {
+      account_id: window.wallet.getAccountId(),
       from_index: '0',
       limit: 50,
-    })
-
+    }
     // 초기화
     document.querySelector('#nftListBox').innerHTML = ''
     document.getElementById('tokenId').value = ''
     let imgs = []
 
-    if (data.length !== 0) {
-      data.forEach((nft) => {
-        let src = ''
-        if (nft.metadata.media.includes('https://')) src = nft.metadata.media
-        else src = metadata.base_uri + '/' + nft.metadata.media
-
-        const name = metadata.name + ' #' + (Number(nft.metadata.title) + 1)
-
-        let img = document.createElement('img')
-        img.src = src
-        img.style = 'width: 100px; opacity: 0.5;'
-        img.onclick = () => {
-          onImgClick(img, nft.token_id, name)
-        }
-        imgs.push(img)
+    for (var contract_id of nft_contract_list) {
+      var metadata = await window.wallet.viewMethod({
+        contractId: contract_id,
+        method: 'nft_metadata',
       })
-    } else {
+      var data = await window.wallet.viewMethod({
+        contractId: contract_id,
+        method: 'nft_tokens_for_owner',
+        args: args,
+      })
+
+      if (data.length !== 0) {
+        data.forEach((nft) => {
+          let src = ''
+          if (nft.metadata.media.includes('https://')) src = nft.metadata.media
+          else src = metadata.base_uri + '/' + nft.metadata.media
+
+          const name = metadata.name + ' #' + (Number(nft.metadata.title) + 1)
+
+          let img = document.createElement('img')
+          img.src = src
+          img.style = 'width: 100px; opacity: 0.5;'
+          img.setAttribute('asset_id', nft.token_id)
+          img.setAttribute('name', name)
+          img.onclick = onImgClick
+          imgs.push(img)
+        })
+      }
+    }
+    imgs.forEach((i) => {
+      document.querySelector('#nftListBox').appendChild(i)
+    })
+    if (imgs.length === 0) {
       let p = document.createElement('p')
       p.innerHTML = 'There is no NFT'
       document.querySelector('#nftListBox').appendChild(p)
     }
+  }
 
+  if (window.chain === 'terra') {
+    var nft_contract_list = [
+      'terra16ds898j530kn4nnlc7xlj6hcxzqpcxxk4mj8gkcl3vswksu6s3zszs8kp2',
+      'terra17vysjt8ws64v8w696mavjpqs8mksf8s993qghlust9yey8qcmppqnhgw0e',
+    ]
+    document.querySelector('#nftListBox').innerHTML = ''
+    document.getElementById('tokenId').value = ''
+    var imgs = []
+    for (var contract_id of nft_contract_list) {
+      var args = {
+        owner:
+          window.wallet.getAccountId(),
+      }
+      var res = await window.wallet.viewMethod({
+        contractId: contract_id,
+        method: 'tokens',
+        args: args,
+      })
+
+      var key = Object.keys(res.data)[0]
+      for (var i in res.data[key]) {
+        var nft = res.data[key][i]
+        var args = { token_id: nft }
+        var nft_data = await window.wallet.viewMethod({
+          contractId: contract_id,
+          method: 'nft_info',
+          args: args,
+        })
+        var img = document.createElement('img')
+        console.log(nft_data)
+        var img_url = nft_data.data.extension.image
+        if (img_url === undefined) {
+          var response = await fetch(nft_data.data.token_uri, {
+            method: 'GET',
+          })
+          response = await response.json()
+          // console.log(response)
+          img_url = response.media
+        } else if (!img_url.includes('https://'))
+          img_url = `https://ipfs.io/ipfs/${nft_data.data.extension.image.replace(
+            'ipfs://',
+            ''
+          )}`
+        img.src = img_url
+        img.style = 'width: 100px; opacity: 0.5;'
+        img.setAttribute('asset_id', nft)
+        img.setAttribute('name', nft_data.data.extension.name)
+        img.onclick = onImgClick
+        imgs.push(img)
+      }
+    }
     imgs.forEach((i) => {
       document.querySelector('#nftListBox').appendChild(i)
     })
-
-    console.log('컬렉션 로그인 완료')
-    document.getElementById('chain_containers').style.display = 'none'
-    document.getElementById('nft_choose_container').style.display = 'flex'
+    if (imgs.length === 0) {
+      let p = document.createElement('p')
+      p.innerHTML = 'There is no NFT'
+      document.querySelector('#nftListBox').appendChild(p)
+    }
   }
 
   // 체인이 알고랜드일 때
@@ -190,16 +214,17 @@ export async function chainConfigInit() {
       document.querySelector('#nftListBox').appendChild(i)
     })
   }
+  document.getElementById('loading_container').style.display = 'none'
+  document.getElementById('nft_choose_container').style.display = 'flex'
 }
 
 let prevSelect = undefined
-function onImgClick(img, asset_id, nft_name) {
+function onImgClick(e) {
   if (prevSelect !== undefined) prevSelect.style.opacity = 0.5
-  img.style.opacity = 1.0
-  prevSelect = img
+  e.target.style.opacity = 1.0
+  prevSelect = e.target
+  window.imgUrl = e.target.src
 
-  document.getElementById('tokenId').value = asset_id
-  window.imgUrl = img.src
-  window.name = nft_name
-  window.tokenId = document.getElementById('tokenId').value
+  window.name = e.target.getAttribute('name')
+  window.tokenId = e.target.getAttribute('asset_id')
 }

@@ -1,6 +1,6 @@
-import { authorize, temporaryLogin, realLogin } from './logIn'
+import { temporaryLogin } from './logIn'
 import * as nearAPI from 'near-api-js'
-import { chainConfigInit, author } from '../js/utils'
+import { findMyNFT } from '../js/utils'
 
 function clickOutSideEvent1(e) {
   if (!document.getElementById('guidanceCard').contains(e.target)) {
@@ -30,23 +30,10 @@ document.getElementById('profileButton').addEventListener('click', (e) => {
   document.body.addEventListener('click', clickOutSideProfileEvent, true)
 })
 
-// 지갑 연결
-document
-  .getElementById('connectWallet')
-  ?.addEventListener('click', async (e) => {
-    await authorize()
-  })
-
 document.getElementById('find_my_nft').addEventListener('click', async (e) => {
   console.log('로그 클릭')
-  await chainConfigInit()
+  await findMyNFT()
 })
-
-document
-  .getElementById('find_my_login')
-  .addEventListener('click', async (e) => {
-    await author()
-  })
 
 document.getElementById('joinGame').addEventListener('click', (e) => {
   temporaryLogin()
@@ -61,7 +48,11 @@ for (let i = 0; i < guideBtns.length; i++) {
 }
 
 document.getElementById('start_login_button').addEventListener('click', (e) => {
-  document.getElementById('connect_modal_box').style.display = 'flex'
+  window.wallet.signIn()
+})
+
+document.getElementById('sign_out').addEventListener('click', (e) => {
+  window.wallet.signOut()
 })
 
 const cols = document.querySelectorAll('.one_collection')

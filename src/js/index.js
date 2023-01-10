@@ -1,4 +1,3 @@
-import { connectWallets } from '../web/logIn'
 import { collisions } from '../game/data/collisions'
 import { battleZonesData } from '../game/data/battleZones'
 import { charactersMapData } from '../game/data/characters'
