@@ -519,6 +519,7 @@ img {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  overflow: scroll;
 }
 
 .main_box {
