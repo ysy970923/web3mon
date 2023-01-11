@@ -98,19 +98,21 @@ export class TerraWallet {
   signIn() {
     document.querySelector('#terraWallets').innerHTML = ''
     this.availableConnections.value.forEach((e) => {
-      var button = document.createElement('button')
-      button.classList.add('one_collection')
-      button.innerHTML = `<div class="img_outer">
+      if (e.name[0] !== 'V') {
+        var button = document.createElement('button')
+        button.classList.add('one_collection')
+        button.innerHTML = `<div class="img_outer">
         <img src=${e.icon} />
       </div>
       <div class="collection_name">${e.name}</div>`
-      button.addEventListener('click', (ev) => {
-        this.controller.connect(e.type, e.identifier).then(() => {
-          location.reload()
+        button.addEventListener('click', (ev) => {
+          this.controller.connect(e.type, e.identifier).then(() => {
+            location.reload()
+          })
         })
-      })
 
-      document.querySelector('#terraWallets').appendChild(button)
+        document.querySelector('#terraWallets').appendChild(button)
+      }
     })
   }
 
