@@ -16,14 +16,16 @@ export function offerBattle(opponentId, isMyRequest, battleId) {
     document.getElementById('refuseBattleBtn').style.display = 'none'
     document.getElementById('selectTypeCard').style.display = 'block'
 
-    if (npc_list.contains(opponentId)) {
+    if (npc_list.includes(opponentId)) {
       // NPC면
       console.log('NPC 예스', opponentId)
       setOpponentId(opponentId)
       document
         .getElementById('selectTypeBtn')
-        .addEventListener('click', (e) => {
-          startBattleSetting(250, true, '')
+        .addEventListener('click', async (e) => {
+            if (await window.battle.start('bot')) {
+                window.battle.chooseAction(11108880)
+            }
         })
     } else {
       document

@@ -1,4 +1,4 @@
-import { attacked, endBattle, opponent_id } from './battleScene'
+import { endBattle, opponent_id } from './battleScene'
 import { startBattleSetting } from '../game/battle/utils'
 import { battle, local_position } from '../js/index'
 import { ACTION, CHAT, NETWORK } from '../game/network/callType'
@@ -151,8 +151,8 @@ function onmessage(type, data) {
       }
       break
 
-    case NETWORK.ATTACK:
-      attacked('attack')
+    case NETWORK.ACTION:
+      window.battle.receiveQueue.push(data.msg)
       break
 
     case NETWORK.LEAVE_BATTLE:
@@ -225,6 +225,9 @@ export function log_error(text) {
 export function reportError(errMessage) {
   log_error(`Error ${errMessage.name}: ${errMessage.message}`)
 }
+
+// TODO (used for battle)
+export function send(msg){}
 
 /**
  * 서버와 연결하도록 하는 함수

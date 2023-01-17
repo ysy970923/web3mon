@@ -7,7 +7,7 @@ const renderClothes = () => {
   clothesList.forEach((item) => {
     let img = document.createElement('img')
     img.src = item.source
-    img.style.width = '100px'
+    img.style.width = 'min(100px, 15%)'
     img.style.transition = 'all 0.2s'
     img.style.background =
       chosenCloth === item.id

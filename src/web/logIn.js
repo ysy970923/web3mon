@@ -19,7 +19,6 @@ window.wallet.startUp()
 
 /** temp login : only  */
 export const temporaryLogin = async () => {
-  console.log('temp login')
   var verified = await window.wallet.verifyOwner(
     window.collection,
     window.tokenId
@@ -28,17 +27,13 @@ export const temporaryLogin = async () => {
     window.alert('Owner Verification Fail')
     // return
   }
-  player.name = truncate(window.wallet.accountId, 20)
+  player.name = truncate(window.wallet.getAccountId(), 20)
   playerUrl = window.imgUrl
   document.getElementById('chatOpenBtn').style.display = 'block'
   // document.getElementById('loginDiv').style.display = 'none'
   document.getElementById('profileName').innerHTML = window.name
   document.getElementById('profileNFT').innerHTML = player.name
   document.getElementById('profileImg').src = playerUrl
-  document.getElementById('profileHP').innerHTML =
-    'HP: ' + monsters[window.collection].health
-  document.getElementById('profileAP').innerHTML =
-    'AP: ' + monsters[window.collection].attacks[0].damage
   if (window.chain === 'near') {
     document.getElementById('parasUrl').addEventListener('click', (e) => {
       window

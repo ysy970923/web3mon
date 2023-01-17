@@ -9,14 +9,14 @@ import { battleAnimationId } from '../game/battle/utils/enterBattle'
 import {
   mySkillType,
   setBattleStart,
-  my_turn,
+  my_attack,
   setMyTurn,
 } from '../game/battle/utils'
 import { clickSkillButton } from '../game/battle/attack'
 import { playerUrl } from '../web/logIn'
 
 const battleBackgroundImage = new Image()
-battleBackgroundImage.src = 'img/battleBackground2.png'
+battleBackgroundImage.src = './img/Beach sunset.jpg'
 
 export const battleBackground = new Sprite({
   position: {
@@ -24,7 +24,6 @@ export const battleBackground = new Sprite({
     y: 0,
   },
   image: battleBackgroundImage,
-  scale: 1.2,
 })
 
 export let opponent_id = null
@@ -34,22 +33,80 @@ export let renderedSprites
 export let queue
 
 /** 공격이 들어와서 내가 공격을 받음 */
-export function attacked(attack) {
-  queue.push(() => {
-    opponent.attack({
-      attack: opponent.attacks[attack],
-      recipient: myMonster,
-      renderedSprites,
-    })
-    setMyTurn(true)
+export function renderState(data) {
+  document.querySelector('#dialogueBox').style.display = 'block'
+  document.querySelector('#dialogueBox').innerHTML =
+    myMonster.name +
+    ' used ' +
+    data.actions[data.my_index].name +
+    '\n' +
+    opponent.name +
+    ' used ' +
+    data.actions[1 - data.my_index].name
+  setTimeout(() => {
+    document.querySelector('#dialogueBox').style.display = 'none'
+  }, 2000)
 
-    if (myMonster.health <= 0) {
-      queue.push(() => {
-        myMonster.faint()
-      })
-      endBattle('LOSE')
-    }
+  myMonster.action({
+    action: data.actions[data.my_index],
+    opponent: opponent,
+    renderedSprites,
+    health: data.battleState.player_state[data.my_index].hp,
   })
+
+  opponent.action({
+    action: data.actions[1 - data.my_index],
+    opponent: myMonster,
+    renderedSprites,
+    health: data.battleState.player_state[1 - data.my_index].hp,
+  })
+
+  if (myMonster.health <= 0) {
+    myMonster.faint()
+    endBattle('LOSE')
+  }
+  // 내가 이긴 경우
+  else if (opponent.health <= 0) {
+    opponent.faint()
+    endBattle('WIN')
+  }
+
+  document.querySelector('#attacksBox').innerHTML = ''
+  if (window.battle.isMyAttack()) {
+    myMonster.skills.slice(0, 3).forEach((attack, index) => {
+      const button = document.createElement('button')
+      button.id = `skill_button_${index}th`
+
+      button.innerHTML = insertButton(attack)
+
+      button.value = index
+      document.querySelector('#attacksBox').append(button)
+    })
+
+    // our event listeners for our buttons (attack)
+    document.querySelectorAll('button').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        clickSkillButton(e.currentTarget.value)
+      })
+    })
+  } else {
+    myMonster.skills.slice(3, 6).forEach((defense, index) => {
+      const button = document.createElement('button')
+      button.id = `skill_button_${index}th`
+
+      button.innerHTML = insertButton(defense)
+
+      button.value = index + 3
+      document.querySelector('#attacksBox').append(button)
+    })
+
+    // our event listeners for our buttons (attack)
+    document.querySelectorAll('button').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        clickSkillButton(e.currentTarget.value)
+      })
+    })
+  }
 }
 
 /**
@@ -102,20 +159,17 @@ export function initBattle() {
     '#battleOpponentName'
   ).innerHTML = `opponent(${others[opponent_id].sprite.name})`
 
-  if (!my_turn) {
-    document.querySelector('#dialogueBox').style.display = 'block'
-    document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
-  }
-
+  //   if (!my_attack) {
+  // document.querySelector('#dialogueBox').style.display = 'block'
+  // document.querySelector('#dialogueBox').innerHTML = 'Wait For your turn'
+  //   }
+  var battleState = window.battle.data.battleState
   const opponentUser = {
     image: others[opponent_id].baseImage,
     isEnemy: true,
     name: others[opponent_id].sprite.name,
-    health: skillTypes[others[opponent_id].skillType].health,
-    attacks: JSON.parse(
-      JSON.stringify(skillTypes[others[opponent_id].skillType].atk)
-    ),
-    defenses: skillTypes[others[opponent_id].skillType].def,
+    health: battleState.player_state[1 - window.battle.data.my_index].hp,
+    skills: battleState.player_state[1 - window.battle.data.my_index].skills,
   }
   opponent = new Monster(opponentUser)
 
@@ -123,11 +177,11 @@ export function initBattle() {
     image: player.baseImage,
     isEnemy: false,
     name: player.name,
-    health: skillTypes[mySkillType].health,
-    attacks: JSON.parse(JSON.stringify(skillTypes[mySkillType].atk)),
-    defenses: skillTypes[mySkillType].def,
+    health: battleState.player_state[window.battle.data.my_index].hp,
+    skills: battleState.player_state[window.battle.data.my_index].skills,
   }
   myMonster = new Monster(myCharacter)
+  console.log(battleState)
 
   renderedSprites = [opponent, myMonster]
 
@@ -137,24 +191,43 @@ export function initBattle() {
 
   document.querySelector('#attacksBox').style[
     'grid-template-columns'
-  ] = `repeat(${myMonster.attacks.length}, 1fr)`
+  ] = `repeat(3, 1fr)`
+  if (window.battle.isMyAttack()) {
+    myMonster.skills.slice(0, 3).forEach((attack, index) => {
+      const button = document.createElement('button')
+      button.id = `skill_button_${index}th`
 
-  myMonster.attacks.forEach((attack, index) => {
-    const button = document.createElement('button')
-    button.id = `skill_button_${index}th`
+      button.innerHTML = insertButton(attack)
 
-    button.innerHTML = insertButton(attack)
-
-    button.value = attack.value
-    document.querySelector('#attacksBox').append(button)
-  })
-
-  // our event listeners for our buttons (attack)
-  document.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', (e) => {
-      clickSkillButton(e.currentTarget.value)
+      button.value = index
+      document.querySelector('#attacksBox').append(button)
+      console.log(document.querySelector('#attacksBox'))
     })
-  })
+
+    // our event listeners for our buttons (attack)
+    document.querySelectorAll('button').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        clickSkillButton(e.currentTarget.value)
+      })
+    })
+  } else {
+    myMonster.skills.slice(3, 6).forEach((defense, index) => {
+      const button = document.createElement('button')
+      button.id = `skill_button_${index}th`
+
+      button.innerHTML = insertButton(defense)
+
+      button.value = index + 3
+      document.querySelector('#attacksBox').append(button)
+    })
+
+    // our event listeners for our buttons (attack)
+    document.querySelectorAll('button').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        clickSkillButton(e.currentTarget.value)
+      })
+    })
+  }
 }
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
@@ -173,15 +246,15 @@ const enterImageAnimation = () => {
   document.getElementById('enter_collection').innerText = player.name
   document.getElementById('enter_name').innerText = player.name
   document.getElementById('enter_exterior').innerText = player.name
-  document.getElementById(
-    'enter_atk'
-  ).innerText = `${skillTypes[mySkillType].attack} atk`
-  document.getElementById(
-    'enter_def'
-  ).innerText = `${skillTypes[mySkillType].attack} def`
-  document.getElementById(
-    'enter_health'
-  ).innerText = `${skillTypes[mySkillType].health} health`
+  //   document.getElementById(
+  //     'enter_atk'
+  //   ).innerText = `${myMonster.skills[0].atk} atk`
+  //   document.getElementById(
+  //     'enter_def'
+  //   ).innerText = `${myMonster.skills[3].def} def`
+  //   document.getElementById(
+  //     'enter_health'
+  //   ).innerText = `${myMonster.health} health`
 
   console.log('열리는 실행')
   document.querySelector('#battle_enter').style.transition = 'all 0s ease-out'
@@ -196,26 +269,38 @@ const enterImageAnimation = () => {
   }, 5000)
 }
 
-export function insertButton(atk) {
-  console.log('공격', atk)
-
-  const buttonDesc = `<div class="skill_button_desc">
-      <div class="skill_desc">
-        <p class="skill_name">${atk.name}</p><p>atk: ${atk.atk}<br>cool: ${atk.left_cool_time}<br>left: ${atk.limit}</p></p>
-      </div>
-    </div>`
-
-  if (atk.name === 'Fireball')
+export function insertButton(action) {
+  if (action.name === 'Fireball')
     return `<div class="game_skill_btn">
-          <img src="../img/battle/fireball_icon.png" style="height: 90px; object-fit: contain;">
-          ${buttonDesc}
+          <img src="../.././img/battle/fireball_icon.png" style="height: 90px; object-fit: contain;">
+          <div class="skill_button_desc">
+            <div class="skill_desc">
+                <p class="skill_name">${action.name}</p><p>atk: ${action.atk}<br>left: ${action.remains}<br>critical: ${action.critical_prob}%</p></p>
+            </div>
+          </div>
         </div>`
-  else if (atk.name === 'Lightning')
-    return `<div class="game_skill_btn"><img src="../img/battle/lightning_icon.jpg" style="height: 90px; object-fit: contain;">
-          ${buttonDesc}
+  else if (action.name === 'Lightning')
+    return `<div class="game_skill_btn"><img src=".././img/battle/lightning_icon.jpg" style="height: 90px; object-fit: contain;">
+          <div class="skill_button_desc">
+            <div class="skill_desc">
+                <p class="skill_name">${action.name}</p><p>atk: ${action.atk}<br>left: ${action.remains}<br>critical: ${action.critical_prob}%</p></p>
+            </div>
+          </div>
+      </div>`
+  else if (action.name === 'Default')
+    return `<div class="game_skill_btn"><img src=".././img/battle/punch_icon.png" style="height: 90px; object-fit: contain;">
+          <div class="skill_button_desc">
+            <div class="skill_desc">
+                <p class="skill_name">${action.name}</p><p>atk: ${action.atk}<br>left: ${action.remains}<br>critical: ${action.critical_prob}%</p></p>
+            </div>
+          </div>
       </div>`
   else
-    return `<div class="game_skill_btn"><img src="../img/battle/punch_icon.png" style="height: 90px; object-fit: contain;">
-          ${buttonDesc}
-      </div>`
+    return `<div class="game_skill_btn"><img src=".././img/battle/punch_icon.png" style="height: 90px; object-fit: contain;">
+                <div class="skill_button_desc">
+                    <div class="skill_desc">
+                    <p class="skill_name">${action.name}</p><p>def: ${action.def}<br>left: ${action.remains}<br>reflection: ${action.reflection_prob}%</p></p>
+                    </div>
+                </div>
+          </div>`
 }

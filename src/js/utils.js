@@ -42,14 +42,15 @@ export async function findMyNFT() {
   // 체인이 니어일 때
   if (window.chain === 'near') {
     var nft_contract_list = [
-      'near-punks.near',
-      'nearnautnft.near',
-      'asac.near',
-      'tinkerunion_nft.enleap.near',
-      'v0.apemetaerror.near',
-      'cartelgen1.neartopia.near',
-      'realbirds.near',
-      'mrbrownproject.near',
+      'asac.web3mon.testnet',
+    //   'near-punks.near',
+    //   'nearnautnft.near',
+    //   'asac.near',
+    //   'tinkerunion_nft.enleap.near',
+    //   'v0.apemetaerror.near',
+    //   'cartelgen1.neartopia.near',
+    //   'realbirds.near',
+    //   'mrbrownproject.near',
     ]
     var args = {
       account_id: window.wallet.getAccountId(),
@@ -82,7 +83,8 @@ export async function findMyNFT() {
 
           let img = document.createElement('img')
           img.src = src
-          img.style = 'width: 100px; opacity: 0.5;'
+          img.style = 'width: min(100px, 15%); opacity: 0.5;'
+          img.setAttribute('collection', contract_id)
           img.setAttribute('asset_id', nft.token_id)
           img.setAttribute('name', name)
           img.onclick = onImgClick
@@ -111,8 +113,7 @@ export async function findMyNFT() {
     var imgs = []
     for (var contract_id of nft_contract_list) {
       var args = {
-        owner:
-          window.wallet.getAccountId(),
+        owner: window.wallet.getAccountId(),
       }
       var res = await window.wallet.viewMethod({
         contractId: contract_id,
@@ -130,7 +131,6 @@ export async function findMyNFT() {
           args: args,
         })
         var img = document.createElement('img')
-        console.log(nft_data)
         var img_url = nft_data.data.extension.image
         if (img_url === undefined) {
           var response = await fetch(nft_data.data.token_uri, {
@@ -145,8 +145,9 @@ export async function findMyNFT() {
             ''
           )}`
         img.src = img_url
-        img.style = 'width: 100px; opacity: 0.5;'
+        img.style = 'width: min(100px, 15%); opacity: 0.5;'
         img.setAttribute('asset_id', nft)
+        img.setAttribute('collection', contract_id)
         img.setAttribute('name', nft_data.data.extension.name)
         img.onclick = onImgClick
         imgs.push(img)
@@ -228,4 +229,5 @@ function onImgClick(e) {
 
   window.name = e.target.getAttribute('name')
   window.tokenId = e.target.getAttribute('asset_id')
+  window.collection = e.target.getAttribute('collection')
 }

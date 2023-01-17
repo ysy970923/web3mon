@@ -1,13 +1,13 @@
 import { Sprite } from './Sprite'
 import { gsap } from 'gsap'
-import { my_turn } from '../battle/utils'
+import { my_attack } from '../battle/utils'
 import { MonsterSkillType } from './objectType'
 
 var larvaImage = new Image()
-larvaImage.src = '../../img/draggleSprite.png'
+larvaImage.src = '../.././img/draggleSprite.png'
 
 var fireballImage = new Image()
-fireballImage.src = '../../img/fireball.png'
+fireballImage.src = '../.././img/fireball.png'
 
 export class Monster extends Sprite {
   constructor({
@@ -19,7 +19,7 @@ export class Monster extends Sprite {
     name,
     health,
     isEnemy,
-    attacks,
+    skills,
   }) {
     var position
     if (isEnemy)
@@ -44,7 +44,7 @@ export class Monster extends Sprite {
     this.initialHealth = health
     this.health = health
     this.isEnemy = isEnemy
-    this.attacks = attacks
+    this.skills = skills
   }
 
   faint() {
@@ -58,24 +58,20 @@ export class Monster extends Sprite {
   }
 
   /** 공격 : 공격의 종류, 공격 받는 사람, 배틀에 참여중인 sprites */
-  attack({ attack, recipient, renderedSprites }) {
-    document.querySelector('#dialogueBox').style.display = 'block'
-    document.querySelector('#dialogueBox').innerHTML =
-      this.name + ' used ' + attack.name
-    setTimeout(() => {
-      if (my_turn) document.querySelector('#dialogueBox').style.display = 'none'
-    }, 2000)
+  action({ action, opponent, renderedSprites, health }) {
+    let healthBar = '#playerHealthBar'
+    if (this.isEnemy) healthBar = '#enemyHealthBar'
 
-    let healthBar = '#enemyHealthBar'
-    if (this.isEnemy) healthBar = '#playerHealthBar'
+    this.health = health
+    gsap.to(healthBar, {
+      width: (100 * this.health) / this.initialHealth + '%',
+    })
 
     let rotation = 1
     if (this.isEnemy) rotation = -2.2
 
-    recipient.health -= attack.atk
-
-    switch (attack.effect) {
-      case MonsterSkillType.FIREBALL:
+    switch (action.name) {
+      case MonsterSkillType.DEATH_SPIRAL:
         var fireball = new Sprite({
           position: {
             x: this.position.x,
@@ -88,17 +84,20 @@ export class Monster extends Sprite {
           },
           animate: true,
           rotation,
-          name: MonsterSkillType.FIREBALL,
+          name: MonsterSkillType.DEATH_SPIRAL,
         })
         renderedSprites.splice(1, 0, fireball)
 
-        gsap.to(
-          fireball.position,
-          attackGaspAnimation(healthBar, renderedSprites, recipient)
-        )
+        gsap.to(fireball.position, {
+          x: opponent.position.x,
+          y: opponent.position.y,
+          onComplete: () => {
+            renderedSprites.splice(1, 1)
+          },
+        })
         break
 
-      case MonsterSkillType.LARVA:
+      case MonsterSkillType.CELSIUS_EXPLOSION:
         var larva = new Sprite({
           position: {
             x: this.position.x,
@@ -111,17 +110,20 @@ export class Monster extends Sprite {
           },
           animate: true,
           rotation,
-          name: MonsterSkillType.LARVA,
+          name: MonsterSkillType.CELSIUS_EXPLOSION,
         })
         renderedSprites.splice(1, 0, larva)
 
-        gsap.to(
-          larva.position,
-          attackGaspAnimation(healthBar, renderedSprites, recipient)
-        )
+        gsap.to(larva.position, {
+          x: opponent.position.x,
+          y: opponent.position.y,
+          onComplete: () => {
+            renderedSprites.splice(1, 1)
+          },
+        })
         break
 
-      case MonsterSkillType.TACKLE:
+      case MonsterSkillType.BLOCK_OF_FUD:
         var tl = gsap.timeline()
 
         var movementDistance = 20
@@ -135,18 +137,14 @@ export class Monster extends Sprite {
             duration: 0.1,
             onComplete: () => {
               // Enemy actually gets hit
-              gsap.to(healthBar, {
-                width: (100 * recipient.health) / recipient.initialHealth + '%',
-              })
-
-              gsap.to(recipient.position, {
-                x: recipient.position.x + 10,
+              gsap.to(opponent.position, {
+                x: opponent.position.x + 10,
                 yoyo: true,
                 repeat: 5,
                 duration: 0.08,
               })
 
-              gsap.to(recipient, {
+              gsap.to(opponent, {
                 opacity: 0,
                 repeat: 5,
                 yoyo: true,
@@ -158,6 +156,26 @@ export class Monster extends Sprite {
             x: this.position.x,
           })
         break
+      case 'Shield':
+        // const shieldImage = new Image()
+        // shieldImage.src = './img/shield.png'
+        // const shield = new Sprite({
+        //   position: {
+        //     x: this.position.x,
+        //     y: this.position.y,
+        //   },
+        //   image: shieldImage,
+        //   frames: {
+        //     max: 21,
+        //     hold: 5,
+        //   },
+        //   animate: true,
+        // })
+        // renderedSprites.splice(1, 0, shield)
+        // setTimeout(() => {
+        //   renderedSprites.splice(1, 1)
+        // }, 2000)
+        break
     }
   }
 }
@@ -168,6 +186,7 @@ const attackGaspAnimation = (healthBar, renderedSprites, recipient) => {
     y: recipient.position.y,
     onComplete: () => {
       // Enemy actually gets hit
+      console.log(recipient.health)
       gsap.to(healthBar, {
         width: (100 * recipient.health) / recipient.initialHealth + '%',
       })

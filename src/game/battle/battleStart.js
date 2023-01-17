@@ -1,7 +1,7 @@
 import { others } from '../../js/network'
 import { canvas, battle, stopAllPlay } from '../../js/index'
 import { offerBattle } from './acceptBattleBtn'
-import { player } from '../../js/index'
+import { Battle } from '../../js/state_channel'
 import { clickOutSideProfileEvent } from '../../web/clickButtons'
 
 /**
@@ -31,7 +31,7 @@ export function clickEvent() {
     }
   })
 }
-
+window.battle = new Battle()
 /**
  * when clicked another player to battle.
  * @param {string} key

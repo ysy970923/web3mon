@@ -45,6 +45,7 @@
     "base58-js": "^1.0.5",
     "core-js": "^3.25.5",
     "eslint": "^8.25.0",
+    "ethers": "^5.7.2",
     "gsap": "^3.11.3",
     "near-api-js": "^1.1.0",
     "node-polyfill-webpack-plugin": "^2.0.1",

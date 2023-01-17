@@ -70,7 +70,7 @@ export function transferMapTo(toMap) {
 
     showMapLoading()
 
-    background.image.src = '../../img/battleMap.png'
+    background.image.src = '../.././img/battleMap.png'
 
     setBoundaries(battleMapBoundaries)
 
@@ -106,7 +106,7 @@ export function transferMapTo(toMap) {
   } else if (toMap === MAP.MAIN) {
     document.getElementById('map_identifier').innerText =
       'MAIN map : you cannot fight here!'
-    background.image.src = '../../img/Pellet Town.png'
+    background.image.src = '../.././img/Pellet Town.png'
     showMapLoading()
 
     const body = {

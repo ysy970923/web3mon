@@ -14,8 +14,20 @@
   font-weight: 500;
   font-style: normal;
 }
+@font-face {
+  font-family: "210L";
+  src: url(../98f1ae15be6b46356d94.woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   overflow: hidden;
+  font-family: "210L", serif;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
 }
 
 .main_container {
@@ -343,7 +355,8 @@ img {
 }
 
 #nftListBox {
-  margin-top: 20px;
+  margin-top: min(20px, 1%);
+  text-align: center;
 }
 
 .battleNameTag {
@@ -473,15 +486,14 @@ img {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 3.5vw;
-  height: 85px;
+  padding: min(15px, 0.5%) 3.5vw;
   background: rgba(63, 52, 52, 0.02);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 0.2px solid rgba(220, 220, 220, 0.88);
 }
 .app_bar .logo {
-  width: 100px;
+  width: min(100px, 8%);
 }
 .app_bar .icons {
   display: flex;
@@ -542,8 +554,8 @@ img {
 }
 
 .connect_modal_box {
-  width: 80%;
-  height: 80%;
+  width: 60%;
+  height: max(60%, 350px);
   background: rgba(133, 122, 122, 0.8);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(1px);
@@ -562,14 +574,17 @@ img {
   font-size: 20px;
   width: 100%;
   text-align: center;
-  margin-top: 25px;
+  margin-top: min(15px, 1%);
+}
+.connect_modal_box .options-list-section-header {
+  display: none;
 }
 .connect_modal_box .chain_containers {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 80%;
+  height: 70%;
   width: 100%;
 }
 @media (max-width: 900px) {
@@ -674,7 +689,7 @@ img {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: -10px;
+  margin-top: min(30px, 2%);
 }
 .connect_modal_box .input_container input {
   width: 50%;
@@ -725,9 +740,9 @@ img {
 .nft_choose_container .nft_outer .img_container {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: min(15px, 1%);
+  text-align: center;
 }
 .nft_choose_container .nft_outer .img_container img {
   width: 130px;
@@ -746,7 +761,7 @@ img {
   border-radius: 7px;
   padding: 14px 30px;
   border: none;
-  margin-top: 30px;
+  margin-top: min(30px, 2%);
 }
 .web_custom_button:hover {
   background-color: rgb(20, 20, 20);
@@ -756,7 +771,7 @@ img {
 }
 
 .mt20 {
-  margin-top: 20px;
+  margin-top: min(20px, 1%);
 }
 /*!********************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/game.scss ***!

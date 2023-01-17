@@ -1,4 +1,4 @@
-import { my_turn, setMyTurn } from './utils'
+import { my_attack, setMyTurn } from './utils'
 import {
   opponent_id,
   myMonster,
@@ -11,11 +11,11 @@ import {
 import { ws } from '../../js/network'
 import { insertButton } from '../../js/battleScene'
 
-export const checkCanUserSkill = (selectedAttack) => {
-  if (selectedAttack.left_cool_time > 0) {
+export const checkCanUserSkill = (selectedAction) => {
+  if (selectedAction.left_cool_time > 0) {
     window.alert('cool time is left')
     return false
-  } else if (selectedAttack.limit == 0) {
+  } else if (selectedAction.limit == 0) {
     window.alert('limit is over')
     return false
   } else {
@@ -29,56 +29,12 @@ export const checkCanUserSkill = (selectedAttack) => {
  *
  */
 export const clickSkillButton = (skillValue) => {
-  if (!my_turn) return
   console.log('밸류', skillValue)
 
-  const selectedAttack = myMonster.attacks.filter(
-    (doc) => parseInt(doc.value) === parseInt(skillValue)
-  )[0]
+  window.battle.chooseAction(skillValue)
 
-  if (!checkCanUserSkill(selectedAttack)) {
-    return
-  }
-
-  myMonster.attack({
-    attack: selectedAttack,
-    recipient: opponent,
-    renderedSprites,
-  })
-
-  myMonster.attacks.forEach((attack) => {
-    // 한번 공격했으니 전체 쿨타임 1씩 감소
-    if (attack.left_cool_time > 0) attack.left_cool_time -= 1
-  })
-
-  // 한번 공격했으니 사용한 공격의 사용 가능 횟수 1 감수
-  selectedAttack.limit -= 1
-  selectedAttack.left_cool_time = selectedAttack.cool_time
-
-  Array.from(document.querySelector('#attacksBox').childNodes).forEach(
-    (button, index) => {
-      const attack = myMonster.attacks[index]
-      button.innerHTML = insertButton(attack)
-    }
-  )
-
-  // NPC는 알아서 랜덤으로 공격해야하니까
-  if (opponent_id == 250) {
-    setTimeout(() => {
-      if (Math.random() < 0.5) attacked(0)
-      else attacked(1)
-    }, 3000)
-  } else sendAttack(opponent_id, myMonster.attacks.indexOf(selectedAttack))
-
-  // 내가 이긴 경우
-  if (opponent.health <= 0) {
-    queue.push(() => {
-      opponent.faint()
-    })
-    endBattle('WIN')
-  }
-
-  setMyTurn(false)
+  // NPC는 반사 공격 중
+  if (opponent_id != 250) sendAttack(opponent_id, myMonster.attacks.indexOf(skillValue))
 }
 
 /**

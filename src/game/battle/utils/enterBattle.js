@@ -44,6 +44,11 @@ export function enterBattle(animationId) {
 export function animateBattle() {
   battleAnimationId = window.requestAnimationFrame(animateBattle)
 
+  battleBackground.scale = Math.max(
+    window.innerWidth / battleBackground.width,
+    window.innerHeight / battleBackground.height
+  )
+
   battleBackground.draw()
 
   if (queue.length > 0) {

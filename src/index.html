@@ -1,37 +1,31 @@
 <!DOCTYPE html>
 <html class="no-js" lang="">
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.png" />
     <!-- latest -->
     <link
       href="https://unpkg.com/nes.css@latest/css/nes.min.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./dist/css/style.css" />
-    <link rel="stylesheet" href="./style/input.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-      rel="stylesheet"
-    />
+    <!-- <link rel="stylesheet" href="./style/input.css" /> -->
   </head>
   <body>
     <div class="loading_screen" id="loading_screen">
       <img
         class="loading_screen_gif"
         id="loading_screen_gif"
-        src="img/loadingpixel.gif"
+        src="./img/loadingpixel.gif"
       />
     </div>
     <div class="battle_enter" id="battle_enter">
-      <img src="img/battle/battleEnter.png" />
+      <img src="./img/battle/battleEnter.png" />
       <div class="container">
         <div class="title">Get Ready for the Next Battle...</div>
         <div class="char_container">
           <div class="char">
             <div class="img_container">
-              <img id="enter_img" src="img/near.png" />
+              <img id="enter_img" src="./img/near.png" />
             </div>
             <div class="desc_row">
               <div class="desc_item">
@@ -64,7 +58,7 @@
           </div>
           <div class="char">
             <div class="img_container">
-              <img id="opp_enter_img" src="img/near.png" />
+              <img id="opp_enter_img" src="./img/near.png" />
             </div>
             <div class="desc_row">
               <div class="desc_item">
@@ -296,12 +290,12 @@
             <div
               id="attacksBox"
               style="
-                width: 66.66%;
+                /* width: 66.66%; */
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
               "
             ></div>
-            <div
+            <!-- <div
               style="
                 display: flex;
                 align-items: center;
@@ -311,18 +305,18 @@
               "
             >
               <h1 id="attackType" style="font-size: 16px">Attack Type</h1>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
 
       <div
         class="modal"
-        style="background-image: url('img/bg24-l.jpg'); display: none"
+        style="background-image: url('./img/bg24-l.jpg'); display: none"
       >
         <div class="landing-container is-rounded is-dark">
           <div style="text-align: center">
-            <img src="img/w3mlogonew.png" alt="Logo" />
+            <img src="./img/w3mlogonew.png" alt="Logo" />
           </div>
           <div style="margin-bottom: 40px">
             <h2>Welcome to Web3Mon!</h2>
@@ -416,17 +410,17 @@
       <div
         id="login_screen"
         class="modal"
-        style="background-image: url('img/main/background.jpg')"
+        style="background-image: url('./img/main/background.jpg')"
       >
         <div class="backdrop"></div>
         <div class="app_bar">
-          <img class="logo" src="img/w3mlogonew.png" />
+          <img class="logo" src="./img/w3mlogonew.png" />
           <div class="icons">
             <a href="http://discord.gg/jwfpBe7qbU"
-              ><img class="discord" src="img/main/discord.png"
+              ><img class="discord" src="./img/main/discord.png"
             /></a>
             <a href="https://twitter.com/web3mon"
-              ><img class="twitter" src="img/main/twitter.png"
+              ><img class="twitter" src="./img/main/twitter.png"
             /></a>
           </div>
         </div>
@@ -445,10 +439,9 @@
             id="connect_modal_box"
             class="connect_modal_box"
             style="
-              background: url('img/main/grad.png') center;
+              background: url('./img/main/grad.png') center;
               background-size: cover;
               display: none;
-              margin-bottom: 10%;
             "
           >
             <div id="chain_containers" style="height: 100%; width: 100%">
@@ -456,22 +449,22 @@
               <div class="chain_containers">
                 <div class="one_chain">
                   <div class="list" id="nearWallets"></div>
-                  <img class="logo" src="img/main/near.png" />
+                  <img class="logo" src="./img/main/near.png" />
                 </div>
                 <div class="one_chain">
                   <div class="list" id="terraWallets"></div>
-                  <img class="logo" src="img/main/terra.png" />
+                  <img class="logo" src="./img/main/terra.png" />
                 </div>
                 <div class="one_chain">
                   <div class="list">
                     <button class="one_collection" value="near-punks.near">
                       <div class="img_outer">
-                        <img src="img/main/metamask.png" />
+                        <img src="./img/main/metamask.png" />
                       </div>
                       <div class="collection_name">Comming Soon..</div>
                     </button>
                   </div>
-                  <img class="logo" src="img/main/monochrome.png" />
+                  <img class="logo" src="./img/main/monochrome.png" />
                 </div>
               </div>
               <div class="input_container">
@@ -496,7 +489,7 @@
               </div>
             </div>
             <div id="loading_container" style="display: none">
-              <img src="img/main/loading.gif" width="50%" />
+              <img src="./img/main/loading.gif" width="50%" />
             </div>
             <div
               id="nft_choose_container"

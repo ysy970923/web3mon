@@ -1,5 +1,15 @@
 export const MonsterSkillType = {
-  LARVA: 'Larva',
-  FIREBALL: 'Fireball',
-  TACKLE: 'Tackle',
+  DEATH_SPIRAL: 'Death Spiral',
+  CELSIUS_EXPLOSION: 'Celsius Explosion',
+  BLOCK_OF_FUD: 'Block of Fud',
+  HACKED: 'Hacked',
+  FTT_TSUNAMI: 'FTT Tsunami',
+  FALL_OF_VOYAGER: 'Fall of Voyager',
+  HARD_FORK_ARROW: 'Hard Fork Arrow',
+  SHORT_SELLING: 'Short Selling',
+  POW_SHIELD: 'POW Shield',
+  MERGE_WALL: 'Merge Wall',
+  AUDIT_FIELD: 'Audit Field',
+  GRACE_OF_CZ: 'Grace of CZ',
+  WITHDRAWLS_CLOAK: 'Withdrawals Cloak',
 }

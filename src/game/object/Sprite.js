@@ -1,11 +1,11 @@
 const chatBubble = new Image()
-chatBubble.src = 'img/chatBubble2.png'
+chatBubble.src = './img/chatBubble2.png'
 
 export const terraLogo = new Image()
-terraLogo.src = 'img/terra.png'
+terraLogo.src = './img/terra.png'
 
 export const nearLogo = new Image()
-nearLogo.src = 'img/near.png'
+nearLogo.src = './img/near.png'
 
 import { canva } from '../../js/index'
 

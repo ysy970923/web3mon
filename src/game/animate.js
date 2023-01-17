@@ -19,7 +19,7 @@ const npcTalk = (animationId) => {
   // else others['250'].sprite.chat = 'Click Me!'
 }
 
-export const animate = async () => {
+export const animate = () => {
   const animationId = window.requestAnimationFrame(animate)
 
   renderables.forEach((renderable) => {

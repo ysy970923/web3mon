@@ -1,5 +1,6 @@
 import { NearWallet } from './near-wallet'
 import { TerraWallet } from './terra-wallet'
+import { BATTLE_CONTRACT } from '../js/state_channel'
 
 export class MultiWallet {
   wallets
@@ -7,8 +8,8 @@ export class MultiWallet {
   constructor() {
     this.wallets = {}
     this.wallets['near'] = new NearWallet({
-      createAccessKeyFor: 'web3mon.near',
-      network: 'mainnet',
+      createAccessKeyFor: BATTLE_CONTRACT,
+      network: 'testnet',
     })
     this.wallets['terra'] = new TerraWallet()
   }
@@ -34,7 +35,14 @@ export class MultiWallet {
   }
 
   async viewMethod(kargs) {
-    console.log(window.chain)
     return await this.wallets[window.chain].viewMethod(kargs)
+  }
+
+  async callMethod(kargs) {
+    return await this.wallets[window.chain].callMethod(kargs)
+  }
+
+  verifyOwner(collection, token_id) {
+    this.wallets[window.chain].verifyOwner(collection, token_id)
   }
 }

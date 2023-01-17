@@ -140,10 +140,6 @@ export class NearWallet {
 
   async verifyOwner(collection, tokenId) {
     const keyStore = new keyStores.BrowserLocalStorageKeyStore()
-    // const keyPair = await keyStore.getKey(
-    //     'mainnet',
-    //     this.accountId
-    // ) // wallet account id address
     const keyPair = await keyStore.getKey(this.network, this.accountId) // w
 
     let msg = {
@@ -156,6 +152,7 @@ export class NearWallet {
       },
     }
     var hash_msg = JSON.stringify(msg)
+    console.log(hash_msg)
     var hash = sha256.create()
     hash.update(hash_msg)
     hash_msg = hash.hex()
